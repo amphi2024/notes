@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Создано",
+  "@default_font": "По умолчанию",
+  "@folder": "Папка",
+  "@language": "Язык",
+  "@modified": "Изменено",
+  "@new_theme": "Новый",
+  "@note": "Заметка",
+  "@notes": "Заметки",
+  "@pm": "PM",
+  "@settings": "Настройки",
+  "@sync_state": "Состояние синхронизации",
+  "@theme": "Тема",
+  "@title": "Заголовок",
+  "@trashes": "Мусор",
+  "@use_my_own_server": "Использовать мой сервер",
+  "@hint_theme_name": "Имя",
+
+  "@register": "Регистрация",
+  "@login": "Вход",
+  "@who_are_you": "Кто вы?",
+  "@hello": "Здравствуйте!",
+  "@welcome": "Добро пожаловать!",
+  "@logout": "Выход",
+  "@change_password": "Изменить пароль",
+
+  "@length": "Длина",
+  "@created_date": "Дата создания",
+  "@modified_date": "Дата изменения",
+
+  "@failed_to_connect": "Не удалось подключиться",
+  "@failed_to_auth": "Ошибка аутентификации",
+  "@please_set_server_address": "Пожалуйста, перейдите в настройки и укажите адрес сервера",
+  "@can_not_open_note_from_trashes": "Вы не можете открыть заметку из корзины",
+
+  "@color_name_background_color": "Цвет фона",
+  "@color_name_text_color": "Цвет текста",
+  "@color_name_accent_color": "Цвет акцента",
+  "@color_name_inactive_color": "Неактивный цвет",
+  "@color_name_note_background_color": "Цвет фона заметки",
+  "@color_name_note_text_color": "Цвет текста заметки",
+  "@color_name_floating_button_background": "Фон плавающей кнопки",
+  "@color_name_floating_button_icon_color": "Цвет значка плавающей кнопки",
+  "@color_name_check_box_color": "Фон флажка",
+  "@color_name_check_box_check_color": "Цвет отметки флажка",
+
+  "@dialog_title_logout": "Вы действительно хотите выйти?",
+  "@dialog_title_move_to_trash": "Хотите переместить это в корзину?",
+  "@dialog_title_not_save_note": "Не хотите сохранить?",
+  "@dialog_title_delete_theme": "Вы хотите удалить эту тему?",
+  "@dialog_title_delete_color": "Вы хотите удалить этот цвет?",
+  "@dialog_action_yes": "Да",
+  "@dialog_action_no": "Нет",
+
+  "@popup_menu_leading_sort_by": "Сортировать по",
+  "@popup_menu_leading_view_as": "Просмотр как",
+  "@popup_menu_item_grid": "Сетка",
+  "@popup_menu_item_list": "Список",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Пароль",
+  "@hint_folder_name": "Имя папки",
+  "@hint_password_different": "Введенные пароли различны",
+  "@hint_old_password_different": "Старый пароль отличается",
+  "@hint_input_id": "Пожалуйста, введите ID",
+  "@hint_input_username": "Пожалуйста, введите имя",
+  "@hint_input_password": "Пожалуйста, введите пароль",
+  "@hint_input_new_password": "Пожалуйста, введите новый пароль",
+  "@hint_input_old_password": "Пожалуйста, введите старый пароль",
+
+  "@ios_style_ui": "Интерфейс в стиле iOS",
+
+  "@yesterday": "Вчера",
+
+  "@new_note": "Новая заметка",
+  "@new_folder": "Новая папка",
+
+  "@test_connection": "Проверить соединение",
+  "@connection_failed": "Ошибка соединения"
+
+}

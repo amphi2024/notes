@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Dicipta",
+  "@default_font": "Lalai",
+  "@folder": "Folder",
+  "@language": "Bahasa",
+  "@modified": "Diubah",
+  "@new_theme": "Baru",
+  "@note": "Nota",
+  "@notes": "Nota-nota",
+  "@pm": "PM",
+  "@settings": "Tetapan",
+  "@sync_state": "Keadaan penyegerakan",
+  "@theme": "Tema",
+  "@title": "Tajuk",
+  "@trashes": "Sampah",
+  "@use_my_own_server": "Gunakan Pelayan Saya Sendiri",
+  "@hint_theme_name": "Nama",
+
+  "@register": "Daftar",
+  "@login": "Log masuk",
+  "@who_are_you": "Siapa awak?",
+  "@hello": "Helo!",
+  "@welcome": "Selamat datang!",
+  "@logout": "Log keluar",
+  "@change_password": "Tukar Kata Laluan",
+
+  "@length": "Panjang",
+  "@created_date": "Tarikh dicipta",
+  "@modified_date": "Tarikh diubah",
+
+  "@failed_to_connect": "Gagal untuk menyambung",
+  "@failed_to_auth": "Gagal pengesahan",
+  "@please_set_server_address": "Sila pergi ke tetapan dan tetapkan alamat pelayan",
+  "@can_not_open_note_from_trashes": "Anda tidak boleh membuka nota dari sampah",
+
+  "@color_name_background_color": "Warna latar belakang",
+  "@color_name_text_color": "Warna teks",
+  "@color_name_accent_color": "Warna aksen",
+  "@color_name_inactive_color": "Warna tidak aktif",
+  "@color_name_note_background_color": "Warna latar belakang nota",
+  "@color_name_note_text_color": "Warna teks nota",
+  "@color_name_floating_button_background": "Warna latar belakang butang terapung",
+  "@color_name_floating_button_icon_color": "Warna ikon butang terapung",
+  "@color_name_check_box_color": "Warna latar belakang kotak semak",
+  "@color_name_check_box_check_color": "Warna tanda kotak semak",
+
+  "@dialog_title_logout": "Adakah anda pasti ingin log keluar?",
+  "@dialog_title_move_to_trash": "Adakah anda ingin memindahkan ini ke sampah?",
+  "@dialog_title_not_save_note": "Anda tidak mahu menyimpan?",
+  "@dialog_title_delete_theme": "Adakah anda ingin memadam tema ini?",
+  "@dialog_title_delete_color": "Adakah anda ingin memadam warna ini?",
+  "@dialog_action_yes": "Ya",
+  "@dialog_action_no": "Tidak",
+
+  "@popup_menu_leading_sort_by": "Susun mengikut",
+  "@popup_menu_leading_view_as": "Lihat sebagai",
+  "@popup_menu_item_grid": "Grid",
+  "@popup_menu_item_list": "Senarai",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Kata laluan",
+  "@hint_folder_name": "Nama folder",
+  "@hint_password_different": "Kata laluan yang dimasukkan adalah berbeza",
+  "@hint_old_password_different": "Kata laluan lama adalah berbeza",
+  "@hint_input_id": "Sila masukkan ID",
+  "@hint_input_username": "Sila masukkan nama",
+  "@hint_input_password": "Sila masukkan kata laluan",
+  "@hint_input_new_password": "Sila masukkan kata laluan baru",
+  "@hint_input_old_password": "Sila masukkan kata laluan lama",
+
+  "@ios_style_ui": "Antaramuka gaya iOS",
+
+  "@yesterday": "Semalam",
+
+  "@new_note": "Nota Baru",
+  "@new_folder": "Folder Baru",
+
+  "@test_connection": "Uji Sambungan",
+  "@connection_failed": "Sambungan Gagal"
+
+}

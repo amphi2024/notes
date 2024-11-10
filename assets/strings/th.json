@@ -1,0 +1,83 @@
+{
+  "@am": "ช่วงเช้า",
+  "@created": "สร้าง",
+  "@default_font": "ฟอนต์เริ่มต้น",
+  "@folder": "โฟลเดอร์",
+  "@language": "ภาษา",
+  "@modified": "แก้ไข",
+  "@new_theme": "ธีมใหม่",
+  "@note": "บันทึก",
+  "@notes": "บันทึก",
+  "@pm": "ช่วงบ่าย",
+  "@settings": "การตั้งค่า",
+  "@sync_state": "สถานะการซิงค์",
+  "@theme": "ธีม",
+  "@title": "ชื่อเรื่อง",
+  "@trashes": "ถังขยะ",
+  "@use_my_own_server": "ใช้เซิร์ฟเวอร์ของฉันเอง",
+  "@hint_theme_name": "ชื่อ",
+
+  "@register": "ลงทะเบียน",
+  "@login": "เข้าสู่ระบบ",
+  "@who_are_you": "คุณคือใคร?",
+  "@hello": "สวัสดี!",
+  "@welcome": "ยินดีต้อนรับ!",
+  "@logout": "ออกจากระบบ",
+  "@change_password": "เปลี่ยนรหัสผ่าน",
+
+  "@length": "ความยาว",
+  "@created_date": "วันที่สร้าง",
+  "@modified_date": "วันที่แก้ไข",
+
+  "@failed_to_connect": "เชื่อมต่อล้มเหลว",
+  "@failed_to_auth": "การตรวจสอบล้มเหลว",
+  "@please_set_server_address": "โปรดไปที่การตั้งค่าและกำหนดค่าเซิร์ฟเวอร์",
+  "@can_not_open_note_from_trashes": "คุณไม่สามารถเปิดบันทึกจากถังขยะได้",
+
+  "@color_name_background_color": "สีพื้นหลัง",
+  "@color_name_text_color": "สีข้อความ",
+  "@color_name_accent_color": "สีเน้น",
+  "@color_name_inactive_color": "สีที่ไม่ใช้งาน",
+  "@color_name_note_background_color": "สีพื้นหลังบันทึก",
+  "@color_name_note_text_color": "สีข้อความบันทึก",
+  "@color_name_floating_button_background": "สีพื้นหลังปุ่มลอย",
+  "@color_name_floating_button_icon_color": "สีไอคอนปุ่มลอย",
+  "@color_name_check_box_color": "สีพื้นหลังช่องทำเครื่องหมาย",
+  "@color_name_check_box_check_color": "สีเครื่องหมายถูกในช่องทำเครื่องหมาย",
+
+  "@dialog_title_logout": "คุณแน่ใจว่าต้องการออกจากระบบ?",
+  "@dialog_title_move_to_trash": "คุณต้องการย้ายสิ่งนี้ไปยังถังขยะหรือไม่?",
+  "@dialog_title_not_save_note": "คุณไม่ต้องการบันทึกหรือไม่?",
+  "@dialog_title_delete_theme": "คุณต้องการลบธีมนี้หรือไม่?",
+  "@dialog_title_delete_color": "คุณต้องการลบสีนี้หรือไม่?",
+  "@dialog_action_yes": "ใช่",
+  "@dialog_action_no": "ไม่",
+
+  "@popup_menu_leading_sort_by": "เรียงตาม",
+  "@popup_menu_leading_view_as": "ดูเป็น",
+  "@popup_menu_item_grid": "ตาราง",
+  "@popup_menu_item_list": "รายการ",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "รหัส",
+  "@hint_password": "รหัสผ่าน",
+  "@hint_folder_name": "ชื่อโฟลเดอร์",
+  "@hint_password_different": "รหัสผ่านที่ป้อนไว้แตกต่างกัน",
+  "@hint_old_password_different": "รหัสผ่านเก่าต่างกัน",
+  "@hint_input_id": "กรุณาใส่ ID",
+  "@hint_input_username": "กรุณาใส่ชื่อ",
+  "@hint_input_password": "กรุณาใส่รหัสผ่าน",
+  "@hint_input_new_password": "กรุณาใส่รหัสผ่านใหม่",
+  "@hint_input_old_password": "กรุณาใส่รหัสผ่านเก่า",
+
+  "@ios_style_ui": "ส่วนต่อประสานผู้ใช้สไตล์ Ios",
+
+  "@yesterday": "เมื่อวาน",
+
+  "@new_note": "บันทึกใหม่",
+  "@new_folder": "โฟลเดอร์ใหม่",
+
+  "@test_connection": "ทดสอบการเชื่อมต่อ",
+  "@connection_failed": "การเชื่อมต่อล้มเหลว"
+
+}

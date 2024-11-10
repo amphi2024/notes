@@ -1,0 +1,83 @@
+{
+  "@am": "ДП",
+  "@created": "Створено",
+  "@default_font": "Шрифт за замовчуванням",
+  "@folder": "Папка",
+  "@language": "Мова",
+  "@modified": "Змінено",
+  "@new_theme": "Нова тема",
+  "@note": "Нотатка",
+  "@notes": "Нотатки",
+  "@pm": "ПП",
+  "@settings": "Налаштування",
+  "@sync_state": "Стан синхронізації",
+  "@theme": "Тема",
+  "@title": "Назва",
+  "@trashes": "Кошик",
+  "@use_my_own_server": "Використовувати власний сервер",
+  "@hint_theme_name": "Назва",
+
+  "@register": "Реєстрація",
+  "@login": "Вхід",
+  "@who_are_you": "Хто ти?",
+  "@hello": "Привіт!",
+  "@welcome": "Ласкаво просимо!",
+  "@logout": "Вийти",
+  "@change_password": "Змінити пароль",
+
+  "@length": "Довжина",
+  "@created_date": "Дата створення",
+  "@modified_date": "Дата зміни",
+
+  "@failed_to_connect": "Не вдалося підключитися",
+  "@failed_to_auth": "Не вдалося аутентифікувати",
+  "@please_set_server_address": "Будь ласка, перейдіть до налаштувань і налаштуйте адресу сервера",
+  "@can_not_open_note_from_trashes": "Ви не можете відкрити нотатку з кошика",
+
+  "@color_name_background_color": "Колір фону",
+  "@color_name_text_color": "Колір тексту",
+  "@color_name_accent_color": "Акцентний колір",
+  "@color_name_inactive_color": "Неактивний колір",
+  "@color_name_note_background_color": "Колір фону нотатки",
+  "@color_name_note_text_color": "Колір тексту нотатки",
+  "@color_name_floating_button_background": "Колір фону плаваючої кнопки",
+  "@color_name_floating_button_icon_color": "Колір іконки плаваючої кнопки",
+  "@color_name_check_box_color": "Колір фону прапорця",
+  "@color_name_check_box_check_color": "Колір галочки прапорця",
+
+  "@dialog_title_logout": "Ви впевнені, що хочете вийти?",
+  "@dialog_title_move_to_trash": "Ви хочете перемістити це до кошика?",
+  "@dialog_title_not_save_note": "Ви не хочете зберегти?",
+  "@dialog_title_delete_theme": "Ви хочете видалити цю тему?",
+  "@dialog_title_delete_color": "Ви хочете видалити цей колір?",
+  "@dialog_action_yes": "Так",
+  "@dialog_action_no": "Ні",
+
+  "@popup_menu_leading_sort_by": "Сортувати за",
+  "@popup_menu_leading_view_as": "Переглянути як",
+  "@popup_menu_item_grid": "Сітка",
+  "@popup_menu_item_list": "Список",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ідентифікатор",
+  "@hint_password": "пароль",
+  "@hint_folder_name": "Назва папки",
+  "@hint_password_different": "Введені паролі різні",
+  "@hint_old_password_different": "Стара пароль інша",
+  "@hint_input_id": "Будь ласка, введіть ID",
+  "@hint_input_username": "Будь ласка, введіть ім'я",
+  "@hint_input_password": "Будь ласка, введіть пароль",
+  "@hint_input_new_password": "Будь ласка, введіть новий пароль",
+  "@hint_input_old_password": "Будь ласка, введіть старий пароль",
+
+  "@ios_style_ui": "Інтерфейс у стилі iOS",
+
+  "@yesterday": "Вчора",
+
+  "@new_note": "Нова записка",
+  "@new_folder": "Нова папка",
+
+  "@test_connection": "Перевірити з'єднання",
+  "@connection_failed": "З'єднання не вдалося"
+
+}

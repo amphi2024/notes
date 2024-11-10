@@ -1,0 +1,83 @@
+{
+  "@am": "SA",
+  "@created": "Được tạo",
+  "@default_font": "Phông chữ mặc định",
+  "@folder": "Thư mục",
+  "@language": "Ngôn ngữ",
+  "@modified": "Đã sửa đổi",
+  "@new_theme": "Chủ đề mới",
+  "@note": "Ghi chú",
+  "@notes": "Ghi chú",
+  "@pm": "CH",
+  "@settings": "Cài đặt",
+  "@sync_state": "Trạng thái đồng bộ",
+  "@theme": "Chủ đề",
+  "@title": "Tiêu đề",
+  "@trashes": "Thùng rác",
+  "@use_my_own_server": "Sử dụng máy chủ của tôi",
+  "@hint_theme_name": "Tên",
+
+  "@register": "Đăng ký",
+  "@login": "Đăng nhập",
+  "@who_are_you": "Bạn là ai?",
+  "@hello": "Xin chào!",
+  "@welcome": "Chào mừng!",
+  "@logout": "Đăng xuất",
+  "@change_password": "Đổi mật khẩu",
+
+  "@length": "Độ dài",
+  "@created_date": "Ngày tạo",
+  "@modified_date": "Ngày sửa đổi",
+
+  "@failed_to_connect": "Kết nối thất bại",
+  "@failed_to_auth": "Xác thực thất bại",
+  "@please_set_server_address": "Vui lòng vào cài đặt và cấu hình địa chỉ máy chủ",
+  "@can_not_open_note_from_trashes": "Bạn không thể mở ghi chú từ thùng rác",
+
+  "@color_name_background_color": "Màu nền",
+  "@color_name_text_color": "Màu chữ",
+  "@color_name_accent_color": "Màu nhấn",
+  "@color_name_inactive_color": "Màu không hoạt động",
+  "@color_name_note_background_color": "Màu nền ghi chú",
+  "@color_name_note_text_color": "Màu chữ ghi chú",
+  "@color_name_floating_button_background": "Nền nút nổi",
+  "@color_name_floating_button_icon_color": "Màu biểu tượng nút nổi",
+  "@color_name_check_box_color": "Màu nền ô chọn",
+  "@color_name_check_box_check_color": "Màu dấu chọn ô chọn",
+
+  "@dialog_title_logout": "Bạn có chắc chắn muốn đăng xuất không?",
+  "@dialog_title_move_to_trash": "Bạn có muốn chuyển những thứ này vào thùng rác không?",
+  "@dialog_title_not_save_note": "Bạn không muốn lưu lại?",
+  "@dialog_title_delete_theme": "Bạn có muốn xóa chủ đề này không?",
+  "@dialog_title_delete_color": "Bạn có muốn xóa màu này không?",
+  "@dialog_action_yes": "Có",
+  "@dialog_action_no": "Không",
+
+  "@popup_menu_leading_sort_by": "Sắp xếp theo",
+  "@popup_menu_leading_view_as": "Xem dưới dạng",
+  "@popup_menu_item_grid": "Lưới",
+  "@popup_menu_item_list": "Danh sách",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "id",
+  "@hint_password": "mật khẩu",
+  "@hint_folder_name": "Tên thư mục",
+  "@hint_password_different": "Các mật khẩu đã nhập khác nhau",
+  "@hint_old_password_different": "Mật khẩu cũ khác",
+  "@hint_input_id": "Vui lòng nhập ID",
+  "@hint_input_username": "Vui lòng nhập tên",
+  "@hint_input_password": "Vui lòng nhập mật khẩu",
+  "@hint_input_new_password": "Vui lòng nhập mật khẩu mới",
+  "@hint_input_old_password": "Vui lòng nhập mật khẩu cũ",
+
+  "@ios_style_ui": "Giao diện kiểu Ios",
+
+  "@yesterday": "Hôm qua",
+
+  "@new_note": "Ghi chú mới",
+  "@new_folder": "Thư mục mới",
+
+  "@test_connection": "Kiểm tra kết nối",
+  "@connection_failed": "Kết nối thất bại"
+
+}

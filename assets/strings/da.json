@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Oprettet",
+  "@default_font": "Standard",
+  "@folder": "Mappe",
+  "@language": "Sprog",
+  "@modified": "Ændret",
+  "@new_theme": "Ny",
+  "@note": "Note",
+  "@notes": "Noter",
+  "@pm": "PM",
+  "@settings": "Indstillinger",
+  "@sync_state": "Synkroniseringsstatus",
+  "@theme": "Tema",
+  "@title": "Titel",
+  "@trashes": "Papirkurv",
+  "@use_my_own_server": "Brug min egen server",
+  "@hint_theme_name": "Navn",
+
+  "@register": "Registrer",
+  "@login": "Log ind",
+  "@who_are_you": "Hvem er du?",
+  "@hello": "Hej!",
+  "@welcome": "Velkommen!",
+  "@logout": "Log ud",
+  "@change_password": "Skift adgangskode",
+
+  "@length": "Længde",
+  "@created_date": "Oprettelsesdato",
+  "@modified_date": "Ændringsdato",
+
+  "@failed_to_connect": "Kunne ikke oprette forbindelse",
+  "@failed_to_auth": "Fejl ved godkendelse",
+  "@please_set_server_address": "Gå venligst til indstillinger og konfigurer serveradressen",
+  "@can_not_open_note_from_trashes": "Du kan ikke åbne note fra papirkurven",
+
+  "@color_name_background_color": "Baggrundsfarve",
+  "@color_name_text_color": "Tekstfarve",
+  "@color_name_accent_color": "Accentfarve",
+  "@color_name_inactive_color": "Inaktiv farve",
+  "@color_name_note_background_color": "Baggrundsfarve for note",
+  "@color_name_note_text_color": "Tekstfarve for note",
+  "@color_name_floating_button_background": "Baggrundsfarve for flydende knap",
+  "@color_name_floating_button_icon_color": "Ikonfarve for flydende knap",
+  "@color_name_check_box_color": "Baggrundsfarve for afkrydsningsfelt",
+  "@color_name_check_box_check_color": "Feltfarve for afkrydsningsfelt",
+
+  "@dialog_title_logout": "Er du sikker på, at du vil logge ud?",
+  "@dialog_title_move_to_trash": "Vil du flytte disse til papirkurven?",
+  "@dialog_title_not_save_note": "Vil du ikke gemme?",
+  "@dialog_title_delete_theme": "Vil du slette dette tema?",
+  "@dialog_title_delete_color": "Vil du slette denne farve?",
+  "@dialog_action_yes": "Ja",
+  "@dialog_action_no": "Nej",
+
+  "@popup_menu_leading_sort_by": "Sortér efter",
+  "@popup_menu_leading_view_as": "Vis som",
+  "@popup_menu_item_grid": "Gitter",
+  "@popup_menu_item_list": "Liste",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Adgangskode",
+  "@hint_folder_name": "Mappenavn",
+  "@hint_password_different": "De indtastede adgangskoder er forskellige",
+  "@hint_old_password_different": "Den gamle adgangskode er forskellig",
+  "@hint_input_id": "Indtast venligst ID",
+  "@hint_input_username": "Indtast venligst navn",
+  "@hint_input_password": "Indtast venligst adgangskode",
+  "@hint_input_new_password": "Indtast venligst ny adgangskode",
+  "@hint_input_old_password": "Indtast venligst gammel adgangskode",
+
+  "@ios_style_ui": "iOS-stil UI",
+
+  "@yesterday": "I går",
+
+  "@new_note": "Ny note",
+  "@new_folder": "Ny mappe",
+
+  "@test_connection": "Test forbindelse",
+  "@connection_failed": "Forbindelse mislykkedes"
+
+}

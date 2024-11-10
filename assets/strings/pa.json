@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "ਬਣਾਇਆ",
+  "@default_font": "ਮੂਲ",
+  "@folder": "ਫੋਲਡਰ",
+  "@language": "ਭਾਸ਼ਾ",
+  "@modified": "ਸੋਧਿਆ",
+  "@new_theme": "ਨਵਾਂ",
+  "@note": "ਨੋਟ",
+  "@notes": "ਨੋਟਸ",
+  "@pm": "PM",
+  "@settings": "ਸੈਟਿੰਗਜ਼",
+  "@sync_state": "ਸਿੰਕ ਰਾਜ",
+  "@theme": "ਥੀਮ",
+  "@title": "ਸਿਰਲੇਖ",
+  "@trashes": "ਰੱਦੀ",
+  "@use_my_own_server": "ਮੇਰਾ ਆਪਣਾ ਸਰਵਰ ਵਰਤੋ",
+  "@hint_theme_name": "ਨਾਮ",
+
+  "@register": "ਰਜਿਸਟਰ",
+  "@login": "ਲਾਗਿਨ",
+  "@who_are_you": "ਤੁਸੀਂ ਕੌਣ ਹੋ?",
+  "@hello": "ਸਤ ਸ੍ਰੀ ਅਕਾਲ!",
+  "@welcome": "ਸਵਾਗਤ ਹੈ!",
+  "@logout": "ਲਾੱਗ ਆਉਟ",
+  "@change_password": "ਪਾਸਵਰਡ ਬਦਲੋ",
+
+  "@length": "ਲੰਬਾਈ",
+  "@created_date": "ਬਣਾਉਣ ਦੀ ਮਿਤੀ",
+  "@modified_date": "ਸੋਧਿਆ ਮਿਤੀ",
+
+  "@failed_to_connect": "ਕੁਨੈਕਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ",
+  "@failed_to_auth": "ਪਰਮਾਣਿਕਤਾ ਅਸਫਲ",
+  "@please_set_server_address": "ਕਿਰਪਾ ਕਰਕੇ ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਜਾਓ ਅਤੇ ਸਰਵਰ ਪਤਾ ਸੈੱਟ ਕਰੋ",
+  "@can_not_open_note_from_trashes": "ਤੁਸੀਂ ਰੱਦੀ ਤੋਂ ਨੋਟ ਨਹੀਂ ਖੋਲ੍ਹ ਸਕਦੇ",
+
+  "@color_name_background_color": "ਪਿੱਛੋਕੜ ਦਾ ਰੰਗ",
+  "@color_name_text_color": "ਟੈਕਸਟ ਦਾ ਰੰਗ",
+  "@color_name_accent_color": "ਐਕਸੈਂਟ ਰੰਗ",
+  "@color_name_inactive_color": "ਗੈਰ-ਸਰਗਰਮ ਰੰਗ",
+  "@color_name_note_background_color": "ਨੋਟ ਦੀ ਪਿੱਛੋਕੜ ਦਾ ਰੰਗ",
+  "@color_name_note_text_color": "ਨੋਟ ਦਾ ਟੈਕਸਟ ਦਾ ਰੰਗ",
+  "@color_name_floating_button_background": "ਫਲੋਟਿੰਗ ਬਟਨ ਪਿੱਛੋਕੜ",
+  "@color_name_floating_button_icon_color": "ਫਲੋਟਿੰਗ ਬਟਨ ਆਈਕਨ ਦਾ ਰੰਗ",
+  "@color_name_check_box_color": "ਚੈਕਬਾਕਸ ਪਿੱਛੋਕੜ ਦਾ ਰੰਗ",
+  "@color_name_check_box_check_color": "ਚੈਕਬਾਕਸ ਚੈਕ ਦਾ ਰੰਗ",
+
+  "@dialog_title_logout": "ਕੀ ਤੁਸੀਂ ਲਾੱਗ ਆਉਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
+  "@dialog_title_move_to_trash": "ਕੀ ਤੁਸੀਂ ਇਹਨਾਂ ਨੂੰ ਰੱਦੀ ਵਿੱਚ ਸਥਾਨਾਂਤਰਿਤ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
+  "@dialog_title_not_save_note": "ਕੀ ਤੁਸੀਂ ਸੇਵ ਨਹੀਂ ਕਰਨਾ ਚਾਹੁੰਦੇ?",
+  "@dialog_title_delete_theme": "ਕੀ ਤੁਸੀਂ ਇਹ ਥੀਮ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
+  "@dialog_title_delete_color": "ਕੀ ਤੁਸੀਂ ਇਹ ਰੰਗ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
+  "@dialog_action_yes": "ਹਾਂ",
+  "@dialog_action_no": "ਨਹੀਂ",
+
+  "@popup_menu_leading_sort_by": "ਵਰਤਾਉਨ ਦੇ ਅਨੁਸਾਰ",
+  "@popup_menu_leading_view_as": "ਤੌਰ ਤੇ ਦੇਖੋ",
+  "@popup_menu_item_grid": "ਗਰਿੱਡ",
+  "@popup_menu_item_list": "ਸੂਚੀ",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "ਪਾਸਵਰਡ",
+  "@hint_folder_name": "ਫੋਲਡਰ ਦਾ ਨਾਮ",
+  "@hint_password_different": "ਦਾਖਲ ਕੀਤੀਆਂ ਗਈਆਂ ਪਾਸਵਰਡਾਂ ਵਿੱਚ ਅੰਤਰ ਹੈ",
+  "@hint_old_password_different": "ਪੁਰਾਣਾ ਪਾਸਵਰਡ ਵੱਖਰਾ ਹੈ",
+  "@hint_input_id": "ਕਿਰਪਾ ਕਰਕੇ ID ਦਰਜ ਕਰੋ",
+  "@hint_input_username": "ਕਿਰਪਾ ਕਰਕੇ ਨਾਮ ਦਰਜ ਕਰੋ",
+  "@hint_input_password": "ਕਿਰਪਾ ਕਰਕੇ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
+  "@hint_input_new_password": "ਕਿਰਪਾ ਕਰਕੇ ਨਵਾਂ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
+  "@hint_input_old_password": "ਕਿਰਪਾ ਕਰਕੇ ਪੁਰਾਣਾ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
+
+  "@ios_style_ui": "iOS ਸ਼ੈਲੀ UI",
+
+  "@yesterday": "ਕੱਲ੍ਹ",
+
+  "@new_note": "ਨਵੀਂ ਨੋਟ",
+  "@new_folder": "ਨਵਾਂ ਫੋਲਡਰ",
+
+  "@test_connection": "ਕਨੈਕਸ਼ਨ ਟੈਸਟ ਕਰੋ",
+  "@connection_failed": "ਕਨੈਕਸ਼ਨ ਫੇਲ੍ਹ"
+
+}

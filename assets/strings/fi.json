@@ -1,0 +1,83 @@
+{
+  "@am": "AP",
+  "@created": "Luotu",
+  "@default_font": "Oletus",
+  "@folder": "Kansio",
+  "@language": "Kieli",
+  "@modified": "Muokattu",
+  "@new_theme": "Uusi",
+  "@note": "Muistiinpano",
+  "@notes": "Muistiinpanot",
+  "@pm": "IP",
+  "@settings": "Asetukset",
+  "@sync_state": "Synkronointitila",
+  "@theme": "Teema",
+  "@title": "Otsikko",
+  "@trashes": "Roskakori",
+  "@use_my_own_server": "Käytä omaa palvelinta",
+  "@hint_theme_name": "Nimi",
+
+  "@register": "Rekisteröidy",
+  "@login": "Kirjaudu sisään",
+  "@who_are_you": "Kuka olet?",
+  "@hello": "Hei!",
+  "@welcome": "Tervetuloa!",
+  "@logout": "Kirjaudu ulos",
+  "@change_password": "Vaihda salasana",
+
+  "@length": "Pituus",
+  "@created_date": "Luontipäivä",
+  "@modified_date": "Muokkauspäivä",
+
+  "@failed_to_connect": "Yhteysvirhe",
+  "@failed_to_auth": "Todennus epäonnistui",
+  "@please_set_server_address": "Siirry asetuksiin ja määritä palvelimen osoite",
+  "@can_not_open_note_from_trashes": "Et voi avata muistiota roskakorista",
+
+  "@color_name_background_color": "Taustaväri",
+  "@color_name_text_color": "Tekstin väri",
+  "@color_name_accent_color": "Korostusväri",
+  "@color_name_inactive_color": "Ei-aktiivinen väri",
+  "@color_name_note_background_color": "Muistiinpanon taustaväri",
+  "@color_name_note_text_color": "Muistiinpanon tekstin väri",
+  "@color_name_floating_button_background": "Levitoivan painikkeen taustaväri",
+  "@color_name_floating_button_icon_color": "Levitoivan painikkeen kuvakkeen väri",
+  "@color_name_check_box_color": "Valintaruudun taustaväri",
+  "@color_name_check_box_check_color": "Valintaruudun valintaväri",
+
+  "@dialog_title_logout": "Haluatko varmasti kirjautua ulos?",
+  "@dialog_title_move_to_trash": "Haluatko siirtää nämä roskakoriin?",
+  "@dialog_title_not_save_note": "Et halua tallentaa?",
+  "@dialog_title_delete_theme": "Haluatko poistaa tämän teeman?",
+  "@dialog_title_delete_color": "Haluatko poistaa tämän värin?",
+  "@dialog_action_yes": "Kyllä",
+  "@dialog_action_no": "Ei",
+
+  "@popup_menu_leading_sort_by": "Lajittele",
+  "@popup_menu_leading_view_as": "Näytä muodossa",
+  "@popup_menu_item_grid": "Ruudukko",
+  "@popup_menu_item_list": "Lista",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Salasana",
+  "@hint_folder_name": "Kansion nimi",
+  "@hint_password_different": "Syötetyt salasanat ovat erilaiset",
+  "@hint_old_password_different": "Vanha salasana on erilainen",
+  "@hint_input_id": "Ole hyvä ja syötä ID",
+  "@hint_input_username": "Ole hyvä ja syötä nimi",
+  "@hint_input_password": "Ole hyvä ja syötä salasana",
+  "@hint_input_new_password": "Ole hyvä ja syötä uusi salasana",
+  "@hint_input_old_password": "Ole hyvä ja syötä vanha salasana",
+
+  "@ios_style_ui": "iOS-tyylinen käyttöliittymä",
+
+  "@yesterday": "Eilen",
+
+  "@new_note": "Uusi muistiinpano",
+  "@new_folder": "Uusi kansio",
+
+  "@test_connection": "Testaa yhteys",
+  "@connection_failed": "Yhteys epäonnistui"
+
+}

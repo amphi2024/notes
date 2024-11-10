@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Opprettet",
+  "@default_font": "Standard",
+  "@folder": "Mappe",
+  "@language": "Språk",
+  "@modified": "Endret",
+  "@new_theme": "Ny",
+  "@note": "Notat",
+  "@notes": "Notater",
+  "@pm": "PM",
+  "@settings": "Innstillinger",
+  "@sync_state": "Synkroniseringstilstand",
+  "@theme": "Tema",
+  "@title": "Tittel",
+  "@trashes": "Søppel",
+  "@use_my_own_server": "Bruk min egen server",
+  "@hint_theme_name": "Navn",
+
+  "@register": "Registrer",
+  "@login": "Logg inn",
+  "@who_are_you": "Hvem er du?",
+  "@hello": "Hei!",
+  "@welcome": "Velkommen!",
+  "@logout": "Logg ut",
+  "@change_password": "Bytt passord",
+
+  "@length": "Lengde",
+  "@created_date": "Opprettelsesdato",
+  "@modified_date": "Endringsdato",
+
+  "@failed_to_connect": "Kunne ikke koble til",
+  "@failed_to_auth": "Godkjenning mislyktes",
+  "@please_set_server_address": "Gå til innstillingene og konfigurer serveradressen",
+  "@can_not_open_note_from_trashes": "Du kan ikke åpne notater fra søppelkassen",
+
+  "@color_name_background_color": "Bakgrunnsfarge",
+  "@color_name_text_color": "Tekstfarge",
+  "@color_name_accent_color": "Aksentfarge",
+  "@color_name_inactive_color": "Inaktiv farge",
+  "@color_name_note_background_color": "Notatets bakgrunnsfarge",
+  "@color_name_note_text_color": "Notatets tekstfarge",
+  "@color_name_floating_button_background": "Flytende knapp bakgrunn",
+  "@color_name_floating_button_icon_color": "Flytende knapp ikonfarge",
+  "@color_name_check_box_color": "Avkrysningsboks bakgrunnsfarge",
+  "@color_name_check_box_check_color": "Avkrysningsboks avmerkingsfarge",
+
+  "@dialog_title_logout": "Er du sikker på at du vil logge ut?",
+  "@dialog_title_move_to_trash": "Vil du flytte disse til søppelkassen?",
+  "@dialog_title_not_save_note": "Vil du ikke lagre?",
+  "@dialog_title_delete_theme": "Vil du slette dette temaet?",
+  "@dialog_title_delete_color": "Vil du slette denne fargen?",
+  "@dialog_action_yes": "Ja",
+  "@dialog_action_no": "Nei",
+
+  "@popup_menu_leading_sort_by": "Sorter etter",
+  "@popup_menu_leading_view_as": "Vis som",
+  "@popup_menu_item_grid": "Rutenett",
+  "@popup_menu_item_list": "Liste",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "passord",
+  "@hint_folder_name": "Mappenavn",
+  "@hint_password_different": "De angitte passordene er forskjellige",
+  "@hint_old_password_different": "Det gamle passordet er forskjellig",
+  "@hint_input_id": "Vennligst skriv inn ID",
+  "@hint_input_username": "Vennligst skriv inn navn",
+  "@hint_input_password": "Vennligst skriv inn passord",
+  "@hint_input_new_password": "Vennligst skriv inn nytt passord",
+  "@hint_input_old_password": "Vennligst skriv inn gammelt passord",
+
+  "@ios_style_ui": "iOS-stil UI",
+
+  "@yesterday": "I går",
+
+  "@new_note": "Ny notat",
+  "@new_folder": "Ny mappe",
+
+  "@test_connection": "Test forbindelse",
+  "@connection_failed": "Forbindelse mislyktes"
+
+}

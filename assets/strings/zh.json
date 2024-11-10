@@ -1,0 +1,83 @@
+{
+  "@am": "上午",
+  "@created": "创建时间",
+  "@default_font": "默认字体",
+  "@folder": "文件夹",
+  "@language": "语言",
+  "@modified": "修改时间",
+  "@new_theme": "新主题",
+  "@note": "笔记",
+  "@notes": "笔记",
+  "@pm": "下午",
+  "@settings": "设置",
+  "@sync_state": "同步状态",
+  "@theme": "主题",
+  "@title": "标题",
+  "@trashes": "垃圾桶",
+  "@use_my_own_server": "使用我自己的服务器",
+  "@hint_theme_name": "名称",
+
+  "@register": "注册",
+  "@login": "登录",
+  "@who_are_you": "你是谁?",
+  "@hello": "你好!",
+  "@welcome": "欢迎!",
+  "@logout": "登出",
+  "@change_password": "更改密码",
+
+  "@length": "长度",
+  "@created_date": "创建日期",
+  "@modified_date": "修改日期",
+
+  "@failed_to_connect": "连接失败",
+  "@failed_to_auth": "认证失败",
+  "@please_set_server_address": "请前往设置并配置服务器地址",
+  "@can_not_open_note_from_trashes": "你不能从垃圾桶中打开笔记",
+
+  "@color_name_background_color": "背景颜色",
+  "@color_name_text_color": "文字颜色",
+  "@color_name_accent_color": "强调颜色",
+  "@color_name_inactive_color": "非活动颜色",
+  "@color_name_note_background_color": "笔记背景颜色",
+  "@color_name_note_text_color": "笔记文字颜色",
+  "@color_name_floating_button_background": "浮动按钮背景颜色",
+  "@color_name_floating_button_icon_color": "浮动按钮图标颜色",
+  "@color_name_check_box_color": "复选框背景颜色",
+  "@color_name_check_box_check_color": "复选框选中颜色",
+
+  "@dialog_title_logout": "你确定要登出吗?",
+  "@dialog_title_move_to_trash": "你想把这些移到垃圾桶吗?",
+  "@dialog_title_not_save_note": "你不想保存吗?",
+  "@dialog_title_delete_theme": "您确定要删除此主题吗？",
+  "@dialog_title_delete_color": "您确定要删除此颜色吗？",
+  "@dialog_action_yes": "是",
+  "@dialog_action_no": "否",
+
+  "@popup_menu_leading_sort_by": "排序方式",
+  "@popup_menu_leading_view_as": "查看方式",
+  "@popup_menu_item_grid": "网格",
+  "@popup_menu_item_list": "列表",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "id",
+  "@hint_password": "密码",
+  "@hint_folder_name": "文件夹名称",
+  "@hint_password_different": "输入的密码不同",
+  "@hint_old_password_different": "旧密码不同",
+  "@hint_input_id": "请输入ID",
+  "@hint_input_username": "请输入姓名",
+  "@hint_input_password": "请输入密码",
+  "@hint_input_new_password": "请输入新密码",
+  "@hint_input_old_password": "请输入旧密码",
+
+  "@ios_style_ui": "Ios 风格界面",
+
+  "@yesterday": "昨天",
+
+  "@new_note": "新建笔记",
+  "@new_folder": "新建文件夹",
+
+  "@test_connection": "测试连接",
+  "@connection_failed": "连接失败"
+
+}

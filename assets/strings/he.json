@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "נוצר",
+  "@default_font": "ברירת מחדל",
+  "@folder": "תיקייה",
+  "@language": "שפה",
+  "@modified": "שונה",
+  "@new_theme": "חדש",
+  "@note": "הערה",
+  "@notes": "הערות",
+  "@pm": "PM",
+  "@settings": "הגדרות",
+  "@sync_state": "מצב סנכרון",
+  "@theme": "ערכת נושא",
+  "@title": "כותרת",
+  "@trashes": "פח",
+  "@use_my_own_server": "השתמש בשרת האישי שלי",
+  "@hint_theme_name": "שם",
+
+  "@register": "הירשם",
+  "@login": "התחברות",
+  "@who_are_you": "מי אתה?",
+  "@hello": "שלום!",
+  "@welcome": "ברוך הבא!",
+  "@logout": "התנתקות",
+  "@change_password": "שינוי סיסמה",
+
+  "@length": "אורך",
+  "@created_date": "תאריך יצירה",
+  "@modified_date": "תאריך שינוי",
+
+  "@failed_to_connect": "חיבור נכשל",
+  "@failed_to_auth": "התקשרות נכשלה",
+  "@please_set_server_address": "יש לעבור להגדרות ולהגדיר את כתובת השרת",
+  "@can_not_open_note_from_trashes": "לא ניתן לפתוח הערה מהפח",
+
+  "@color_name_background_color": "צבע רקע",
+  "@color_name_text_color": "צבע טקסט",
+  "@color_name_accent_color": "צבע קידום",
+  "@color_name_inactive_color": "צבע לא פעיל",
+  "@color_name_note_background_color": "צבע רקע של הערה",
+  "@color_name_note_text_color": "צבע טקסט של הערה",
+  "@color_name_floating_button_background": "צבע רקע של כפתור צף",
+  "@color_name_floating_button_icon_color": "צבע סמל של כפתור צף",
+  "@color_name_check_box_color": "צבע רקע של תיבת סימון",
+  "@color_name_check_box_check_color": "צבע סימון של תיבת סימון",
+
+  "@dialog_title_logout": "האם אתה בטוח שברצונך להתנתק?",
+  "@dialog_title_move_to_trash": "האם ברצונך להעביר אלו לפח?",
+  "@dialog_title_not_save_note": "האם לא תרצה לשמור?",
+  "@dialog_title_delete_theme": "האם אתה רוצה למחוק את הנושא הזה?",
+  "@dialog_title_delete_color": "האם אתה רוצה למחוק את הצבע הזה?",
+  "@dialog_action_yes": "כן",
+  "@dialog_action_no": "לא",
+
+  "@popup_menu_leading_sort_by": "מיין לפי",
+  "@popup_menu_leading_view_as": "צפה כ-",
+  "@popup_menu_item_grid": "רשת",
+  "@popup_menu_item_list": "רשימה",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "זיהוי",
+  "@hint_password": "סיסמה",
+  "@hint_folder_name": "שם תיקייה",
+  "@hint_password_different": "הסיסמאות שהוזנו שונות",
+  "@hint_old_password_different": "הסיסמא הישנה שונה",
+  "@hint_input_id": "אנא הזן את מזהה",
+  "@hint_input_username": "אנא הזן את השם",
+  "@hint_input_password": "אנא הזן את הסיסמה",
+  "@hint_input_new_password": "אנא הזן סיסמה חדשה",
+  "@hint_input_old_password": "אנא הזן את הסיסמה הישנה",
+
+  "@ios_style_ui": "ממשק משתמש בסגנון iOS",
+
+  "@yesterday": "אתמול",
+
+  "@new_note": "הערה חדשה",
+  "@new_folder": "תיקייה חדשה",
+
+  "@test_connection": "בדוק חיבור",
+  "@connection_failed": "חיבור נכשל"
+
+}

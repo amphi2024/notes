@@ -1,0 +1,83 @@
+{
+  "@am": "صباحًا",
+  "@created": "تم الإنشاء",
+  "@default_font": "الافتراضي",
+  "@folder": "مجلد",
+  "@language": "اللغة",
+  "@modified": "تم التعديل",
+  "@new_theme": "جديد",
+  "@note": "ملاحظة",
+  "@notes": "ملاحظات",
+  "@pm": "مساءً",
+  "@settings": "الإعدادات",
+  "@sync_state": "حالة المزامنة",
+  "@theme": "السمة",
+  "@title": "العنوان",
+  "@trashes": "سلة المهملات",
+  "@use_my_own_server": "استخدم الخادم الخاص بي",
+  "@hint_theme_name": "الاسم",
+
+  "@register": "تسجيل",
+  "@login": "تسجيل الدخول",
+  "@who_are_you": "من أنت؟",
+  "@hello": "مرحبًا!",
+  "@welcome": "مرحبًا بك!",
+  "@logout": "تسجيل الخروج",
+  "@change_password": "تغيير كلمة المرور",
+
+  "@length": "الطول",
+  "@created_date": "تاريخ الإنشاء",
+  "@modified_date": "تاريخ التعديل",
+
+  "@failed_to_connect": "فشل الاتصال",
+  "@failed_to_auth": "فشل المصادقة",
+  "@please_set_server_address": "يرجى الذهاب إلى الإعدادات وتكوين عنوان الخادم",
+  "@can_not_open_note_from_trashes": "لا يمكنك فتح الملاحظة من سلة المهملات",
+
+  "@color_name_background_color": "لون الخلفية",
+  "@color_name_text_color": "لون النص",
+  "@color_name_accent_color": "لون التوضيح",
+  "@color_name_inactive_color": "لون غير نشط",
+  "@color_name_note_background_color": "لون خلفية الملاحظة",
+  "@color_name_note_text_color": "لون نص الملاحظة",
+  "@color_name_floating_button_background": "لون خلفية الزر العائم",
+  "@color_name_floating_button_icon_color": "لون أيقونة الزر العائم",
+  "@color_name_check_box_color": "لون خلفية مربع الاختيار",
+  "@color_name_check_box_check_color": "لون تحقق مربع الاختيار",
+
+  "@dialog_title_logout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "@dialog_title_move_to_trash": "هل ترغب في نقل هذه إلى سلة المهملات؟",
+  "@dialog_title_not_save_note": "هل ترغب في عدم الحفظ؟",
+  "@dialog_title_delete_theme": "هل تريد حذف هذا الثيم؟",
+  "@dialog_title_delete_color": "هل تريد حذف هذا اللون؟",
+  "@dialog_action_yes": "نعم",
+  "@dialog_action_no": "لا",
+
+  "@popup_menu_leading_sort_by": "الترتيب حسب",
+  "@popup_menu_leading_view_as": "عرض كـ",
+  "@popup_menu_item_grid": "شبكة",
+  "@popup_menu_item_list": "قائمة",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "معرف",
+  "@hint_password": "كلمة المرور",
+  "@hint_folder_name": "اسم المجلد",
+  "@hint_password_different": "كلمة المرور التي أدخلتها غير متطابقة",
+  "@hint_old_password_different": "كلمة المرور الأصلية غير صحيحة",
+  "@hint_input_id": "الرجاء إدخال المعرف",
+  "@hint_input_username": "الرجاء إدخال الاسم",
+  "@hint_input_password": "الرجاء إدخال كلمة المرور",
+  "@hint_input_new_password": "الرجاء إدخال كلمة مرور جديدة",
+  "@hint_input_old_password": "الرجاء إدخال كلمة المرور الأصلية",
+
+  "@ios_style_ui": "واجهة المستخدم بنمط iOS",
+
+  "@yesterday": "أمس",
+
+  "@new_note": "ملاحظة جديدة",
+  "@new_folder": "مجلد جديد",
+
+  "@test_connection": "اختبار الاتصال",
+  "@connection_failed": "فشل الاتصال"
+
+}

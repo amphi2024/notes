@@ -1,0 +1,138 @@
+{
+  "@am": "AM",
+  "@created": "Created",
+  "@default_font": "Default",
+  "@folder": "Folder",
+  "@language": "Language",
+  "@modified": "Modified",
+  "@new_theme": "New",
+  "@note": "Note",
+  "@notes": "Notes",
+  "@pm": "PM",
+  "@settings": "Settings",
+  "@sync_state": "Sync state",
+  "@theme": "Theme",
+  "@title": "Title",
+  "@trashes": "Trashes",
+  "@use_my_own_server": "Use My Own Server",
+  "@hint_theme_name": "Name",
+
+  "@register": "Register",
+  "@login": "Login",
+  "@who_are_you": "Who are you?",
+  "@hello": "Hello!",
+  "@welcome": "Welcome!",
+  "@logout": "Logout",
+  "@change_password": "Change Password",
+  "@remove_user": "Remove from Device",
+
+  "@length": "Length",
+  "@created_date": "Date created",
+  "@modified_date": "Date modified",
+
+  "@failed_to_connect": "Failed to connect",
+  "@failed_to_auth": "Failed to Authentication",
+  "@please_set_server_address": "Please go to the settings and configure the server address",
+  "@can_not_open_note_from_trashes": "You cannot open note from trash",
+
+  "@color_name_background_color": "Background color",
+  "@color_name_text_color": "Text color",
+  "@color_name_accent_color": "Accent color",
+  "@color_name_inactive_color": "Inactive color",
+  "@color_name_note_background_color": "Note background color",
+  "@color_name_note_text_color": "Note text color",
+  "@color_name_floating_button_background": "Floating button background",
+  "@color_name_floating_button_icon_color": "Floating button icon color",
+  "@color_name_check_box_color": "Checkbox background color",
+  "@color_name_check_box_check_color": "Checkbox check color",
+
+  "@dialog_title_logout": "Are you sure you want to logout?",
+  "@dialog_title_move_to_trash": "Would you like to move these to the trash?",
+  "@dialog_title_not_save_note": "Wouldn't you like to save?",
+  "@dialog_title_delete_theme": "Are you sure you want to delete this theme?",
+  "@dialog_title_delete_color": "Are you sure you want to delete this color?",
+  "@dialog_title_delete_selected_notes": "Are you sure you want to delete this items?",
+  "@dialog_action_yes": "Yes",
+  "@dialog_action_no": "No",
+
+  "@popup_menu_leading_sort_by": "Sort by",
+  "@popup_menu_leading_view_as": "View as",
+  "@popup_menu_item_grid": "Grid",
+  "@popup_menu_item_list": "List",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "id",
+  "@hint_password": "password",
+  "@hint_confirm_password": "confirm password",
+  "@hint_username": "name",
+  "@hint_folder_name": "Folder name",
+  "@hint_password_different": "The entered passwords are different",
+  "@hint_old_password_different": "The old password is different",
+  "@hint_input_id": "Please enter the ID",
+  "@hint_input_username": "Please enter the name",
+  "@hint_input_password": "Please enter the password",
+  "@hint_input_new_password": "Please enter a new password",
+  "@hint_input_old_password": "Please enter the old password",
+  "@id_already_taken": "Id is already taken",
+
+  "@ios_style_ui": "Ios style UI",
+
+  "@yesterday": "Yesterday",
+
+  "@new_note": "New Note",
+  "@new_folder": "New Folder",
+
+  "@test_connection": "Test Connection",
+  "@connection_failed": "Connection Failed",
+
+  "@locale_label_system": "System",
+
+  "@editor_table_insert_text": "Text",
+  "@editor_table_insert_image": "Image",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Date",
+
+  "@editor_table_add_column_before": "Add Column Before",
+  "@editor_table_add_column_after": "Add Column After",
+  "@editor_table_add_row_above": "Add Row Below",
+  "@editor_table_add_row_below": "Add Row Above",
+  "@editor_table_delete_column": "Delete Column",
+  "@editor_table_delete_row": "Delete Row",
+  "@editor_table_clear_cell": "Clear Cell",
+
+  "@editor_chart_rows_to_show": "Rows to Show",
+  "@editor_chart_ascending": "Ascending",
+
+  "@editor_calendar_rows_to_show": "Rows to Show",
+  "@editor_calendar_rows_for_date": "Rows for Date",
+
+  "@editor_add_image_from_photos": "Photos",
+  "@editor_add_image_from_files": "Files",
+
+  "@editor_export_note_as_html": "Export as HTML",
+
+  "@editor_hint_sub_note_title": "Title",
+
+  "@editor_add_data_page_chart": "Chart",
+  "@editor_add_data_page_calendar": "Calendar",
+
+  "@day_name_sunday": "Sun",
+  "@day_name_monday": "Mon",
+  "@day_name_tuesday": "Tue",
+  "@day_name_wednesday": "Wed",
+  "@day_name_thursday": "Thu",
+  "@day_name_friday": "Fri",
+  "@day_name_saturday": "Sat",
+
+  "@image_action_save": "Save",
+  "@image_action_zoom": "Zoom",
+  "@image_action_remove": "Remove",
+  "@image_action_resize": "Resize",
+  "@image_action_share": "Share",
+  "@image_action_copy": "Copy",
+
+  "@note_text_color": "Text color",
+  "@note_background_color": "Background color",
+  "@note_text_size": "Text size",
+  "@note_line_height": "Line height"
+}

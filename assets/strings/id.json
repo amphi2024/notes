@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Dibuat",
+  "@default_font": "Default",
+  "@folder": "Folder",
+  "@language": "Bahasa",
+  "@modified": "Diubah",
+  "@new_theme": "Baru",
+  "@note": "Catatan",
+  "@notes": "Catatan",
+  "@pm": "PM",
+  "@settings": "Pengaturan",
+  "@sync_state": "Status sinkronisasi",
+  "@theme": "Tema",
+  "@title": "Judul",
+  "@trashes": "Sampah",
+  "@use_my_own_server": "Gunakan server saya sendiri",
+  "@hint_theme_name": "Nama",
+
+  "@register": "Daftar",
+  "@login": "Masuk",
+  "@who_are_you": "Siapa kamu?",
+  "@hello": "Halo!",
+  "@welcome": "Selamat datang!",
+  "@logout": "Keluar",
+  "@change_password": "Ganti kata sandi",
+
+  "@length": "Panjang",
+  "@created_date": "Tanggal dibuat",
+  "@modified_date": "Tanggal diubah",
+
+  "@failed_to_connect": "Gagal terhubung",
+  "@failed_to_auth": "Autentikasi gagal",
+  "@please_set_server_address": "Silakan pergi ke pengaturan dan atur alamat server",
+  "@can_not_open_note_from_trashes": "Anda tidak dapat membuka catatan dari tempat sampah",
+
+  "@color_name_background_color": "Warna latar belakang",
+  "@color_name_text_color": "Warna teks",
+  "@color_name_accent_color": "Warna aksen",
+  "@color_name_inactive_color": "Warna tidak aktif",
+  "@color_name_note_background_color": "Warna latar belakang catatan",
+  "@color_name_note_text_color": "Warna teks catatan",
+  "@color_name_floating_button_background": "Warna latar belakang tombol mengambang",
+  "@color_name_floating_button_icon_color": "Warna ikon tombol mengambang",
+  "@color_name_check_box_color": "Warna latar belakang kotak centang",
+  "@color_name_check_box_check_color": "Warna centang kotak centang",
+
+  "@dialog_title_logout": "Apakah Anda yakin ingin keluar?",
+  "@dialog_title_move_to_trash": "Apakah Anda ingin memindahkan ini ke tempat sampah?",
+  "@dialog_title_not_save_note": "Apakah Anda tidak ingin menyimpan?",
+  "@dialog_title_delete_theme": "Apakah Anda ingin menghapus tema ini?",
+  "@dialog_title_delete_color": "Apakah Anda ingin menghapus warna ini?",
+  "@dialog_action_yes": "Ya",
+  "@dialog_action_no": "Tidak",
+
+  "@popup_menu_leading_sort_by": "Urutkan menurut",
+  "@popup_menu_leading_view_as": "Lihat sebagai",
+  "@popup_menu_item_grid": "Grid",
+  "@popup_menu_item_list": "Daftar",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "id",
+  "@hint_password": "kata sandi",
+  "@hint_folder_name": "Nama folder",
+  "@hint_password_different": "Kata sandi yang dimasukkan berbeda",
+  "@hint_old_password_different": "Kata sandi lama berbeda",
+  "@hint_input_id": "Silakan masukkan ID",
+  "@hint_input_username": "Silakan masukkan nama",
+  "@hint_input_password": "Silakan masukkan kata sandi",
+  "@hint_input_new_password": "Silakan masukkan kata sandi baru",
+  "@hint_input_old_password": "Silakan masukkan kata sandi lama",
+
+  "@ios_style_ui": "UI gaya iOS",
+
+  "@yesterday": "Kemarin",
+
+  "@new_note": "Catatan Baru",
+  "@new_folder": "Folder Baru",
+
+  "@test_connection": "Uji Koneksi",
+  "@connection_failed": "Koneksi Gagal"
+
+}

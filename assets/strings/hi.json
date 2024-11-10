@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "बनाया गया",
+  "@default_font": "डिफ़ॉल्ट",
+  "@folder": "फ़ोल्डर",
+  "@language": "भाषा",
+  "@modified": "संशोधित",
+  "@new_theme": "नया",
+  "@note": "नोट",
+  "@notes": "नोट्स",
+  "@pm": "PM",
+  "@settings": "सेटिंग्स",
+  "@sync_state": "सिंक स्थिति",
+  "@theme": "थीम",
+  "@title": "शीर्षक",
+  "@trashes": "कूड़ा",
+  "@use_my_own_server": "मेरी अपनी सर्वर का उपयोग करें",
+  "@hint_theme_name": "नाम",
+
+  "@register": "रजिस्टर करें",
+  "@login": "लॉगिन",
+  "@who_are_you": "तुम कौन हो?",
+  "@hello": "नमस्ते!",
+  "@welcome": "स्वागत है!",
+  "@logout": "लॉगआउट",
+  "@change_password": "पासवर्ड बदलें",
+
+  "@length": "लंबाई",
+  "@created_date": "निर्माण तिथि",
+  "@modified_date": "संशोधन तिथि",
+
+  "@failed_to_connect": "कनेक्ट नहीं हुआ",
+  "@failed_to_auth": "प्रमाणीकरण असफल",
+  "@please_set_server_address": "कृपया सेटिंग्स में जाएं और सर्वर पता कॉन्फ़िगर करें",
+  "@can_not_open_note_from_trashes": "आप कूड़े से नोट नहीं खोल सकते",
+
+  "@color_name_background_color": "पृष्ठभूमि का रंग",
+  "@color_name_text_color": "पाठ का रंग",
+  "@color_name_accent_color": "एक्सेंट का रंग",
+  "@color_name_inactive_color": "निष्क्रिय रंग",
+  "@color_name_note_background_color": "नोट की पृष्ठभूमि का रंग",
+  "@color_name_note_text_color": "नोट का पाठ का रंग",
+  "@color_name_floating_button_background": "फ्लोटिंग बटन का पृष्ठभूमि का रंग",
+  "@color_name_floating_button_icon_color": "फ्लोटिंग बटन आइकन का रंग",
+  "@color_name_check_box_color": "चेक बॉक्स का पृष्ठभूमि का रंग",
+  "@color_name_check_box_check_color": "चेक बॉक्स चेक का रंग",
+
+  "@dialog_title_logout": "क्या आप वाकई लॉगआउट करना चाहते हैं?",
+  "@dialog_title_move_to_trash": "क्या आप इन्हें कूड़े में डालना चाहेंगे?",
+  "@dialog_title_not_save_note": "क्या आपको सहेजना नहीं है?",
+  "@dialog_title_delete_theme": "क्या आप इस थीम को हटाना चाहते हैं?",
+  "@dialog_title_delete_color": "क्या आप इस रंग को हटाना चाहते हैं?",
+  "@dialog_action_yes": "हाँ",
+  "@dialog_action_no": "नहीं",
+
+  "@popup_menu_leading_sort_by": "क्रमबद्ध करें द्वारा",
+  "@popup_menu_leading_view_as": "के रूप में देखें",
+  "@popup_menu_item_grid": "ग्रिड",
+  "@popup_menu_item_list": "सूची",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "आईडी",
+  "@hint_password": "पासवर्ड",
+  "@hint_folder_name": "फ़ोल्डर का नाम",
+  "@hint_password_different": "आपके द्वारा दर्ज किए गए पासवर्ड भिन्न हैं",
+  "@hint_old_password_different": "पुराना पासवर्ड भिन्न है",
+  "@hint_input_id": "कृपया आईडी दर्ज करें",
+  "@hint_input_username": "कृपया नाम दर्ज करें",
+  "@hint_input_password": "कृपया पासवर्ड दर्ज करें",
+  "@hint_input_new_password": "कृपया नया पासवर्ड दर्ज करें",
+  "@hint_input_old_password": "कृपया पुराना पासवर्ड दर्ज करें",
+
+  "@ios_style_ui": "iOS शैली UI",
+
+  "@yesterday": "कल",
+
+  "@new_note": "नया नोट",
+  "@new_folder": "नया फ़ोल्डर",
+
+  "@test_connection": "कनेक्शन टेस्ट करें",
+  "@connection_failed": "कनेक्शन विफल"
+
+}

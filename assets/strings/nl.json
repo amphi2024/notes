@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Gemaakt",
+  "@default_font": "Standaard",
+  "@folder": "Map",
+  "@language": "Taal",
+  "@modified": "Aangepast",
+  "@new_theme": "Nieuw",
+  "@note": "Notitie",
+  "@notes": "Notities",
+  "@pm": "PM",
+  "@settings": "Instellingen",
+  "@sync_state": "Synchronisatiestatus",
+  "@theme": "Thema",
+  "@title": "Titel",
+  "@trashes": "Prullenbak",
+  "@use_my_own_server": "Gebruik mijn eigen server",
+  "@hint_theme_name": "Naam",
+
+  "@register": "Registreren",
+  "@login": "Inloggen",
+  "@who_are_you": "Wie ben je?",
+  "@hello": "Hallo!",
+  "@welcome": "Welkom!",
+  "@logout": "Uitloggen",
+  "@change_password": "Wachtwoord wijzigen",
+
+  "@length": "Lengte",
+  "@created_date": "Aanmaakdatum",
+  "@modified_date": "Wijzigingsdatum",
+
+  "@failed_to_connect": "Kan geen verbinding maken",
+  "@failed_to_auth": "Authenticatie mislukt",
+  "@please_set_server_address": "Ga naar de instellingen en configureer het serveradres",
+  "@can_not_open_note_from_trashes": "Je kunt geen notities openen vanuit de prullenbak",
+
+  "@color_name_background_color": "Achtergrondkleur",
+  "@color_name_text_color": "Tekstkleur",
+  "@color_name_accent_color": "Accentkleur",
+  "@color_name_inactive_color": "Inactieve kleur",
+  "@color_name_note_background_color": "Achtergrondkleur van notitie",
+  "@color_name_note_text_color": "Tekstkleur van notitie",
+  "@color_name_floating_button_background": "Achtergrond van zwevende knop",
+  "@color_name_floating_button_icon_color": "Kleur van pictogram van zwevende knop",
+  "@color_name_check_box_color": "Achtergrondkleur van selectievakje",
+  "@color_name_check_box_check_color": "Selectievakje kleur",
+
+  "@dialog_title_logout": "Weet je zeker dat je wilt uitloggen?",
+  "@dialog_title_move_to_trash": "Wil je deze naar de prullenbak verplaatsen?",
+  "@dialog_title_not_save_note": "Wil je niet opslaan?",
+  "@dialog_title_delete_theme": "Wilt u dit thema verwijderen?",
+  "@dialog_title_delete_color": "Wilt u deze kleur verwijderen?",
+  "@dialog_action_yes": "Ja",
+  "@dialog_action_no": "Nee",
+
+  "@popup_menu_leading_sort_by": "Sorteren op",
+  "@popup_menu_leading_view_as": "Weergave als",
+  "@popup_menu_item_grid": "Raster",
+  "@popup_menu_item_list": "Lijst",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "id",
+  "@hint_password": "wachtwoord",
+  "@hint_folder_name": "Mapnaam",
+  "@hint_password_different": "De ingevoerde wachtwoorden zijn verschillend",
+  "@hint_old_password_different": "Het oude wachtwoord is anders",
+  "@hint_input_id": "Voer alstublieft de ID in",
+  "@hint_input_username": "Voer alstublieft de naam in",
+  "@hint_input_password": "Voer alstublieft het wachtwoord in",
+  "@hint_input_new_password": "Voer alstublieft een nieuw wachtwoord in",
+  "@hint_input_old_password": "Voer alstublieft het oude wachtwoord in",
+
+  "@ios_style_ui": "iOS-stijl UI",
+
+  "@yesterday": "Gisteren",
+
+  "@new_note": "Nieuwe Notitie",
+  "@new_folder": "Nieuwe Map",
+
+  "@test_connection": "Verbinding Testen",
+  "@connection_failed": "Verbinding Mislukt"
+
+}

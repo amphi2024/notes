@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Creat",
+  "@default_font": "Implicit",
+  "@folder": "Folder",
+  "@language": "Limbă",
+  "@modified": "Modificat",
+  "@new_theme": "Nou",
+  "@note": "Notă",
+  "@notes": "Note",
+  "@pm": "PM",
+  "@settings": "Setări",
+  "@sync_state": "Stare sincronizare",
+  "@theme": "Temă",
+  "@title": "Titlu",
+  "@trashes": "Gunoaie",
+  "@use_my_own_server": "Folosește propriul meu server",
+  "@hint_theme_name": "Nume",
+
+  "@register": "Înregistrare",
+  "@login": "Autentificare",
+  "@who_are_you": "Cine ești?",
+  "@hello": "Salut!",
+  "@welcome": "Bine ai venit!",
+  "@logout": "Deconectare",
+  "@change_password": "Schimbă parola",
+
+  "@length": "Lungime",
+  "@created_date": "Data creării",
+  "@modified_date": "Data modificării",
+
+  "@failed_to_connect": "Conectarea a eșuat",
+  "@failed_to_auth": "Autentificare eșuată",
+  "@please_set_server_address": "Te rugăm să accesezi setările și să configurezi adresa serverului",
+  "@can_not_open_note_from_trashes": "Nu poți deschide notele din gunoi",
+
+  "@color_name_background_color": "Culoarea de fundal",
+  "@color_name_text_color": "Culoarea textului",
+  "@color_name_accent_color": "Culoare accent",
+  "@color_name_inactive_color": "Culoare inactivă",
+  "@color_name_note_background_color": "Culoarea de fundal a notelor",
+  "@color_name_note_text_color": "Culoarea textului notelor",
+  "@color_name_floating_button_background": "Culoarea de fundal a butonului plutitor",
+  "@color_name_floating_button_icon_color": "Culoarea iconiței butonului plutitor",
+  "@color_name_check_box_color": "Culoarea fundalului casetei de selectare",
+  "@color_name_check_box_check_color": "Culoarea bifei casetei de selectare",
+
+  "@dialog_title_logout": "Sigur vrei să te deconectezi?",
+  "@dialog_title_move_to_trash": "Vrei să muți acestea în gunoi?",
+  "@dialog_title_not_save_note": "Nu vrei să salvezi?",
+  "@dialog_title_delete_theme": "Doriți să ștergeți acest tema?",
+  "@dialog_title_delete_color": "Doriți să ștergeți această culoare?",
+  "@dialog_action_yes": "Da",
+  "@dialog_action_no": "Nu",
+
+  "@popup_menu_leading_sort_by": "Sortează după",
+  "@popup_menu_leading_view_as": "Vizualizează ca",
+  "@popup_menu_item_grid": "Grilă",
+  "@popup_menu_item_list": "Listă",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Parolă",
+  "@hint_folder_name": "Nume folder",
+  "@hint_password_different": "Parolele introduse sunt diferite",
+  "@hint_old_password_different": "Parola veche este diferită",
+  "@hint_input_id": "Vă rugăm să introduceți ID-ul",
+  "@hint_input_username": "Vă rugăm să introduceți numele",
+  "@hint_input_password": "Vă rugăm să introduceți parola",
+  "@hint_input_new_password": "Vă rugăm să introduceți o nouă parolă",
+  "@hint_input_old_password": "Vă rugăm să introduceți parola veche",
+
+  "@ios_style_ui": "Interfață stil iOS",
+
+  "@yesterday": "Ieri",
+
+  "@new_note": "Notă Nouă",
+  "@new_folder": "Dosar Nou",
+
+  "@test_connection": "Testează Conexiunea",
+  "@connection_failed": "Conexiune Eșuată"
+
+}

@@ -1,0 +1,83 @@
+{
+  "@am": "FM",
+  "@created": "Skapad",
+  "@default_font": "Standardteckensnitt",
+  "@folder": "Mapp",
+  "@language": "Språk",
+  "@modified": "Modifierad",
+  "@new_theme": "Nytt Tema",
+  "@note": "Anteckning",
+  "@notes": "Anteckningar",
+  "@pm": "EM",
+  "@settings": "Inställningar",
+  "@sync_state": "Synkroniseringsstatus",
+  "@theme": "Tema",
+  "@title": "Titel",
+  "@trashes": "Papperskorgar",
+  "@use_my_own_server": "Använd min egen server",
+  "@hint_theme_name": "Namn",
+
+  "@register": "Registrera",
+  "@login": "Logga in",
+  "@who_are_you": "Vem är du?",
+  "@hello": "Hej!",
+  "@welcome": "Välkommen!",
+  "@logout": "Logga ut",
+  "@change_password": "Byt lösenord",
+
+  "@length": "Längd",
+  "@created_date": "Skapad datum",
+  "@modified_date": "Ändrad datum",
+
+  "@failed_to_connect": "Misslyckades med att ansluta",
+  "@failed_to_auth": "Autentisering misslyckades",
+  "@please_set_server_address": "Gå till inställningarna och konfigurera serveradressen",
+  "@can_not_open_note_from_trashes": "Du kan inte öppna anteckningen från papperskorgen",
+
+  "@color_name_background_color": "Bakgrundsfärg",
+  "@color_name_text_color": "Textfärg",
+  "@color_name_accent_color": "Accentfärg",
+  "@color_name_inactive_color": "Inaktiv färg",
+  "@color_name_note_background_color": "Anteckningens bakgrundsfärg",
+  "@color_name_note_text_color": "Anteckningens textfärg",
+  "@color_name_floating_button_background": "Flytande knappens bakgrundsfärg",
+  "@color_name_floating_button_icon_color": "Flytande knappens ikonfärg",
+  "@color_name_check_box_color": "Kryssrute bakgrundsfärg",
+  "@color_name_check_box_check_color": "Kryssrute markeringens färg",
+
+  "@dialog_title_logout": "Är du säker på att du vill logga ut?",
+  "@dialog_title_move_to_trash": "Vill du flytta dessa till papperskorgen?",
+  "@dialog_title_not_save_note": "Vill du inte spara?",
+  "@dialog_title_delete_theme": "Vill du ta bort detta tema?",
+  "@dialog_title_delete_color": "Vill du ta bort den här färgen?",
+  "@dialog_action_yes": "Ja",
+  "@dialog_action_no": "Nej",
+
+  "@popup_menu_leading_sort_by": "Sortera efter",
+  "@popup_menu_leading_view_as": "Visa som",
+  "@popup_menu_item_grid": "Rutnät",
+  "@popup_menu_item_list": "Lista",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "id",
+  "@hint_password": "lösenord",
+  "@hint_folder_name": "Mappnamn",
+  "@hint_password_different": "De angivna lösenorden är olika",
+  "@hint_old_password_different": "Det gamla lösenordet är olika",
+  "@hint_input_id": "Vänligen ange ID",
+  "@hint_input_username": "Vänligen ange namn",
+  "@hint_input_password": "Vänligen ange lösenord",
+  "@hint_input_new_password": "Vänligen ange ett nytt lösenord",
+  "@hint_input_old_password": "Vänligen ange det gamla lösenordet",
+
+  "@ios_style_ui": "Ios stil användargränssnitt",
+
+  "@yesterday": "Igår",
+
+  "@new_note": "Ny anteckning",
+  "@new_folder": "Ny mapp",
+
+  "@test_connection": "Testa anslutning",
+  "@connection_failed": "Anslutning misslyckades"
+
+}

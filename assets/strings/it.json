@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Creato",
+  "@default_font": "Predefinito",
+  "@folder": "Cartella",
+  "@language": "Lingua",
+  "@modified": "Modificato",
+  "@new_theme": "Nuovo",
+  "@note": "Nota",
+  "@notes": "Note",
+  "@pm": "PM",
+  "@settings": "Impostazioni",
+  "@sync_state": "Stato di sincronizzazione",
+  "@theme": "Tema",
+  "@title": "Titolo",
+  "@trashes": "Cestino",
+  "@use_my_own_server": "Usa il mio server",
+  "@hint_theme_name": "Nome",
+
+  "@register": "Registrati",
+  "@login": "Accesso",
+  "@who_are_you": "Chi sei?",
+  "@hello": "Ciao!",
+  "@welcome": "Benvenuto!",
+  "@logout": "Disconnettersi",
+  "@change_password": "Cambia la password",
+
+  "@length": "Lunghezza",
+  "@created_date": "Data di creazione",
+  "@modified_date": "Data di modifica",
+
+  "@failed_to_connect": "Connessione fallita",
+  "@failed_to_auth": "Autenticazione fallita",
+  "@please_set_server_address": "Per favore, vai nelle impostazioni e configura l'indirizzo del server",
+  "@can_not_open_note_from_trashes": "Non puoi aprire una nota dal cestino",
+
+  "@color_name_background_color": "Colore di sfondo",
+  "@color_name_text_color": "Colore del testo",
+  "@color_name_accent_color": "Colore di accento",
+  "@color_name_inactive_color": "Colore inattivo",
+  "@color_name_note_background_color": "Colore di sfondo della nota",
+  "@color_name_note_text_color": "Colore del testo della nota",
+  "@color_name_floating_button_background": "Colore di sfondo del pulsante mobile",
+  "@color_name_floating_button_icon_color": "Colore dell'icona del pulsante mobile",
+  "@color_name_check_box_color": "Colore di sfondo della casella di controllo",
+  "@color_name_check_box_check_color": "Colore di spunta della casella di controllo",
+
+  "@dialog_title_logout": "Sei sicuro di voler uscire?",
+  "@dialog_title_move_to_trash": "Vuoi spostare questi elementi nel cestino?",
+  "@dialog_title_not_save_note": "Non vuoi salvare?",
+  "@dialog_title_delete_theme": "Vuoi eliminare questo tema?",
+  "@dialog_title_delete_color": "Vuoi eliminare questo colore?",
+  "@dialog_action_yes": "Sì",
+  "@dialog_action_no": "No",
+
+  "@popup_menu_leading_sort_by": "Ordina per",
+  "@popup_menu_leading_view_as": "Visualizza come",
+  "@popup_menu_item_grid": "Griglia",
+  "@popup_menu_item_list": "Elenco",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Password",
+  "@hint_folder_name": "Nome della cartella",
+  "@hint_password_different": "Le password inserite sono diverse",
+  "@hint_old_password_different": "La vecchia password è diversa",
+  "@hint_input_id": "Si prega di inserire l'ID",
+  "@hint_input_username": "Si prega di inserire il nome",
+  "@hint_input_password": "Si prega di inserire la password",
+  "@hint_input_new_password": "Si prega di inserire una nuova password",
+  "@hint_input_old_password": "Si prega di inserire la vecchia password",
+
+  "@ios_style_ui": "Interfaccia stile iOS",
+
+  "@yesterday": "Ieri",
+
+  "@new_note": "Nuova Nota",
+  "@new_folder": "Nuova Cartella",
+
+  "@test_connection": "Testa Connessione",
+  "@connection_failed": "Connessione Fallita"
+
+}

@@ -1,0 +1,83 @@
+{
+  "@am": "ΠΜ",
+  "@created": "Δημιουργήθηκε",
+  "@default_font": "Προεπιλογή",
+  "@folder": "Φάκελος",
+  "@language": "Γλώσσα",
+  "@modified": "Τροποποιήθηκε",
+  "@new_theme": "Νέο",
+  "@note": "Σημείωση",
+  "@notes": "Σημειώσεις",
+  "@pm": "ΜΜ",
+  "@settings": "Ρυθμίσεις",
+  "@sync_state": "Κατάσταση συγχρονισμού",
+  "@theme": "Θέμα",
+  "@title": "Τίτλος",
+  "@trashes": "Κάδος απορριμμάτων",
+  "@use_my_own_server": "Χρήση δικού μου διακομιστή",
+  "@hint_theme_name": "Όνομα",
+
+  "@register": "Εγγραφή",
+  "@login": "Σύνδεση",
+  "@who_are_you": "Ποιος είσαι;",
+  "@hello": "Γεια!",
+  "@welcome": "Καλώς ήρθατε!",
+  "@logout": "Αποσύνδεση",
+  "@change_password": "Αλλαγή κωδικού",
+
+  "@length": "Μήκος",
+  "@created_date": "Ημερομηνία δημιουργίας",
+  "@modified_date": "Ημερομηνία τροποποίησης",
+
+  "@failed_to_connect": "Αποτυχία σύνδεσης",
+  "@failed_to_auth": "Αποτυχία πιστοποίησης",
+  "@please_set_server_address": "Παρακαλώ πηγαίνετε στις ρυθμίσεις και ρυθμίστε τη διεύθυνση του διακομιστή",
+  "@can_not_open_note_from_trashes": "Δεν μπορείτε να ανοίξετε σημείωση από τα απορρίμματα",
+
+  "@color_name_background_color": "Χρώμα φόντου",
+  "@color_name_text_color": "Χρώμα κειμένου",
+  "@color_name_accent_color": "Χρώμα επισήμανσης",
+  "@color_name_inactive_color": "Ανενεργό χρώμα",
+  "@color_name_note_background_color": "Χρώμα φόντου σημείωσης",
+  "@color_name_note_text_color": "Χρώμα κειμένου σημείωσης",
+  "@color_name_floating_button_background": "Χρώμα φόντου επιπλέον κουμπιού",
+  "@color_name_floating_button_icon_color": "Χρώμα εικονιδίου επιπλέον κουμπιού",
+  "@color_name_check_box_color": "Χρώμα φόντου πλαισίου ελέγχου",
+  "@color_name_check_box_check_color": "Χρώμα ελέγχου πλαισίου",
+
+  "@dialog_title_logout": "Είστε σίγουρος ότι θέλετε να αποσυνδεθείτε;",
+  "@dialog_title_move_to_trash": "Θέλετε να μετακινήσετε αυτά στα απορρίμματα;",
+  "@dialog_title_not_save_note": "Δεν θέλετε να αποθηκεύσετε;",
+  "@dialog_title_delete_theme": "Θέλετε να διαγράψετε αυτό το θέμα;",
+  "@dialog_title_delete_color": "Θέλετε να διαγράψετε αυτό το χρώμα;",
+  "@dialog_action_yes": "Ναι",
+  "@dialog_action_no": "Όχι",
+
+  "@popup_menu_leading_sort_by": "Ταξινόμηση κατά",
+  "@popup_menu_leading_view_as": "Προβολή ως",
+  "@popup_menu_item_grid": "Πλέγμα",
+  "@popup_menu_item_list": "Λίστα",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Κωδικός πρόσβασης",
+  "@hint_folder_name": "Όνομα φακέλου",
+  "@hint_password_different": "Οι κωδικοί πρόσβασης που εισάγατε διαφέρουν",
+  "@hint_old_password_different": "Ο παλιός κωδικός πρόσβασης είναι διαφορετικός",
+  "@hint_input_id": "Παρακαλώ εισάγετε το ID",
+  "@hint_input_username": "Παρακαλώ εισάγετε το όνομα",
+  "@hint_input_password": "Παρακαλώ εισάγετε τον κωδικό πρόσβασης",
+  "@hint_input_new_password": "Παρακαλώ εισάγετε νέο κωδικό πρόσβασης",
+  "@hint_input_old_password": "Παρακαλώ εισάγετε τον παλιό κωδικό πρόσβασης",
+
+  "@ios_style_ui": "UI στυλ iOS",
+
+  "@yesterday": "Χθες",
+
+  "@new_note": "Νέα σημείωση",
+  "@new_folder": "Νέος φάκελος",
+
+  "@test_connection": "Δοκιμή σύνδεσης",
+  "@connection_failed": "Αποτυχία σύνδεσης"
+
+}

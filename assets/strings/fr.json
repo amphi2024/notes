@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Créé",
+  "@default_font": "Défaut",
+  "@folder": "Dossier",
+  "@language": "Langue",
+  "@modified": "Modifié",
+  "@new_theme": "Nouveau",
+  "@note": "Note",
+  "@notes": "Notes",
+  "@pm": "PM",
+  "@settings": "Paramètres",
+  "@sync_state": "État de synchronisation",
+  "@theme": "Thème",
+  "@title": "Titre",
+  "@trashes": "Corbeille",
+  "@use_my_own_server": "Utiliser mon propre serveur",
+  "@hint_theme_name": "Nom",
+
+  "@register": "S'inscrire",
+  "@login": "Connexion",
+  "@who_are_you": "Qui êtes-vous?",
+  "@hello": "Bonjour!",
+  "@welcome": "Bienvenue!",
+  "@logout": "Déconnexion",
+  "@change_password": "Changer le mot de passe",
+
+  "@length": "Longueur",
+  "@created_date": "Date de création",
+  "@modified_date": "Date de modification",
+
+  "@failed_to_connect": "Échec de la connexion",
+  "@failed_to_auth": "Échec de l'authentification",
+  "@please_set_server_address": "Veuillez aller dans les paramètres et configurer l'adresse du serveur",
+  "@can_not_open_note_from_trashes": "Vous ne pouvez pas ouvrir la note depuis la corbeille",
+
+  "@color_name_background_color": "Couleur de fond",
+  "@color_name_text_color": "Couleur du texte",
+  "@color_name_accent_color": "Couleur d'accentuation",
+  "@color_name_inactive_color": "Couleur inactive",
+  "@color_name_note_background_color": "Couleur de fond de la note",
+  "@color_name_note_text_color": "Couleur du texte de la note",
+  "@color_name_floating_button_background": "Couleur de fond du bouton flottant",
+  "@color_name_floating_button_icon_color": "Couleur de l'icône du bouton flottant",
+  "@color_name_check_box_color": "Couleur de fond de la case à cocher",
+  "@color_name_check_box_check_color": "Couleur de coche de la case à cocher",
+
+  "@dialog_title_logout": "Êtes-vous sûr de vouloir vous déconnecter?",
+  "@dialog_title_move_to_trash": "Voulez-vous déplacer ceci à la corbeille?",
+  "@dialog_title_not_save_note": "Ne voulez-vous pas enregistrer?",
+  "@dialog_title_delete_theme": "Voulez-vous supprimer ce thème ?",
+  "@dialog_title_delete_color": "Voulez-vous supprimer cette couleur ?",
+  "@dialog_action_yes": "Oui",
+  "@dialog_action_no": "Non",
+
+  "@popup_menu_leading_sort_by": "Trier par",
+  "@popup_menu_leading_view_as": "Voir comme",
+  "@popup_menu_item_grid": "Grille",
+  "@popup_menu_item_list": "Liste",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Mot de passe",
+  "@hint_folder_name": "Nom du dossier",
+  "@hint_password_different": "Les mots de passe saisis sont différents",
+  "@hint_old_password_different": "L'ancien mot de passe est différent",
+  "@hint_input_id": "Veuillez entrer l'ID",
+  "@hint_input_username": "Veuillez entrer le nom",
+  "@hint_input_password": "Veuillez entrer le mot de passe",
+  "@hint_input_new_password": "Veuillez entrer un nouveau mot de passe",
+  "@hint_input_old_password": "Veuillez entrer l'ancien mot de passe",
+
+  "@ios_style_ui": "Interface utilisateur de style iOS",
+
+  "@yesterday": "Hier",
+
+  "@new_note": "Nouvelle note",
+  "@new_folder": "Nouveau dossier",
+
+  "@test_connection": "Tester la connexion",
+  "@connection_failed": "Échec de la connexion"
+
+}

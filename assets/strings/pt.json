@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Criado",
+  "@default_font": "Padrão",
+  "@folder": "Pasta",
+  "@language": "Idioma",
+  "@modified": "Modificado",
+  "@new_theme": "Novo",
+  "@note": "Nota",
+  "@notes": "Notas",
+  "@pm": "PM",
+  "@settings": "Configurações",
+  "@sync_state": "Estado de sincronização",
+  "@theme": "Tema",
+  "@title": "Título",
+  "@trashes": "Lixo",
+  "@use_my_own_server": "Usar meu próprio servidor",
+  "@hint_theme_name": "Nome",
+
+  "@register": "Registrar",
+  "@login": "Entrar",
+  "@who_are_you": "Quem é você?",
+  "@hello": "Olá!",
+  "@welcome": "Bem-vindo!",
+  "@logout": "Sair",
+  "@change_password": "Alterar senha",
+
+  "@length": "Comprimento",
+  "@created_date": "Data de criação",
+  "@modified_date": "Data de modificação",
+
+  "@failed_to_connect": "Falha na conexão",
+  "@failed_to_auth": "Falha na autenticação",
+  "@please_set_server_address": "Por favor, vá para as configurações e configure o endereço do servidor",
+  "@can_not_open_note_from_trashes": "Você não pode abrir nota do lixo",
+
+  "@color_name_background_color": "Cor de fundo",
+  "@color_name_text_color": "Cor do texto",
+  "@color_name_accent_color": "Cor de destaque",
+  "@color_name_inactive_color": "Cor inativa",
+  "@color_name_note_background_color": "Cor de fundo da nota",
+  "@color_name_note_text_color": "Cor do texto da nota",
+  "@color_name_floating_button_background": "Cor de fundo do botão flutuante",
+  "@color_name_floating_button_icon_color": "Cor do ícone do botão flutuante",
+  "@color_name_check_box_color": "Cor de fundo da caixa de seleção",
+  "@color_name_check_box_check_color": "Cor da marca de seleção",
+
+  "@dialog_title_logout": "Tem certeza de que deseja sair?",
+  "@dialog_title_move_to_trash": "Deseja mover isso para o lixo?",
+  "@dialog_title_not_save_note": "Você não gostaria de salvar?",
+  "@dialog_title_delete_theme": "Você deseja excluir este tema?",
+  "@dialog_title_delete_color": "Você deseja excluir esta cor?",
+  "@dialog_action_yes": "Sim",
+  "@dialog_action_no": "Não",
+
+  "@popup_menu_leading_sort_by": "Ordenar por",
+  "@popup_menu_leading_view_as": "Visualizar como",
+  "@popup_menu_item_grid": "Grade",
+  "@popup_menu_item_list": "Lista",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Senha",
+  "@hint_folder_name": "Nome da pasta",
+  "@hint_password_different": "As senhas inseridas são diferentes",
+  "@hint_old_password_different": "A senha antiga é diferente",
+  "@hint_input_id": "Por favor, insira o ID",
+  "@hint_input_username": "Por favor, insira o nome",
+  "@hint_input_password": "Por favor, insira a senha",
+  "@hint_input_new_password": "Por favor, insira uma nova senha",
+  "@hint_input_old_password": "Por favor, insira a senha antiga",
+
+  "@ios_style_ui": "Interface estilo iOS",
+
+  "@yesterday": "Ontem",
+
+  "@new_note": "Nova Nota",
+  "@new_folder": "Nova Pasta",
+
+  "@test_connection": "Testar Conexão",
+  "@connection_failed": "Conexão Falhou"
+
+}

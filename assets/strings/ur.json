@@ -1,0 +1,83 @@
+{
+  "@am": "صبح",
+  "@created": "تخلیق",
+  "@default_font": "طے شدہ فونٹ",
+  "@folder": "پوشہ",
+  "@language": "زبان",
+  "@modified": "ترمیم شدہ",
+  "@new_theme": "نیا تھیم",
+  "@note": "نوٹ",
+  "@notes": "نوٹس",
+  "@pm": "شام",
+  "@settings": "ترتیبات",
+  "@sync_state": "ہم آہنگی کی حالت",
+  "@theme": "تھیم",
+  "@title": "عنوان",
+  "@trashes": "کچرا",
+  "@use_my_own_server": "اپنے سرور کا استعمال کریں",
+  "@hint_theme_name": "نام",
+
+  "@register": "رجسٹر",
+  "@login": "لاگ ان",
+  "@who_are_you": "آپ کون ہیں؟",
+  "@hello": "ہیلو!",
+  "@welcome": "خوش آمدید!",
+  "@logout": "لاگ آؤٹ",
+  "@change_password": "پاس ورڈ تبدیل کریں",
+
+  "@length": "لمبائی",
+  "@created_date": "تاریخ تخلیق",
+  "@modified_date": "ترمیم شدہ تاریخ",
+
+  "@failed_to_connect": "کنکشن ناکام",
+  "@failed_to_auth": "تصدیق ناکام",
+  "@please_set_server_address": "براہ کرم ترتیبات میں جائیں اور سرور کا پتہ تشکیل دیں",
+  "@can_not_open_note_from_trashes": "آپ کوڑے دان سے نوٹ نہیں کھول سکتے",
+
+  "@color_name_background_color": "پس منظر کا رنگ",
+  "@color_name_text_color": "متن کا رنگ",
+  "@color_name_accent_color": "نمایاں رنگ",
+  "@color_name_inactive_color": "غیر فعال رنگ",
+  "@color_name_note_background_color": "نوٹ پس منظر کا رنگ",
+  "@color_name_note_text_color": "نوٹ متن کا رنگ",
+  "@color_name_floating_button_background": "تیرتا بٹن پس منظر کا رنگ",
+  "@color_name_floating_button_icon_color": "تیرتا بٹن آئکن کا رنگ",
+  "@color_name_check_box_color": "چیک باکس پس منظر کا رنگ",
+  "@color_name_check_box_check_color": "چیک باکس چیک کا رنگ",
+
+  "@dialog_title_logout": "کیا آپ واقعی لاگ آؤٹ کرنا چاہتے ہیں؟",
+  "@dialog_title_move_to_trash": "کیا آپ انہیں کوڑے دان میں منتقل کرنا چاہتے ہیں؟",
+  "@dialog_title_not_save_note": "کیا آپ محفوظ نہیں کرنا چاہتے؟",
+  "@dialog_title_delete_theme": "کیا آپ اس تھیم کو حذف کرنا چاہتے ہیں؟",
+  "@dialog_title_delete_color": "کیا آپ اس رنگ کو حذف کرنا چاہتے ہیں؟",
+  "@dialog_action_yes": "جی ہاں",
+  "@dialog_action_no": "نہیں",
+
+  "@popup_menu_leading_sort_by": "ترتیب دیں",
+  "@popup_menu_leading_view_as": "دیکھیں بطور",
+  "@popup_menu_item_grid": "جال",
+  "@popup_menu_item_list": "فہرست",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "شناختی نمبر",
+  "@hint_password": "پاس ورڈ",
+  "@hint_folder_name": "پوشہ کا نام",
+  "@hint_password_different": "درج کردہ پاس ورڈ مختلف ہیں",
+  "@hint_old_password_different": "پرانی پاس ورڈ مختلف ہے",
+  "@hint_input_id": "براہ کرم ID درج کریں",
+  "@hint_input_username": "براہ کرم نام درج کریں",
+  "@hint_input_password": "براہ کرم پاس ورڈ درج کریں",
+  "@hint_input_new_password": "براہ کرم نیا پاس ورڈ درج کریں",
+  "@hint_input_old_password": "براہ کرم پرانی پاس ورڈ درج کریں",
+
+  "@ios_style_ui": "آئی او ایس اسٹائل یوزر انٹرفیس",
+
+  "@yesterday": "کل",
+
+  "@new_note": "نیا نوٹ",
+  "@new_folder": "نیا فولڈر",
+
+  "@test_connection": "کنکشن ٹیسٹ کریں",
+  "@connection_failed": "کنکشن ناکام"
+
+}

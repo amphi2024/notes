@@ -1,0 +1,83 @@
+{
+  "@am": "AM",
+  "@created": "Utworzono",
+  "@default_font": "Domyślny",
+  "@folder": "Folder",
+  "@language": "Język",
+  "@modified": "Zmodyfikowano",
+  "@new_theme": "Nowy",
+  "@note": "Notatka",
+  "@notes": "Notatki",
+  "@pm": "PM",
+  "@settings": "Ustawienia",
+  "@sync_state": "Stan synchronizacji",
+  "@theme": "Motyw",
+  "@title": "Tytuł",
+  "@trashes": "Kosz",
+  "@use_my_own_server": "Użyj mojego własnego serwera",
+  "@hint_theme_name": "Nazwa",
+
+  "@register": "Zarejestruj się",
+  "@login": "Zaloguj się",
+  "@who_are_you": "Kim jesteś?",
+  "@hello": "Cześć!",
+  "@welcome": "Witamy!",
+  "@logout": "Wyloguj się",
+  "@change_password": "Zmień hasło",
+
+  "@length": "Długość",
+  "@created_date": "Data utworzenia",
+  "@modified_date": "Data modyfikacji",
+
+  "@failed_to_connect": "Nie udało się połączyć",
+  "@failed_to_auth": "Autoryzacja nie powiodła się",
+  "@please_set_server_address": "Przejdź do ustawień i skonfiguruj adres serwera",
+  "@can_not_open_note_from_trashes": "Nie można otworzyć notatki z kosza",
+
+  "@color_name_background_color": "Kolor tła",
+  "@color_name_text_color": "Kolor tekstu",
+  "@color_name_accent_color": "Kolor akcentu",
+  "@color_name_inactive_color": "Kolor nieaktywny",
+  "@color_name_note_background_color": "Kolor tła notatki",
+  "@color_name_note_text_color": "Kolor tekstu notatki",
+  "@color_name_floating_button_background": "Tło przycisku unoszącego się",
+  "@color_name_floating_button_icon_color": "Kolor ikony przycisku unoszącego się",
+  "@color_name_check_box_color": "Kolor tła pola wyboru",
+  "@color_name_check_box_check_color": "Kolor zaznaczenia pola wyboru",
+
+  "@dialog_title_logout": "Czy na pewno chcesz się wylogować?",
+  "@dialog_title_move_to_trash": "Czy chcesz przenieść te elementy do kosza?",
+  "@dialog_title_not_save_note": "Czy nie chcesz zapisać?",
+  "@dialog_title_delete_theme": "Czy chcesz usunąć ten motyw?",
+  "@dialog_title_delete_color": "Czy chcesz usunąć ten kolor?",
+  "@dialog_action_yes": "Tak",
+  "@dialog_action_no": "Nie",
+
+  "@popup_menu_leading_sort_by": "Sortuj według",
+  "@popup_menu_leading_view_as": "Wyświetl jako",
+  "@popup_menu_item_grid": "Siatka",
+  "@popup_menu_item_list": "Lista",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "ID",
+  "@hint_password": "Hasło",
+  "@hint_folder_name": "Nazwa folderu",
+  "@hint_password_different": "Wprowadzone hasła są różne",
+  "@hint_old_password_different": "Stare hasło jest inne",
+  "@hint_input_id": "Proszę wpisać ID",
+  "@hint_input_username": "Proszę wpisać imię",
+  "@hint_input_password": "Proszę wpisać hasło",
+  "@hint_input_new_password": "Proszę wpisać nowe hasło",
+  "@hint_input_old_password": "Proszę wpisać stare hasło",
+
+  "@ios_style_ui": "Interfejs w stylu iOS",
+
+  "@yesterday": "Wczoraj",
+
+  "@new_note": "Nowa notatka",
+  "@new_folder": "Nowy folder",
+
+  "@test_connection": "Przetestuj połączenie",
+  "@connection_failed": "Nie udało się połączyć"
+
+}

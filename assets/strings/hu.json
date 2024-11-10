@@ -1,0 +1,83 @@
+{
+  "@am": "DE",
+  "@created": "Létrehozva",
+  "@default_font": "Alapértelmezett",
+  "@folder": "Mappa",
+  "@language": "Nyelv",
+  "@modified": "Módosítva",
+  "@new_theme": "Új",
+  "@note": "Jegyzet",
+  "@notes": "Jegyzetek",
+  "@pm": "DU",
+  "@settings": "Beállítások",
+  "@sync_state": "Szinkron állapot",
+  "@theme": "Téma",
+  "@title": "Cím",
+  "@trashes": "Kuka",
+  "@use_my_own_server": "Saját szerver használata",
+  "@hint_theme_name": "Név",
+
+  "@register": "Regisztrálás",
+  "@login": "Bejelentkezés",
+  "@who_are_you": "Ki vagy?",
+  "@hello": "Helló!",
+  "@welcome": "Üdvözlünk!",
+  "@logout": "Kijelentkezés",
+  "@change_password": "Jelszó megváltoztatása",
+
+  "@length": "Hossz",
+  "@created_date": "Létrehozás dátuma",
+  "@modified_date": "Módosítás dátuma",
+
+  "@failed_to_connect": "Nem sikerült csatlakozni",
+  "@failed_to_auth": "Hitelesítés sikertelen",
+  "@please_set_server_address": "Kérem, menjen a beállításokhoz, és állítsa be a szerver címet",
+  "@can_not_open_note_from_trashes": "Nem lehet megnyitni a jegyzetet a kukából",
+
+  "@color_name_background_color": "Háttérszín",
+  "@color_name_text_color": "Szöveg színe",
+  "@color_name_accent_color": "Kiemelő szín",
+  "@color_name_inactive_color": "Inaktív szín",
+  "@color_name_note_background_color": "Jegyzet háttérszíne",
+  "@color_name_note_text_color": "Jegyzet szövegének színe",
+  "@color_name_floating_button_background": "Lebegő gomb háttérszíne",
+  "@color_name_floating_button_icon_color": "Lebegő gomb ikon színe",
+  "@color_name_check_box_color": "Jelölőnégyzet háttérszíne",
+  "@color_name_check_box_check_color": "Jelölőnégyzet pipa színe",
+
+  "@dialog_title_logout": "Biztosan ki szeretne jelentkezni?",
+  "@dialog_title_move_to_trash": "Biztosan a kukába szeretné helyezni ezeket?",
+  "@dialog_title_not_save_note": "Nem szeretné menteni?",
+  "@dialog_title_delete_theme": "Biztosan törölni szeretné ezt a témát?",
+  "@dialog_title_delete_color": "Biztosan törölni szeretné ezt a színt?",
+  "@dialog_action_yes": "Igen",
+  "@dialog_action_no": "Nem",
+
+  "@popup_menu_leading_sort_by": "Rendezés",
+  "@popup_menu_leading_view_as": "Nézet",
+  "@popup_menu_item_grid": "Rács",
+  "@popup_menu_item_list": "Lista",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "azonosító",
+  "@hint_password": "jelszó",
+  "@hint_folder_name": "Mappa neve",
+  "@hint_password_different": "A megadott jelszavak eltérnek",
+  "@hint_old_password_different": "A régi jelszó eltér",
+  "@hint_input_id": "Kérjük, adja meg az azonosítót",
+  "@hint_input_username": "Kérjük, adja meg a nevet",
+  "@hint_input_password": "Kérjük, adja meg a jelszót",
+  "@hint_input_new_password": "Kérjük, adja meg az új jelszót",
+  "@hint_input_old_password": "Kérjük, adja meg a régi jelszót",
+
+  "@ios_style_ui": "iOS stílusú felület",
+
+  "@yesterday": "Tegnap",
+
+  "@new_note": "Új jegyzet",
+  "@new_folder": "Új mappa",
+
+  "@test_connection": "Kapcsolat tesztelése",
+  "@connection_failed": "Kapcsolat sikertelen"
+
+}

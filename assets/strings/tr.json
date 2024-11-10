@@ -1,0 +1,83 @@
+{
+  "@am": "ÖÖ",
+  "@created": "Oluşturuldu",
+  "@default_font": "Varsayılan Yazı Tipi",
+  "@folder": "Klasör",
+  "@language": "Dil",
+  "@modified": "Değiştirildi",
+  "@new_theme": "Yeni Tema",
+  "@note": "Not",
+  "@notes": "Notlar",
+  "@pm": "ÖS",
+  "@settings": "Ayarlar",
+  "@sync_state": "Senkronizasyon Durumu",
+  "@theme": "Tema",
+  "@title": "Başlık",
+  "@trashes": "Çöp Kutusu",
+  "@use_my_own_server": "Kendi Sunucumu Kullan",
+  "@hint_theme_name": "Ad",
+
+  "@register": "Kayıt Ol",
+  "@login": "Giriş",
+  "@who_are_you": "Sen kimsin?",
+  "@hello": "Merhaba!",
+  "@welcome": "Hoş geldiniz!",
+  "@logout": "Çıkış Yap",
+  "@change_password": "Şifre Değiştir",
+
+  "@length": "Uzunluk",
+  "@created_date": "Oluşturulma Tarihi",
+  "@modified_date": "Değiştirilme Tarihi",
+
+  "@failed_to_connect": "Bağlanılamadı",
+  "@failed_to_auth": "Kimlik Doğrulama Başarısız",
+  "@please_set_server_address": "Lütfen ayarlara gidin ve sunucu adresini yapılandırın",
+  "@can_not_open_note_from_trashes": "Çöp kutusundan not açamazsınız",
+
+  "@color_name_background_color": "Arka Plan Rengi",
+  "@color_name_text_color": "Metin Rengi",
+  "@color_name_accent_color": "Vurgu Rengi",
+  "@color_name_inactive_color": "Etkin Olmayan Renk",
+  "@color_name_note_background_color": "Not Arka Plan Rengi",
+  "@color_name_note_text_color": "Not Metin Rengi",
+  "@color_name_floating_button_background": "Yüzer Buton Arka Plan Rengi",
+  "@color_name_floating_button_icon_color": "Yüzer Buton İkon Rengi",
+  "@color_name_check_box_color": "Onay Kutusu Arka Plan Rengi",
+  "@color_name_check_box_check_color": "Onay Kutusu İşaret Rengi",
+
+  "@dialog_title_logout": "Çıkış yapmak istediğinize emin misiniz?",
+  "@dialog_title_move_to_trash": "Bunları çöp kutusuna taşımak istiyor musunuz?",
+  "@dialog_title_not_save_note": "Kaydetmek istemiyor musunuz?",
+  "@dialog_title_delete_theme": "Bu temayı silmek istiyor musunuz?",
+  "@dialog_title_delete_color": "Bu rengi silmek istiyor musunuz?",
+  "@dialog_action_yes": "Evet",
+  "@dialog_action_no": "Hayır",
+
+  "@popup_menu_leading_sort_by": "Sırala",
+  "@popup_menu_leading_view_as": "Görünüm",
+  "@popup_menu_item_grid": "Izgara",
+  "@popup_menu_item_list": "Liste",
+
+  "@hint_server_address": "http(s)://your_address.com",
+  "@hint_id": "id",
+  "@hint_password": "şifre",
+  "@hint_folder_name": "Klasör Adı",
+  "@hint_password_different": "Girilen şifreler farklı",
+  "@hint_old_password_different": "Eski şifre farklı",
+  "@hint_input_id": "Lütfen ID girin",
+  "@hint_input_username": "Lütfen adı girin",
+  "@hint_input_password": "Lütfen şifreyi girin",
+  "@hint_input_new_password": "Lütfen yeni şifreyi girin",
+  "@hint_input_old_password": "Lütfen eski şifreyi girin",
+
+  "@ios_style_ui": "Ios tarzı arayüz",
+
+  "@yesterday": "Dün",
+
+  "@new_note": "Yeni Not",
+  "@new_folder": "Yeni Klasör",
+
+  "@test_connection": "Bağlantıyı Test Et",
+  "@connection_failed": "Bağlantı Başarısız"
+
+}
