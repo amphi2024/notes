@@ -70,7 +70,7 @@ extension AppWebUpload on AppWebChannel {
         body: fileContent
       );
         if (response.statusCode == 200) {
-          print("dfffff ${response.statusCode},  ${response.body}");
+          print("fff ${response.statusCode},  ${response.body}");
           if(onSuccess != null) {
             onSuccess();
           }
