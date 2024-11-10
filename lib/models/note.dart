@@ -72,7 +72,7 @@ class Note extends Item{
     }
   }
   String subtitle = "";
-  String? thumbnailImageFilename = "";
+  String? thumbnailImageFilename;
   Map<String, TableData> tables = {};
   Map<String, NoteEditingController> subNotes = {};
   Map<String, Color> dividers = {};
@@ -432,7 +432,6 @@ class Note extends Item{
         if(content.type == "img") {
           thumbnailImageFilename = content.value;
         }
-
       }
       if(thumbnailImageFilename != null && title.isNotEmpty && subtitle.isNotEmpty) {
         break;

@@ -14,6 +14,7 @@ class ImageFromStorage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     String absolutePath = "${appStorage.notesPath}/${noteFileNameOnly}/images/${imageFilename}";
     return Image.file(
       fit: fit,

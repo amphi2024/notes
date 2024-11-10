@@ -46,29 +46,22 @@ class _WideMainViewState extends State<WideMainView> {
     });
   }
 
-  void webSocketListener(UpdateEvent updateEvent) {
-    print("websocket received");
-    switch (updateEvent.action) {
-      case UpdateEvent.uploadNote:
-        if (updateEvent.value.endsWith(".note")) {
-
-        }
-        break;
-    }
-    appWebChannel.acknowledgeEvent(updateEvent);
-  }
-
   @override
   void dispose() {
     appState.noteEditingController.removeListener(noteEditingListener);
-    appWebChannel.removeWebSocketListener(webSocketListener);
     super.dispose();
   }
 
   @override
   void initState() {
    appState.noteEditingController.addListener(noteEditingListener);
-   appWebChannel.addWebSocketListener(webSocketListener);
+   appWebChannel.noteUpdateListeners.add((note) {
+     if(note.filename == appState.noteEditingController.note.filename) {
+       setState(() {
+         appState.noteEditingController.document = note.toDocument();
+       });
+     }
+   });
     super.initState();
   }
 

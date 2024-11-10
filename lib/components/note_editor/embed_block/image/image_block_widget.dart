@@ -19,8 +19,10 @@ class ImageBlockWidget extends StatefulWidget {
 }
 
 class _ImageBlockWidgetState extends State<ImageBlockWidget> {
+
   @override
   Widget build(BuildContext context) {
+
     String absolutePath = "${appStorage.notesPath}/${widget.noteFileNameOnly}/images/${widget.imageFilename}";
     return Align(
       alignment: Alignment.centerLeft,

@@ -39,71 +39,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  void websocketListener(updateEvent) {
-    print("websocket received");
-    switch (updateEvent.action) {
-      case UpdateEvent.uploadNote:
-        if (updateEvent.value.endsWith(".note")) {
-          appWebChannel.downloadNote(
-              filename: updateEvent.value,
-              onSuccess: (item) {
-                setState(() {
-                  AppStorage.notifyNote(item);
-                });
-              });
-        } else if (updateEvent.value.endsWith(".folder")) {
-          appWebChannel.downloadFolder(
-              filename: updateEvent.value,
-              onSuccess: (folder) {
-                setState(() {
-                  AppStorage.notifyFolder(folder);
-                });
-              });
-        }
-        break;
-      // case UpdateEvent.uploadImage:
-      //   if (!File("${appStorage.imagesPath}/${updateEvent.value}").existsSync()) {
-      //     appWebChannel.downloadImage(filename: updateEvent.value);
-      //   }
-      //   break;
-      // case UpdateEvent.uploadVideo:
-      //   if (!File("${appStorage.videosPath}/${updateEvent.value}").existsSync()) {
-      //     appWebChannel.downloadVideo(filename: updateEvent.value);
-      //   }
-      //   break;
-      case UpdateEvent.uploadTheme:
-        appWebChannel.downloadTheme(filename: updateEvent.value);
-        break;
-      case UpdateEvent.renameUser:
-        appStorage.selectedUser.name = updateEvent.value;
-        appStorage.saveSelectedUserInformation();
-        break;
-      case UpdateEvent.deleteNote:
-        for (dynamic item in AppStorage.trashes()) {
-          if (item is Note && item.filename == updateEvent.value) {
-            item.delete(upload: false);
-            AppStorage.trashes().remove(item);
-            break;
-          } else if (item is Folder && item.filename == updateEvent.value) {
-            item.delete(upload: false);
-            AppStorage.trashes().remove(item);
-            break;
-          }
-        }
-        break;
-      case UpdateEvent.deleteTheme:
-        File file = File("${appStorage.selectedUser.storagePath}/themes/${updateEvent.value}");
-        file.delete();
-        break;
-    }
-    appWebChannel.acknowledgeEvent(updateEvent);
-  }
-
-  @override
-  void dispose() {
-    appWebChannel.removeWebSocketListener(websocketListener);
-    super.dispose();
-  }
 
   @override
   void initState() {
@@ -129,7 +64,17 @@ class _MyAppState extends State<MyApp> {
         appWebChannel.connectWebSocket();
 
         appWebChannel.syncDataFromEvents();
-        appWebChannel.addWebSocketListener(websocketListener);
+        appWebChannel.noteUpdateListeners.add((note) {
+          setState(() {
+            AppStorage.notifyNote(note);
+          });
+        });
+
+        appWebChannel.folderUpdateListeners.add((folder) {
+          setState(() {
+            AppStorage.notifyFolder(folder);
+          });
+        });
       }
     }, onInitialize: () {
       setState(() {});

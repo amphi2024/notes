@@ -4,10 +4,13 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
+import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:amphi/models/update_event.dart';
+import 'package:notes/models/folder.dart';
+import 'package:notes/models/note.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -24,7 +27,9 @@ class AppWebChannel {
   static const int failedToAuth = -2;
   bool connected = false;
   WebSocketChannel? webSocketChannel;
-  List<void Function(UpdateEvent updateEvent)> webSocketListeners = [];
+  List<void Function(Note note)> noteUpdateListeners = [];
+  List<void Function(Folder folder)> folderUpdateListeners = [];
+  List<void Function(String)> userNameUpdateListeners = [];
   late String deviceName;
 
   Future<void> getDeviceInfo() async {
@@ -47,14 +52,6 @@ class AppWebChannel {
     }
   }
 
-  void addWebSocketListener(void Function(UpdateEvent updateEvent) function) {
-    webSocketListeners.add(function);
-  }
-
-  void removeWebSocketListener(void Function(UpdateEvent updateEvent) function) {
-    webSocketListeners.remove(function);
-  }
-
   void disconnectWebSocket() {
     webSocketChannel?.sink.close();
   }
@@ -63,17 +60,61 @@ class AppWebChannel {
     webSocketChannel = IOWebSocketChannel.connect(serverAddress, headers: {"Authorization": appStorage.selectedUser.token});
 
     webSocketChannel?.stream.listen((message) async {
-      try {
+
         Map<String, dynamic> jsonData = jsonDecode(message);
-        UpdateEvent updateEvent = UpdateEvent(action: jsonData["action"], value: jsonData["value"], date: parsedDateTime(jsonData["date"]));
-        for (void Function(UpdateEvent updateEvent) function in webSocketListeners) {
-          function(updateEvent);
+        UpdateEvent updateEvent = UpdateEvent(action: jsonData["action"] ?? "", value: jsonData["value"] ?? "", date: parsedDateTime(jsonData["date"] ?? ""));
+
+        switch (updateEvent.action) {
+          case UpdateEvent.uploadNote:
+            if (updateEvent.value.endsWith(".note")) {
+              appWebChannel.downloadNote(
+                  filename: updateEvent.value,
+                  onSuccess: (note) {
+                    for (var function in noteUpdateListeners) {
+                      function(note);
+                    }
+                  });
+            } else if (updateEvent.value.endsWith(".folder")) {
+              appWebChannel.downloadFolder(
+                  filename: updateEvent.value,
+                  onSuccess: (folder) {
+                    for(var function in folderUpdateListeners) {
+                      function(folder);
+                    }
+                  });
+            }
+            break;
+          case UpdateEvent.uploadTheme:
+            appWebChannel.downloadTheme(filename: updateEvent.value);
+            break;
+          case UpdateEvent.renameUser:
+            appStorage.selectedUser.name = updateEvent.value;
+            appStorage.saveSelectedUserInformation();
+            userNameUpdateListeners.forEach((fun) {
+              fun(updateEvent.value);
+            });
+            break;
+          case UpdateEvent.deleteNote:
+            for (dynamic item in AppStorage.trashes()) {
+              if (item is Note && item.filename == updateEvent.value) {
+                item.delete(upload: false);
+                AppStorage.trashes().remove(item);
+                break;
+              } else if (item is Folder && item.filename == updateEvent.value) {
+                item.delete(upload: false);
+                AppStorage.trashes().remove(item);
+                break;
+              }
+            }
+            break;
+          case UpdateEvent.deleteTheme:
+            File file = File("${appStorage.themesPath}/${updateEvent.value}");
+            file.delete();
+            break;
         }
-      } catch (e) {
-        for (void Function(UpdateEvent updateEvent) function in webSocketListeners) {
-          function(UpdateEvent(action: "unknown", value: "", date: DateTime.now()));
-        }
-      }
+        appWebChannel.acknowledgeEvent(updateEvent);
+
+
     }, onDone: () {
       connected = false;
     }, onError: (d) {

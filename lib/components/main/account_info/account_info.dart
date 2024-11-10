@@ -37,24 +37,19 @@ class _AccountInfoState extends State<AccountInfo> {
   bool sendingRequest = false;
   String? errorMessage = null;
 
-  void websocketListener(UpdateEvent updateEvent) {
-    setState(() {
-      if(updateEvent.action == UpdateEvent.renameUser) {
-        usernameController.text = updateEvent.value;
-      }
-    });
-  }
-
   @override
   void dispose() {
     usernameController.dispose();
-    appWebChannel.removeWebSocketListener(websocketListener);
     super.dispose();
   }
 
   @override
   void initState() {
-    appWebChannel.addWebSocketListener(websocketListener);
+    appWebChannel.userNameUpdateListeners.add((name) {
+      setState(() {
+        usernameController.text = name;
+      });
+    });
     for (User user in AppStorage.getInstance().users) {
       if (user.storagePath != AppStorage.getInstance().selectedUser.storagePath) {
         unselectedUsers.add(user);
