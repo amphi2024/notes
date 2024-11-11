@@ -24,6 +24,8 @@
   "@welcome": "ਸਵਾਗਤ ਹੈ!",
   "@logout": "ਲਾੱਗ ਆਉਟ",
   "@change_password": "ਪਾਸਵਰਡ ਬਦਲੋ",
+  "@change_username": "ਨਾਂ ਬਦਲੋ",
+  "@remove_user": "ਇਸ ਡਿਵਾਈਸ ਤੋਂ ਹਟਾਓ",
 
   "@length": "ਲੰਬਾਈ",
   "@created_date": "ਬਣਾਉਣ ਦੀ ਮਿਤੀ",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "ਕੀ ਤੁਸੀਂ ਸੇਵ ਨਹੀਂ ਕਰਨਾ ਚਾਹੁੰਦੇ?",
   "@dialog_title_delete_theme": "ਕੀ ਤੁਸੀਂ ਇਹ ਥੀਮ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
   "@dialog_title_delete_color": "ਕੀ ਤੁਸੀਂ ਇਹ ਰੰਗ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
+  "@dialog_title_delete_selected_notes": "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਹੋ ਕਿ ਤੁਸੀਂ ਇਹ ਆਈਟਮ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
+  "@dialog_title_remove_user": "ਕੀ ਤੁਸੀਂ ਇਸ ਡਿਵਾਈਸ ਤੋਂ ਉਪਭੋਗੀ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
   "@dialog_action_yes": "ਹਾਂ",
   "@dialog_action_no": "ਨਹੀਂ",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "ਪਾਸਵਰਡ",
+  "@hint_confirm_password": "ਪਾਸਵਰਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+  "@hint_old_password": "ਪੁਰਾਣਾ ਪਾਸਵਰਡ",
+  "@hint_username": "ਯੂਜ਼ਰ ਨੇਮ",
   "@hint_folder_name": "ਫੋਲਡਰ ਦਾ ਨਾਮ",
-  "@hint_password_different": "ਦਾਖਲ ਕੀਤੀਆਂ ਗਈਆਂ ਪਾਸਵਰਡਾਂ ਵਿੱਚ ਅੰਤਰ ਹੈ",
-  "@hint_old_password_different": "ਪੁਰਾਣਾ ਪਾਸਵਰਡ ਵੱਖਰਾ ਹੈ",
+  "@hint_password_different": "ਦਾਖਲ ਕੀਤੇ ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ",
+  "@hint_old_password_different": "ਪੁਰਾਣਾ ਪਾਸਵਰਡ ਗਲਤ ਹੈ",
   "@hint_input_id": "ਕਿਰਪਾ ਕਰਕੇ ID ਦਰਜ ਕਰੋ",
   "@hint_input_username": "ਕਿਰਪਾ ਕਰਕੇ ਨਾਮ ਦਰਜ ਕਰੋ",
   "@hint_input_password": "ਕਿਰਪਾ ਕਰਕੇ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
   "@hint_input_new_password": "ਕਿਰਪਾ ਕਰਕੇ ਨਵਾਂ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
   "@hint_input_old_password": "ਕਿਰਪਾ ਕਰਕੇ ਪੁਰਾਣਾ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
+  "@id_already_taken": "ID ਪਹਿਲਾਂ ਹੀ ਵਰਤੋਂ ਵਿੱਚ ਹੈ",
 
-  "@ios_style_ui": "iOS ਸ਼ੈਲੀ UI",
+  "@transparent_navigation_bar": "ਪਾਰਦਰਸ਼ੀ ਨੈਵੀਗੇਸ਼ਨ ਬਾਰ",
 
   "@yesterday": "ਕੱਲ੍ਹ",
 
@@ -78,6 +86,53 @@
   "@new_folder": "ਨਵਾਂ ਫੋਲਡਰ",
 
   "@test_connection": "ਕਨੈਕਸ਼ਨ ਟੈਸਟ ਕਰੋ",
-  "@connection_failed": "ਕਨੈਕਸ਼ਨ ਫੇਲ੍ਹ"
+  "@connection_failed": "ਕਨੈਕਸ਼ਨ ਫੇਲ੍ਹ",
+
+  "@locale_label_system": "ਸਿਸਟਮ",
+
+  "@editor_table_insert_text": "ਪਾਠ",
+  "@editor_table_insert_image": "ਚਿੱਤਰ",
+  "@editor_table_insert_video": "ਵੀਡੀਓ",
+  "@editor_table_insert_date": "ਤਾਰੀਖ਼",
+
+  "@editor_table_add_column_before": "ਕੋਲਮ ਪੂਰਵ ਜੁੜੋ",
+  "@editor_table_add_column_after": "ਕੋਲਮ ਬਾਅਦ ਵਿੱਚ ਜੁੜੋ",
+  "@editor_table_add_row_above": "ਓਪਰ ਰੋ ਜੁੜੋ",
+  "@editor_table_add_row_below": "ਹੇਠਾਂ ਰੋ ਜੁੜੋ",
+  "@editor_table_delete_column": "ਕੋਲਮ ਹਟਾਓ",
+  "@editor_table_delete_row": "ਪੰਗਤ ਹਟਾਓ",
+  "@editor_table_clear_cell": "ਕੋਸ਼ੀਸ਼ ਸਾਫ਼ ਕਰੋ",
+
+  "@editor_calendar_rows_to_show": "ਦਿਖਾਉਣ ਲਈ ਪੰਕਤੀਆਂ",
+  "@editor_calendar_rows_for_date": "ਤਾਰੀਖ ਲਈ ਪੰਕਤੀਆਂ",
+
+  "@editor_add_image_from_photos": "ਫੋਟੋ",
+  "@editor_add_image_from_files": "ਫਾਇਲਾਂ",
+
+  "@editor_export_note_as_html": "HTML ਵਜੋਂ ਐਕਸਪੋਰਟ ਕਰੋ",
+
+  "@editor_hint_sub_note_title": "ਸਿਰਲੇਖ",
+
+  "@editor_add_data_page_chart": "ਚਾਰਟ",
+  "@editor_add_data_page_calendar": "ਕੈਲੰਡਰ",
+
+  "@day_name_sunday": "ਐਤਵਾਰ",
+  "@day_name_monday": "ਸੋਮਵਾਰ",
+  "@day_name_tuesday": "ਮੰਗਲਵਾਰ",
+  "@day_name_wednesday": "ਬੁੱਧਵਾਰ",
+  "@day_name_thursday": "ਵੀਰਵਾਰ",
+  "@day_name_friday": "ਸ਼ੁੱਕਰਵਾਰ",
+  "@day_name_saturday": "ਸ਼ਨਿੱਚਰਵਾਰ",
+
+  "@image_action_save": "ਸੰਭਾਲੋ",
+  "@image_action_zoom": "ਜ਼ੂਮ",
+  "@image_action_remove": "ਹਟਾਓ",
+  "@image_action_resize": "ਆਕਾਰ ਬਦਲੋ",
+  "@image_action_share": "ਸ਼ੇਅਰ ਕਰੋ",
+  "@image_action_copy": "ਕਾਪੀ ਕਰੋ"
+
+
+
+
 
 }

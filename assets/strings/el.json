@@ -24,6 +24,8 @@
   "@welcome": "Καλώς ήρθατε!",
   "@logout": "Αποσύνδεση",
   "@change_password": "Αλλαγή κωδικού",
+  "@change_username": "Αλλαγή ονόματος",
+  "@remove_user": "Αφαίρεση από αυτήν τη συσκευή",
 
   "@length": "Μήκος",
   "@created_date": "Ημερομηνία δημιουργίας",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Δεν θέλετε να αποθηκεύσετε;",
   "@dialog_title_delete_theme": "Θέλετε να διαγράψετε αυτό το θέμα;",
   "@dialog_title_delete_color": "Θέλετε να διαγράψετε αυτό το χρώμα;",
+  "@dialog_title_delete_selected_notes": "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτά τα αντικείμενα;",
+  "@dialog_title_remove_user": "Θέλετε να αφαιρέσετε τον χρήστη από αυτήν τη συσκευή;",
   "@dialog_action_yes": "Ναι",
   "@dialog_action_no": "Όχι",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Κωδικός πρόσβασης",
-  "@hint_folder_name": "Όνομα φακέλου",
-  "@hint_password_different": "Οι κωδικοί πρόσβασης που εισάγατε διαφέρουν",
-  "@hint_old_password_different": "Ο παλιός κωδικός πρόσβασης είναι διαφορετικός",
+  "@hint_confirm_password": "Επιβεβαίωση κωδικού πρόσβασης",
+  "@hint_old_password": "Παλαιός κωδικός πρόσβασης",
+  "@hint_username": "Όνομα",
+  "@hint_folder_name": "Όνομα",
+  "@hint_password_different": "Οι εισαγόμενοι κωδικοί πρόσβασης δεν ταιριάζουν",
+  "@hint_old_password_different": "Ο παλαιός κωδικός πρόσβασης είναι λάθος",
   "@hint_input_id": "Παρακαλώ εισάγετε το ID",
   "@hint_input_username": "Παρακαλώ εισάγετε το όνομα",
   "@hint_input_password": "Παρακαλώ εισάγετε τον κωδικό πρόσβασης",
   "@hint_input_new_password": "Παρακαλώ εισάγετε νέο κωδικό πρόσβασης",
   "@hint_input_old_password": "Παρακαλώ εισάγετε τον παλιό κωδικό πρόσβασης",
+  "@id_already_taken": "Το αναγνωριστικό χρησιμοποιείται ήδη",
 
-  "@ios_style_ui": "UI στυλ iOS",
+  "@transparent_navigation_bar": "Διαφανής γραμμή πλοήγησης",
 
   "@yesterday": "Χθες",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Νέος φάκελος",
 
   "@test_connection": "Δοκιμή σύνδεσης",
-  "@connection_failed": "Αποτυχία σύνδεσης"
+  "@connection_failed": "Αποτυχία σύνδεσης",
+
+  "@locale_label_system": "Σύστημα",
+
+  "@editor_table_insert_text": "Κείμενο",
+  "@editor_table_insert_image": "Εικόνα",
+  "@editor_table_insert_video": "Βίντεο",
+  "@editor_table_insert_date": "Ημερομηνία",
+
+  "@editor_table_add_column_before": "Προσθήκη στήλης πριν",
+  "@editor_table_add_column_after": "Προσθήκη στήλης μετά",
+  "@editor_table_add_row_above": "Προσθήκη γραμμής πάνω",
+  "@editor_table_add_row_below": "Προσθήκη γραμμής κάτω",
+  "@editor_table_delete_column": "Διαγραφή στήλης",
+  "@editor_table_delete_row": "Διαγραφή γραμμής",
+  "@editor_table_clear_cell": "Καθαρισμός κελιού",
+
+  "@editor_calendar_rows_to_show": "Γραμμές προς εμφάνιση",
+  "@editor_calendar_rows_for_date": "Γραμμές για ημερομηνία",
+
+  "@editor_add_image_from_photos": "Φωτογραφίες",
+  "@editor_add_image_from_files": "Αρχεία",
+
+  "@editor_export_note_as_html": "Εξαγωγή ως HTML",
+
+  "@editor_hint_sub_note_title": "Τίτλος",
+
+  "@editor_add_data_page_chart": "Γράφημα",
+  "@editor_add_data_page_calendar": "Ημερολόγιο",
+
+  "@day_name_sunday": "Κυριακή",
+  "@day_name_monday": "Δευτέρα",
+  "@day_name_tuesday": "Τρίτη",
+  "@day_name_wednesday": "Τετάρτη",
+  "@day_name_thursday": "Πέμπτη",
+  "@day_name_friday": "Παρασκευή",
+  "@day_name_saturday": "Σάββατο",
+
+  "@image_action_save": "Αποθήκευση",
+  "@image_action_zoom": "Ζουμ",
+  "@image_action_remove": "Αφαίρεση",
+  "@image_action_resize": "Αλλαγή μεγέθους",
+  "@image_action_share": "Κοινοποίηση",
+  "@image_action_copy": "Αντιγραφή"
+
+
+
+
 
 }

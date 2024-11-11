@@ -24,6 +24,8 @@
   "@welcome": "Добро пожаловать!",
   "@logout": "Выход",
   "@change_password": "Изменить пароль",
+  "@change_username": "Изменить имя",
+  "@remove_user": "Удалить с этого устройства",
 
   "@length": "Длина",
   "@created_date": "Дата создания",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Не хотите сохранить?",
   "@dialog_title_delete_theme": "Вы хотите удалить эту тему?",
   "@dialog_title_delete_color": "Вы хотите удалить этот цвет?",
+  "@dialog_title_delete_selected_notes": "Вы уверены, что хотите удалить эти элементы?",
+  "@dialog_title_remove_user": "Вы хотите удалить пользователя с этого устройства?",
   "@dialog_action_yes": "Да",
   "@dialog_action_no": "Нет",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Пароль",
+  "@hint_confirm_password": "Подтвердите пароль",
+  "@hint_old_password": "Старый пароль",
+  "@hint_username": "Имя пользователя",
   "@hint_folder_name": "Имя папки",
-  "@hint_password_different": "Введенные пароли различны",
-  "@hint_old_password_different": "Старый пароль отличается",
+  "@hint_password_different": "Введенные пароли не совпадают",
+  "@hint_old_password_different": "Старый пароль неверный",
   "@hint_input_id": "Пожалуйста, введите ID",
   "@hint_input_username": "Пожалуйста, введите имя",
   "@hint_input_password": "Пожалуйста, введите пароль",
   "@hint_input_new_password": "Пожалуйста, введите новый пароль",
   "@hint_input_old_password": "Пожалуйста, введите старый пароль",
+  "@id_already_taken": "Этот идентификатор уже используется",
 
-  "@ios_style_ui": "Интерфейс в стиле iOS",
+  "@transparent_navigation_bar": "Прозрачная панель навигации",
 
   "@yesterday": "Вчера",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Новая папка",
 
   "@test_connection": "Проверить соединение",
-  "@connection_failed": "Ошибка соединения"
+  "@connection_failed": "Ошибка соединения",
+
+  "@locale_label_system": "Система",
+
+  "@editor_table_insert_text": "Текст",
+  "@editor_table_insert_image": "Изображение",
+  "@editor_table_insert_video": "Видео",
+  "@editor_table_insert_date": "Дата",
+
+  "@editor_table_add_column_before": "Добавить столбец до",
+  "@editor_table_add_column_after": "Добавить столбец после",
+  "@editor_table_add_row_above": "Добавить строку выше",
+  "@editor_table_add_row_below": "Добавить строку ниже",
+  "@editor_table_delete_column": "Удалить столбец",
+  "@editor_table_delete_row": "Удалить строку",
+  "@editor_table_clear_cell": "Очистить ячейку",
+
+  "@editor_calendar_rows_to_show": "Строки для отображения",
+  "@editor_calendar_rows_for_date": "Строки для даты",
+
+  "@editor_add_image_from_photos": "Фотографии",
+  "@editor_add_image_from_files": "Файлы",
+
+  "@editor_export_note_as_html": "Экспортировать как HTML",
+
+  "@editor_hint_sub_note_title": "Заголовок",
+
+  "@editor_add_data_page_chart": "График",
+  "@editor_add_data_page_calendar": "Календарь",
+
+  "@day_name_sunday": "Воскресенье",
+  "@day_name_monday": "Понедельник",
+  "@day_name_tuesday": "Вторник",
+  "@day_name_wednesday": "Среда",
+  "@day_name_thursday": "Четверг",
+  "@day_name_friday": "Пятница",
+  "@day_name_saturday": "Суббота",
+
+  "@image_action_save": "Сохранить",
+  "@image_action_zoom": "Увеличить",
+  "@image_action_remove": "Удалить",
+  "@image_action_resize": "Изменить размер",
+  "@image_action_share": "Поделиться",
+  "@image_action_copy": "Копировать"
+
+
+
+
 
 }

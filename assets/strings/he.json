@@ -24,6 +24,8 @@
   "@welcome": "ברוך הבא!",
   "@logout": "התנתקות",
   "@change_password": "שינוי סיסמה",
+  "@change_username": "שנה שם",
+  "@remove_user": "הסר מהמכשיר הזה",
 
   "@length": "אורך",
   "@created_date": "תאריך יצירה",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "האם לא תרצה לשמור?",
   "@dialog_title_delete_theme": "האם אתה רוצה למחוק את הנושא הזה?",
   "@dialog_title_delete_color": "האם אתה רוצה למחוק את הצבע הזה?",
+  "@dialog_title_delete_selected_notes": "אתה בטוח שברצונך למחוק את הפריטים האלה?",
+  "@dialog_title_remove_user": "האם ברצונך להסיר את המשתמש מהמכשיר הזה?",
   "@dialog_action_yes": "כן",
   "@dialog_action_no": "לא",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "זיהוי",
   "@hint_password": "סיסמה",
+  "@hint_confirm_password": "אשר סיסמה",
+  "@hint_old_password": "סיסמה ישנה",
+  "@hint_username": "שם משתמש",
   "@hint_folder_name": "שם תיקייה",
-  "@hint_password_different": "הסיסמאות שהוזנו שונות",
-  "@hint_old_password_different": "הסיסמא הישנה שונה",
+  "@hint_password_different": "הסיסמאות שהוזנו אינן תואמות",
+  "@hint_old_password_different": "הסיסמה הישנה שגויה",
   "@hint_input_id": "אנא הזן את מזהה",
   "@hint_input_username": "אנא הזן את השם",
   "@hint_input_password": "אנא הזן את הסיסמה",
   "@hint_input_new_password": "אנא הזן סיסמה חדשה",
   "@hint_input_old_password": "אנא הזן את הסיסמה הישנה",
+  "@id_already_taken": "הזיהוי כבר בשימוש",
 
-  "@ios_style_ui": "ממשק משתמש בסגנון iOS",
+  "@transparent_navigation_bar": "סרט כותרת ניווט שקוף",
 
   "@yesterday": "אתמול",
 
@@ -78,6 +86,53 @@
   "@new_folder": "תיקייה חדשה",
 
   "@test_connection": "בדוק חיבור",
-  "@connection_failed": "חיבור נכשל"
+  "@connection_failed": "חיבור נכשל",
+
+  "@locale_label_system": "מערכת",
+
+  "@editor_table_insert_text": "טקסט",
+  "@editor_table_insert_image": "תמונה",
+  "@editor_table_insert_video": "וידאו",
+  "@editor_table_insert_date": "תאריך",
+
+  "@editor_table_add_column_before": "הוסף עמודה לפני",
+  "@editor_table_add_column_after": "הוסף עמודה אחרי",
+  "@editor_table_add_row_above": "הוסף שורה מעל",
+  "@editor_table_add_row_below": "הוסף שורה מתחת",
+  "@editor_table_delete_column": "מחק עמודה",
+  "@editor_table_delete_row": "מחק שורה",
+  "@editor_table_clear_cell": "נקה תא",
+
+  "@editor_calendar_rows_to_show": "שורות להצגה",
+  "@editor_calendar_rows_for_date": "שורות לתאריך",
+
+  "@editor_add_image_from_photos": "תמונות",
+  "@editor_add_image_from_files": "קבצים",
+
+  "@editor_export_note_as_html": "ייצא כ-HTML",
+
+  "@editor_hint_sub_note_title": "כותרת",
+
+  "@editor_add_data_page_chart": "תרשים",
+  "@editor_add_data_page_calendar": "לוח שנה",
+
+  "@day_name_sunday": "ראשון",
+  "@day_name_monday": "שני",
+  "@day_name_tuesday": "שלישי",
+  "@day_name_wednesday": "רביעי",
+  "@day_name_thursday": "חמישי",
+  "@day_name_friday": "שישי",
+  "@day_name_saturday": "שבת",
+
+  "@image_action_save": "שמור",
+  "@image_action_zoom": "זום",
+  "@image_action_remove": "הסרה",
+  "@image_action_resize": "שנה גודל",
+  "@image_action_share": "שתף",
+  "@image_action_copy": "העתק"
+
+
+
+
 
 }

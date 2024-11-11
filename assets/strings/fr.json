@@ -24,6 +24,8 @@
   "@welcome": "Bienvenue!",
   "@logout": "Déconnexion",
   "@change_password": "Changer le mot de passe",
+  "@change_username": "Changer le nom",
+  "@remove_user": "Supprimer de cet appareil",
 
   "@length": "Longueur",
   "@created_date": "Date de création",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Ne voulez-vous pas enregistrer?",
   "@dialog_title_delete_theme": "Voulez-vous supprimer ce thème ?",
   "@dialog_title_delete_color": "Voulez-vous supprimer cette couleur ?",
+  "@dialog_title_delete_selected_notes": "Êtes-vous sûr de vouloir supprimer ces éléments ?",
+  "@dialog_title_remove_user": "Voulez-vous supprimer l'utilisateur de cet appareil ?",
   "@dialog_action_yes": "Oui",
   "@dialog_action_no": "Non",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Mot de passe",
+  "@hint_confirm_password": "Confirmer le mot de passe",
+  "@hint_old_password": "Ancien mot de passe",
+  "@hint_username": "Nom d'utilisateur",
   "@hint_folder_name": "Nom du dossier",
-  "@hint_password_different": "Les mots de passe saisis sont différents",
-  "@hint_old_password_different": "L'ancien mot de passe est différent",
+  "@hint_password_different": "Les mots de passe saisis ne correspondent pas",
+  "@hint_old_password_different": "L'ancien mot de passe est incorrect",
   "@hint_input_id": "Veuillez entrer l'ID",
   "@hint_input_username": "Veuillez entrer le nom",
   "@hint_input_password": "Veuillez entrer le mot de passe",
   "@hint_input_new_password": "Veuillez entrer un nouveau mot de passe",
   "@hint_input_old_password": "Veuillez entrer l'ancien mot de passe",
+  "@id_already_taken": "L'identifiant est déjà utilisé",
 
-  "@ios_style_ui": "Interface utilisateur de style iOS",
+  "@transparent_navigation_bar": "Barre de navigation transparente",
 
   "@yesterday": "Hier",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Nouveau dossier",
 
   "@test_connection": "Tester la connexion",
-  "@connection_failed": "Échec de la connexion"
+  "@connection_failed": "Échec de la connexion",
+
+  "@locale_label_system": "Système",
+
+  "@editor_table_insert_text": "Texte",
+  "@editor_table_insert_image": "Image",
+  "@editor_table_insert_video": "Vidéo",
+  "@editor_table_insert_date": "Date",
+
+  "@editor_table_add_column_before": "Ajouter une colonne avant",
+  "@editor_table_add_column_after": "Ajouter une colonne après",
+  "@editor_table_add_row_above": "Ajouter une ligne au-dessus",
+  "@editor_table_add_row_below": "Ajouter une ligne en dessous",
+  "@editor_table_delete_column": "Supprimer la colonne",
+  "@editor_table_delete_row": "Supprimer la ligne",
+  "@editor_table_clear_cell": "Effacer la cellule",
+
+  "@editor_calendar_rows_to_show": "Lignes à afficher",
+  "@editor_calendar_rows_for_date": "Lignes pour la date",
+
+  "@editor_add_image_from_photos": "Photos",
+  "@editor_add_image_from_files": "Fichiers",
+
+  "@editor_export_note_as_html": "Exporter en HTML",
+
+  "@editor_hint_sub_note_title": "Titre",
+
+  "@editor_add_data_page_chart": "Graphique",
+  "@editor_add_data_page_calendar": "Calendrier",
+
+  "@day_name_sunday": "Dimanche",
+  "@day_name_monday": "Lundi",
+  "@day_name_tuesday": "Mardi",
+  "@day_name_wednesday": "Mercredi",
+  "@day_name_thursday": "Jeudi",
+  "@day_name_friday": "Vendredi",
+  "@day_name_saturday": "Samedi",
+
+  "@image_action_save": "Sauvegarder",
+  "@image_action_zoom": "Zoom",
+  "@image_action_remove": "Supprimer",
+  "@image_action_resize": "Redimensionner",
+  "@image_action_share": "Partager",
+  "@image_action_copy": "Copier"
+
+
+
+
 
 }

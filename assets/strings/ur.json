@@ -24,6 +24,8 @@
   "@welcome": "خوش آمدید!",
   "@logout": "لاگ آؤٹ",
   "@change_password": "پاس ورڈ تبدیل کریں",
+  "@change_username": "نام تبدیل کریں",
+  "@remove_user": "اس ڈیوائس سے ہٹائیں",
 
   "@length": "لمبائی",
   "@created_date": "تاریخ تخلیق",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "کیا آپ محفوظ نہیں کرنا چاہتے؟",
   "@dialog_title_delete_theme": "کیا آپ اس تھیم کو حذف کرنا چاہتے ہیں؟",
   "@dialog_title_delete_color": "کیا آپ اس رنگ کو حذف کرنا چاہتے ہیں؟",
+  "@dialog_title_delete_selected_notes": "کیا آپ کو یقین ہے کہ آپ ان اشیاء کو حذف کرنا چاہتے ہیں؟",
+  "@dialog_title_remove_user": "کیا آپ اس ڈیوائس سے صارف کو ہٹانا چاہتے ہیں؟",
   "@dialog_action_yes": "جی ہاں",
   "@dialog_action_no": "نہیں",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "شناختی نمبر",
   "@hint_password": "پاس ورڈ",
-  "@hint_folder_name": "پوشہ کا نام",
-  "@hint_password_different": "درج کردہ پاس ورڈ مختلف ہیں",
-  "@hint_old_password_different": "پرانی پاس ورڈ مختلف ہے",
+  "@hint_confirm_password": "پاسورڈ کی تصدیق کریں",
+  "@hint_old_password": "پرانا پاسورڈ",
+  "@hint_username": "صارف کا نام",
+  "@hint_folder_name": "فولڈر کا نام",
+  "@hint_password_different": "داخل کردہ پاسورڈ میل نہیں کھاتے",
+  "@hint_old_password_different": "پرانا پاسورڈ غلط ہے",
   "@hint_input_id": "براہ کرم ID درج کریں",
   "@hint_input_username": "براہ کرم نام درج کریں",
   "@hint_input_password": "براہ کرم پاس ورڈ درج کریں",
   "@hint_input_new_password": "براہ کرم نیا پاس ورڈ درج کریں",
   "@hint_input_old_password": "براہ کرم پرانی پاس ورڈ درج کریں",
+  "@id_already_taken": "شناخت پہلے ہی لی جا چکی ہے",
 
-  "@ios_style_ui": "آئی او ایس اسٹائل یوزر انٹرفیس",
+  "@transparent_navigation_bar": "شفاف نیویگیشن بار",
 
   "@yesterday": "کل",
 
@@ -78,6 +86,53 @@
   "@new_folder": "نیا فولڈر",
 
   "@test_connection": "کنکشن ٹیسٹ کریں",
-  "@connection_failed": "کنکشن ناکام"
+  "@connection_failed": "کنکشن ناکام",
+
+  "@locale_label_system": "سسٹم",
+
+  "@editor_table_insert_text": "متن",
+  "@editor_table_insert_image": "تصویر",
+  "@editor_table_insert_video": "ویڈیو",
+  "@editor_table_insert_date": "تاریخ",
+
+  "@editor_table_add_column_before": "کالم پہلے شامل کریں",
+  "@editor_table_add_column_after": "کالم بعد میں شامل کریں",
+  "@editor_table_add_row_above": "اوپر صف شامل کریں",
+  "@editor_table_add_row_below": "نیچے صف شامل کریں",
+  "@editor_table_delete_column": "کالم حذف کریں",
+  "@editor_table_delete_row": "صف حذف کریں",
+  "@editor_table_clear_cell": "سیل صاف کریں",
+
+  "@editor_calendar_rows_to_show": "دکھانے کے لئے قطاریں",
+  "@editor_calendar_rows_for_date": "تاریخ کے لئے قطاریں",
+
+  "@editor_add_image_from_photos": "تصاویر",
+  "@editor_add_image_from_files": "فائلیں",
+
+  "@editor_export_note_as_html": "HTML کے طور پر برآمد کریں",
+
+  "@editor_hint_sub_note_title": "عنوان",
+
+  "@editor_add_data_page_chart": "چارٹ",
+  "@editor_add_data_page_calendar": "کیلنڈر",
+
+  "@day_name_sunday": "اتوار",
+  "@day_name_monday": "پیر",
+  "@day_name_tuesday": "منگل",
+  "@day_name_wednesday": "بدھ",
+  "@day_name_thursday": "جمعرات",
+  "@day_name_friday": "جمعہ",
+  "@day_name_saturday": "ہفتہ",
+
+  "@image_action_save": "محفوظ کریں",
+  "@image_action_zoom": "زوم کریں",
+  "@image_action_remove": "ہٹائیں",
+  "@image_action_resize": "سائز تبدیل کریں",
+  "@image_action_share": "شیئر کریں",
+  "@image_action_copy": "کاپی کریں"
+
+
+
+
 
 }

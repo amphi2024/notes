@@ -24,6 +24,8 @@
   "@welcome": "Hoş geldiniz!",
   "@logout": "Çıkış Yap",
   "@change_password": "Şifre Değiştir",
+  "@change_username": "Adı değiştir",
+  "@remove_user": "Bu cihazdan kaldır",
 
   "@length": "Uzunluk",
   "@created_date": "Oluşturulma Tarihi",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Kaydetmek istemiyor musunuz?",
   "@dialog_title_delete_theme": "Bu temayı silmek istiyor musunuz?",
   "@dialog_title_delete_color": "Bu rengi silmek istiyor musunuz?",
+  "@dialog_title_delete_selected_notes": "Bu öğeleri silmek istediğinizden emin misiniz?",
+  "@dialog_title_remove_user": "Bu cihazdan kullanıcıyı kaldırmak istiyor musunuz?",
   "@dialog_action_yes": "Evet",
   "@dialog_action_no": "Hayır",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "id",
   "@hint_password": "şifre",
-  "@hint_folder_name": "Klasör Adı",
-  "@hint_password_different": "Girilen şifreler farklı",
-  "@hint_old_password_different": "Eski şifre farklı",
+  "@hint_confirm_password": "Şifreyi onayla",
+  "@hint_old_password": "Eski şifre",
+  "@hint_username": "Kullanıcı adı",
+  "@hint_folder_name": "Klasör adı",
+  "@hint_password_different": "Girilen şifreler uyuşmuyor",
+  "@hint_old_password_different": "Eski şifre yanlış",
   "@hint_input_id": "Lütfen ID girin",
   "@hint_input_username": "Lütfen adı girin",
   "@hint_input_password": "Lütfen şifreyi girin",
   "@hint_input_new_password": "Lütfen yeni şifreyi girin",
   "@hint_input_old_password": "Lütfen eski şifreyi girin",
+  "@id_already_taken": "Bu ID zaten kullanılıyor",
 
-  "@ios_style_ui": "Ios tarzı arayüz",
+  "@transparent_navigation_bar": "Şeffaf navigasyon çubuğu",
 
   "@yesterday": "Dün",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Yeni Klasör",
 
   "@test_connection": "Bağlantıyı Test Et",
-  "@connection_failed": "Bağlantı Başarısız"
+  "@connection_failed": "Bağlantı Başarısız",
+
+  "@locale_label_system": "Sistem",
+
+  "@editor_table_insert_text": "Metin",
+  "@editor_table_insert_image": "Resim",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Tarih",
+
+  "@editor_table_add_column_before": "Sütun Öncesi Ekle",
+  "@editor_table_add_column_after": "Sütun Sonrası Ekle",
+  "@editor_table_add_row_above": "Satır Üstüne Ekle",
+  "@editor_table_add_row_below": "Satır Altına Ekle",
+  "@editor_table_delete_column": "Sütun Sil",
+  "@editor_table_delete_row": "Satır Sil",
+  "@editor_table_clear_cell": "Hücreyi Temizle",
+
+  "@editor_calendar_rows_to_show": "Gösterilecek Satırlar",
+  "@editor_calendar_rows_for_date": "Tarih İçin Satırlar",
+
+  "@editor_add_image_from_photos": "Fotoğraflar",
+  "@editor_add_image_from_files": "Dosyalar",
+
+  "@editor_export_note_as_html": "HTML olarak dışa aktar",
+
+  "@editor_hint_sub_note_title": "Başlık",
+
+  "@editor_add_data_page_chart": "Grafik",
+  "@editor_add_data_page_calendar": "Takvim",
+
+  "@day_name_sunday": "Pazar",
+  "@day_name_monday": "Pazartesi",
+  "@day_name_tuesday": "Salı",
+  "@day_name_wednesday": "Çarşamba",
+  "@day_name_thursday": "Perşembe",
+  "@day_name_friday": "Cuma",
+  "@day_name_saturday": "Cumartesi",
+
+  "@image_action_save": "Kaydet",
+  "@image_action_zoom": "Yakınlaştır",
+  "@image_action_remove": "Kaldır",
+  "@image_action_resize": "Boyutu değiştir",
+  "@image_action_share": "Paylaş",
+  "@image_action_copy": "Kopyala"
+
+
+
+
 
 }

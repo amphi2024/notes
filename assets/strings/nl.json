@@ -24,6 +24,8 @@
   "@welcome": "Welkom!",
   "@logout": "Uitloggen",
   "@change_password": "Wachtwoord wijzigen",
+  "@change_username": "Tukar nama",
+  "@remove_user": "Buang dari peranti ini",
 
   "@length": "Lengte",
   "@created_date": "Aanmaakdatum",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Wil je niet opslaan?",
   "@dialog_title_delete_theme": "Wilt u dit thema verwijderen?",
   "@dialog_title_delete_color": "Wilt u deze kleur verwijderen?",
+  "@dialog_title_delete_selected_notes": "Weet je zeker dat je deze items wilt verwijderen?",
+  "@dialog_title_remove_user": "Wilt u de gebruiker van dit apparaat verwijderen?",
   "@dialog_action_yes": "Ja",
   "@dialog_action_no": "Nee",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "id",
   "@hint_password": "wachtwoord",
+  "@hint_confirm_password": "Bevestig wachtwoord",
+  "@hint_old_password": "Oud wachtwoord",
+  "@hint_username": "Gebruikersnaam",
   "@hint_folder_name": "Mapnaam",
-  "@hint_password_different": "De ingevoerde wachtwoorden zijn verschillend",
-  "@hint_old_password_different": "Het oude wachtwoord is anders",
+  "@hint_password_different": "De ingevoerde wachtwoorden komen niet overeen",
+  "@hint_old_password_different": "Het oude wachtwoord is onjuist",
   "@hint_input_id": "Voer alstublieft de ID in",
   "@hint_input_username": "Voer alstublieft de naam in",
   "@hint_input_password": "Voer alstublieft het wachtwoord in",
   "@hint_input_new_password": "Voer alstublieft een nieuw wachtwoord in",
   "@hint_input_old_password": "Voer alstublieft het oude wachtwoord in",
+  "@id_already_taken": "De ID is al in gebruik",
 
-  "@ios_style_ui": "iOS-stijl UI",
+  "@transparent_navigation_bar": "Transparante navigatiebalk",
 
   "@yesterday": "Gisteren",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Nieuwe Map",
 
   "@test_connection": "Verbinding Testen",
-  "@connection_failed": "Verbinding Mislukt"
+  "@connection_failed": "Verbinding Mislukt",
+
+  "@locale_label_system": "Systeem",
+
+  "@editor_table_insert_text": "Tekst",
+  "@editor_table_insert_image": "Afbeelding",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Datum",
+
+  "@editor_table_add_column_before": "Kolom Vooraf Toevoegen",
+  "@editor_table_add_column_after": "Kolom Na Toevoegen",
+  "@editor_table_add_row_above": "Rij Boven Toevoegen",
+  "@editor_table_add_row_below": "Rij Onder Toevoegen",
+  "@editor_table_delete_column": "Kolom Verwijderen",
+  "@editor_table_delete_row": "Rij Verwijderen",
+  "@editor_table_clear_cell": "Cel Wissen",
+
+  "@editor_calendar_rows_to_show": "Rijen weergeven",
+  "@editor_calendar_rows_for_date": "Rijen voor datum",
+
+  "@editor_add_image_from_photos": "Foto's",
+  "@editor_add_image_from_files": "Bestanden",
+
+  "@editor_export_note_as_html": "Exporteren als HTML",
+
+  "@editor_hint_sub_note_title": "Titel",
+
+  "@editor_add_data_page_chart": "Grafiek",
+  "@editor_add_data_page_calendar": "Kalender",
+
+  "@day_name_sunday": "Zondag",
+  "@day_name_monday": "Maandag",
+  "@day_name_tuesday": "Dinsdag",
+  "@day_name_wednesday": "Woensdag",
+  "@day_name_thursday": "Donderdag",
+  "@day_name_friday": "Vrijdag",
+  "@day_name_saturday": "Zaterdag",
+
+  "@image_action_save": "Opslaan",
+  "@image_action_zoom": "Inzoomen",
+  "@image_action_remove": "Verwijderen",
+  "@image_action_resize": "Grootte wijzigen",
+  "@image_action_share": "Delen",
+  "@image_action_copy": "Kopiëren"
+
+
+
+
 
 }

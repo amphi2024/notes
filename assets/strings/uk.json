@@ -24,6 +24,8 @@
   "@welcome": "Ласкаво просимо!",
   "@logout": "Вийти",
   "@change_password": "Змінити пароль",
+  "@change_username": "Змінити ім'я",
+  "@remove_user": "Видалити з цього пристрою",
 
   "@length": "Довжина",
   "@created_date": "Дата створення",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Ви не хочете зберегти?",
   "@dialog_title_delete_theme": "Ви хочете видалити цю тему?",
   "@dialog_title_delete_color": "Ви хочете видалити цей колір?",
+  "@dialog_title_delete_selected_notes": "Ви впевнені, що хочете видалити ці елементи?",
+  "@dialog_title_remove_user": "Ви хочете видалити користувача з цього пристрою?",
   "@dialog_action_yes": "Так",
   "@dialog_action_no": "Ні",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ідентифікатор",
   "@hint_password": "пароль",
+  "@hint_confirm_password": "Підтвердьте пароль",
+  "@hint_old_password": "Старий пароль",
+  "@hint_username": "Ім'я користувача",
   "@hint_folder_name": "Назва папки",
-  "@hint_password_different": "Введені паролі різні",
-  "@hint_old_password_different": "Стара пароль інша",
+  "@hint_password_different": "Введені паролі не співпадають",
+  "@hint_old_password_different": "Старий пароль неправильний",
   "@hint_input_id": "Будь ласка, введіть ID",
   "@hint_input_username": "Будь ласка, введіть ім'я",
   "@hint_input_password": "Будь ласка, введіть пароль",
   "@hint_input_new_password": "Будь ласка, введіть новий пароль",
   "@hint_input_old_password": "Будь ласка, введіть старий пароль",
+  "@id_already_taken": "Ідентифікатор вже використовується",
 
-  "@ios_style_ui": "Інтерфейс у стилі iOS",
+  "@transparent_navigation_bar": "Прозора панель навігації",
 
   "@yesterday": "Вчора",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Нова папка",
 
   "@test_connection": "Перевірити з'єднання",
-  "@connection_failed": "З'єднання не вдалося"
+  "@connection_failed": "З'єднання не вдалося",
+
+  "@locale_label_system": "Система",
+
+  "@editor_table_insert_text": "Текст",
+  "@editor_table_insert_image": "Зображення",
+  "@editor_table_insert_video": "Відео",
+  "@editor_table_insert_date": "Дата",
+
+  "@editor_table_add_column_before": "Додати стовпець перед",
+  "@editor_table_add_column_after": "Додати стовпець після",
+  "@editor_table_add_row_above": "Додати рядок зверху",
+  "@editor_table_add_row_below": "Додати рядок знизу",
+  "@editor_table_delete_column": "Видалити стовпець",
+  "@editor_table_delete_row": "Видалити рядок",
+  "@editor_table_clear_cell": "Очистити комірку",
+
+  "@editor_calendar_rows_to_show": "Рядки для відображення",
+  "@editor_calendar_rows_for_date": "Рядки для дати",
+
+  "@editor_add_image_from_photos": "Фотографії",
+  "@editor_add_image_from_files": "Файли",
+
+  "@editor_export_note_as_html": "Експортувати як HTML",
+
+  "@editor_hint_sub_note_title": "Заголовок",
+
+  "@editor_add_data_page_chart": "Графік",
+  "@editor_add_data_page_calendar": "Календар",
+
+  "@day_name_sunday": "Неділя",
+  "@day_name_monday": "Понеділок",
+  "@day_name_tuesday": "Вівторок",
+  "@day_name_wednesday": "Середа",
+  "@day_name_thursday": "Четвер",
+  "@day_name_friday": "П’ятниця",
+  "@day_name_saturday": "Субота",
+
+  "@image_action_save": "Зберегти",
+  "@image_action_zoom": "Масштабувати",
+  "@image_action_remove": "Видалити",
+  "@image_action_resize": "Змінити розмір",
+  "@image_action_share": "Поділитися",
+  "@image_action_copy": "Копіювати"
+
+
+
+
 
 }

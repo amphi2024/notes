@@ -24,6 +24,8 @@
   "@welcome": "Tervetuloa!",
   "@logout": "Kirjaudu ulos",
   "@change_password": "Vaihda salasana",
+  "@change_username": "Vaihda nimi",
+  "@remove_user": "Poista tästä laitteesta",
 
   "@length": "Pituus",
   "@created_date": "Luontipäivä",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Et halua tallentaa?",
   "@dialog_title_delete_theme": "Haluatko poistaa tämän teeman?",
   "@dialog_title_delete_color": "Haluatko poistaa tämän värin?",
+  "@dialog_title_delete_selected_notes": "Oletko varma, että haluat poistaa nämä kohteet?",
+  "@dialog_title_remove_user": "Haluatko poistaa käyttäjän tästä laitteesta?",
   "@dialog_action_yes": "Kyllä",
   "@dialog_action_no": "Ei",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Salasana",
+  "@hint_confirm_password": "Vahvista salasana",
+  "@hint_old_password": "Vanha salasana",
+  "@hint_username": "Käyttäjänimi",
   "@hint_folder_name": "Kansion nimi",
-  "@hint_password_different": "Syötetyt salasanat ovat erilaiset",
-  "@hint_old_password_different": "Vanha salasana on erilainen",
+  "@hint_password_different": "Syötetyt salasanat eivät täsmää",
+  "@hint_old_password_different": "Vanha salasana on virheellinen",
   "@hint_input_id": "Ole hyvä ja syötä ID",
   "@hint_input_username": "Ole hyvä ja syötä nimi",
   "@hint_input_password": "Ole hyvä ja syötä salasana",
   "@hint_input_new_password": "Ole hyvä ja syötä uusi salasana",
   "@hint_input_old_password": "Ole hyvä ja syötä vanha salasana",
+  "@id_already_taken": "Tunnus on jo käytössä",
 
-  "@ios_style_ui": "iOS-tyylinen käyttöliittymä",
+  "@transparent_navigation_bar": "Läpinäkyvä navigointipalkki",
 
   "@yesterday": "Eilen",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Uusi kansio",
 
   "@test_connection": "Testaa yhteys",
-  "@connection_failed": "Yhteys epäonnistui"
+  "@connection_failed": "Yhteys epäonnistui",
+
+  "@locale_label_system": "Järjestelmä",
+
+  "@editor_table_insert_text": "Teksti",
+  "@editor_table_insert_image": "Kuva",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Päivämäärä",
+
+  "@editor_table_add_column_before": "Lisää sarake ennen",
+  "@editor_table_add_column_after": "Lisää sarake jälkeen",
+  "@editor_table_add_row_above": "Lisää rivi yläpuolelle",
+  "@editor_table_add_row_below": "Lisää rivi alapuolelle",
+  "@editor_table_delete_column": "Poista sarake",
+  "@editor_table_delete_row": "Poista rivi",
+  "@editor_table_clear_cell": "Tyhjennä solu",
+
+  "@editor_calendar_rows_to_show": "Näytettävät rivit",
+  "@editor_calendar_rows_for_date": "Rivit päivämäärälle",
+
+  "@editor_add_image_from_photos": "Valokuvat",
+  "@editor_add_image_from_files": "Tiedostot",
+
+  "@editor_export_note_as_html": "Viedä HTML-muodossa",
+
+  "@editor_hint_sub_note_title": "Otsikko",
+
+  "@editor_add_data_page_chart": "Kaavio",
+  "@editor_add_data_page_calendar": "Kalenteri",
+
+  "@day_name_sunday": "Sunnuntai",
+  "@day_name_monday": "Maanantai",
+  "@day_name_tuesday": "Tiistai",
+  "@day_name_wednesday": "Keskiviikko",
+  "@day_name_thursday": "Torstai",
+  "@day_name_friday": "Perjantai",
+  "@day_name_saturday": "Lauantai",
+
+  "@image_action_save": "Tallenna",
+  "@image_action_zoom": "Zoom",
+  "@image_action_remove": "Poista",
+  "@image_action_resize": "Muuta kokoa",
+  "@image_action_share": "Jaa",
+  "@image_action_copy": "Kopioi"
+
+
+
+
 
 }

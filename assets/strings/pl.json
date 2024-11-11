@@ -24,6 +24,8 @@
   "@welcome": "Witamy!",
   "@logout": "Wyloguj się",
   "@change_password": "Zmień hasło",
+  "@change_username": "Zmień nazwę",
+  "@remove_user": "Usuń z tego urządzenia",
 
   "@length": "Długość",
   "@created_date": "Data utworzenia",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Czy nie chcesz zapisać?",
   "@dialog_title_delete_theme": "Czy chcesz usunąć ten motyw?",
   "@dialog_title_delete_color": "Czy chcesz usunąć ten kolor?",
+  "@dialog_title_delete_selected_notes": "Czy na pewno chcesz usunąć te elementy?",
+  "@dialog_title_remove_user": "Czy chcesz usunąć użytkownika z tego urządzenia?",
   "@dialog_action_yes": "Tak",
   "@dialog_action_no": "Nie",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Hasło",
+  "@hint_confirm_password": "Potwierdź hasło",
+  "@hint_old_password": "Stare hasło",
+  "@hint_username": "Nazwa użytkownika",
   "@hint_folder_name": "Nazwa folderu",
-  "@hint_password_different": "Wprowadzone hasła są różne",
-  "@hint_old_password_different": "Stare hasło jest inne",
+  "@hint_password_different": "Wprowadzone hasła nie pasują",
+  "@hint_old_password_different": "Stare hasło jest niepoprawne",
   "@hint_input_id": "Proszę wpisać ID",
   "@hint_input_username": "Proszę wpisać imię",
   "@hint_input_password": "Proszę wpisać hasło",
   "@hint_input_new_password": "Proszę wpisać nowe hasło",
   "@hint_input_old_password": "Proszę wpisać stare hasło",
+  "@id_already_taken": "ID jest już używane",
 
-  "@ios_style_ui": "Interfejs w stylu iOS",
+  "@transparent_navigation_bar": "Przezroczysty pasek nawigacyjny",
 
   "@yesterday": "Wczoraj",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Nowy folder",
 
   "@test_connection": "Przetestuj połączenie",
-  "@connection_failed": "Nie udało się połączyć"
+  "@connection_failed": "Nie udało się połączyć",
+
+  "@locale_label_system": "System",
+
+  "@editor_table_insert_text": "Tekst",
+  "@editor_table_insert_image": "Obraz",
+  "@editor_table_insert_video": "Wideo",
+  "@editor_table_insert_date": "Data",
+
+  "@editor_table_add_column_before": "Dodaj kolumnę przed",
+  "@editor_table_add_column_after": "Dodaj kolumnę po",
+  "@editor_table_add_row_above": "Dodaj wiersz powyżej",
+  "@editor_table_add_row_below": "Dodaj wiersz poniżej",
+  "@editor_table_delete_column": "Usuń kolumnę",
+  "@editor_table_delete_row": "Usuń wiersz",
+  "@editor_table_clear_cell": "Wyczyść komórkę",
+
+  "@editor_calendar_rows_to_show": "Wiersze do wyświetlenia",
+  "@editor_calendar_rows_for_date": "Wiersze dla daty",
+
+  "@editor_add_image_from_photos": "Zdjęcia",
+  "@editor_add_image_from_files": "Pliki",
+
+  "@editor_export_note_as_html": "Eksportuj jako HTML",
+
+  "@editor_hint_sub_note_title": "Tytuł",
+
+  "@editor_add_data_page_chart": "Wykres",
+  "@editor_add_data_page_calendar": "Kalendarz",
+
+  "@day_name_sunday": "Niedziela",
+  "@day_name_monday": "Poniedziałek",
+  "@day_name_tuesday": "Wtorek",
+  "@day_name_wednesday": "Środa",
+  "@day_name_thursday": "Czwartek",
+  "@day_name_friday": "Piątek",
+  "@day_name_saturday": "Sobota",
+
+  "@image_action_save": "Zapisz",
+  "@image_action_zoom": "Powiększ",
+  "@image_action_remove": "Usuń",
+  "@image_action_resize": "Zmień rozmiar",
+  "@image_action_share": "Udostępnij",
+  "@image_action_copy": "Kopiuj"
+
+
+
+
 
 }

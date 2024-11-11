@@ -24,6 +24,8 @@
   "@welcome": "Benvenuto!",
   "@logout": "Disconnettersi",
   "@change_password": "Cambia la password",
+  "@change_username": "Cambia nome",
+  "@remove_user": "Rimuovi da questo dispositivo",
 
   "@length": "Lunghezza",
   "@created_date": "Data di creazione",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Non vuoi salvare?",
   "@dialog_title_delete_theme": "Vuoi eliminare questo tema?",
   "@dialog_title_delete_color": "Vuoi eliminare questo colore?",
+  "@dialog_title_delete_selected_notes": "Sei sicuro di voler eliminare questi elementi?",
+  "@dialog_title_remove_user": "Vuoi rimuovere l'utente da questo dispositivo?",
   "@dialog_action_yes": "Sì",
   "@dialog_action_no": "No",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Password",
+  "@hint_confirm_password": "Conferma la password",
+  "@hint_old_password": "Password precedente",
+  "@hint_username": "Nome utente",
   "@hint_folder_name": "Nome della cartella",
-  "@hint_password_different": "Le password inserite sono diverse",
-  "@hint_old_password_different": "La vecchia password è diversa",
+  "@hint_password_different": "Le password inserite non corrispondono",
+  "@hint_old_password_different": "La password precedente è errata",
   "@hint_input_id": "Si prega di inserire l'ID",
   "@hint_input_username": "Si prega di inserire il nome",
   "@hint_input_password": "Si prega di inserire la password",
   "@hint_input_new_password": "Si prega di inserire una nuova password",
   "@hint_input_old_password": "Si prega di inserire la vecchia password",
+  "@id_already_taken": "L'ID è già in uso",
 
-  "@ios_style_ui": "Interfaccia stile iOS",
+  "@transparent_navigation_bar": "Barra di navigazione trasparente",
 
   "@yesterday": "Ieri",
 
@@ -78,6 +86,50 @@
   "@new_folder": "Nuova Cartella",
 
   "@test_connection": "Testa Connessione",
-  "@connection_failed": "Connessione Fallita"
+  "@connection_failed": "Connessione Fallita",
+
+  "@locale_label_system": "Sistema",
+
+  "@editor_table_insert_text": "Testo",
+  "@editor_table_insert_image": "Immagine",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Data",
+
+  "@editor_table_add_column_before": "Aggiungi colonna prima",
+  "@editor_table_add_column_after": "Aggiungi colonna dopo",
+  "@editor_table_add_row_above": "Aggiungi riga sopra",
+  "@editor_table_add_row_below": "Aggiungi riga sotto",
+  "@editor_table_delete_column": "Elimina colonna",
+  "@editor_table_delete_row": "Elimina riga",
+  "@editor_table_clear_cell": "Cancella cella",
+
+  "@editor_calendar_rows_to_show": "Righe da visualizzare",
+  "@editor_calendar_rows_for_date": "Righe per data",
+
+  "@editor_add_image_from_photos": "Foto",
+  "@editor_add_image_from_files": "File",
+
+  "@editor_export_note_as_html": "Esporta come HTML",
+
+  "@editor_hint_sub_note_title": "Titolo",
+
+  "@editor_add_data_page_chart": "Grafico",
+  "@editor_add_data_page_calendar": "Calendario",
+
+  "@day_name_sunday": "Domenica",
+  "@day_name_monday": "Lunedì",
+  "@day_name_tuesday": "Martedì",
+  "@day_name_wednesday": "Mercoledì",
+  "@day_name_thursday": "Giovedì",
+  "@day_name_friday": "Venerdì",
+  "@day_name_saturday": "Sabato",
+
+  "@image_action_save": "Salva",
+  "@image_action_zoom": "Zoom",
+  "@image_action_remove": "Rimuovi",
+  "@image_action_resize": "Ridimensiona",
+  "@image_action_share": "Condividi",
+  "@image_action_copy": "Copia"
+
 
 }

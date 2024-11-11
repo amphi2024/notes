@@ -24,6 +24,8 @@
   "@welcome": "Selamat datang!",
   "@logout": "Keluar",
   "@change_password": "Ganti kata sandi",
+  "@change_username": "Ubah nama",
+  "@remove_user": "Hapus dari perangkat ini",
 
   "@length": "Panjang",
   "@created_date": "Tanggal dibuat",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Apakah Anda tidak ingin menyimpan?",
   "@dialog_title_delete_theme": "Apakah Anda ingin menghapus tema ini?",
   "@dialog_title_delete_color": "Apakah Anda ingin menghapus warna ini?",
+  "@dialog_title_delete_selected_notes": "Apakah Anda yakin ingin menghapus item ini?",
+  "@dialog_title_remove_user": "Apakah Anda ingin menghapus pengguna dari perangkat ini?",
   "@dialog_action_yes": "Ya",
   "@dialog_action_no": "Tidak",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "id",
   "@hint_password": "kata sandi",
+  "@hint_confirm_password": "Konfirmasi kata sandi",
+  "@hint_old_password": "Kata sandi lama",
+  "@hint_username": "Nama pengguna",
   "@hint_folder_name": "Nama folder",
-  "@hint_password_different": "Kata sandi yang dimasukkan berbeda",
-  "@hint_old_password_different": "Kata sandi lama berbeda",
+  "@hint_password_different": "Kata sandi yang dimasukkan tidak cocok",
+  "@hint_old_password_different": "Kata sandi lama salah",
   "@hint_input_id": "Silakan masukkan ID",
   "@hint_input_username": "Silakan masukkan nama",
   "@hint_input_password": "Silakan masukkan kata sandi",
   "@hint_input_new_password": "Silakan masukkan kata sandi baru",
   "@hint_input_old_password": "Silakan masukkan kata sandi lama",
+  "@id_already_taken": "ID sudah digunakan",
 
-  "@ios_style_ui": "UI gaya iOS",
+  "@transparent_navigation_bar": "Bar Navigasi Transparan",
 
   "@yesterday": "Kemarin",
 
@@ -78,6 +86,51 @@
   "@new_folder": "Folder Baru",
 
   "@test_connection": "Uji Koneksi",
-  "@connection_failed": "Koneksi Gagal"
+  "@connection_failed": "Koneksi Gagal",
+
+  "@locale_label_system": "Sistem",
+
+  "@editor_table_insert_text": "Teks",
+  "@editor_table_insert_image": "Gambar",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Tanggal",
+
+  "@editor_table_add_column_before": "Tambah Kolom Sebelum",
+  "@editor_table_add_column_after": "Tambah Kolom Setelah",
+  "@editor_table_add_row_above": "Tambah Baris Di Atas",
+  "@editor_table_add_row_below": "Tambah Baris Di Bawah",
+  "@editor_table_delete_column": "Hapus Kolom",
+  "@editor_table_delete_row": "Hapus Baris",
+  "@editor_table_clear_cell": "Hapus Sel",
+
+  "@editor_calendar_rows_to_show": "Baris untuk Ditampilkan",
+  "@editor_calendar_rows_for_date": "Baris untuk Tanggal",
+
+  "@editor_add_image_from_photos": "Foto",
+  "@editor_add_image_from_files": "Berkas",
+
+  "@editor_export_note_as_html": "Ekspor sebagai HTML",
+
+  "@editor_hint_sub_note_title": "Judul",
+
+  "@editor_add_data_page_chart": "Grafik",
+  "@editor_add_data_page_calendar": "Kalender",
+
+  "@day_name_sunday": "Minggu",
+  "@day_name_monday": "Senin",
+  "@day_name_tuesday": "Selasa",
+  "@day_name_wednesday": "Rabu",
+  "@day_name_thursday": "Kamis",
+  "@day_name_friday": "Jumat",
+  "@day_name_saturday": "Sabtu",
+
+  "@image_action_save": "Simpan",
+  "@image_action_zoom": "Perbesar",
+  "@image_action_remove": "Hapus",
+  "@image_action_resize": "Ubah ukuran",
+  "@image_action_share": "Bagikan",
+  "@image_action_copy": "Salin"
+
+
 
 }

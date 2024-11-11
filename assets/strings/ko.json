@@ -27,7 +27,6 @@
   "@change_username": "이름 변경",
   "@remove_user": "이 기기에서 제거",
 
-  "@size": "크기",
   "@length": "길이",
   "@created_date": "만든 날짜",
   "@modified_date": "마지막 수정 날짜",
@@ -80,7 +79,7 @@
   "@hint_input_old_password": "원래 비밀번호를 입력하십시오",
   "@id_already_taken": "이미 사용중인 아이디입니다",
 
-  "@ios_style_ui": "Ios 스타일 UI",
+  "@transparent_navigation_bar": "투명 내비게이션 바",
 
   "@yesterday": "어제",
 

@@ -24,6 +24,8 @@
   "@welcome": "ยินดีต้อนรับ!",
   "@logout": "ออกจากระบบ",
   "@change_password": "เปลี่ยนรหัสผ่าน",
+  "@change_username": "เปลี่ยนชื่อ",
+  "@remove_user": "ลบออกจากอุปกรณ์นี้",
 
   "@length": "ความยาว",
   "@created_date": "วันที่สร้าง",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "คุณไม่ต้องการบันทึกหรือไม่?",
   "@dialog_title_delete_theme": "คุณต้องการลบธีมนี้หรือไม่?",
   "@dialog_title_delete_color": "คุณต้องการลบสีนี้หรือไม่?",
+  "@dialog_title_delete_selected_notes": "คุณแน่ใจหรือไม่ว่าต้องการลบรายการเหล่านี้?",
+  "@dialog_title_remove_user": "คุณต้องการลบผู้ใช้จากอุปกรณ์นี้หรือไม่?",
   "@dialog_action_yes": "ใช่",
   "@dialog_action_no": "ไม่",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "รหัส",
   "@hint_password": "รหัสผ่าน",
+  "@hint_confirm_password": "ยืนยันรหัสผ่าน",
+  "@hint_old_password": "รหัสผ่านเก่า",
+  "@hint_username": "ชื่อผู้ใช้",
   "@hint_folder_name": "ชื่อโฟลเดอร์",
-  "@hint_password_different": "รหัสผ่านที่ป้อนไว้แตกต่างกัน",
-  "@hint_old_password_different": "รหัสผ่านเก่าต่างกัน",
+  "@hint_password_different": "รหัสผ่านที่ป้อนไม่ตรงกัน",
+  "@hint_old_password_different": "รหัสผ่านเก่าไม่ถูกต้อง",
   "@hint_input_id": "กรุณาใส่ ID",
   "@hint_input_username": "กรุณาใส่ชื่อ",
   "@hint_input_password": "กรุณาใส่รหัสผ่าน",
   "@hint_input_new_password": "กรุณาใส่รหัสผ่านใหม่",
   "@hint_input_old_password": "กรุณาใส่รหัสผ่านเก่า",
+  "@id_already_taken": "ID นี้ถูกใช้ไปแล้ว",
 
-  "@ios_style_ui": "ส่วนต่อประสานผู้ใช้สไตล์ Ios",
+  "@transparent_navigation_bar": "แถบการนำทางโปร่งใส",
 
   "@yesterday": "เมื่อวาน",
 
@@ -78,6 +86,53 @@
   "@new_folder": "โฟลเดอร์ใหม่",
 
   "@test_connection": "ทดสอบการเชื่อมต่อ",
-  "@connection_failed": "การเชื่อมต่อล้มเหลว"
+  "@connection_failed": "การเชื่อมต่อล้มเหลว",
+
+  "@locale_label_system": "ระบบ",
+
+  "@editor_table_insert_text": "ข้อความ",
+  "@editor_table_insert_image": "รูปภาพ",
+  "@editor_table_insert_video": "วิดีโอ",
+  "@editor_table_insert_date": "วันที่",
+
+  "@editor_table_add_column_before": "เพิ่มคอลัมน์ก่อน",
+  "@editor_table_add_column_after": "เพิ่มคอลัมน์หลัง",
+  "@editor_table_add_row_above": "เพิ่มแถวด้านบน",
+  "@editor_table_add_row_below": "เพิ่มแถวด้านล่าง",
+  "@editor_table_delete_column": "ลบคอลัมน์",
+  "@editor_table_delete_row": "ลบแถว",
+  "@editor_table_clear_cell": "ล้างเซลล์",
+
+  "@editor_calendar_rows_to_show": "แถวที่จะแสดง",
+  "@editor_calendar_rows_for_date": "แถวสำหรับวันที่",
+
+  "@editor_add_image_from_photos": "รูปภาพ",
+  "@editor_add_image_from_files": "ไฟล์",
+
+  "@editor_export_note_as_html": "ส่งออกเป็น HTML",
+
+  "@editor_hint_sub_note_title": "หัวข้อ",
+
+  "@editor_add_data_page_chart": "แผนภูมิ",
+  "@editor_add_data_page_calendar": "ปฏิทิน",
+
+  "@day_name_sunday": "อาทิตย์",
+  "@day_name_monday": "จันทร์",
+  "@day_name_tuesday": "อังคาร",
+  "@day_name_wednesday": "พุธ",
+  "@day_name_thursday": "พฤหัสบดี",
+  "@day_name_friday": "ศุกร์",
+  "@day_name_saturday": "เสาร์",
+
+  "@image_action_save": "บันทึก",
+  "@image_action_zoom": "ขยาย",
+  "@image_action_remove": "ลบ",
+  "@image_action_resize": "ปรับขนาด",
+  "@image_action_share": "แชร์",
+  "@image_action_copy": "คัดลอก"
+
+
+
+
 
 }

@@ -24,6 +24,8 @@
   "@welcome": "ようこそ!",
   "@logout": "ログアウト",
   "@change_password": "パスワードを変更する",
+  "@change_username": "名前を変更",
+  "@remove_user": "このデバイスから削除",
 
   "@length": "長さ",
   "@created_date": "作成日",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "保存しないでいいですか?",
   "@dialog_title_delete_theme": "このテーマを削除してもよろしいですか？",
   "@dialog_title_delete_color": "この色を削除してもよろしいですか？",
+  "@dialog_title_delete_selected_notes": "これらのアイテムを削除してもよろしいですか？",
+  "@dialog_title_remove_user": "このデバイスからユーザーを削除しますか？",
   "@dialog_action_yes": "はい",
   "@dialog_action_no": "いいえ",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "パスワード",
+  "@hint_confirm_password": "パスワードの確認",
+  "@hint_old_password": "旧パスワード",
+  "@hint_username": "ユーザー名",
   "@hint_folder_name": "フォルダ名",
-  "@hint_password_different": "入力されたパスワードは異なります",
-  "@hint_old_password_different": "古いパスワードが異なります",
+  "@hint_password_different": "入力されたパスワードが一致しません",
+  "@hint_old_password_different": "旧パスワードが間違っています",
   "@hint_input_id": "IDを入力してください",
   "@hint_input_username": "名前を入力してください",
   "@hint_input_password": "パスワードを入力してください",
   "@hint_input_new_password": "新しいパスワードを入力してください",
   "@hint_input_old_password": "古いパスワードを入力してください",
+  "@id_already_taken": "このIDはすでに使用されています",
 
-  "@ios_style_ui": "iOSスタイルのUI",
+  "@transparent_navigation_bar": "透過型ナビゲーションバー",
 
   "@yesterday": "昨日",
 
@@ -79,5 +87,52 @@
 
   "@test_connection": "接続をテスト",
   "@connection_failed": "接続に失敗しました",
+
+  "@locale_label_system": "システム",
+
+  "@editor_table_insert_text": "テキスト",
+  "@editor_table_insert_image": "画像",
+  "@editor_table_insert_video": "ビデオ",
+  "@editor_table_insert_date": "日付",
+
+  "@editor_table_add_column_before": "前に列を追加",
+  "@editor_table_add_column_after": "後に列を追加",
+  "@editor_table_add_row_above": "上に行を追加",
+  "@editor_table_add_row_below": "下に行を追加",
+  "@editor_table_delete_column": "列を削除",
+  "@editor_table_delete_row": "行を削除",
+  "@editor_table_clear_cell": "セルをクリア",
+
+  "@editor_calendar_rows_to_show": "表示する行",
+  "@editor_calendar_rows_for_date": "日付の行",
+
+  "@editor_add_image_from_photos": "写真",
+  "@editor_add_image_from_files": "ファイル",
+
+  "@editor_export_note_as_html": "HTMLとしてエクスポート",
+
+  "@editor_hint_sub_note_title": "タイトル",
+
+  "@editor_add_data_page_chart": "グラフ",
+  "@editor_add_data_page_calendar": "カレンダー",
+
+  "@day_name_sunday": "日曜日",
+  "@day_name_monday": "月曜日",
+  "@day_name_tuesday": "火曜日",
+  "@day_name_wednesday": "水曜日",
+  "@day_name_thursday": "木曜日",
+  "@day_name_friday": "金曜日",
+  "@day_name_saturday": "土曜日",
+
+  "@image_action_save": "保存",
+  "@image_action_zoom": "ズーム",
+  "@image_action_remove": "削除",
+  "@image_action_resize": "サイズ変更",
+  "@image_action_share": "共有",
+  "@image_action_copy": "コピー"
+
+
+
+
 
 }

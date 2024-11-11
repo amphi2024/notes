@@ -50,6 +50,8 @@
   "@dialog_title_not_save_note": "Anda tidak mahu menyimpan?",
   "@dialog_title_delete_theme": "Adakah anda ingin memadam tema ini?",
   "@dialog_title_delete_color": "Adakah anda ingin memadam warna ini?",
+  "@dialog_title_delete_selected_notes": "Adakah anda pasti ingin memadam item ini?",
+  "@dialog_title_remove_user": "Adakah anda mahu menghapuskan pengguna dari peranti ini?",
   "@dialog_action_yes": "Ya",
   "@dialog_action_no": "Tidak",
 
@@ -61,16 +63,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Kata laluan",
+  "@hint_confirm_password": "Sahkan kata laluan",
+  "@hint_old_password": "Kata laluan lama",
+  "@hint_username": "Nama pengguna",
   "@hint_folder_name": "Nama folder",
-  "@hint_password_different": "Kata laluan yang dimasukkan adalah berbeza",
-  "@hint_old_password_different": "Kata laluan lama adalah berbeza",
+  "@hint_password_different": "Kata laluan yang dimasukkan tidak sepadan",
+  "@hint_old_password_different": "Kata laluan lama tidak betul",
   "@hint_input_id": "Sila masukkan ID",
   "@hint_input_username": "Sila masukkan nama",
   "@hint_input_password": "Sila masukkan kata laluan",
   "@hint_input_new_password": "Sila masukkan kata laluan baru",
   "@hint_input_old_password": "Sila masukkan kata laluan lama",
+  "@id_already_taken": "ID sudah diambil",
 
-  "@ios_style_ui": "Antaramuka gaya iOS",
+  "@transparent_navigation_bar": "Bar Navigasi Lutsinar",
 
   "@yesterday": "Semalam",
 
@@ -78,6 +84,53 @@
   "@new_folder": "Folder Baru",
 
   "@test_connection": "Uji Sambungan",
-  "@connection_failed": "Sambungan Gagal"
+  "@connection_failed": "Sambungan Gagal",
+
+  "@locale_label_system": "Sistem",
+
+  "@editor_table_insert_text": "Teks",
+  "@editor_table_insert_image": "Imej",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Tarikh",
+
+  "@editor_table_add_column_before": "Tambah Kolum Sebelum",
+  "@editor_table_add_column_after": "Tambah Kolum Selepas",
+  "@editor_table_add_row_above": "Tambah Baris Di Atas",
+  "@editor_table_add_row_below": "Tambah Baris Di Bawah",
+  "@editor_table_delete_column": "Padam Kolum",
+  "@editor_table_delete_row": "Padam Baris",
+  "@editor_table_clear_cell": "Kosongkan Sel",
+
+  "@editor_calendar_rows_to_show": "Baris untuk Ditunjukkan",
+  "@editor_calendar_rows_for_date": "Baris untuk Tarikh",
+
+  "@editor_add_image_from_photos": "Gambar",
+  "@editor_add_image_from_files": "Fail",
+
+  "@editor_export_note_as_html": "Eksport sebagai HTML",
+
+  "@editor_hint_sub_note_title": "Tajuk",
+
+  "@editor_add_data_page_chart": "Carta",
+  "@editor_add_data_page_calendar": "Kalendar",
+
+  "@day_name_sunday": "Ahad",
+  "@day_name_monday": "Isnin",
+  "@day_name_tuesday": "Selasa",
+  "@day_name_wednesday": "Rabu",
+  "@day_name_thursday": "Khamis",
+  "@day_name_friday": "Jumaat",
+  "@day_name_saturday": "Sabtu",
+
+  "@image_action_save": "Simpan",
+  "@image_action_zoom": "Zum",
+  "@image_action_remove": "Padam",
+  "@image_action_resize": "Ubah saiz",
+  "@image_action_share": "Kongsi",
+  "@image_action_copy": "Salin"
+
+
+
+
 
 }

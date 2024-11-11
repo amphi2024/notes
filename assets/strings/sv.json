@@ -24,6 +24,8 @@
   "@welcome": "Välkommen!",
   "@logout": "Logga ut",
   "@change_password": "Byt lösenord",
+  "@change_username": "Ändra namn",
+  "@remove_user": "Ta bort från denna enhet",
 
   "@length": "Längd",
   "@created_date": "Skapad datum",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Vill du inte spara?",
   "@dialog_title_delete_theme": "Vill du ta bort detta tema?",
   "@dialog_title_delete_color": "Vill du ta bort den här färgen?",
+  "@dialog_title_delete_selected_notes": "Är du säker på att du vill ta bort dessa objekt?",
+  "@dialog_title_remove_user": "Vill du ta bort användaren från denna enhet?",
   "@dialog_action_yes": "Ja",
   "@dialog_action_no": "Nej",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "id",
   "@hint_password": "lösenord",
+  "@hint_confirm_password": "Bekräfta lösenord",
+  "@hint_old_password": "Gamla lösenord",
+  "@hint_username": "Användarnamn",
   "@hint_folder_name": "Mappnamn",
-  "@hint_password_different": "De angivna lösenorden är olika",
-  "@hint_old_password_different": "Det gamla lösenordet är olika",
+  "@hint_password_different": "De angivna lösenorden matchar inte",
+  "@hint_old_password_different": "Det gamla lösenordet är fel",
   "@hint_input_id": "Vänligen ange ID",
   "@hint_input_username": "Vänligen ange namn",
   "@hint_input_password": "Vänligen ange lösenord",
   "@hint_input_new_password": "Vänligen ange ett nytt lösenord",
   "@hint_input_old_password": "Vänligen ange det gamla lösenordet",
+  "@id_already_taken": "ID är redan taget",
 
-  "@ios_style_ui": "Ios stil användargränssnitt",
+  "@transparent_navigation_bar": "Transparent navigeringsfält",
 
   "@yesterday": "Igår",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Ny mapp",
 
   "@test_connection": "Testa anslutning",
-  "@connection_failed": "Anslutning misslyckades"
+  "@connection_failed": "Anslutning misslyckades",
+
+  "@locale_label_system": "System",
+
+  "@editor_table_insert_text": "Text",
+  "@editor_table_insert_image": "Bild",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Datum",
+
+  "@editor_table_add_column_before": "Lägg till kolumn före",
+  "@editor_table_add_column_after": "Lägg till kolumn efter",
+  "@editor_table_add_row_above": "Lägg till rad ovanför",
+  "@editor_table_add_row_below": "Lägg till rad nedanför",
+  "@editor_table_delete_column": "Ta bort kolumn",
+  "@editor_table_delete_row": "Ta bort rad",
+  "@editor_table_clear_cell": "Rensa cell",
+
+  "@editor_calendar_rows_to_show": "Rader att visa",
+  "@editor_calendar_rows_for_date": "Rader för datum",
+
+  "@editor_add_image_from_photos": "Foton",
+  "@editor_add_image_from_files": "Filer",
+
+  "@editor_export_note_as_html": "Exportera som HTML",
+
+  "@editor_hint_sub_note_title": "Titel",
+
+  "@editor_add_data_page_chart": "Diagram",
+  "@editor_add_data_page_calendar": "Kalender",
+
+  "@day_name_sunday": "Söndag",
+  "@day_name_monday": "Måndag",
+  "@day_name_tuesday": "Tisdag",
+  "@day_name_wednesday": "Onsdag",
+  "@day_name_thursday": "Torsdag",
+  "@day_name_friday": "Fredag",
+  "@day_name_saturday": "Lördag",
+
+  "@image_action_save": "Spara",
+  "@image_action_zoom": "Zooma",
+  "@image_action_remove": "Ta bort",
+  "@image_action_resize": "Ändra storlek",
+  "@image_action_share": "Dela",
+  "@image_action_copy": "Kopiera"
+
+
+
+
 
 }

@@ -24,6 +24,8 @@
   "@welcome": "स्वागत है!",
   "@logout": "लॉगआउट",
   "@change_password": "पासवर्ड बदलें",
+  "@change_username": "नाम बदलें",
+  "@remove_user": "इस डिवाइस से हटाएं",
 
   "@length": "लंबाई",
   "@created_date": "निर्माण तिथि",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "क्या आपको सहेजना नहीं है?",
   "@dialog_title_delete_theme": "क्या आप इस थीम को हटाना चाहते हैं?",
   "@dialog_title_delete_color": "क्या आप इस रंग को हटाना चाहते हैं?",
+  "@dialog_title_delete_selected_notes": "क्या आप सुनिश्चित हैं कि आप इन आइटमों को हटाना चाहते हैं?",
+  "@dialog_title_remove_user": "क्या आप इस डिवाइस से उपयोगकर्ता को हटा देना चाहते हैं?",
   "@dialog_action_yes": "हाँ",
   "@dialog_action_no": "नहीं",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "आईडी",
   "@hint_password": "पासवर्ड",
+  "@hint_confirm_password": "पासवर्ड की पुष्टि करें",
+  "@hint_old_password": "पुराना पासवर्ड",
+  "@hint_username": "उपयोगकर्ता नाम",
   "@hint_folder_name": "फ़ोल्डर का नाम",
-  "@hint_password_different": "आपके द्वारा दर्ज किए गए पासवर्ड भिन्न हैं",
-  "@hint_old_password_different": "पुराना पासवर्ड भिन्न है",
+  "@hint_password_different": "डाले गए पासवर्ड मेल नहीं खाते",
+  "@hint_old_password_different": "पुराना पासवर्ड गलत है",
   "@hint_input_id": "कृपया आईडी दर्ज करें",
   "@hint_input_username": "कृपया नाम दर्ज करें",
   "@hint_input_password": "कृपया पासवर्ड दर्ज करें",
   "@hint_input_new_password": "कृपया नया पासवर्ड दर्ज करें",
   "@hint_input_old_password": "कृपया पुराना पासवर्ड दर्ज करें",
+  "@id_already_taken": "यह आईडी पहले से ली जा चुकी है",
 
-  "@ios_style_ui": "iOS शैली UI",
+  "@transparent_navigation_bar": "पारदर्शी नेविगेशन बार",
 
   "@yesterday": "कल",
 
@@ -78,6 +86,53 @@
   "@new_folder": "नया फ़ोल्डर",
 
   "@test_connection": "कनेक्शन टेस्ट करें",
-  "@connection_failed": "कनेक्शन विफल"
+  "@connection_failed": "कनेक्शन विफल",
+
+  "@locale_label_system": "सिस्टम",
+
+  "@editor_table_insert_text": "पाठ",
+  "@editor_table_insert_image": "छवि",
+  "@editor_table_insert_video": "वीडियो",
+  "@editor_table_insert_date": "तारीख",
+
+  "@editor_table_add_column_before": "कॉलम पहले जोड़ें",
+  "@editor_table_add_column_after": "कॉलम बाद में जोड़ें",
+  "@editor_table_add_row_above": "पंक्ति ऊपर जोड़ें",
+  "@editor_table_add_row_below": "पंक्ति नीचे जोड़ें",
+  "@editor_table_delete_column": "कॉलम हटाएं",
+  "@editor_table_delete_row": "पंक्ति हटाएं",
+  "@editor_table_clear_cell": "सेल साफ करें",
+
+  "@editor_calendar_rows_to_show": "दिखाने के लिए पंक्तियाँ",
+  "@editor_calendar_rows_for_date": "तारीख के लिए पंक्तियाँ",
+
+  "@editor_add_image_from_photos": "फोटो",
+  "@editor_add_image_from_files": "फाइलें",
+
+  "@editor_export_note_as_html": "HTML के रूप में निर्यात करें",
+
+  "@editor_hint_sub_note_title": "शीर्षक",
+
+  "@editor_add_data_page_chart": "चार्ट",
+  "@editor_add_data_page_calendar": "कैलेंडर",
+
+  "@day_name_sunday": "रविवार",
+  "@day_name_monday": "सोमवार",
+  "@day_name_tuesday": "मंगलवार",
+  "@day_name_wednesday": "बुधवार",
+  "@day_name_thursday": "गुरुवार",
+  "@day_name_friday": "शुक्रवार",
+  "@day_name_saturday": "शनिवार",
+
+  "@image_action_save": "सहेजें",
+  "@image_action_zoom": "जूम करें",
+  "@image_action_remove": "हटाएं",
+  "@image_action_resize": "आकार बदलें",
+  "@image_action_share": "साझा करें",
+  "@image_action_copy": "कॉपी करें"
+
+
+
+
 
 }

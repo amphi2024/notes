@@ -24,6 +24,8 @@
   "@welcome": "Üdvözlünk!",
   "@logout": "Kijelentkezés",
   "@change_password": "Jelszó megváltoztatása",
+  "@change_username": "Név megváltoztatása",
+  "@remove_user": "Eltávolítás erről az eszközről",
 
   "@length": "Hossz",
   "@created_date": "Létrehozás dátuma",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Nem szeretné menteni?",
   "@dialog_title_delete_theme": "Biztosan törölni szeretné ezt a témát?",
   "@dialog_title_delete_color": "Biztosan törölni szeretné ezt a színt?",
+  "@dialog_title_delete_selected_notes": "Biztos benne, hogy törölni szeretné ezeket az elemeket?",
+  "@dialog_title_remove_user": "El akarja távolítani a felhasználót erről az eszközről?",
   "@dialog_action_yes": "Igen",
   "@dialog_action_no": "Nem",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "azonosító",
   "@hint_password": "jelszó",
+  "@hint_confirm_password": "Jelszó megerősítése",
+  "@hint_old_password": "Régi jelszó",
+  "@hint_username": "Felhasználónév",
   "@hint_folder_name": "Mappa neve",
-  "@hint_password_different": "A megadott jelszavak eltérnek",
-  "@hint_old_password_different": "A régi jelszó eltér",
+  "@hint_password_different": "A megadott jelszavak nem egyeznek",
+  "@hint_old_password_different": "A régi jelszó hibás",
   "@hint_input_id": "Kérjük, adja meg az azonosítót",
   "@hint_input_username": "Kérjük, adja meg a nevet",
   "@hint_input_password": "Kérjük, adja meg a jelszót",
   "@hint_input_new_password": "Kérjük, adja meg az új jelszót",
   "@hint_input_old_password": "Kérjük, adja meg a régi jelszót",
+  "@id_already_taken": "Az azonosító már foglalt",
 
-  "@ios_style_ui": "iOS stílusú felület",
+  "@transparent_navigation_bar": "Átlátszó navigációs sáv",
 
   "@yesterday": "Tegnap",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Új mappa",
 
   "@test_connection": "Kapcsolat tesztelése",
-  "@connection_failed": "Kapcsolat sikertelen"
+  "@connection_failed": "Kapcsolat sikertelen",
+
+  "@locale_label_system": "Rendszer",
+
+  "@editor_table_insert_text": "Szöveg",
+  "@editor_table_insert_image": "Kép",
+  "@editor_table_insert_video": "Videó",
+  "@editor_table_insert_date": "Dátum",
+
+  "@editor_table_add_column_before": "Oszlop hozzáadása előtt",
+  "@editor_table_add_column_after": "Oszlop hozzáadása után",
+  "@editor_table_add_row_above": "Sor hozzáadása felül",
+  "@editor_table_add_row_below": "Sor hozzáadása alul",
+  "@editor_table_delete_column": "Oszlop törlése",
+  "@editor_table_delete_row": "Sor törlése",
+  "@editor_table_clear_cell": "Cella törlése",
+
+  "@editor_calendar_rows_to_show": "Megjelenítendő sorok",
+  "@editor_calendar_rows_for_date": "Sorok dátumra",
+
+  "@editor_add_image_from_photos": "Fényképek",
+  "@editor_add_image_from_files": "Fájlok",
+
+  "@editor_export_note_as_html": "Exportálás HTML-ként",
+
+  "@editor_hint_sub_note_title": "Cím",
+
+  "@editor_add_data_page_chart": "Grafikon",
+  "@editor_add_data_page_calendar": "Naptár",
+
+  "@day_name_sunday": "Vasárnap",
+  "@day_name_monday": "Hétfő",
+  "@day_name_tuesday": "Kedd",
+  "@day_name_wednesday": "Szerda",
+  "@day_name_thursday": "Csütörtök",
+  "@day_name_friday": "Péntek",
+  "@day_name_saturday": "Szombat",
+
+  "@image_action_save": "Mentés",
+  "@image_action_zoom": "Nagyítás",
+  "@image_action_remove": "Eltávolítás",
+  "@image_action_resize": "Méret módosítása",
+  "@image_action_share": "Megosztás",
+  "@image_action_copy": "Másolás"
+
+
+
+
 
 }

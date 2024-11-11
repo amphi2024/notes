@@ -24,6 +24,8 @@
   "@welcome": "Velkommen!",
   "@logout": "Logg ut",
   "@change_password": "Bytt passord",
+  "@change_username": "Endre navn",
+  "@remove_user": "Fjern fra denne enheten",
 
   "@length": "Lengde",
   "@created_date": "Opprettelsesdato",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Vil du ikke lagre?",
   "@dialog_title_delete_theme": "Vil du slette dette temaet?",
   "@dialog_title_delete_color": "Vil du slette denne fargen?",
+  "@dialog_title_delete_selected_notes": "Er du sikker på at du vil slette disse elementene?",
+  "@dialog_title_remove_user": "Vil du fjerne brukeren fra denne enheten?",
   "@dialog_action_yes": "Ja",
   "@dialog_action_no": "Nei",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "passord",
-  "@hint_folder_name": "Mappenavn",
-  "@hint_password_different": "De angitte passordene er forskjellige",
-  "@hint_old_password_different": "Det gamle passordet er forskjellig",
+  "@hint_confirm_password": "ਪਾਸਵਰਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+  "@hint_old_password": "ਪੁਰਾਣਾ ਪਾਸਵਰਡ",
+  "@hint_username": "ਯੂਜ਼ਰ ਨੇਮ",
+  "@hint_folder_name": "ਫੋਲਡਰ ਦਾ ਨਾਮ",
+  "@hint_password_different": "ਦਾਖਲ ਕੀਤੇ ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ",
+  "@hint_old_password_different": "ਪੁਰਾਣਾ ਪਾਸਵਰਡ ਗਲਤ ਹੈ",
   "@hint_input_id": "Vennligst skriv inn ID",
   "@hint_input_username": "Vennligst skriv inn navn",
   "@hint_input_password": "Vennligst skriv inn passord",
   "@hint_input_new_password": "Vennligst skriv inn nytt passord",
   "@hint_input_old_password": "Vennligst skriv inn gammelt passord",
+  "@id_already_taken": "ID-en er allerede i bruk",
 
-  "@ios_style_ui": "iOS-stil UI",
+  "@transparent_navigation_bar": "Transparent navigasjonslinje",
 
   "@yesterday": "I går",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Ny mappe",
 
   "@test_connection": "Test forbindelse",
-  "@connection_failed": "Forbindelse mislyktes"
+  "@connection_failed": "Forbindelse mislyktes",
+
+  "@locale_label_system": "System",
+
+  "@editor_table_insert_text": "Tekst",
+  "@editor_table_insert_image": "Bilde",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Dato",
+
+  "@editor_table_add_column_before": "Legg til kolonne før",
+  "@editor_table_add_column_after": "Legg til kolonne etter",
+  "@editor_table_add_row_above": "Legg til rad over",
+  "@editor_table_add_row_below": "Legg til rad under",
+  "@editor_table_delete_column": "Slett kolonne",
+  "@editor_table_delete_row": "Slett rad",
+  "@editor_table_clear_cell": "Tøm celle",
+
+  "@editor_calendar_rows_to_show": "Rader å vise",
+  "@editor_calendar_rows_for_date": "Rader for dato",
+
+  "@editor_add_image_from_photos": "Bilder",
+  "@editor_add_image_from_files": "Filer",
+
+  "@editor_export_note_as_html": "Eksporter som HTML",
+
+  "@editor_hint_sub_note_title": "Tittel",
+
+  "@editor_add_data_page_chart": "Diagram",
+  "@editor_add_data_page_calendar": "Kalender",
+
+  "@day_name_sunday": "Søndag",
+  "@day_name_monday": "Mandag",
+  "@day_name_tuesday": "Tirsdag",
+  "@day_name_wednesday": "Onsdag",
+  "@day_name_thursday": "Torsdag",
+  "@day_name_friday": "Fredag",
+  "@day_name_saturday": "Lørdag",
+
+  "@image_action_save": "Lagre",
+  "@image_action_zoom": "Zoom",
+  "@image_action_remove": "Fjern",
+  "@image_action_resize": "Endre størrelse",
+  "@image_action_share": "Del",
+  "@image_action_copy": "Kopier"
+
+
+
+
 
 }

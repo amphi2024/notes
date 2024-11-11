@@ -77,7 +77,7 @@ class _DesktopSettingsViewState extends State<SettingsDialog> {
                           visible: Platform.isAndroid &&
                               appMethodChannel.systemVersion! >= 29,
                           child: TitledCheckBox(
-                              title: AppLocalizations.of(context).get("@ios_style_ui"),
+                              title: AppLocalizations.of(context).get("@transparent_navigation_bar"),
                               value: appSettings.iosStyleUI,
                               onChanged: (value) {
                                 setState(() {

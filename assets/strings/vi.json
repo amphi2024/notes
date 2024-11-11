@@ -24,6 +24,8 @@
   "@welcome": "Chào mừng!",
   "@logout": "Đăng xuất",
   "@change_password": "Đổi mật khẩu",
+  "@change_username": "Thay đổi tên",
+  "@remove_user": "Xóa khỏi thiết bị này",
 
   "@length": "Độ dài",
   "@created_date": "Ngày tạo",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Bạn không muốn lưu lại?",
   "@dialog_title_delete_theme": "Bạn có muốn xóa chủ đề này không?",
   "@dialog_title_delete_color": "Bạn có muốn xóa màu này không?",
+  "@dialog_title_delete_selected_notes": "Bạn có chắc chắn muốn xóa những mục này không?",
+  "@dialog_title_remove_user": "Bạn có muốn xóa người dùng khỏi thiết bị này không?",
   "@dialog_action_yes": "Có",
   "@dialog_action_no": "Không",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "id",
   "@hint_password": "mật khẩu",
+  "@hint_confirm_password": "Xác nhận mật khẩu",
+  "@hint_old_password": "Mật khẩu cũ",
+  "@hint_username": "Tên người dùng",
   "@hint_folder_name": "Tên thư mục",
-  "@hint_password_different": "Các mật khẩu đã nhập khác nhau",
-  "@hint_old_password_different": "Mật khẩu cũ khác",
+  "@hint_password_different": "Mật khẩu nhập vào không khớp",
+  "@hint_old_password_different": "Mật khẩu cũ không đúng",
   "@hint_input_id": "Vui lòng nhập ID",
   "@hint_input_username": "Vui lòng nhập tên",
   "@hint_input_password": "Vui lòng nhập mật khẩu",
   "@hint_input_new_password": "Vui lòng nhập mật khẩu mới",
   "@hint_input_old_password": "Vui lòng nhập mật khẩu cũ",
+  "@id_already_taken": "ID đã được sử dụng",
 
-  "@ios_style_ui": "Giao diện kiểu Ios",
+  "@transparent_navigation_bar": "Thanh điều hướng trong suốt",
 
   "@yesterday": "Hôm qua",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Thư mục mới",
 
   "@test_connection": "Kiểm tra kết nối",
-  "@connection_failed": "Kết nối thất bại"
+  "@connection_failed": "Kết nối thất bại",
+
+  "@locale_label_system": "Hệ thống",
+
+  "@editor_table_insert_text": "Văn bản",
+  "@editor_table_insert_image": "Hình ảnh",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Ngày",
+
+  "@editor_table_add_column_before": "Thêm Cột Trước",
+  "@editor_table_add_column_after": "Thêm Cột Sau",
+  "@editor_table_add_row_above": "Thêm Dòng Trên",
+  "@editor_table_add_row_below": "Thêm Dòng Dưới",
+  "@editor_table_delete_column": "Xóa Cột",
+  "@editor_table_delete_row": "Xóa Dòng",
+  "@editor_table_clear_cell": "Xóa Ô",
+
+  "@editor_calendar_rows_to_show": "Dòng để hiển thị",
+  "@editor_calendar_rows_for_date": "Dòng cho ngày",
+
+  "@editor_add_image_from_photos": "Ảnh",
+  "@editor_add_image_from_files": "Tệp",
+
+  "@editor_export_note_as_html": "Xuất dưới dạng HTML",
+
+  "@editor_hint_sub_note_title": "Tiêu đề",
+
+  "@editor_add_data_page_chart": "Biểu đồ",
+  "@editor_add_data_page_calendar": "Lịch",
+
+  "@day_name_sunday": "Chủ Nhật",
+  "@day_name_monday": "Thứ Hai",
+  "@day_name_tuesday": "Thứ Ba",
+  "@day_name_wednesday": "Thứ Tư",
+  "@day_name_thursday": "Thứ Năm",
+  "@day_name_friday": "Thứ Sáu",
+  "@day_name_saturday": "Thứ Bảy",
+
+  "@image_action_save": "Lưu",
+  "@image_action_zoom": "Phóng to",
+  "@image_action_remove": "Xóa",
+  "@image_action_resize": "Thay đổi kích thước",
+  "@image_action_share": "Chia sẻ",
+  "@image_action_copy": "Sao chép"
+
+
+
+
 
 }

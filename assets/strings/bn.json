@@ -24,6 +24,8 @@
   "@welcome": "স্বাগতম!",
   "@logout": "লগআউট",
   "@change_password": "পাসওয়ার্ড পরিবর্তন",
+  "@change_username": "নাম পরিবর্তন করুন",
+  "@remove_user": "এই ডিভাইস থেকে সরান",
 
   "@length": "দৈর্ঘ্য",
   "@created_date": "তৈরির তারিখ",
@@ -50,7 +52,8 @@
   "@dialog_title_not_save_note": "আপনি কি নোট সংরক্ষণ করতে চান না?",
   "@dialog_title_delete_theme": "আপনি কি এই থিম মুছতে চান?",
   "@dialog_title_delete_color": "আপনি কি এই রং মুছতে চান?",
-  "@dialog_title_delete_selected_notes": "هل أنت متأكد أنك تريد حذف هذه العناصر؟",
+  "@dialog_title_delete_selected_notes": "আপনি কি নিশ্চিত যে আপনি এই আইটেমগুলি মুছে ফেলতে চান?",
+  "@dialog_title_remove_user": "আপনি কি এই ডিভাইস থেকে ব্যবহারকারীকে সরাতে চান?",
   "@dialog_action_yes": "হ্যাঁ",
   "@dialog_action_no": "না",
 
@@ -62,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "আইডি",
   "@hint_password": "পাসওয়ার্ড",
-  "@hint_folder_name": "ফোল্ডারের নাম",
-  "@hint_password_different": "كلمة المرور التي أدخلتها غير متطابقة",
-  "@hint_old_password_different": "كلمة المرور الأصلية غير صحيحة",
-  "@hint_input_id": "الرجاء إدخال المعرف",
-  "@hint_input_username": "الرجاء إدخال الاسم",
-  "@hint_input_password": "الرجاء إدخال كلمة المرور",
-  "@hint_input_new_password": "الرجاء إدخال كلمة مرور جديدة",
-  "@hint_input_old_password": "الرجاء إدخال كلمة المرور الأصلية",
+  "@hint_confirm_password": "পাসওয়ার্ড নিশ্চিত করুন",
+  "@hint_old_password": "পূর্বের পাসওয়ার্ড",
+  "@hint_username": "নাম",
+  "@hint_folder_name": "নাম",
+  "@hint_password_different": "আপনার পাসওয়ার্ড মেলেনি",
+  "@hint_old_password_different": "পূর্বের পাসওয়ার্ডটি সঠিক নয়",
+  "@hint_input_id": "অনুগ্রহ করে আইডি প্রবেশ করুন",
+  "@hint_input_username": "অনুগ্রহ করে নাম প্রবেশ করুন",
+  "@hint_input_password": "অনুগ্রহ করে পাসওয়ার্ড প্রবেশ করুন",
+  "@hint_input_new_password": "অনুগ্রহ করে নতুন পাসওয়ার্ড প্রবেশ করুন",
+  "@hint_input_old_password": "অনুগ্রহ করে পুরানো পাসওয়ার্ড প্রবেশ করুন",
+  "@id_already_taken": "আইডিটি ইতিমধ্যে ব্যবহার করা হচ্ছে",
 
-  "@ios_style_ui": "iOS স্টাইল UI",
+  "@transparent_navigation_bar": "ট্রান্সপারেন্ট ন্যাভিগেশন বার",
 
   "@yesterday": "গতকাল",
 
@@ -79,6 +86,51 @@
   "@new_folder": "নতুন ফোল্ডার",
 
   "@test_connection": "সংযোগ পরীক্ষা করুন",
-  "@connection_failed": "সংযোগ ব্যর্থ হয়েছে"
+  "@connection_failed": "সংযোগ ব্যর্থ হয়েছে",
+
+  "@locale_label_system": "সিস্টেম",
+
+  "@editor_table_insert_text": "টেক্সট",
+  "@editor_table_insert_image": "ছবি",
+  "@editor_table_insert_video": "ভিডিও",
+  "@editor_table_insert_date": "তারিখ",
+
+  "@editor_table_add_column_before": "কলাম আগে যোগ করুন",
+  "@editor_table_add_column_after": "কলাম পরে যোগ করুন",
+  "@editor_table_add_row_above": "রো আগে যোগ করুন",
+  "@editor_table_add_row_below": "রো পরে যোগ করুন",
+  "@editor_table_delete_column": "কলাম মুছুন",
+  "@editor_table_delete_row": "রো মুছুন",
+  "@editor_table_clear_cell": "সেল পরিষ্কার করুন",
+
+  "@editor_calendar_rows_to_show": "প্রদর্শন করার সারি",
+  "@editor_calendar_rows_for_date": "তারিখের জন্য সারি",
+
+  "@editor_add_image_from_photos": "ফটো",
+  "@editor_add_image_from_files": "ফাইল",
+
+  "@editor_export_note_as_html": "HTML হিসেবে রপ্তানি করুন",
+
+  "@editor_hint_sub_note_title": "শিরোনাম",
+
+  "@editor_add_data_page_chart": "চার্ট",
+  "@editor_add_data_page_calendar": "ক্যালেন্ডার",
+
+  "@day_name_sunday": "রবিবার",
+  "@day_name_monday": "সোমবার",
+  "@day_name_tuesday": "মঙ্গলবার",
+  "@day_name_wednesday": "বুধবার",
+  "@day_name_thursday": "বৃহস্পতিবার",
+  "@day_name_friday": "শুক্রবার",
+  "@day_name_saturday": "শনিবার",
+
+  "@image_action_save": "সংরক্ষণ করুন",
+  "@image_action_zoom": "জুম ইন করুন",
+  "@image_action_remove": "অপসারণ করুন",
+  "@image_action_resize": "আকার পরিবর্তন করুন",
+  "@image_action_share": "শেয়ার করুন",
+  "@image_action_copy": "কপি করুন"
+
+
 
 }

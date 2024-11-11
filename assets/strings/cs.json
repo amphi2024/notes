@@ -24,6 +24,8 @@
   "@welcome": "Vítejte!",
   "@logout": "Odhlásit se",
   "@change_password": "Změnit heslo",
+  "@change_username": "Změnit jméno",
+  "@remove_user": "Odebrat z tohoto zařízení",
 
   "@length": "Délka",
   "@created_date": "Datum vytvoření",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Nechcete uložit?",
   "@dialog_title_delete_theme": "Chcete smazat toto téma?",
   "@dialog_title_delete_color": "Chcete smazat tuto barvu?",
+  "@dialog_title_delete_selected_notes": "Jste si jisti, že chcete smazat tyto položky?",
+  "@dialog_title_remove_user": "Chcete z tohoto zařízení odstranit uživatele?",
   "@dialog_action_yes": "Ano",
   "@dialog_action_no": "Ne",
 
@@ -61,7 +65,10 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Heslo",
-  "@hint_folder_name": "Název složky",
+  "@hint_confirm_password": "Potvrdit heslo",
+  "@hint_old_password": "Původní heslo",
+  "@hint_username": "Jméno",
+  "@hint_folder_name": "Jméno",
   "@hint_password_different": "Zadaná hesla se neshodují",
   "@hint_old_password_different": "Původní heslo je nesprávné",
   "@hint_input_id": "Zadejte prosím ID",
@@ -69,8 +76,9 @@
   "@hint_input_password": "Zadejte prosím heslo",
   "@hint_input_new_password": "Zadejte prosím nové heslo",
   "@hint_input_old_password": "Zadejte prosím původní heslo",
+  "@id_already_taken": "ID je již používán",
 
-  "@ios_style_ui": "UI ve stylu iOS",
+  "@transparent_navigation_bar": "Transparentní navigační lišta",
 
   "@yesterday": "Včera",
 
@@ -79,5 +87,51 @@
 
   "@test_connection": "Otestovat připojení",
   "@connection_failed": "Připojení selhalo",
+
+  "@locale_label_system": "Systém",
+
+  "@editor_table_insert_text": "Text",
+  "@editor_table_insert_image": "Obrázek",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Datum",
+
+  "@editor_table_add_column_before": "Přidat sloupec před",
+  "@editor_table_add_column_after": "Přidat sloupec za",
+  "@editor_table_add_row_above": "Přidat řádek nad",
+  "@editor_table_add_row_below": "Přidat řádek pod",
+  "@editor_table_delete_column": "Smazat sloupec",
+  "@editor_table_delete_row": "Smazat řádek",
+  "@editor_table_clear_cell": "Vymazat buňku",
+
+  "@editor_calendar_rows_to_show": "Řádky k zobrazení",
+  "@editor_calendar_rows_for_date": "Řádky pro datum",
+
+  "@editor_add_image_from_photos": "Fotky",
+  "@editor_add_image_from_files": "Soubory",
+
+  "@editor_export_note_as_html": "Exportovat jako HTML",
+
+  "@editor_hint_sub_note_title": "Název",
+
+  "@editor_add_data_page_chart": "Graf",
+  "@editor_add_data_page_calendar": "Kalendář",
+
+  "@day_name_sunday": "Neděle",
+  "@day_name_monday": "Pondělí",
+  "@day_name_tuesday": "Úterý",
+  "@day_name_wednesday": "Středa",
+  "@day_name_thursday": "Čtvrtek",
+  "@day_name_friday": "Pátek",
+  "@day_name_saturday": "Sobota",
+
+  "@image_action_save": "Uložit",
+  "@image_action_zoom": "Zoom",
+  "@image_action_remove": "Odstranit",
+  "@image_action_resize": "Změnit velikost",
+  "@image_action_share": "Sdílet",
+  "@image_action_copy": "Kopírovat"
+
+
+
 
 }

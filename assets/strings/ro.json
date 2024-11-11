@@ -24,6 +24,8 @@
   "@welcome": "Bine ai venit!",
   "@logout": "Deconectare",
   "@change_password": "Schimbă parola",
+  "@change_username": "Schimbă numele",
+  "@remove_user": "Elimină de pe acest dispozitiv",
 
   "@length": "Lungime",
   "@created_date": "Data creării",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Nu vrei să salvezi?",
   "@dialog_title_delete_theme": "Doriți să ștergeți acest tema?",
   "@dialog_title_delete_color": "Doriți să ștergeți această culoare?",
+  "@dialog_title_delete_selected_notes": "Ești sigur că vrei să ștergi aceste elemente?",
+  "@dialog_title_remove_user": "Doriți să eliminați utilizatorul de pe acest dispozitiv?",
   "@dialog_action_yes": "Da",
   "@dialog_action_no": "Nu",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Parolă",
+  "@hint_confirm_password": "Confirmați parola",
+  "@hint_old_password": "Parola veche",
+  "@hint_username": "Nume utilizator",
   "@hint_folder_name": "Nume folder",
-  "@hint_password_different": "Parolele introduse sunt diferite",
-  "@hint_old_password_different": "Parola veche este diferită",
+  "@hint_password_different": "Parolele introduse nu se potrivesc",
+  "@hint_old_password_different": "Parola veche este incorectă",
   "@hint_input_id": "Vă rugăm să introduceți ID-ul",
   "@hint_input_username": "Vă rugăm să introduceți numele",
   "@hint_input_password": "Vă rugăm să introduceți parola",
   "@hint_input_new_password": "Vă rugăm să introduceți o nouă parolă",
   "@hint_input_old_password": "Vă rugăm să introduceți parola veche",
+  "@id_already_taken": "ID-ul este deja folosit",
 
-  "@ios_style_ui": "Interfață stil iOS",
+  "@transparent_navigation_bar": "Bară de navigare transparentă",
 
   "@yesterday": "Ieri",
 
@@ -78,6 +86,53 @@
   "@new_folder": "Dosar Nou",
 
   "@test_connection": "Testează Conexiunea",
-  "@connection_failed": "Conexiune Eșuată"
+  "@connection_failed": "Conexiune Eșuată",
+
+  "@locale_label_system": "Sistem",
+
+  "@editor_table_insert_text": "Text",
+  "@editor_table_insert_image": "Imagine",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Dată",
+
+  "@editor_table_add_column_before": "Adaugă coloană înainte",
+  "@editor_table_add_column_after": "Adaugă coloană după",
+  "@editor_table_add_row_above": "Adaugă rând deasupra",
+  "@editor_table_add_row_below": "Adaugă rând dedesubt",
+  "@editor_table_delete_column": "Șterge coloană",
+  "@editor_table_delete_row": "Șterge rând",
+  "@editor_table_clear_cell": "Șterge celulă",
+
+  "@editor_calendar_rows_to_show": "Rânduri de afisat",
+  "@editor_calendar_rows_for_date": "Rânduri pentru dată",
+
+  "@editor_add_image_from_photos": "Fotografii",
+  "@editor_add_image_from_files": "Fișiere",
+
+  "@editor_export_note_as_html": "Exportă ca HTML",
+
+  "@editor_hint_sub_note_title": "Titlu",
+
+  "@editor_add_data_page_chart": "Grafic",
+  "@editor_add_data_page_calendar": "Calendar",
+
+  "@day_name_sunday": "Duminică",
+  "@day_name_monday": "Luni",
+  "@day_name_tuesday": "Marți",
+  "@day_name_wednesday": "Miercuri",
+  "@day_name_thursday": "Joi",
+  "@day_name_friday": "Vineri",
+  "@day_name_saturday": "Sâmbătă",
+
+  "@image_action_save": "Salvează",
+  "@image_action_zoom": "Zoom",
+  "@image_action_remove": "Elimină",
+  "@image_action_resize": "Redimensionează",
+  "@image_action_share": "Partajează",
+  "@image_action_copy": "Copiază"
+
+
+
+
 
 }

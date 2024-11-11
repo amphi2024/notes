@@ -24,6 +24,8 @@
   "@welcome": "Willkommen!",
   "@logout": "Abmelden",
   "@change_password": "Passwort ändern",
+  "@change_username": "Benutzernamen ändern",
+  "@remove_user": "Vom Gerät entfernen",
 
   "@length": "Länge",
   "@created_date": "Erstellungsdatum",
@@ -50,6 +52,8 @@
   "@dialog_title_not_save_note": "Möchten Sie nicht speichern?",
   "@dialog_title_delete_theme": "Möchten Sie dieses Thema löschen?",
   "@dialog_title_delete_color": "Möchten Sie diese Farbe löschen?",
+  "@dialog_title_delete_selected_notes": "Bist du sicher, dass du diese Elemente löschen möchtest?",
+  "@dialog_title_remove_user": "Möchten Sie den Benutzer von diesem Gerät entfernen?",
   "@dialog_action_yes": "Ja",
   "@dialog_action_no": "Nein",
 
@@ -61,16 +65,20 @@
   "@hint_server_address": "http(s)://your_address.com",
   "@hint_id": "ID",
   "@hint_password": "Passwort",
-  "@hint_folder_name": "Ordnername",
-  "@hint_password_different": "Die eingegebenen Passwörter sind unterschiedlich",
-  "@hint_old_password_different": "Das alte Passwort ist anders",
+  "@hint_confirm_password": "Passwort bestätigen",
+  "@hint_old_password": "Altes Passwort",
+  "@hint_username": "Name",
+  "@hint_folder_name": "Name",
+  "@hint_password_different": "Die eingegebenen Passwörter stimmen nicht überein",
+  "@hint_old_password_different": "Das alte Passwort ist falsch",
   "@hint_input_id": "Bitte geben Sie die ID ein",
   "@hint_input_username": "Bitte geben Sie den Namen ein",
   "@hint_input_password": "Bitte geben Sie das Passwort ein",
   "@hint_input_new_password": "Bitte geben Sie ein neues Passwort ein",
   "@hint_input_old_password": "Bitte geben Sie das alte Passwort ein",
+  "@id_already_taken": "Die ID wird bereits verwendet",
 
-  "@ios_style_ui": "iOS-Stil UI",
+  "@transparent_navigation_bar": "Transparente Navigationsleiste",
 
   "@yesterday": "Gestern",
 
@@ -79,5 +87,49 @@
 
   "@test_connection": "Verbindung testen",
   "@connection_failed": "Verbindung fehlgeschlagen",
+
+  "@locale_label_system": "System",
+
+  "@editor_table_insert_text": "Text",
+  "@editor_table_insert_image": "Bild",
+  "@editor_table_insert_video": "Video",
+  "@editor_table_insert_date": "Datum",
+
+  "@editor_table_add_column_before": "Spalte davor hinzufügen",
+  "@editor_table_add_column_after": "Spalte danach hinzufügen",
+  "@editor_table_add_row_above": "Zeile oben hinzufügen",
+  "@editor_table_add_row_below": "Zeile unten hinzufügen",
+  "@editor_table_delete_column": "Spalte löschen",
+  "@editor_table_delete_row": "Zeile löschen",
+  "@editor_table_clear_cell": "Zelle löschen",
+
+  "@editor_calendar_rows_to_show": "Zeilen anzeigen",
+  "@editor_calendar_rows_for_date": "Zeilen für Datum",
+
+  "@editor_add_image_from_photos": "Fotos",
+  "@editor_add_image_from_files": "Dateien",
+
+  "@editor_export_note_as_html": "Als HTML exportieren",
+
+  "@editor_hint_sub_note_title": "Titel",
+
+  "@editor_add_data_page_chart": "Diagramm",
+  "@editor_add_data_page_calendar": "Kalender",
+
+  "@day_name_sunday": "Sonntag",
+  "@day_name_monday": "Montag",
+  "@day_name_tuesday": "Dienstag",
+  "@day_name_wednesday": "Mittwoch",
+  "@day_name_thursday": "Donnerstag",
+  "@day_name_friday": "Freitag",
+  "@day_name_saturday": "Samstag",
+
+  "@image_action_save": "Speichern",
+  "@image_action_zoom": "Zoom",
+  "@image_action_remove": "Entfernen",
+  "@image_action_resize": "Größe ändern",
+  "@image_action_share": "Teilen",
+  "@image_action_copy": "Kopieren"
+
 
 }
