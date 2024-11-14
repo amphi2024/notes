@@ -102,10 +102,10 @@ class _SettingsViewState extends State<SettingsView> {
                     visible: Platform.isAndroid && appMethodChannel.systemVersion! >= 29,
                     child: TitledCheckBox(
                     title: AppLocalizations.of(context).get("@transparent_navigation_bar"),
-                    value: appSettings.iosStyleUI,
+                    value: appSettings.transparentNavigationBar,
                     onChanged: (value) {
                       setState(() {
-                        appSettings.iosStyleUI = value!;
+                        appSettings.transparentNavigationBar = value!;
                         appMethodChannel.setNavigationBarColor(
                           Theme.of(context).scaffoldBackgroundColor,
                           value

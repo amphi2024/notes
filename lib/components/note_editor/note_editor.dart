@@ -6,11 +6,19 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/note_editor/embed_block/divider/divider_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/sub_note/sub_note_embed_builder.dart';
-import 'package:notes/components/note_editor/embed_block/table/note_data_embed_builder.dart';
+import 'package:notes/components/note_editor/embed_block/table/note_table_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/video/video_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_embed_builder.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor_check_box_builder.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_sub_note_button.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_image_button.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_text_style_button.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_divider_button.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_edit_detail_button.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_table_button.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_video_button.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_view_pager_button.dart';
 import 'package:notes/models/note.dart';
 
 class NoteEditor extends StatefulWidget {
@@ -111,7 +119,7 @@ class _NoteEditorState extends State<NoteEditor> {
         embedBuilders: [
           ImageEmbedBuilder(),
           VideoEmbedBuilder(),
-          NoteDataEmbedBuilder(),
+          NoteTableEmbedBuilder(),
           SubNoteEmbedBuilder(),
           DividerEmbedBuilder(),
           ViewPagerEmbedBuilder()
@@ -161,4 +169,22 @@ class _NoteEditorState extends State<NoteEditor> {
       scrollController: scrollController,
     );
   }
+}
+
+
+List<Widget> noteEditorToolbarButtons(NoteEditingController noteEditingController, void Function(void Function()) onNoteDetailChanged) {
+  return  [
+    NoteEditorTextStyleButton(noteEditingController: noteEditingController),
+    NoteEditorImageButton(noteEditingController: noteEditingController),
+    NoteEditorTableButton(noteEditingController: noteEditingController),
+    NoteEditorEditDetailButton(noteEditingController: noteEditingController, onChange: onNoteDetailChanged),
+    NoteEditorVideoButton(noteEditingController: noteEditingController),
+    NoteEditorSubNoteButton(noteEditingController: noteEditingController),
+    NoteEditorDividerButton(noteEditingController: noteEditingController),
+    NoteEditorViewPagerButton(noteEditingController: noteEditingController),
+    //  NoteEditorFileButton(noteEditingController: appState.noteEditingController),
+    // NoteEditorChartButton(noteEditingController: appState.noteEditingController),
+    // NoteEditorMindMapButton(noteEditingController: appState.noteEditingController),
+    // NoteEditorAudioButton(noteEditingController: appState.noteEditingController),
+  ];
 }

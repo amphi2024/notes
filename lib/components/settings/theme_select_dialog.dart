@@ -1,9 +1,7 @@
-import 'package:amphi/models/update_event.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_delete.dart';
-import 'package:notes/channels/app_web_upload.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/components/settings/edit_theme_dialog.dart';
 import 'package:notes/components/settings/theme_item.dart';

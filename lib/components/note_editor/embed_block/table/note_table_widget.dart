@@ -4,23 +4,23 @@ import 'package:notes/components/note_editor/embed_block/table/calendar/note_cal
 import 'package:notes/components/note_editor/embed_block/table/chart/note_chart_block.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/note_table_block.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/table_data.dart';
-import 'package:notes/models/app_state.dart';
+import 'package:notes/models/note_embed_blocks.dart';
 
-class NoteDataWidget extends StatefulWidget {
+class NoteTableWidget extends StatefulWidget {
 
   final String tableKey;
   final bool readOnly;
-  const NoteDataWidget({super.key, required this.tableKey, required this.readOnly});
+  const NoteTableWidget({super.key, required this.tableKey, required this.readOnly});
 
   @override
-  State<NoteDataWidget> createState() => _NoteDataWidgetState();
+  State<NoteTableWidget> createState() => _NoteTableWidgetState();
 }
 
-class _NoteDataWidgetState extends State<NoteDataWidget> {
+class _NoteTableWidgetState extends State<NoteTableWidget> {
 
   @override
   Widget build(BuildContext context) {
-    TableData tableData = appState.noteEditingController.note.getTable(widget.tableKey);
+    TableData tableData = noteEmbedBlocks.getTable(widget.tableKey);
     List<Widget> children = [];
 
     bool tableExist = false;
@@ -61,13 +61,13 @@ class _NoteDataWidgetState extends State<NoteDataWidget> {
     if(!widget.readOnly) {
       children.insert(0, _AddPageButton(addPage: (pageType) {
         setState(() {
-          appState.noteEditingController.note.getTable(widget.tableKey).pages.insert(0, {"type": pageType});
+          noteEmbedBlocks.getTable(widget.tableKey).pages.insert(0, {"type": pageType});
         });
       }));
 
       children.add(_AddPageButton(addPage: (pageType) {
         setState(() {
-          appState.noteEditingController.note.getTable(widget.tableKey).pages.add({"type": pageType});
+          noteEmbedBlocks.getTable(widget.tableKey).pages.add({"type": pageType});
         });
       }));
     }

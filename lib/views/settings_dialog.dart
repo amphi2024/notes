@@ -78,10 +78,10 @@ class _DesktopSettingsViewState extends State<SettingsDialog> {
                               appMethodChannel.systemVersion! >= 29,
                           child: TitledCheckBox(
                               title: AppLocalizations.of(context).get("@transparent_navigation_bar"),
-                              value: appSettings.iosStyleUI,
+                              value: appSettings.transparentNavigationBar,
                               onChanged: (value) {
                                 setState(() {
-                                  appSettings.iosStyleUI = value!;
+                                  appSettings.transparentNavigationBar = value!;
                                 });
                               })),
                       TitledCheckBox(

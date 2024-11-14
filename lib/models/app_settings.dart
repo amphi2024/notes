@@ -27,10 +27,11 @@ class AppSettings {
   late int sortOption;
   late bool reverseSorting;
   late bool dancingFloatingButton;
-  late bool iosStyleUI;
+  late bool transparentNavigationBar;
   late bool dockedFloatingMenu;
   Locale? locale = null;
   late int permanentDeletionPeriod;
+  late bool floatingMenuShowing;
 
   void setSortOption(int option) {
     if (sortOption == option) {
@@ -52,9 +53,10 @@ class AppSettings {
       sortOption = SORT_OPTION_MODIFIED_DATE;
       reverseSorting = false;
       dancingFloatingButton = true;
-      iosStyleUI = false;
+      transparentNavigationBar = false;
       dockedFloatingMenu = true;
       permanentDeletionPeriod = 30;
+      floatingMenuShowing = true;
       save();
     }
     else {
@@ -73,7 +75,7 @@ class AppSettings {
        );
      }
 
-      iosStyleUI = jsonData["iosStyleUI"] ?? false;
+      transparentNavigationBar = jsonData["iosStyleUI"] ?? false;
       serverAddress = jsonData["serverAddress"] ?? "";
       useOwnServer = jsonData["useOwnServer"] ?? false;
       sortOption = jsonData["sortOption"] ?? 0;
@@ -81,8 +83,9 @@ class AppSettings {
       if(jsonData["locale"] != null) {
         locale = Locale(jsonData["language"]);
       }
-      dockedFloatingMenu = jsonData["showingFloatingMenu"] ?? true;
+      dockedFloatingMenu = jsonData["dockedFloatingMenu"] ?? true;
       permanentDeletionPeriod = jsonData["permanentDeletionPeriod"] ?? 30;
+      floatingMenuShowing = jsonData["floatingMenuShowing"] ?? true;
     }
   }
 
@@ -95,9 +98,10 @@ class AppSettings {
       "sortOption" : sortOption,
       "reverseSorting" : reverseSorting,
       "locale": locale?.languageCode ?? null,
-      "iosStyleUI": iosStyleUI,
+      "transparentNavigationBar": transparentNavigationBar,
       "dockedFloatingMenu": dockedFloatingMenu,
-      "permanentDeletionPeriod": permanentDeletionPeriod
+      "permanentDeletionPeriod": permanentDeletionPeriod,
+      "floatingMenuShowing": floatingMenuShowing
     };
 
     File file = File(appStorage.selectedUser.storagePath+"/settings.json");

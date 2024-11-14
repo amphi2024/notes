@@ -7,7 +7,6 @@ import 'package:flutter_quill/translations.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/channels/app_web_sync.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:amphi/models/app.dart';
@@ -17,9 +16,7 @@ import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';
-import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
-import 'package:amphi/models/update_event.dart';
 import 'package:notes/views/main_view.dart';
 import 'package:notes/views/wide_main_view.dart';
 
@@ -42,7 +39,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    appStorage.initialize(appMethodChannel, getData: () {
+    appStorage.initialize(getData: () {
       appSettings.getData();
       appColors.getData();
 

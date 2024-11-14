@@ -16,6 +16,7 @@ import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/icons.dart';
 import 'package:notes/models/note.dart';
+import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/views/settings_dialog.dart';
 import 'package:notes/views/trash_view_dialog.dart';
 
@@ -204,6 +205,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                       },
                       onNotePressed: (note) {
                         print(note.filename);
+                        noteEmbedBlocks.clear();
                         widget.onNoteSelected(note);
                       },
                       toUpdateFolder: (folder) {

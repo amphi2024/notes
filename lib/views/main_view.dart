@@ -113,7 +113,7 @@ class _MainViewState extends State<MainView> {
     if (Platform.isAndroid) {
       appMethodChannel.setNavigationBarColor(
           Theme.of(context).scaffoldBackgroundColor,
-          appSettings.iosStyleUI);
+          appSettings.transparentNavigationBar);
     }
     return AppView(
       canPopPage: !buttonRotated && appStorage.selectedNotes == null,

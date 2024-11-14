@@ -22,7 +22,6 @@
   "@who_are_you": "Who are you?",
   "@hello": "Hello!",
   "@welcome": "Welcome!",
-  "@logout": "Logout",
   "@change_password": "Change Password",
   "@change_username": "Change Name",
   "@remove_user": "Remove from Device",
@@ -117,6 +116,8 @@
 
   "@editor_add_data_page_chart": "Chart",
   "@editor_add_data_page_calendar": "Calendar",
+
+  "@editor_view_pager_height": "Height",
 
   "@day_name_sunday": "Sun",
   "@day_name_monday": "Mon",

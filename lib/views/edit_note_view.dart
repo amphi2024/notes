@@ -19,6 +19,7 @@ import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_theme_data.dart';
 import 'package:notes/models/icons.dart';
 import 'package:notes/models/note.dart';
+import 'package:notes/models/note_embed_blocks.dart';
 
 class EditNoteView extends StatefulWidget {
   final bool createNote;
@@ -32,6 +33,12 @@ class EditNoteView extends StatefulWidget {
 
 class _EditNoteViewState extends State<EditNoteView> {
   Note? originalNote;
+
+  @override
+  void dispose() {
+    noteEmbedBlocks.clear();
+    super.dispose();
+  }
 
   void onPopInvoked(bool? value, dynamic result) {
     if (!appState.noteEditingController.document.isEmpty() && !appState.noteEditingController.readOnly) {
@@ -53,7 +60,7 @@ class _EditNoteViewState extends State<EditNoteView> {
                 });
           });
     }
-    appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.iosStyleUI);
+    appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
   }
 
   @override
@@ -84,7 +91,7 @@ class _EditNoteViewState extends State<EditNoteView> {
   Widget build(BuildContext context) {
     NoteEditingController noteEditingController = appState.noteEditingController;
 
-    appMethodChannel.setNavigationBarColor(Theme.of(context).colorScheme.surface, appSettings.iosStyleUI);
+    appMethodChannel.setNavigationBarColor(Theme.of(context).colorScheme.surface, appSettings.transparentNavigationBar);
     return PopScope(
       canPop: noteEditingController.readOnly || (!File(noteEditingController.note.path).existsSync() && noteEditingController.document.isEmpty()),
       onPopInvokedWithResult: onPopInvoked,
@@ -120,7 +127,7 @@ class _EditNoteViewState extends State<EditNoteView> {
                         Navigator.pop(context);
                       }
                       appMethodChannel
-                          .setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.iosStyleUI);
+                          .setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
                     },
                     icon: const Icon(AppIcons.back)),
                 actions: [

@@ -82,11 +82,7 @@ class _EditSubNoteDialogState extends State<EditSubNoteDialog> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
-                    NoteEditorTextStyleButton(noteEditingController: widget.noteEditingController),
-                    NoteEditorImageButton(noteEditingController: widget.noteEditingController),
-                    NoteEditorVideoButton(noteEditingController: widget.noteEditingController),
-                  ],
+                  children: noteEditorToolbarButtons(widget.noteEditingController, (function) => setState(function)),
                 ),
               )
             ],

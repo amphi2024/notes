@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/table_data.dart';
+import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/models/content.dart';
 import 'package:notes/models/note.dart';
+import 'package:notes/models/note_embed_blocks.dart';
 
 class NoteEditingController extends QuillController{
 
@@ -83,14 +85,14 @@ class NoteEditingController extends QuillController{
               )
           );
         }
-        else if(blockData.containsKey("data")) {
-          String key = blockData["data"];
-          TableData tableData = note.getTable(key);
+        else if(blockData.containsKey("table")) {
+          String key = blockData["table"];
+          TableData tableData = noteEmbedBlocks.getTable(key);
 
             note.contents.add(
                 Content(
                     value: tableData.data,
-                    type: "data",
+                    type: "table",
                   style: {
                  "pages" : tableData.pages,
                   }
@@ -102,8 +104,8 @@ class NoteEditingController extends QuillController{
           note.contents.add(
               Content(
                   value: {
-                    "title": note.getSubNote(key).note.title,
-                    "contents": note.getSubNote(key).getNote().contentsToMap()
+                    "title": noteEmbedBlocks.getSubNote(key).note.title,
+                    "contents": noteEmbedBlocks.getSubNote(key).getNote().contentsToMap()
                   },
                   type: "note"
               )
@@ -111,7 +113,7 @@ class NoteEditingController extends QuillController{
         }
         else if(blockData.containsKey("divider")) {
           String key = blockData["divider"];
-          Color? color = note.dividers[key];
+          Color? color = noteEmbedBlocks.dividers[key];
           if(color != null) {
             note.contents.add(
                 Content(
@@ -132,6 +134,14 @@ class NoteEditingController extends QuillController{
             );
           }
 
+        }
+
+        else if(blockData.containsKey("view-pager")) {
+          String key = blockData["view-pager"];
+          ViewPagerData viewPagerData = noteEmbedBlocks.getViewPager(key);
+          note.contents.add(
+              viewPagerData.toContent()
+          );
         }
       }
 

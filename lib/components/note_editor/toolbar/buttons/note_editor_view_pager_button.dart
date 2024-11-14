@@ -4,6 +4,8 @@ import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_b
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 
+import '../../../../models/note_embed_blocks.dart';
+
 class NoteEditorViewPagerButton extends StatelessWidget {
 
   final NoteEditingController noteEditingController;
@@ -12,8 +14,8 @@ class NoteEditorViewPagerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(icon: Icon(Icons.view_array), onPressed: () {
-      String viewPagerKey = noteEditingController.note.generatedViewPagerKey();
-      noteEditingController.note.viewPagers[viewPagerKey] = ViewPagerData();
+      String viewPagerKey = noteEmbedBlocks.generatedViewPagerKey();
+      noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData();
       BlockEmbed blockEmbed = BlockEmbed.custom(
           ViewPagerBlockEmbed(viewPagerKey)
       );

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:notes/components/note_editor/embed_block/table/note_data_widget.dart';
+import 'package:notes/components/note_editor/embed_block/table/note_table_widget.dart';
 
-class NoteDataEmbedBuilder extends EmbedBuilder {
+class NoteTableEmbedBuilder extends EmbedBuilder {
 
-  NoteDataEmbedBuilder();
+  NoteTableEmbedBuilder();
 
   @override
-  String get key => 'data';
+  String get key => 'table';
 
   @override
   Widget build(
@@ -19,7 +19,7 @@ class NoteDataEmbedBuilder extends EmbedBuilder {
       TextStyle textStyle,
       ) {
 
-    return NoteDataWidget(tableKey: node.value.data, readOnly: readOnly);
+    return NoteTableWidget(tableKey: node.value.data, readOnly: readOnly);
   }
 }
 

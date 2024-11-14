@@ -51,7 +51,7 @@ class AccountButton extends StatelessWidget {
           }
           else {
             if(Platform.isAndroid) {
-              appMethodChannel.setNavigationBarColor(Theme.of(context).cardColor, appSettings.iosStyleUI);
+              appMethodChannel.setNavigationBarColor(Theme.of(context).cardColor, appSettings.transparentNavigationBar);
             }
             showModalBottomSheet(
               context: context,

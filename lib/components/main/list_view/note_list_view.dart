@@ -24,11 +24,15 @@ class NoteListView extends StatefulWidget {
   State<NoteListView> createState() => _NoteListViewState();
 }
 
-class _NoteListViewState extends State<NoteListView> {
+class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClientMixin<NoteListView> {
 
   ScrollController scrollController = ScrollController(initialScrollOffset:  appState.noteListScrollPosition);
 
+  @override
+  bool get wantKeepAlive => true;
+
   void onFolderPressed(Folder folder) {
+    print(folder.filename);
     if(folder.location != "!Trashes" && AppStorage.getInstance().selectedNotes == null) {
       if(App.isWideScreen(context)) {
         appState.notifySomethingChanged(() {
@@ -60,11 +64,16 @@ class _NoteListViewState extends State<NoteListView> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-
+    super.build(context);
     if(appSettings.fragmentIndex == 0) {
+      // return AnimatedList(itemBuilder: (BuildContext context, int index, Animation<double> animation) {
+      //
+      // },
+      //
+      //
+      // );
       return ListView.builder(
       // primary: true,
       //  controller: scrollController,

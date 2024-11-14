@@ -1,24 +1,14 @@
 import 'dart:io';
 
-import 'package:amphi/models/update_event.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/main/floating_menu/floating_wide_menu.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_sub_note_button.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_detail_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_image_button.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_redo_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_text_style_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_divider_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_edit_detail_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_table_button.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_undo_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_video_button.dart';
-import 'package:amphi/models/app.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_view_pager_button.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
@@ -35,7 +25,6 @@ class WideMainView extends StatefulWidget {
 }
 
 class _WideMainViewState extends State<WideMainView> {
-  bool floatingMenuShowing = true;
   FocusNode focusNode = FocusNode();
 
   void noteEditingListener() {
@@ -71,28 +60,13 @@ class _WideMainViewState extends State<WideMainView> {
     if (Platform.isAndroid) {
       appMethodChannel.setNavigationBarColor(
           Theme.of(context).scaffoldBackgroundColor,
-          appSettings.iosStyleUI);
+          appSettings.transparentNavigationBar);
     }
 
     final editorToolBar =  Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        NoteEditorTextStyleButton(noteEditingController: appState.noteEditingController),
-        NoteEditorImageButton(noteEditingController: appState.noteEditingController),
-        NoteEditorTableButton(noteEditingController: appState.noteEditingController),
-        NoteEditorEditDetailButton(noteEditingController: appState.noteEditingController, onChange: (function) {
-          setState(function);
-        }),
-        NoteEditorVideoButton(noteEditingController: appState.noteEditingController),
-        NoteEditorSubNoteButton(noteEditingController: appState.noteEditingController),
-        NoteEditorDividerButton(noteEditingController: appState.noteEditingController),
-       NoteEditorViewPagerButton(noteEditingController: appState.noteEditingController),
-      //  NoteEditorFileButton(noteEditingController: appState.noteEditingController),
-        // NoteEditorChartButton(noteEditingController: appState.noteEditingController),
-        // NoteEditorMindMapButton(noteEditingController: appState.noteEditingController),
-        // NoteEditorAudioButton(noteEditingController: appState.noteEditingController),
-      ],
+      children: noteEditorToolbarButtons(appState.noteEditingController, (function) => setState(function)),
     );
 
     return MouseRegion(
@@ -119,7 +93,7 @@ class _WideMainViewState extends State<WideMainView> {
           children: [
             AnimatedPositioned(
               left: appSettings.dockedFloatingMenu &&
-                      floatingMenuShowing
+                      appSettings.floatingMenuShowing
                   ? 250
                   : 0,
               right: 0,
@@ -145,7 +119,7 @@ class _WideMainViewState extends State<WideMainView> {
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeOutQuint,
                     left: appSettings.dockedFloatingMenu &&
-                      floatingMenuShowing
+                      appSettings.floatingMenuShowing
                       ? 5
                       : 50,
                     top: 5,
@@ -212,7 +186,7 @@ class _WideMainViewState extends State<WideMainView> {
                               if(focusNode.hasFocus) {
                                 focusNode.unfocus();
                               }
-                              floatingMenuShowing = false;
+                              appSettings.floatingMenuShowing = false;
                             });
                           }
                         },
@@ -229,7 +203,7 @@ class _WideMainViewState extends State<WideMainView> {
               ),
             ),
             FloatingWideMenu(
-                showing: floatingMenuShowing,
+                showing: appSettings.floatingMenuShowing,
                 focusNode: focusNode,
                 onNoteSelected: (note) {
                   if(!AppState.getInstance().noteEditingController.readOnly) {
@@ -256,30 +230,32 @@ class _WideMainViewState extends State<WideMainView> {
             }),
             AnimatedPositioned(
                 left: !appSettings.dockedFloatingMenu &&
-                        floatingMenuShowing
+                        appSettings.floatingMenuShowing
                     ? 20
                     : 5,
                 top: !appSettings.dockedFloatingMenu &&
-                        floatingMenuShowing
+                        appSettings.floatingMenuShowing
                     ? 20
                     : 5,
                 duration: Duration(milliseconds: 500),
                 curve: Curves.easeOutQuint,
                 child: GestureDetector(
                   onLongPress: () {
-                    if (floatingMenuShowing) {
+                    if (appSettings.floatingMenuShowing) {
                       setState(() {
                         appSettings.dockedFloatingMenu =
                             !appSettings.dockedFloatingMenu;
                       });
+                      appSettings.save();
                     }
                   },
                   child: IconButton(
                       icon: Icon(Icons.view_sidebar),
                       onPressed: () {
                         setState(() {
-                          floatingMenuShowing = !floatingMenuShowing;
+                          appSettings.floatingMenuShowing = !appSettings.floatingMenuShowing;
                         });
+                        appSettings.save();
                       }),
                 )),
           ],

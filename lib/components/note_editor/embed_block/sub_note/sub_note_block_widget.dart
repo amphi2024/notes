@@ -3,6 +3,7 @@ import 'package:notes/components/note_editor/embed_block/sub_note/edit_sub_note_
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/models/app_state.dart';
+import 'package:notes/models/note_embed_blocks.dart';
 
 class SubNoteBlockWidget extends StatefulWidget {
 
@@ -16,7 +17,7 @@ class SubNoteBlockWidget extends StatefulWidget {
 
 class _SubNoteBlockWidgetState extends State<SubNoteBlockWidget> {
 
-  late NoteEditingController noteEditingController = appState.noteEditingController.note.getSubNote(widget.noteKey);
+  late NoteEditingController noteEditingController = noteEmbedBlocks.getSubNote(widget.noteKey);
   bool showing = false;
   @override
   Widget build(BuildContext context) {

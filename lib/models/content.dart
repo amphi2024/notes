@@ -25,29 +25,16 @@ class Content {
       case "video":
         return Content(value: map["value"], type: "video");
       case "table":
-        return Content(value: map["value"], type: "data", style: map["style"]);
-      case "data":
-        return Content(value: map["value"], type: "data", style: map["style"]);
+        return Content(value: map["value"], type: "table", style: map["style"]);
       case "note":
         return Content(value: map["value"], type: "note");
       case "divider":
         return Content(style: map["style"], type: "divider");
+      case "view-pager":
+        return Content(value: map["value"] , style: map["style"], type: "view-pager");
       default:
        // return Content(value: map["value"], type: "text", style: styleFromData(map));
          return Content(value: map["value"], type: "text", style: map["style"]);
-
-        // String styleString = map["style"];
-        // if (styleString.isNotEmpty) {
-        //   List<String> split = styleString.split(";");
-        //   for (String string in split) {
-        //     List<String> styleSplit = string.split(":");
-        //     style.add(ContentStyle(
-        //       type: styleSplit[0],
-        //       value: styleSplit[1],
-        //     ));
-        //   }
-        // }
-
     }
   }
 

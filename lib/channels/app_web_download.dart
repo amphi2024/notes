@@ -94,8 +94,11 @@ extension AppWebDownload on AppWebChannel {
             onSuccess(response.bodyBytes);
           }
       }
+      print("34824938243289493284329842");
+      print(response.body);
     }
     catch(e) {
+      print(e);
       if(onFailed != null) {
         onFailed();
       }

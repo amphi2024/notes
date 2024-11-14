@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:notes/methods/generated_file_name.dart';
-import 'package:notes/models/app_storage.dart';
 
 final appMethodChannel = AppMethodChannel.getInstance();
 

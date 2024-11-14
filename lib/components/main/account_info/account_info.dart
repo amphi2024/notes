@@ -65,7 +65,7 @@ class _AccountInfoState extends State<AccountInfo> {
       canPop: true,
       onPopInvokedWithResult: (value, data) {
         if(Platform.isAndroid) {
-          appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.iosStyleUI);
+          appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
         }
       },
       child: ConstrainedBox(
@@ -192,7 +192,7 @@ class _AccountInfoState extends State<AccountInfo> {
                             (Route<dynamic> route) => route.isFirst,
                       );
                       AppStorage.getInstance().removeUser(() {
-                        AppStorage.getInstance().saveSelectedUser(appMethodChannel,unselectedUsers[0]);
+                        AppStorage.getInstance().saveSelectedUser(unselectedUsers[0]);
                         AppStorage.getInstance().users.remove(AppStorage.getInstance().selectedUser);
                         AppStorage.getInstance().selectedUser = unselectedUsers[0];
 
@@ -242,7 +242,7 @@ class _AccountInfoState extends State<AccountInfo> {
                                 context,
                                     (Route<dynamic> route) => route.isFirst,
                               );
-                              await AppStorage.getInstance().saveSelectedUser(appMethodChannel,unselectedUsers[index]);
+                              await AppStorage.getInstance().saveSelectedUser(unselectedUsers[index]);
                               AppStorage.getInstance().selectedUser = unselectedUsers[index];
                               AppStorage.getInstance().initPaths();
                               appSettings.getData();
@@ -262,12 +262,12 @@ class _AccountInfoState extends State<AccountInfo> {
                             title: "Add account",
                             onPressed: () {
                               setState(() {
-                                AppStorage.getInstance().addUser(appMethodChannel, onFinished: (user) async {
+                                AppStorage.getInstance().addUser(onFinished: (user) async {
                                   Navigator.popUntil(
                                     context,
                                         (Route<dynamic> route) => route.isFirst,
                                   );
-                                  await AppStorage.getInstance().saveSelectedUser(appMethodChannel, user);
+                                  await AppStorage.getInstance().saveSelectedUser(user);
                                   AppStorage.getInstance().selectedUser = user;
                                   AppStorage.getInstance().users.add(user);
                                   AppStorage.getInstance().initPaths();

@@ -1,7 +1,7 @@
 import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/models/app_colors.dart';
-import 'package:notes/models/app_state.dart';
+import 'package:notes/models/note_embed_blocks.dart';
 
 class DividerBlockWidget extends StatefulWidget {
 
@@ -18,7 +18,7 @@ class _DividerBlockWidgetState extends State<DividerBlockWidget> {
   @override
   Widget build(BuildContext context) {
     String dividerKey = widget.dividerKey;
-    Color dividerColor = appState.noteEditingController.note.dividers[dividerKey] ?? Theme.of(context).dividerColor;
+    Color dividerColor = noteEmbedBlocks.dividers[dividerKey] ?? Theme.of(context).dividerColor;
     Divider divider = Divider(
       color: dividerColor,
       thickness: 1,
@@ -37,12 +37,12 @@ class _DividerBlockWidgetState extends State<DividerBlockWidget> {
                     defaultColor: Theme.of(context).dividerColor,
                     onDefaultColorTap: (color) {
                       setState(() {
-                        appState.noteEditingController.note.dividers.remove(dividerKey);
+                        noteEmbedBlocks.dividers.remove(dividerKey);
                       });
                     },
                     onColorChanged: (color) {
                       setState(() {
-                        appState.noteEditingController.note.dividers[dividerKey] = color;
+                        noteEmbedBlocks.dividers[dividerKey] = color;
                       });
                     },
                     colors: appColors.noteTextColors,

@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:amphi/models/app_theme_core.dart';
-import 'package:amphi/utils/random_string.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:notes/channels/app_web_channel.dart';
@@ -14,8 +13,9 @@ import 'package:notes/components/note_editor/embed_block/table/table/table_data.
 import 'package:notes/components/note_editor/embed_block/divider/divider_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/sub_note/sub_note_block_embed.dart';
-import 'package:notes/components/note_editor/embed_block/table/note_data_block_embed.dart';
+import 'package:notes/components/note_editor/embed_block/table/note_table_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/video/video_block_embed.dart';
+import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/extensions/date_extension.dart';
@@ -23,60 +23,12 @@ import 'package:notes/methods/generated_file_name.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/content.dart';
 import 'package:notes/models/item.dart';
+import 'package:notes/models/note_embed_blocks.dart';
 
 class Note extends Item{
 
-
-  NoteEditingController getSubNote(String key) {
-    if(subNotes[key] != null) {
-      return subNotes[key]!;
-    }
-    else {
-      subNotes[key] = NoteEditingController(note: Note.createdNote("!SubNote") );
-      return subNotes[key]!;
-    }
-  }
-
-  TableData getTable(String key) {
-    if(tables[key] != null) {
-      return tables[key]!;
-    }
-    else {
-      tables[key ] = TableData();
-      return tables[key]!;
-    }
-  }
-
-  ViewPagerData getViewPager(String key) {
-    if(viewPagers[key] != null) {
-      return viewPagers[key]!;
-    }
-    else {
-      viewPagers[key ] = ViewPagerData();
-      return viewPagers[key]!;
-    }
-  }
-
-  String generatedTableKey() => generatedKey(tables);
-  String generatedSubNoteKey() => generatedKey(subNotes);
-  String generatedDividerKey() => generatedKey(dividers);
-  String generatedViewPagerKey() => generatedKey(viewPagers);
-
-  String generatedKey(Map map) {
-    String key = randomString(9);
-    if(map.containsKey(key)) {
-      return generatedKey(map);
-    }
-    else {
-      return key;
-    }
-  }
   String subtitle = "";
   String? thumbnailImageFilename;
-  Map<String, TableData> tables = {};
-  Map<String, NoteEditingController> subNotes = {};
-  Map<String, Color> dividers = {};
-  Map<String, ViewPagerData> viewPagers = {};
   double? textSize;
   double? lineHeight;
   String? font;
@@ -139,6 +91,18 @@ class Note extends Item{
     return file;
   }
 
+  static Note subNote() {
+    return Note(
+        filename: "",
+        path: "",
+        location: "",
+        created: DateTime.now(),
+        originalCreated: DateTime.now(),
+        modified: DateTime.now(),
+        originalModified: DateTime.now(),
+        contents: []);
+  }
+
   static Note createdNote(String home) {
     String filename = generatedFileName("note", appStorage.notesPath);
    return Note(
@@ -154,7 +118,6 @@ class Note extends Item{
 
     Document toDocument() {
       Delta delta = Delta();
-
       for(  Content  content in  contents) {
         switch(content.type) {
           case "img":
@@ -169,57 +132,51 @@ class Note extends Item{
             );
             delta.insert(blockEmbed.toJson());
             break;
-          case "data":
           case "table":
-            try {
-                String tableKey = generatedKey(tables);
-                List<List<Map<String, dynamic>>> data = (content.value as List)
-                    .map((innerList) => (innerList as List)
-                    .map((item) => item as Map<String, dynamic>)
-                    .toList())
-                    .toList();
-                TableData tableData = TableData();
-                tableData.data = data;
-                if(content.style?["pages"] is List<dynamic>) {
-                  tableData.pages = content.style?["pages"].cast<Map<String, dynamic>>() ?? [ {"type": "table"} ];
-                }
-                tables[tableKey] = tableData;
+                String tableKey = noteEmbedBlocks.generatedTableKey();
+                noteEmbedBlocks.tables[tableKey] = TableData.fromContent(content);
                 BlockEmbed blockEmbed = BlockEmbed.custom(
-                    NoteDataBlockEmbed(tableKey)
+                    NoteTableBlockEmbed(tableKey)
                 );
                 delta.insert(blockEmbed.toJson());
                 break;
-            }
-            catch(e) {
-              print(e);
-            }
           case "note":
             Map<String, dynamic> subNoteData = content.value;
-            List<Content> contentList = [];
+
+            Note subNote = Note.subNote();
+            subNote.title = subNoteData["title"] ?? "";
             for(dynamic data in subNoteData["contents"] ?? []) {
               Map<String, dynamic> map = data;
-              contentList.add(Content.fromMap(map));
+              subNote.contents.add(Content.fromMap(map));
             }
-            Note subNote = Note(filename: "", path: "", location: "", contents: contentList, created: created, originalCreated: originalCreated, modified: modified, originalModified: originalModified);
-            subNote.title = subNoteData["title"] ?? "";
 
-            String subNoteKey = generatedKey(subNotes);
-            subNotes[subNoteKey] = NoteEditingController(note: subNote);
+            String subNoteKey = noteEmbedBlocks.generatedSubNoteKey();
+            noteEmbedBlocks.subNotes[subNoteKey] = NoteEditingController(note: subNote);
             BlockEmbed blockEmbed = BlockEmbed.custom(
                 SubNoteBlockEmbed(subNoteKey)
             );
             delta.insert(blockEmbed.toJson());
+
+
             break;
           case "divider":
-            String dividerKey = generatedDividerKey();
+            String dividerKey = noteEmbedBlocks.generatedDividerKey();
             if(content.style != null) {
-              dividers[dividerKey] = Color(content.style!["color"] ?? 0);
+              noteEmbedBlocks.dividers[dividerKey] = Color(content.style!["color"] ?? 0);
             }
             BlockEmbed divider = BlockEmbed.custom(
               DividerBlockEmbed(dividerKey)
             );
             delta.insert(divider.toJson());
 
+            break;
+          case "view-pager":
+            String viewPagerKey = noteEmbedBlocks.generatedViewPagerKey();
+            noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData.fromContent(content);
+            BlockEmbed blockEmbed = BlockEmbed.custom(
+                ViewPagerBlockEmbed(viewPagerKey)
+            );
+            delta.insert(blockEmbed.toJson());
             break;
           case "text":
             if(content.value is String) {
@@ -231,7 +188,6 @@ class Note extends Item{
               delta.insert(content.value, content.style);
               break;
             }
-
 
             default:
               // if(!content.value.toString().endsWith("\n")) {
