@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart';
-import 'package:http/io_client.dart';
 import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_settings.dart';

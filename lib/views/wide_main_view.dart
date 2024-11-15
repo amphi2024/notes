@@ -109,10 +109,11 @@ class _WideMainViewState extends State<WideMainView> {
                     top: 5,
                     child: Visibility(
                       visible: !appState.noteEditingController.readOnly,
-                      child: MediaQuery.of(context).size.width > 1000 ? editorToolBar : SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: editorToolBar,
-                      ),
+                      // child: MediaQuery.of(context).size.width > 1000 ? editorToolBar : SingleChildScrollView(
+                      //   scrollDirection: Axis.horizontal,
+                      //   child: editorToolBar,
+                      // ),
+                      child: editorToolBar,
                     ),
                   ),
                   AnimatedPositioned(

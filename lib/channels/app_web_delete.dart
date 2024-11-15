@@ -10,12 +10,10 @@ import 'package:amphi/models/update_event.dart';
 
 extension AppWebDelete on AppWebChannel {
 
-
-  void deleteFile({required String link, required String filename, void Function()? onSuccess, void Function(int?)? onFailed, bool postWebSocket = true}) async {
+  void deleteFolder({required Folder folder, void Function(int?)? onFailed , void Function()? onSuccess, bool postWebSocket = true}) async {
     try {
-
       final response = await delete(
-        Uri.parse("${appSettings.serverAddress}/delete_$link?filename=${filename}"),
+        Uri.parse("${appSettings.serverAddress}/notes/${folder.filename}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           "Authorization": appStorage.selectedUser.token
@@ -27,7 +25,7 @@ extension AppWebDelete on AppWebChannel {
           onSuccess();
         }
         if(postWebSocket) {
-          UpdateEvent updateEvent = UpdateEvent(action: "delete_$link", value: filename, date: DateTime.now());
+          UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.deleteNote, value: folder.filename, date: DateTime.now());
           postWebSocketMessage(updateEvent.toJson());
         }
 
@@ -44,25 +42,135 @@ extension AppWebDelete on AppWebChannel {
     }
   }
 
-  void deleteFolder({required Folder folder, void Function(int?)? onFailed , void Function()? onSuccess, bool postWebSocket = true}) {
-    deleteFile(link: "note", filename: folder.filename, onFailed:  onFailed, onSuccess: onSuccess, postWebSocket: postWebSocket);
-  }
+  void deleteNote({required Note note, void Function(int?)? onFailed , void Function()? onSuccess, bool postWebSocket = true}) async {
+    try {
+      final response = await delete(
+        Uri.parse("${appSettings.serverAddress}/notes/${note.filename}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": appStorage.selectedUser.token
+        },
+      );
 
-  void deleteNote({required Note note, void Function(int?)? onFailed , void Function()? onSuccess, bool postWebSocket = true}) {
-    deleteFile(link: "note", filename: note.filename, onFailed:  onFailed, onSuccess:  onSuccess, postWebSocket: postWebSocket);
+      if (response.statusCode == 200) {
+        if(onSuccess != null) {
+          onSuccess();
+        }
+        if(postWebSocket) {
+          UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.deleteNote, value: note.filename, date: DateTime.now());
+          postWebSocketMessage(updateEvent.toJson());
+        }
 
+      } else {
+        if(onFailed != null) {
+          onFailed(response.statusCode);
+        }
+      }
+    }
+    catch(e) {
+      if(onFailed != null) {
+        onFailed(null);
+      }
+    }
+
+    String noteFileNameOnly = note.filename.split(".").first;
     for(Content content in note.contents) {
-      // if (content.type == "img") {
-      //   deleteFile(link: "note_image", filename: "${appStorage.notesPath}/${content.value}" , postWebSocket: postWebSocket, onFailed:  onFailed, onSuccess:  onSuccess,);
-      // }
-      // else if (content.type == "video") {
-      //   deleteFile(link: "note_video",
-      //       filename: "${appStorage.videosPath}/${content.value}", postWebSocket: postWebSocket, onFailed:  onFailed, onSuccess:  onSuccess,);
-      // }
+      if (content.type == "img") {
+        deleteImage(noteFileNameOnly: noteFileNameOnly, imageFilename: content.value, onFailed: onFailed, onSuccess:  onSuccess);
+      }
+      else if (content.type == "video") {
+        deleteVideo(noteFileNameOnly: noteFileNameOnly, videoFilename: content.value);
+      }
     }
   }
 
-  void deleteTheme({required AppTheme appTheme, void Function(int?)? onFailed , void Function()? onSuccess, bool postWebSocket = true}) {
-    deleteFile(link: "note_theme", filename: appTheme.filename, onFailed:  onFailed, onSuccess:  onSuccess, postWebSocket: postWebSocket);
+  void deleteImage({required String noteFileNameOnly, required String imageFilename ,void Function(int?)? onFailed , void Function()? onSuccess}) async {
+    try {
+      final response = await delete(
+        Uri.parse("${appSettings.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": appStorage.selectedUser.token
+        },
+      );
+
+      if (response.statusCode == 200) {
+        if(onSuccess != null) {
+          onSuccess();
+        }
+      } else {
+        if(onFailed != null) {
+          onFailed(response.statusCode);
+        }
+      }
+    }
+    catch(e) {
+      if(onFailed != null) {
+        onFailed(null);
+      }
+    }
+
+  }
+
+  void deleteVideo({required String noteFileNameOnly, required String videoFilename , void Function(int?)? onFailed , void Function()? onSuccess}) async {
+    try {
+      final response = await delete(
+        Uri.parse("${appSettings.serverAddress}/notes/${noteFileNameOnly}/videos/${videoFilename}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": appStorage.selectedUser.token
+        },
+      );
+
+      if (response.statusCode == 200) {
+        if(onSuccess != null) {
+          onSuccess();
+        }
+      } else {
+        if(onFailed != null) {
+          onFailed(response.statusCode);
+        }
+      }
+    }
+    catch(e) {
+      if(onFailed != null) {
+        onFailed(null);
+      }
+    }
+
+  }
+
+  void deleteTheme({required AppTheme appTheme, void Function(int?)? onFailed , void Function()? onSuccess, bool postWebSocket = true}) async {
+
+
+    try {
+      final response = await delete(
+        Uri.parse("${appSettings.serverAddress}/notes/themes/${appTheme.filename}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": appStorage.selectedUser.token
+        },
+      );
+
+      if (response.statusCode == 200) {
+        if(onSuccess != null) {
+          onSuccess();
+        }
+        if(postWebSocket) {
+          UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.deleteTheme, value: appTheme.filename, date: DateTime.now());
+          postWebSocketMessage(updateEvent.toJson());
+        }
+
+      } else {
+        if(onFailed != null) {
+          onFailed(response.statusCode);
+        }
+      }
+    }
+    catch(e) {
+      if(onFailed != null) {
+        onFailed(null);
+      }
+    }
   }
 }
