@@ -296,18 +296,16 @@ class AppWebChannel {
     }
   }
 
-  void getFiles({required String path, void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
+  void getNotes({void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
     try {
       final response = await get(
-        Uri.parse("${appSettings.serverAddress}/$path"),
+        Uri.parse("${appSettings.serverAddress}/notes"),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
       );
       if (onSuccess != null && response.statusCode == 200) {
         onSuccess(jsonDecode(response.body));
       } else {
-
         if (onFailed != null) {
-
           onFailed();
         }
       }

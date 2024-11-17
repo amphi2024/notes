@@ -87,7 +87,7 @@ class _MainViewState extends State<MainView> {
   void restoreNotesFromTrash(List<dynamic> list) {}
 
   Future<void> refresh() async {
-    AppStorage.refreshNoteList(widget.location, (allNotes) {
+    AppStorage.refreshNoteList((allNotes) {
       setState(() {
         appStorage.notes[widget.location] = getNotes(noteList: allNotes, home: widget.location);
         appStorage.notes[widget.location]!.sortByOption();

@@ -75,7 +75,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
 
   Future<void> refresh() async {
     String location = appState.history.last?.filename ?? "";
-    AppStorage.refreshNoteList(location, (allNotes) {
+    AppStorage.refreshNoteList((allNotes) {
       setState(() {
         AppStorage.getInstance().notes[location] = getNotes(noteList: allNotes, home: location);
         AppStorage.getInstance().notes[location]!.sortByOption();

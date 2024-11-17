@@ -52,8 +52,7 @@ extension AppWebSync on AppWebChannel {
     //   }
     // });
 
-    getFiles(path: "notes",
-        onSuccess: (list) async {
+    getNotes(onSuccess: (list) async {
           for (int i = 0; i < list.length; i++) {
             Map<String, dynamic> map = list[i];
             String filename = map["filename"];

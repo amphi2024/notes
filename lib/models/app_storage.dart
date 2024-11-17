@@ -60,25 +60,27 @@ class AppStorage extends AppStorageCore {
     appStorage.selectedNotes = null;
   }
 
-  static void refreshNoteList(String location, void Function(List<dynamic>) onFinished) async {
-    appWebChannel.getFiles(path: "notes", onSuccess: (list) {
-      for (int i = 0; i < list.length; i++) {
-        Map<String, dynamic> map = list[i];
-        String filename = map["filename"];
-        File file = File("${appStorage.notesPath}/$filename");
-        if (!file.existsSync()) {
-          if (filename.endsWith(".note")) {
-            appWebChannel.downloadNote(filename: filename, onSuccess: (note) {
-              AppStorage.getNoteList(note.location).add(note);
-            });
-          }
-          else if(filename.endsWith(".folder")) {
-            appWebChannel.downloadFolder(filename: filename, onSuccess: (folder) {
-              AppStorage.getNoteList(folder.location).add(folder);
-            });
+  static void refreshNoteList(void Function(List<dynamic>) onFinished) async {
+
+    appWebChannel.getNotes(onSuccess: (list) {
+        for (int i = 0; i < list.length; i++) {
+          Map<String, dynamic> map = list[i];
+          String filename = map["filename"];
+          File file = File("${appStorage.notesPath}/$filename");
+
+          if (!file.existsSync()) {
+            if (filename.endsWith(".note")) {
+              appWebChannel.downloadNote(filename: filename, onSuccess: (note) {
+                AppStorage.getNoteList(note.location).add(note);
+              });
+            }
+            else if(filename.endsWith(".folder")) {
+              appWebChannel.downloadFolder(filename: filename, onSuccess: (folder) {
+                AppStorage.getNoteList(folder.location).add(folder);
+              });
+            }
           }
         }
-      }
     });
     await Future.delayed(const Duration(milliseconds: 1500));
     List<dynamic> allNotes = getAllNotes();
