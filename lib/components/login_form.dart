@@ -56,7 +56,7 @@ class _LoginFormState extends State<LoginForm> {
   appStorage.selectedUser.name = username;
   appStorage.selectedUser.token = token;
   await appStorage.saveSelectedUserInformation();
-  appWebChannel.downloadMissingFiles(context);
+  appWebChannel.syncMissingFiles();
 }
 
   @override

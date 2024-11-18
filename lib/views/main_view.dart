@@ -18,7 +18,6 @@ import 'package:notes/components/main/floating_menu/floating_menu_divider.dart';
 import 'package:notes/components/main/floating_search_bar.dart';
 import 'package:notes/components/main/list_view/note_list_view.dart';
 import 'package:notes/extensions/sort_extension.dart';
-import 'package:notes/methods/get_notes.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
@@ -89,7 +88,7 @@ class _MainViewState extends State<MainView> {
   Future<void> refresh() async {
     AppStorage.refreshNoteList((allNotes) {
       setState(() {
-        appStorage.notes[widget.location] = getNotes(noteList: allNotes, home: widget.location);
+        appStorage.notes[widget.location] = AppStorage.getNotes(noteList: allNotes, home: widget.location);
         appStorage.notes[widget.location]!.sortByOption();
       });
     });

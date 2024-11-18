@@ -305,6 +305,35 @@ class Note extends Item{
     return contentList;
   }
 
+  String toFileContent() {
+    Map<String, dynamic> jsonData = {
+      "location": location,
+      "created": created.toDataString(),
+      "modified": modified.toDataString(),
+      "originalCreated": originalCreated.toDataString(),
+      "originalModified": originalModified.toDataString(),
+      "contents": contentsToMap()
+    };
+    if(backgroundColor != null) {
+      jsonData.addAll(
+          {"backgroundColor": backgroundColor!.toHex()}
+      );
+    }
+    if(textColor != null) {
+      jsonData.addAll(
+          {"textColor": textColor!.toHex()}
+      );
+    }
+    if(deleted != null) {
+      jsonData.addAll(
+          {"deleted": deleted!.toDataString()}
+      );
+    }
+
+    String fileContent = jsonEncode(jsonData);
+    return fileContent;
+  }
+
     Future<void> save({bool changeModified = true, bool upload = true}) async {
       File file = File(path);
 
@@ -320,31 +349,8 @@ class Note extends Item{
         }
         originalModified = DateTime.now();
       }
-      Map<String, dynamic> jsonData = {
-        "location": location,
-        "created": created.toDataString(),
-        "modified": modified.toDataString(),
-        "originalCreated": originalCreated.toDataString(),
-        "originalModified": originalModified.toDataString(),
-        "contents": contentsToMap()
-      };
-      if(backgroundColor != null) {
-        jsonData.addAll(
-            {"backgroundColor": backgroundColor!.toHex()}
-        );
-      }
-      if(textColor != null) {
-        jsonData.addAll(
-            {"textColor": textColor!.toHex()}
-        );
-      }
-      if(deleted != null) {
-        jsonData.addAll(
-            {"deleted": deleted!.toDataString()}
-        );
-      }
 
-      String fileContent = jsonEncode(jsonData);
+      String fileContent = toFileContent();
 
       await file.writeAsString(fileContent);
       initTitles();

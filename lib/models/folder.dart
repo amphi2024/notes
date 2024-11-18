@@ -79,20 +79,7 @@ class Folder extends Item {
     }
   }
 
-  Future<void> save({void Function()? onComplete, bool changeModified = true, bool upload = true}) async {
-    File file = File(path);
-    if(!file.existsSync()) {
-      originalCreated = DateTime.now();
-      if(!editedCreated) {
-        created = DateTime.now();
-      }
-    }
-    if(changeModified) {
-      if(!editedModified) {
-        modified = DateTime.now();
-      }
-      originalModified = DateTime.now();
-    }
+  String toFileContent() {
     Map<String, dynamic> data = {
       "name": title,
       "location": location,
@@ -112,6 +99,24 @@ class Folder extends Item {
       );
     }
     String fileContent = jsonEncode(data);
+    return fileContent;
+  }
+
+  Future<void> save({void Function()? onComplete, bool changeModified = true, bool upload = true}) async {
+    File file = File(path);
+    if(!file.existsSync()) {
+      originalCreated = DateTime.now();
+      if(!editedCreated) {
+        created = DateTime.now();
+      }
+    }
+    if(changeModified) {
+      if(!editedModified) {
+        modified = DateTime.now();
+      }
+      originalModified = DateTime.now();
+    }
+   String fileContent = toFileContent();
     await file.writeAsString(fileContent);
 
     if(upload) {

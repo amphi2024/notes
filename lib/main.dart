@@ -16,6 +16,7 @@ import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/views/main_view.dart';
 import 'package:notes/views/wide_main_view.dart';
@@ -74,7 +75,7 @@ class _MyAppState extends State<MyApp> {
         });
       }
     }, onInitialize: () {
-      setState(() {});
+        setState(() {});
     });
 
     appWebChannel.getDeviceInfo();

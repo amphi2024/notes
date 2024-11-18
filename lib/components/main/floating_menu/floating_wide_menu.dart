@@ -8,7 +8,6 @@ import 'package:notes/components/main/edit_folder_dialog.dart';
 import 'package:notes/components/main/list_view/note_list_view.dart';
 import 'package:notes/components/main/notes_search_bar.dart';
 import 'package:notes/extensions/sort_extension.dart';
-import 'package:notes/methods/get_notes.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
@@ -77,7 +76,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
     String location = appState.history.last?.filename ?? "";
     AppStorage.refreshNoteList((allNotes) {
       setState(() {
-        AppStorage.getInstance().notes[location] = getNotes(noteList: allNotes, home: location);
+        AppStorage.getInstance().notes[location] = AppStorage.getNotes(noteList: allNotes, home: location);
         AppStorage.getInstance().notes[location]!.sortByOption();
       });
     });
