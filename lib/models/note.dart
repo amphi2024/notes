@@ -259,8 +259,12 @@ class Note extends Item{
          contents.add(Content.fromMap(map));
         }
 
+        String filename =  filePath.split("/").last;
+        if(Platform.isWindows) {
+          filename = filename.split("\\").last;
+        }
         Note note = Note(
-            filename: filePath.split("/").last,
+            filename: filename,
             location: location,
             path: filePath,
             created: created,

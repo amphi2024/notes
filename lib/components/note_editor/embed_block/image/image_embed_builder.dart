@@ -20,6 +20,7 @@ class ImageEmbedBuilder extends EmbedBuilder {
       TextStyle textStyle,
       ) {
     return ImageBlockWidget(
+
       noteFileNameOnly: appState.noteEditingController.note.filename.split(".").first,
         imageFilename: node.value.data
     );
