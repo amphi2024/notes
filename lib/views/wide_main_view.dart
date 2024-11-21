@@ -7,6 +7,7 @@ import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/main/floating_menu/floating_wide_menu.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_detail_button.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_export_button.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_redo_button.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_undo_button.dart';
 import 'package:notes/models/app_settings.dart';
@@ -154,22 +155,23 @@ class _WideMainViewState extends State<WideMainView> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: appState.noteEditingController.readOnly ? [
-                        NoteEditorDetailButton(noteEditingController: AppState.getInstance().noteEditingController),
+                        NoteEditorExportButton(noteEditingController: appState.noteEditingController),
+                        NoteEditorDetailButton(noteEditingController: appState.noteEditingController),
                         IconButton(icon: Icon(Icons.edit), onPressed: () {
                           setState(() {
-                            AppState.getInstance().noteEditingController.readOnly = false;
+                            appState.noteEditingController.readOnly = false;
 
                           });
                         })
                       ] : [
-                        NoteEditorUndoButton(noteEditingController: AppState.getInstance().noteEditingController),
-                        NoteEditorRedoButton(noteEditingController: AppState.getInstance().noteEditingController),
+                        NoteEditorUndoButton(noteEditingController: appState.noteEditingController),
+                        NoteEditorRedoButton(noteEditingController: appState.noteEditingController),
                         IconButton(icon: Icon(Icons.check_circle_outline), onPressed: () {
                           setState(() {
-                              Note note = AppState.getInstance().noteEditingController.getNote();
+                              Note note = appState.noteEditingController.getNote();
                               note.save();
                               AppStorage.notifyNote(note);
-                              AppState.getInstance().noteEditingController.readOnly = true;
+                              appState.noteEditingController.readOnly = true;
                           });
                         }),
                       ],
@@ -195,7 +197,7 @@ class _WideMainViewState extends State<WideMainView> {
                           data: Theme.of(context).noteThemeData(context),
                           child: Scaffold(
                             body: NoteEditor(
-                              noteEditingController: AppState.getInstance().noteEditingController,
+                              noteEditingController: appState.noteEditingController,
                             ),
                           ),
                         ),
@@ -207,26 +209,26 @@ class _WideMainViewState extends State<WideMainView> {
                 showing: appSettings.floatingMenuShowing,
                 focusNode: focusNode,
                 onNoteSelected: (note) {
-                  if(!AppState.getInstance().noteEditingController.readOnly) {
+                  if(!appState.noteEditingController.readOnly) {
                     showConfirmationDialog("@dialog_title_not_save_note", () {
-                      AppState.getInstance().noteEditingController.readOnly = true;
-                      Note editingNote = AppState.getInstance().noteEditingController.note;
+                      appState.noteEditingController.readOnly = true;
+                      Note editingNote = appState.noteEditingController.note;
                       File file = File(editingNote.path);
                       if(!file.existsSync()) {
                         AppStorage.getNoteList(location).remove(editingNote);
                       }
-                      AppState.getInstance().noteEditingController.setNote(note);
+                      appState.noteEditingController.setNote(note);
                     });
                   }
                   else {
-                    AppState.getInstance().noteEditingController.readOnly = true;
-                    AppState.getInstance().noteEditingController.setNote(note);
+                    appState.noteEditingController.readOnly = true;
+                    appState.noteEditingController.setNote(note);
                   }
                 },
             toCreateNote: (note) {
                   setState(() {
-                    AppState.getInstance().noteEditingController.readOnly = false;
-                    AppState.getInstance().noteEditingController.setNote(note);
+                    appState.noteEditingController.readOnly = false;
+                    appState.noteEditingController.setNote(note);
                   });
             }),
             AnimatedPositioned(

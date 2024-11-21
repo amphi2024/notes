@@ -11,9 +11,9 @@ import 'package:notes/models/note.dart';
 
 extension NoteExtension on Note {
   String toHTML(String directoryName) {
-AppTheme appTheme = appSettings.appTheme!;
-LightTheme lightTheme = appTheme.lightTheme;
-DarkTheme darkTheme = appTheme.darkTheme;
+    AppTheme appTheme = appSettings.appTheme!;
+    LightTheme lightTheme = appTheme.lightTheme;
+    DarkTheme darkTheme = appTheme.darkTheme;
     String html = """
    <!DOCTYPE html>
 <html>
@@ -25,8 +25,8 @@ DarkTheme darkTheme = appTheme.darkTheme;
 body {
 
  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-background-color: ${ (backgroundColor ?? lightTheme.noteBackgroundColor).toRGB() };
-color: ${ (textColor ?? lightTheme.noteTextColor).toRGB() };
+background-color: ${(backgroundColor ?? lightTheme.noteBackgroundColor).toRGB()};
+color: ${(textColor ?? lightTheme.noteTextColor).toRGB()};
 font-size: ${textSize ?? 15}px;
 
 }
@@ -44,8 +44,23 @@ font-size: ${textSize ?? 15}px;
     <body>
     """;
 
-    for(Content content in contents) {
-      switch(content.type) {
+    html += toHtmlContents(directoryName, contents);
+
+    html += """
+    </body>
+    <script>
+    </script>
+    </html>
+    """;
+
+    return html;
+  }
+
+  String toHtmlContents(String directoryName, List<Content> contentList) {
+    String html = "";
+
+    for (Content content in contentList) {
+      switch (content.type) {
         case "img":
           html += """
           <img src="${directoryName}/${content.value}">
@@ -59,10 +74,25 @@ font-size: ${textSize ?? 15}px;
         case "table":
           break;
         case "note":
+          Map<String, dynamic> map = content.value;
+          List<Content> subNoteContents = [];
+          for (Map<String, dynamic> contentMap in map["contents"]) {
+            print(contentMap);
+            subNoteContents.add(Content.fromMap(contentMap));
+          }
+          html += """
+          <details>
+           <summary>${map["title"]}</summary>
+            ${toHtmlContents(directoryName, subNoteContents)}
+          </details>
+          """;
           break;
         case "view-pager":
           break;
         case "divider":
+          html += """
+          <hr>
+          """;
           break;
         case "text":
           String text = content.value;
@@ -92,17 +122,33 @@ font-size: ${textSize ?? 15}px;
           // }
           //
           // }
-          if(text != "\n") {
-
+          if (text != "\n") {
             List<String> split = text.split("\n");
-            for(int i = 0 ; i< split.length; i++) {
-              if(split[i].isEmpty) {
+            for (int i = 0; i < split.length; i++) {
+              if (split[i].isEmpty) {
                 html += """
-            <br>
-            """;
-              }
-              else {
-                String style  = "";
+                  <br>
+                """;
+                content.style?.forEach((key, value) {
+                  switch (key) {
+                  case "list":
+                    switch (value) {
+                      case "bullet":
+                        break;
+                      case "ordered":
+                        break;
+                      case "checked":
+                        html += """<input type="checkbox">""";
+                        break;
+                      case "unchecked":
+                        html += """<input type="checkbox">""";
+                        break;
+                    }
+                    break;
+                  }
+                });
+              } else {
+                String style = "";
                 content.style?.forEach((key, value) {
                   switch (key) {
                     case "bold":
@@ -110,6 +156,26 @@ font-size: ${textSize ?? 15}px;
                       break;
                     case "size":
                       style += "font-size: ${value}px;";
+                      break;
+                    case "list":
+                      switch (value) {
+                        case "bullet":
+                          break;
+                        case "ordered":
+                          break;
+                        case "checked":
+                          html += """<input type="checkbox">""";
+                          break;
+                        case "unchecked":
+                          html += """<input type="checkbox">""";
+                          break;
+                      }
+                      break;
+                    case "underline":
+                      style += "text-decoration: underline;";
+                      break;
+                    default:
+                      print(key);
                       break;
                   }
                 });
@@ -119,52 +185,36 @@ font-size: ${textSize ?? 15}px;
             """;
               }
 
-
-            // if(i == split.length - 1) {
-            //   html += """
-            // <div style="${style}">${split[i]}</div>
-            // """;
-            // }
-            // else {
-            //   html += """
-            // <div style="${style}">${split[i]}<br></div>
-            // """;
-            // }
-
             }
-
-
-          //   String style  = "";
-          //   content.style?.forEach((key, value) {
-          //     switch (key) {
-          //       case "bold":
-          //         style += "font-weight: bold;";
-          //         break;
-          //       case "size":
-          //         style += "font-size: ${value}px;";
-          //         break;
-          //     }
-          //   });
-          //   style += "";
-          //
-          //   html += """
-          // <div style="${style}">${text.replaceAll("\n", "<br>")}</div>
-          // """;
+          }
+          else {
+            content.style?.forEach((key, value) {
+              switch (key) {
+                case "list":
+                  switch (value) {
+                    case "bullet":
+                      break;
+                    case "ordered":
+                      break;
+                    case "checked":
+                      html += """<input type="checkbox" checked>""";
+                      break;
+                    case "unchecked":
+                      html += """<input type="checkbox">""";
+                      break;
+                  }
+                  break;
+              }
+            });
           }
 
           break;
       }
     }
-
-
-    html += """
-    </body>
-    </html>
-    """;
-
     return html;
   }
 }
+
 extension RgbExtension on Color {
   String toRGB() {
     return "rgba( ${red}, ${green} , ${blue} , ${opacity})";

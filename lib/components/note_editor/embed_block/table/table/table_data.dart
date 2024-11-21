@@ -48,6 +48,7 @@ class TableData {
       }
     }
     catch(e) {
+      print(e);
       tableData.pages.add({
         "type": "table"
       });

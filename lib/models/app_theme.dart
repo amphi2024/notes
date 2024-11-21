@@ -90,15 +90,6 @@ class AppTheme extends AppThemeCore {
     await saveFile((fileContent) {
       appWebChannel.uploadTheme(themeFileContent: fileContent, themeFilename: filename);
     });
-
-    // File file = File(path);
-    // if(!file.existsSync()) {
-    //   created = DateTime.now();
-    // }
-    // modified = DateTime.now();
-    //
-    // await file.writeAsString(jsonEncode(toMap()));
-
   }
 
   Future<void> delete({bool upload = true}) async {

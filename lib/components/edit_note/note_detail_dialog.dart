@@ -48,6 +48,8 @@ class NoteDetailDialog extends StatelessWidget {
                 //     onPressed: () {
                 //
                 // }),
+                Text("Export"),
+                Divider(),
                 IconButton(onPressed: () async {
                   String? selectedPath = await FilePicker.platform.saveFile(
                       fileName: "${note.title}.html"
@@ -82,7 +84,9 @@ class NoteDetailDialog extends StatelessWidget {
 
                     }
                   }
-                }, icon: Icon(Icons.html))
+                }, icon: Icon(Icons.html)),
+
+               // IconButton(onPressed: () {}, icon: Icon(Icons.word))
               ],
             ),
           ),

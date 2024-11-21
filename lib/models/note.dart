@@ -133,12 +133,12 @@ class Note extends Item{
             delta.insert(blockEmbed.toJson());
             break;
           case "table":
-                String tableKey = noteEmbedBlocks.generatedTableKey();
-                noteEmbedBlocks.tables[tableKey] = TableData.fromContent(content);
-                BlockEmbed blockEmbed = BlockEmbed.custom(
-                    NoteTableBlockEmbed(tableKey)
-                );
-                delta.insert(blockEmbed.toJson());
+              String tableKey = noteEmbedBlocks.generatedTableKey();
+              noteEmbedBlocks.tables[tableKey] = TableData.fromContent(content);
+              BlockEmbed blockEmbed = BlockEmbed.custom(
+                  NoteTableBlockEmbed(tableKey)
+              );
+              delta.insert(blockEmbed.toJson());
                 break;
           case "note":
             Map<String, dynamic> subNoteData = content.value;
@@ -274,6 +274,7 @@ class Note extends Item{
         return note;
       }
       catch(e) {
+        print(e);
         Note note = Note(
             filename: filePath.split("/").last,
             location: location,
@@ -365,7 +366,7 @@ class Note extends Item{
     thumbnailImageFilename = null;
 
     for(Content content in contents) {
-      if( (title.isEmpty || subtitle.isEmpty) && content.type == "text") {
+      if( (title.isEmpty || subtitle.isEmpty) && content.type == "text" && content.value is String) {
         List<String> textLines = content.value.split("\n");
         if(textLines.length > 1) {
            for(String line in textLines) {
