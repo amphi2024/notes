@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:amphi/utils/path_utils.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/models/app_settings.dart';
@@ -75,7 +74,7 @@ extension AppWebDownload on AppWebChannel {
   }
 
   void downloadImage(
-      {required String noteFileNameOnly, required String imageFilename, void Function(Uint8List bytes)? onSuccess, void Function()? onFailed}) async {
+      {required String noteFileNameOnly, required String imageFilename, void Function()? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
         Uri.parse("${appSettings.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}"),
@@ -83,7 +82,9 @@ extension AppWebDownload on AppWebChannel {
       );
       if (response.statusCode == 200) {
         if (onSuccess != null) {
-          onSuccess(response.bodyBytes);
+          File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, imageFilename));
+          await file.writeAsBytes(response.bodyBytes);
+          onSuccess();
         }
       }
     } catch (e) {
@@ -94,15 +95,17 @@ extension AppWebDownload on AppWebChannel {
   }
 
   void downloadVideo(
-      {required String noteFileNameOnly, required String videoFilename, void Function(Uint8List bytes)? onSuccess, void Function()? onFailed}) async {
+      {required String noteFileNameOnly, required String videoFilename, void Function()? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
         Uri.parse("${appSettings.serverAddress}/notes/${noteFileNameOnly}/videos/${videoFilename}"),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
       );
       if (response.statusCode == 200) {
+        File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, videoFilename));
+        await file.writeAsBytes(response.bodyBytes);
         if (onSuccess != null) {
-          onSuccess(response.bodyBytes);
+          onSuccess();
         }
       }
     } catch (e) {
