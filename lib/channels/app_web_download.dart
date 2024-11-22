@@ -81,9 +81,9 @@ extension AppWebDownload on AppWebChannel {
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
       );
       if (response.statusCode == 200) {
+        File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, "images" ,imageFilename));
+        await file.writeAsBytes(response.bodyBytes);
         if (onSuccess != null) {
-          File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, imageFilename));
-          await file.writeAsBytes(response.bodyBytes);
           onSuccess();
         }
       }
@@ -102,7 +102,7 @@ extension AppWebDownload on AppWebChannel {
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
       );
       if (response.statusCode == 200) {
-        File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, videoFilename));
+        File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos" , videoFilename));
         await file.writeAsBytes(response.bodyBytes);
         if (onSuccess != null) {
           onSuccess();
