@@ -1,12 +1,12 @@
+import 'package:amphi/models/app_localizations.dart';
+import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/settings/edit_theme_dialog.dart';
-import 'package:notes/methods/generated_file_name.dart';
-import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';
 
 class NewThemeItem extends StatelessWidget {
-
   final void Function(AppTheme) onSave;
   const NewThemeItem({super.key, required this.onSave});
 
@@ -18,18 +18,18 @@ class NewThemeItem extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
             onTap: () {
-              showDialog(context: context, builder: (context) {
-                String filename = generatedFileName("theme", AppStorage.getInstance().themesPath);
-                return EditThemeDialog(
-                    appTheme: AppTheme(
-                      filename: filename,
-                      created: DateTime.now(),
-                      modified: DateTime.now(),
-                      path: "${AppStorage.getInstance().themesPath}/$filename"
-                    ),
-                    onSave: onSave
-                );
-              });
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    String filename = FilenameUtils.generatedFileName("theme", AppStorage.getInstance().themesPath);
+                    return EditThemeDialog(
+                        appTheme: AppTheme(
+                            filename: filename,
+                            created: DateTime.now(),
+                            modified: DateTime.now(),
+                            path: PathUtils.join(appStorage.themesPath, filename)),
+                        onSave: onSave);
+                  });
             },
             child: Container(
               width: 100,
@@ -37,12 +37,7 @@ class NewThemeItem extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Theme.of(context).scaffoldBackgroundColor,
-                boxShadow: [
-             BoxShadow(     color: Theme.of(context).shadowColor,
-               spreadRadius: 3,
-               blurRadius: 5,
-               offset: const Offset(0, 3))
-                ],
+                boxShadow: [BoxShadow(color: Theme.of(context).shadowColor, spreadRadius: 3, blurRadius: 5, offset: const Offset(0, 3))],
               ),
               child: Center(
                 child: Icon(
@@ -54,9 +49,7 @@ class NewThemeItem extends StatelessWidget {
             ),
           ),
         ),
-        Text(
-          AppLocalizations.of(context).get("@new_theme")
-        )
+        Text(AppLocalizations.of(context).get("@new_theme"))
       ],
     );
   }

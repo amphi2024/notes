@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/extensions/sort_extension.dart';
@@ -65,7 +66,7 @@ class AppStorage extends AppStorageCore {
         for (int i = 0; i < list.length; i++) {
           Map<String, dynamic> map = list[i];
           String filename = map["filename"];
-          File file = File("${appStorage.notesPath}/$filename");
+          File file = File(PathUtils.join(appStorage.notesPath, filename));
 
           if (!file.existsSync()) {
             if (filename.endsWith(".note")) {

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:amphi/models/update_event.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/channels/app_web_upload.dart';
@@ -8,7 +10,6 @@ import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/methods/get_themes.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
-import 'package:amphi/models/update_event.dart';
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
@@ -18,7 +19,8 @@ extension AppWebSync on AppWebChannel {
     getThemes(onSuccess: (list) {
       List<AppTheme> appThemeList = allThemes();
 
-      for (int i = 0; i < appThemeList.length; i++) { // remove items that existing on server
+      for (int i = 0; i < appThemeList.length; i++) {
+        // remove items that existing on server
         for (int j = 0; j < list.length; j++) {
           Map<String, dynamic> map = list[j];
           if (map["filename"] == appThemeList[i].filename) {
@@ -29,7 +31,8 @@ extension AppWebSync on AppWebChannel {
         }
       }
 
-      for(AppTheme appTheme in appThemeList) {  // upload themes that not exist
+      for (AppTheme appTheme in appThemeList) {
+        // upload themes that not exist
         uploadTheme(themeFileContent: jsonEncode(appTheme.toMap()), themeFilename: appTheme.filename);
       }
 
@@ -38,7 +41,7 @@ extension AppWebSync on AppWebChannel {
         String filename = map["filename"];
         String modifiedString = map["modified"];
         DateTime modified = parsedDateTime(modifiedString);
-        File file = File("${appStorage.selectedUser.storagePath}/themes/$filename");
+        File file = File(PathUtils.join(appStorage.themesPath, filename));
         if (!file.existsSync()) {
           downloadTheme(filename: filename);
         } else if (modified.isAfter(file.lastModifiedSync())) {
@@ -50,7 +53,8 @@ extension AppWebSync on AppWebChannel {
     getNotes(onSuccess: (list) async {
       List<dynamic> noteList = AppStorage.getAllNotes();
 
-      for (int i = 0; i < noteList.length; i++) { // remove items that existing on server
+      for (int i = 0; i < noteList.length; i++) {
+        // remove items that existing on server
         dynamic item = noteList[i];
         for (int j = 0; j < list.length; j++) {
           Map<String, dynamic> map = list[j];
@@ -66,21 +70,22 @@ extension AppWebSync on AppWebChannel {
         }
       }
 
-      for(dynamic item in noteList) {  // upload all items that not existing on server
-        if(item is Note) {
+      for (dynamic item in noteList) {
+        // upload all items that not existing on server
+        if (item is Note) {
           uploadNote(note: item, fileContent: item.toFileContent());
-        }
-        else if(item is Folder) {
+        } else if (item is Folder) {
           uploadFolder(folder: item, fileContent: item.toFileContent());
         }
       }
 
-      for (int i = 0; i < list.length; i++) {  // download items that not exist or older modified
+      for (int i = 0; i < list.length; i++) {
+        // download items that not exist or older modified
         Map<String, dynamic> map = list[i];
         String filename = map["filename"];
         String modifiedString = map["modified"];
         DateTime modified = parsedDateTime(modifiedString);
-        File file = File("${appStorage.notesPath}/$filename");
+        File file = File(PathUtils.join(appStorage.notesPath, filename));
         if (!file.existsSync() || (file.existsSync() && modified.isAfter(file.lastModifiedSync()))) {
           if (filename.endsWith(".note")) {
             appWebChannel.downloadNote(
@@ -140,20 +145,18 @@ extension AppWebSync on AppWebChannel {
               appStorage.saveSelectedUserInformation(updateEvent: updateEvent);
               break;
             case UpdateEvent.uploadNote:
-              File file = File("${appStorage.notesPath}/${updateEvent.value}");
-              if(!file.existsSync()) {
+              File file = File(PathUtils.join(appStorage.notesPath, updateEvent.value));
+              if (!file.existsSync()) {
                 _downloadNoteOrFolder(updateEvent);
-              }
-              else if(updateEvent.date.isAfter(file.lastModifiedSync())) {
+              } else if (updateEvent.date.isAfter(file.lastModifiedSync())) {
                 _downloadNoteOrFolder(updateEvent);
               }
               break;
             case UpdateEvent.uploadTheme:
-              File file = File("${appStorage.themesPath}/${updateEvent.value}");
-              if(!file.existsSync()) {
+              File file = File(PathUtils.join(appStorage.themesPath, updateEvent.value));
+              if (!file.existsSync()) {
                 appWebChannel.downloadTheme(filename: updateEvent.value);
-              }
-              else if(updateEvent.date.isAfter(file.lastModifiedSync())) {
+              } else if (updateEvent.date.isAfter(file.lastModifiedSync())) {
                 appWebChannel.downloadTheme(filename: updateEvent.value);
               }
               break;
@@ -171,7 +174,7 @@ extension AppWebSync on AppWebChannel {
               }
               break;
             case UpdateEvent.deleteTheme:
-              File file = File("${appStorage.themesPath}/${updateEvent.value}");
+              File file = File(PathUtils.join(appStorage.themesPath, updateEvent.value));
               file.delete();
               break;
           }

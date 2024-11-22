@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_download.dart';
@@ -15,7 +16,7 @@ class ImageFromStorage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String absolutePath = "${appStorage.notesPath}/${noteFileNameOnly}/images/${imageFilename}";
+    String absolutePath = PathUtils.join(appStorage.notesPath, noteFileNameOnly, "images", imageFilename);
     return Image.file(
       fit: fit,
       File(absolutePath),
@@ -24,8 +25,7 @@ class ImageFromStorage extends StatelessWidget {
           appWebChannel.downloadImage( noteFileNameOnly: noteFileNameOnly, imageFilename: imageFilename);
         }
         return Image(
-          image: NetworkImage(
-              "${appSettings.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}",
+          image: NetworkImage("${appSettings.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}",
               headers: {
                 "Authorization": appStorage.selectedUser.token
               }

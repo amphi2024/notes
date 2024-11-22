@@ -1,7 +1,4 @@
-import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
-import 'package:notes/models/note.dart';
 
 // class NoteMediaPicker {
 //   static Future<File?> selectedImageFile(Note note) async {

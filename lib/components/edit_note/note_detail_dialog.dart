@@ -1,7 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:amphi/models/app.dart';
+import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/extensions/date_extension.dart';
@@ -57,24 +58,24 @@ class NoteDetailDialog extends StatelessWidget {
 
                   if (selectedPath != null) {
                     if (App.isDesktop()) {
-                      print(selectedPath.split(".").first);
-                      print(selectedPath);
                       Directory directory = Directory(selectedPath.split(".").first);
                       String html = note.toHTML(directory.path.split("/").last.split(".").first);
                       File file = File(selectedPath);
                       await file.writeAsString(html);
 
                       await directory.create();
+
+                      String noteFileNameOnly = FilenameUtils.nameOnly(note.filename);
                       for(Content content in note.contents) {
                         switch(content.type) {
                           case "img":
-                            File file = File("${appStorage.notesPath}/${note.filename.split(".").first}/images/${content.value}");
+                            File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, "images", content.value));
                            String path = "${directory.path}/${content.value}";
                             file.copy(path);
                             break;
 
                           case "video":
-                            File file = File("${appStorage.notesPath}/${note.filename.split(".").first}/videos/${content.value}");
+                            File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos", content.value));
                             String path = "${directory.path}/${content.value}";
                             file.copy(path);
                             break;

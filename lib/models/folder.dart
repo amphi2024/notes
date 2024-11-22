@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:amphi/models/app_theme_core.dart';
+import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_delete.dart';
 import 'package:notes/channels/app_web_upload.dart';
 import 'package:notes/extensions/date_extension.dart';
-import 'package:notes/methods/generated_file_name.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/item.dart';
 import 'package:notes/models/note.dart';
@@ -26,12 +27,12 @@ class Folder extends Item {
 });
 
   static Folder createdFolder(String location) {
-    String filename = generatedFileName(
+    String filename = FilenameUtils.generatedFileName(
         "folder", appStorage.notesPath);
     return Folder(
         title: "",
         filename: filename,
-        path: "${appStorage.notesPath}/$filename",
+        path: PathUtils.join(appStorage.notesPath, filename),
         location: location,
         created: DateTime.now(),
         originalCreated: DateTime.now(),

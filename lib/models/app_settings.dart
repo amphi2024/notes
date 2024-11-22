@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';
@@ -10,7 +11,6 @@ import 'package:notes/models/app_theme.dart';
 final appSettings = AppSettings.getInstance();
 
 class AppSettings {
-
   static final AppSettings _instance = AppSettings._internal();
   AppSettings._internal();
 
@@ -37,17 +37,14 @@ class AppSettings {
     if (sortOption == option) {
       reverseSorting = !reverseSorting;
     }
-     sortOption = option;
+    sortOption = option;
   }
 
-  void getData()  {
+  void getData() {
     File file = File(appStorage.settingsPath);
-     if(!file.existsSync()) {
+    if (!file.existsSync()) {
       fragmentIndex = 0;
-      appTheme = AppTheme(
-          created: DateTime.now(),
-          modified: DateTime.now()
-      );
+      appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
       serverAddress = "";
       useOwnServer = false;
       sortOption = SORT_OPTION_MODIFIED_DATE;
@@ -58,29 +55,24 @@ class AppSettings {
       permanentDeletionPeriod = 30;
       floatingMenuShowing = true;
       save();
-    }
-    else {
+    } else {
       String jsonString = file.readAsStringSync();
       Map<String, dynamic> jsonData = jsonDecode(jsonString);
       fragmentIndex = jsonData["fragmentIndex"] ?? 0;
-     String themeFilename = jsonData["theme"] ?? "!DEFAULT";
-      File themeFile = File("${appStorage.themesPath}/$themeFilename");
-     if(themeFilename != "!DEFAULT" && themeFile.existsSync()) {
-         appTheme = AppTheme.fromFile(themeFile);
+      String themeFilename = jsonData["theme"] ?? "!DEFAULT";
+      File themeFile = File(PathUtils.join(appStorage.themesPath, themeFilename));
+      if (themeFilename != "!DEFAULT" && themeFile.existsSync()) {
+        appTheme = AppTheme.fromFile(themeFile);
+      } else {
+        appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
       }
-     else {
-       appTheme = AppTheme(
-           created: DateTime.now(),
-           modified: DateTime.now()
-       );
-     }
 
       transparentNavigationBar = jsonData["iosStyleUI"] ?? false;
       serverAddress = jsonData["serverAddress"] ?? "";
       useOwnServer = jsonData["useOwnServer"] ?? false;
       sortOption = jsonData["sortOption"] ?? 0;
       reverseSorting = jsonData["reverseSorting"] ?? false;
-      if(jsonData["locale"] != null) {
+      if (jsonData["locale"] != null) {
         locale = Locale(jsonData["language"]);
       }
       dockedFloatingMenu = jsonData["dockedFloatingMenu"] ?? true;
@@ -93,10 +85,10 @@ class AppSettings {
     Map<String, dynamic> jsonData = {
       "fragmentIndex": fragmentIndex,
       "theme": appTheme!.filename,
-      "serverAddress" : serverAddress,
-      "useOwnServer" : useOwnServer,
-      "sortOption" : sortOption,
-      "reverseSorting" : reverseSorting,
+      "serverAddress": serverAddress,
+      "useOwnServer": useOwnServer,
+      "sortOption": sortOption,
+      "reverseSorting": reverseSorting,
       "locale": locale?.languageCode ?? null,
       "transparentNavigationBar": transparentNavigationBar,
       "dockedFloatingMenu": dockedFloatingMenu,
@@ -104,11 +96,9 @@ class AppSettings {
       "floatingMenuShowing": floatingMenuShowing
     };
 
-    File file = File(appStorage.selectedUser.storagePath+"/settings.json");
+    File file = File(appStorage.selectedUser.storagePath + "/settings.json");
     file.writeAsString(jsonEncode(jsonData));
-
   }
-
 }
 
 const int SORT_OPTION_TITLE = 0;

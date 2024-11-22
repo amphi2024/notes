@@ -2,11 +2,8 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_image_button.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_redo_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_text_style_button.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_undo_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_video_button.dart';
 
 class EditSubNoteDialog extends StatefulWidget {
 

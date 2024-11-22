@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:amphi/models/update_event.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart';
 import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_storage.dart';
-import 'package:amphi/models/update_event.dart';
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
 import 'package:web_socket_channel/io.dart';
@@ -59,61 +60,59 @@ class AppWebChannel {
     webSocketChannel = IOWebSocketChannel.connect(serverAddress, headers: {"Authorization": appStorage.selectedUser.token});
 
     webSocketChannel?.stream.listen((message) async {
+      Map<String, dynamic> jsonData = jsonDecode(message);
+      UpdateEvent updateEvent =
+          UpdateEvent(action: jsonData["action"] ?? "", value: jsonData["value"] ?? "", date: parsedDateTime(jsonData["date"] ?? ""));
 
-        Map<String, dynamic> jsonData = jsonDecode(message);
-        UpdateEvent updateEvent = UpdateEvent(action: jsonData["action"] ?? "", value: jsonData["value"] ?? "", date: parsedDateTime(jsonData["date"] ?? ""));
-
-        switch (updateEvent.action) {
-          case UpdateEvent.uploadNote:
-            if (updateEvent.value.endsWith(".note")) {
-              appWebChannel.downloadNote(
-                  filename: updateEvent.value,
-                  onSuccess: (note) {
-                    for (var function in noteUpdateListeners) {
-                      function(note);
-                    }
-                  });
-            } else if (updateEvent.value.endsWith(".folder")) {
-              appWebChannel.downloadFolder(
-                  filename: updateEvent.value,
-                  onSuccess: (folder) {
-                    for(var function in folderUpdateListeners) {
-                      function(folder);
-                    }
-                  });
+      switch (updateEvent.action) {
+        case UpdateEvent.uploadNote:
+          if (updateEvent.value.endsWith(".note")) {
+            appWebChannel.downloadNote(
+                filename: updateEvent.value,
+                onSuccess: (note) {
+                  for (var function in noteUpdateListeners) {
+                    function(note);
+                  }
+                });
+          } else if (updateEvent.value.endsWith(".folder")) {
+            appWebChannel.downloadFolder(
+                filename: updateEvent.value,
+                onSuccess: (folder) {
+                  for (var function in folderUpdateListeners) {
+                    function(folder);
+                  }
+                });
+          }
+          break;
+        case UpdateEvent.uploadTheme:
+          appWebChannel.downloadTheme(filename: updateEvent.value);
+          break;
+        case UpdateEvent.renameUser:
+          appStorage.selectedUser.name = updateEvent.value;
+          appStorage.saveSelectedUserInformation();
+          userNameUpdateListeners.forEach((fun) {
+            fun(updateEvent.value);
+          });
+          break;
+        case UpdateEvent.deleteNote:
+          for (dynamic item in AppStorage.trashes()) {
+            if (item is Note && item.filename == updateEvent.value) {
+              item.delete(upload: false);
+              AppStorage.trashes().remove(item);
+              break;
+            } else if (item is Folder && item.filename == updateEvent.value) {
+              item.delete(upload: false);
+              AppStorage.trashes().remove(item);
+              break;
             }
-            break;
-          case UpdateEvent.uploadTheme:
-            appWebChannel.downloadTheme(filename: updateEvent.value);
-            break;
-          case UpdateEvent.renameUser:
-            appStorage.selectedUser.name = updateEvent.value;
-            appStorage.saveSelectedUserInformation();
-            userNameUpdateListeners.forEach((fun) {
-              fun(updateEvent.value);
-            });
-            break;
-          case UpdateEvent.deleteNote:
-            for (dynamic item in AppStorage.trashes()) {
-              if (item is Note && item.filename == updateEvent.value) {
-                item.delete(upload: false);
-                AppStorage.trashes().remove(item);
-                break;
-              } else if (item is Folder && item.filename == updateEvent.value) {
-                item.delete(upload: false);
-                AppStorage.trashes().remove(item);
-                break;
-              }
-            }
-            break;
-          case UpdateEvent.deleteTheme:
-            File file = File("${appStorage.themesPath}/${updateEvent.value}");
-            file.delete();
-            break;
-        }
-        appWebChannel.acknowledgeEvent(updateEvent);
-
-
+          }
+          break;
+        case UpdateEvent.deleteTheme:
+          File file = File(PathUtils.join(appStorage.themesPath, updateEvent.value));
+          file.delete();
+          break;
+      }
+      appWebChannel.acknowledgeEvent(updateEvent);
     }, onDone: () {
       connected = false;
     }, onError: (d) {
@@ -291,7 +290,7 @@ class AppWebChannel {
       } else {
         onFailed();
       }
-    } catch(e) {
+    } catch (e) {
       onFailed();
     }
   }

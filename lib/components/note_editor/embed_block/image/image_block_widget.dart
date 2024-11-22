@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/widgets/menu/popup/show_menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
   @override
   Widget build(BuildContext context) {
 
-    String absolutePath = "${appStorage.notesPath}/${widget.noteFileNameOnly}/images/${widget.imageFilename}";
+    String absolutePath = PathUtils.join(appStorage.notesPath, widget.noteFileNameOnly, "images", widget.imageFilename);
     return Align(
       alignment: Alignment.centerLeft,
       child: MouseRegion(
@@ -39,7 +41,7 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
 
                 var bytes = await File(absolutePath).readAsBytes();
                 String? selectedPath = await FilePicker.platform.saveFile(
-                  fileName: "image.${widget.imageFilename.split(".").last}",
+                  fileName: "image.${FilenameUtils.extensionName(widget.imageFilename)}",
                   type: FileType.image,
                   bytes: bytes
                 );

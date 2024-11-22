@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:amphi/models/app_colors_core.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:notes/models/app_storage.dart';
-import 'package:amphi/models/app_colors_core.dart';
 
 final appColors = AppColors.getInstance();
 
@@ -15,8 +16,7 @@ class AppColors extends AppColorsCore {
   static AppColors getInstance() => _instance;
 
   void getData() async {
-    File file = File(
-        "${appStorage.selectedUser.storagePath}/colors.json");
+    File file = File(PathUtils.join(appStorage.selectedUser.storagePath, "colors.json"));
 
     if (!file.existsSync()) {
       themeColors = [];
@@ -34,8 +34,7 @@ class AppColors extends AppColorsCore {
   late List<Color> noteBackgroundColors;
 
   Future<void> save() async {
-    File file = File(
-        "${appStorage.selectedUser.storagePath}/colors.json");
+    File file = File(PathUtils.join(appStorage.selectedUser.storagePath, "colors.json"));
     file.writeAsString(jsonEncode(toMap()));
   }
 

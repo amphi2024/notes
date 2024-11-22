@@ -1,14 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_upload.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/icons.dart';
 
 const int insertFolder = 0, updateFolder = 1;
 
 class EditFolderDialog extends StatefulWidget {
-
   final Folder folder;
   final void Function(Folder) onSave;
   const EditFolderDialog({super.key, required this.folder, required this.onSave});
@@ -36,9 +33,7 @@ class _EditFolderDialogState extends State<EditFolderDialog> {
       child: Container(
         width: 250,
         height: 110,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15)
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
         child: Stack(
           children: [
             Positioned(
@@ -47,9 +42,7 @@ class _EditFolderDialogState extends State<EditFolderDialog> {
                 top: 5,
                 child: TextField(
                   controller: folderNameController,
-                  decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context).get("@hint_folder_name")
-                  ),
+                  decoration: InputDecoration(hintText: AppLocalizations.of(context).get("@hint_folder_name")),
                 )),
             Positioned(
                 left: 5,

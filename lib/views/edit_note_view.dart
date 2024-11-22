@@ -1,13 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/components/edit_note/edit_note_toolbar.dart';
 
-import 'package:notes/components/note_editor/embed_block/image/image_block_embed.dart';
-import 'package:notes/components/note_editor/embed_block/video/video_block_embed.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:amphi/models/app_localizations.dart';

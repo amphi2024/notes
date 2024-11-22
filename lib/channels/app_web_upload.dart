@@ -1,3 +1,4 @@
+import 'package:amphi/utils/path_utils.dart';
 import 'package:http/http.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/models/app_settings.dart';
@@ -151,7 +152,7 @@ extension AppWebUpload on AppWebChannel {
     try {
 
       MultipartRequest request = MultipartRequest('POST', Uri.parse("${appSettings.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}"));
-      MultipartFile multipartFile = await MultipartFile.fromPath("file", "${appStorage.notesPath}/${noteFileNameOnly}/images/${imageFilename}");
+      MultipartFile multipartFile = await MultipartFile.fromPath("file", PathUtils.join(appStorage.notesPath, noteFileNameOnly, "images", imageFilename));
 
       request.headers.addAll({
         "Authorization": appStorage.selectedUser.token
@@ -180,7 +181,7 @@ extension AppWebUpload on AppWebChannel {
     try {
 
       MultipartRequest request = MultipartRequest('POST', Uri.parse("${appSettings.serverAddress}/notes/${noteFileNameOnly}/videos/${videoFilename}"));
-      MultipartFile multipartFile = await MultipartFile.fromPath("file", "${appStorage.notesPath}/${noteFileNameOnly}/videos/${videoFilename}");
+      MultipartFile multipartFile = await MultipartFile.fromPath("file", PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos", videoFilename));
 
       request.headers.addAll({
         "Authorization": appStorage.selectedUser.token
