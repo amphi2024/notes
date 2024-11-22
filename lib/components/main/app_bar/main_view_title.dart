@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/icons.dart';
 
 class MainViewTitle extends StatefulWidget {
-
   final String? title;
   final int notesCount;
   final void Function()? onEditNotes;
@@ -17,12 +16,11 @@ class MainViewTitle extends StatefulWidget {
 }
 
 class _MainViewTitleState extends State<MainViewTitle> {
-
   bool fileCountVisibility = false;
 
   @override
   Widget build(BuildContext context) {
-    if( appStorage.selectedNotes == null) {
+    if (appStorage.selectedNotes == null) {
       return Builder(builder: (context) {
         return GestureDetector(
             onTap: () {
@@ -37,9 +35,7 @@ class _MainViewTitleState extends State<MainViewTitle> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxWidth: 110
-                    ),
+                    constraints: BoxConstraints(maxWidth: 110),
                     child: Text(
                       widget.title == null ? AppLocalizations.of(context).get("@notes") : widget.title!,
                       overflow: TextOverflow.ellipsis,
@@ -75,7 +71,7 @@ class _MainViewTitleState extends State<MainViewTitle> {
                       child: IconButton(
                         icon: Icon(Icons.edit),
                         onPressed: () {
-                          if(widget.onEditNotes != null && App.isWideScreen(context)) {
+                          if (widget.onEditNotes != null && App.isWideScreen(context)) {
                             widget.onEditNotes!();
                           }
                         },
@@ -86,20 +82,18 @@ class _MainViewTitleState extends State<MainViewTitle> {
               ),
             ));
       });
-    }
-    else {
+    } else {
       return Align(
         alignment: Alignment.topLeft,
-        child:  IconButton(
+        child: IconButton(
           icon: Icon(AppIcons.check),
           onPressed: () {
             appState.notifySomethingChanged(() {
-              AppStorage.getInstance().selectedNotes = null;
+              appStorage.selectedNotes = null;
             });
           },
         ),
       );
     }
-
   }
 }

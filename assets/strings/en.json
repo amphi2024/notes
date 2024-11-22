@@ -14,6 +14,8 @@
   "@theme": "Theme",
   "@title": "Title",
   "@trashes": "Trashes",
+  "@guest": "Guest",
+  "@add_account": "Add Account",
   "@use_my_own_server": "Use My Own Server",
   "@hint_theme_name": "Name",
 
@@ -137,5 +139,11 @@
   "@note_text_color": "Text color",
   "@note_background_color": "Background color",
   "@note_text_size": "Text size",
-  "@note_line_height": "Line height"
+  "@note_line_height": "Line height",
+
+  "@note_export_label_note": "Note",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF"
 }

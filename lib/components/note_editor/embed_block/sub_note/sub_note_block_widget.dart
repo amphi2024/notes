@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/embed_block/sub_note/edit_sub_note_dialog.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
-import 'package:notes/models/app_state.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 
 class SubNoteBlockWidget extends StatefulWidget {
-
   final String noteKey;
   final bool readOnly;
   const SubNoteBlockWidget({super.key, required this.noteKey, required this.readOnly});
@@ -16,7 +14,6 @@ class SubNoteBlockWidget extends StatefulWidget {
 }
 
 class _SubNoteBlockWidgetState extends State<SubNoteBlockWidget> {
-
   late NoteEditingController noteEditingController = noteEmbedBlocks.getSubNote(widget.noteKey);
   bool showing = false;
   @override
@@ -28,21 +25,28 @@ class _SubNoteBlockWidgetState extends State<SubNoteBlockWidget> {
         Row(
           children: [
             IconButton(
-                icon: Icon( showing ? Icons.arrow_drop_down : Icons.arrow_right, size: 20),
+                icon: Icon(showing ? Icons.arrow_drop_down : Icons.arrow_right, size: 20),
                 onPressed: () {
-              setState(() {
-                showing = !showing;
-              });
-            }),
+                  setState(() {
+                    showing = !showing;
+                  });
+                }),
             Text(noteEditingController.note.title),
             Visibility(
               visible: !widget.readOnly,
-              child: IconButton(icon: Icon(Icons.edit, size: 20,), onPressed: () {
-                showDialog(context: context, builder: (context) {
-                  noteEditingController.readOnly = false;
-                  return EditSubNoteDialog(noteEditingController: noteEditingController);
-                });
-              }),
+              child: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    size: 20,
+                  ),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          noteEditingController.readOnly = false;
+                          return EditSubNoteDialog(noteEditingController: noteEditingController);
+                        });
+                  }),
             ),
           ],
         ),

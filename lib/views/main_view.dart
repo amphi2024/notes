@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
-import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/components/main/app_bar/main_view_title.dart';
 import 'package:notes/components/main/buttons/account_button.dart';
 import 'package:notes/components/main/buttons/main_view_popupmenu_button.dart';
@@ -33,10 +33,7 @@ class MainView extends StatefulWidget {
   final String location;
   final String? title;
 
-  const MainView(
-      {super.key,
-      this.location = "",
-      this.title});
+  const MainView({super.key, this.location = "", this.title});
 
   @override
   State<MainView> createState() => _MainViewState();
@@ -59,8 +56,7 @@ class _MainViewState extends State<MainView> {
       setState(() {
         appStorage.notes[widget.location] = originalNoteList.where((item) {
           if (item is Note) {
-            return item.title.toLowerCase().contains(text.toLowerCase()) ||
-                item.subtitle.toLowerCase().contains(text.toLowerCase());
+            return item.title.toLowerCase().contains(text.toLowerCase()) || item.subtitle.toLowerCase().contains(text.toLowerCase());
           } else {
             return item.title.toLowerCase().contains(text.toLowerCase());
           }
@@ -99,8 +95,7 @@ class _MainViewState extends State<MainView> {
       setState(() {
         appStorage.selectedNotes = null;
       });
-    }
-    else if (buttonRotated) {
+    } else if (buttonRotated) {
       setState(() {
         buttonRotated = false;
       });
@@ -110,9 +105,7 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
-      appMethodChannel.setNavigationBarColor(
-          Theme.of(context).scaffoldBackgroundColor,
-          appSettings.transparentNavigationBar);
+      appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
     }
     return AppView(
       canPopPage: !buttonRotated && appStorage.selectedNotes == null,
@@ -121,15 +114,13 @@ class _MainViewState extends State<MainView> {
         appBar: AppBar(
           leadingWidth: 310,
           automaticallyImplyLeading: false,
-          leading: MainViewTitle(title: widget.title, notesCount:  (AppStorage.getNoteList(widget.location)).length),
+          leading: MainViewTitle(title: widget.title, notesCount: (AppStorage.getNoteList(widget.location)).length),
           actions: appStorage.selectedNotes == null
-              ? [
-                  MainViewPopupMenuButton()
-                ]
-              : <Widget> [
+              ? [MainViewPopupMenuButton()]
+              : <Widget>[
                   IconButton(
                       icon: const Icon(AppIcons.move),
-                      onPressed: ()  {
+                      onPressed: () {
                         showDialog(
                             context: context,
                             builder: (context) {
@@ -138,11 +129,10 @@ class _MainViewState extends State<MainView> {
                       }),
                   IconButton(
                       icon: const Icon(AppIcons.trash),
-                      onPressed: () => showConfirmationDialog(
-                              "@dialog_title_move_to_trash", () {
-                        setState(() {
-                          AppStorage.moveSelectedNotesToTrash(widget.location);
-                        });
+                      onPressed: () => showConfirmationDialog("@dialog_title_move_to_trash", () {
+                            setState(() {
+                              AppStorage.moveSelectedNotesToTrash(widget.location);
+                            });
                           })),
                 ],
         ),
@@ -155,23 +145,23 @@ class _MainViewState extends State<MainView> {
                 right: 7.5,
                 child: RefreshIndicator(
                     key: GlobalKey<RefreshIndicatorState>(),
-                 //   triggerMode: RefreshIndicatorTriggerMode.anywhere,
+                    //   triggerMode: RefreshIndicatorTriggerMode.anywhere,
                     onRefresh: refresh,
                     child: NoteListView(
-                      noteList:  AppStorage.getNoteList(widget.location),
+                      noteList: AppStorage.getNoteList(widget.location),
                       onLongPress: () {
                         setState(() {
-                          AppStorage.getInstance().selectedNotes = [];
+                          appStorage.selectedNotes = [];
                         });
                       },
                       onNotePressed: (Note note) {
                         print(note.filename);
-                        if(AppStorage.getInstance().selectedNotes == null) {
+                        if (appStorage.selectedNotes == null) {
                           appState.noteEditingController.setNote(note);
                           appState.noteEditingController.readOnly = true;
                           Navigator.push(context, CupertinoPageRoute(builder: (context) {
                             return EditNoteView(
-                              createNote: false,
+                                createNote: false,
                                 onSave: (changed) {
                                   setState(() {
                                     note = changed;
@@ -183,67 +173,71 @@ class _MainViewState extends State<MainView> {
                         }
                       },
                       toUpdateFolder: (folder) {
-                        showDialog(context: context, builder: (context) {
-                          return EditFolderDialog(folder: folder, onSave: (changed) {
-                            setState(() {
-                              AppStorage.getInstance().selectedNotes = null;
-                              folder = changed;
-                              AppStorage.getNoteList(widget.location).sortByOption();
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return EditFolderDialog(
+                                  folder: folder,
+                                  onSave: (changed) {
+                                    setState(() {
+                                      appStorage.selectedNotes = null;
+                                      folder = changed;
+                                      AppStorage.getNoteList(widget.location).sortByOption();
+                                    });
+                                    changed.save();
+                                  });
                             });
-                            changed.save();
-                          });
-                        });
                       },
                     ))),
             FloatingFolderButton(
-                showing: AppStorage.getInstance().selectedNotes == null && buttonRotated,
+                showing: appStorage.selectedNotes == null && buttonRotated,
                 onPressed: () {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return EditFolderDialog(folder: Folder.createdFolder(widget.location), onSave: (folder) {
-                          AppStorage.getNoteList(widget.location).add(folder);
-                          setState(() {
-                            AppStorage.getNoteList(widget.location).sortByOption();
-                          });
-                          folder.save();
-                        });
+                        return EditFolderDialog(
+                            folder: Folder.createdFolder(widget.location),
+                            onSave: (folder) {
+                              AppStorage.getNoteList(widget.location).add(folder);
+                              setState(() {
+                                AppStorage.getNoteList(widget.location).sortByOption();
+                              });
+                              folder.save();
+                            });
                       });
                 }),
             FloatingNoteButton(
-                showing: AppStorage.getInstance().selectedNotes == null && buttonRotated,
+                showing: appStorage.selectedNotes == null && buttonRotated,
                 onPressed: () {
                   appState.noteEditingController.setNote(Note.createdNote(widget.location));
                   appState.noteEditingController.readOnly = false;
                   Navigator.push(context, CupertinoPageRoute(builder: (context) {
                     return EditNoteView(
-                      createNote: true,
+                        createNote: true,
                         onSave: (note) {
-                      setState(() {
-                        note.initTitles();
-                        AppStorage.getNoteList(widget.location).add(note);
-                        AppStorage.getNoteList(widget.location).sortByOption();
-                      });
-                     note.save();
-                    });
+                          setState(() {
+                            note.initTitles();
+                            AppStorage.getNoteList(widget.location).add(note);
+                            AppStorage.getNoteList(widget.location).sortByOption();
+                          });
+                          note.save();
+                        });
                   }));
-                               }),
+                }),
             FloatingPlusButton(
-                showing: AppStorage.getInstance().selectedNotes == null,
+                showing: appStorage.selectedNotes == null,
                 rotated: buttonRotated,
                 onPressed: () {
                   searchBarController.text = "";
-                  if(focusNode.hasFocus) {
+                  if (focusNode.hasFocus) {
                     focusNode.unfocus();
                   }
                   setState(() {
                     buttonRotated = !buttonRotated;
                   });
                 }),
-            FloatingMenu(
-                showing: buttonRotated &&  AppStorage.getInstance().selectedNotes == null,
-                children: [
-                  AccountButton(),
+            FloatingMenu(showing: buttonRotated && appStorage.selectedNotes == null, children: [
+              AccountButton(),
               const FloatingMenuDivider(),
               FloatingMenuButton(
                   icon: AppIcons.trash,
@@ -260,16 +254,13 @@ class _MainViewState extends State<MainView> {
               FloatingMenuButton(
                   icon: AppIcons.setting,
                   onPressed: () {
-                    Navigator.push(context,
-                        CupertinoPageRoute(builder: (context) {
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) {
                       return SettingsView();
                     }));
                   }),
             ]),
             FloatingSearchBar(
-                showing:  AppStorage.getInstance().selectedNotes == null && buttonRotated,
-                focusNode: focusNode,
-                textEditingController: searchBarController),
+                showing: appStorage.selectedNotes == null && buttonRotated, focusNode: focusNode, textEditingController: searchBarController),
           ],
         ),
       ),

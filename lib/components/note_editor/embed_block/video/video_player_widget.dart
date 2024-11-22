@@ -1,3 +1,5 @@
+import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/widgets/video/video_player.dart';
 import 'package:amphi/widgets/video/video_player_network.dart';
 import 'package:flutter/material.dart';
@@ -296,8 +298,8 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     return VideoPlayer(
         path: widget.path,
         errorBuilder: () {
-          String noteFileNameOnly = appState.noteEditingController.note.filename.split(".").first;
-          String videoFilename = widget.path.split("/").last;
+          String noteFileNameOnly = FilenameUtils.nameOnly(appState.noteEditingController.note.filename);
+          String videoFilename = PathUtils.basename(widget.path);
           appWebChannel.downloadVideo(noteFileNameOnly: noteFileNameOnly, videoFilename: videoFilename);
 
           return VideoPlayerNetwork(

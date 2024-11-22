@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:amphi/models/app.dart';
+import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/translations.dart';
@@ -9,14 +11,11 @@ import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_sync.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:amphi/models/app.dart';
 import 'package:notes/models/app_colors.dart';
-import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';
-import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/views/main_view.dart';
 import 'package:notes/views/wide_main_view.dart';
@@ -37,7 +36,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     appStorage.initialize(getData: () {
@@ -75,7 +73,7 @@ class _MyAppState extends State<MyApp> {
         });
       }
     }, onInitialize: () {
-        setState(() {});
+      setState(() {});
     });
 
     appWebChannel.getDeviceInfo();
@@ -99,7 +97,7 @@ class _MyAppState extends State<MyApp> {
     }
     if (appTheme != null) {
       return MaterialApp(
-         // debugShowCheckedModeBanner: false,
+          // debugShowCheckedModeBanner: false,
           theme: appTheme.lightTheme.toThemeData(context),
           darkTheme: appTheme.darkTheme.toThemeData(context),
           locale: locale,
@@ -115,12 +113,8 @@ class _MyAppState extends State<MyApp> {
     } else {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: AppTheme.lightGray
-        ),
-        darkTheme: ThemeData(
-          scaffoldBackgroundColor: AppTheme.charCoal
-        ),
+        theme: ThemeData(scaffoldBackgroundColor: AppTheme.lightGray),
+        darkTheme: ThemeData(scaffoldBackgroundColor: AppTheme.charCoal),
         home: Scaffold(),
       );
     }

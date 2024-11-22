@@ -76,7 +76,6 @@ extension AppWebDownload on AppWebChannel {
 
   void downloadImage(
       {required String noteFileNameOnly, required String imageFilename, void Function(Uint8List bytes)? onSuccess, void Function()? onFailed}) async {
-    print("${appSettings.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}");
     try {
       final response = await get(
         Uri.parse("${appSettings.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}"),
@@ -87,10 +86,7 @@ extension AppWebDownload on AppWebChannel {
           onSuccess(response.bodyBytes);
         }
       }
-      print("34824938243289493284329842");
-      print(response.body);
     } catch (e) {
-      print(e);
       if (onFailed != null) {
         onFailed();
       }

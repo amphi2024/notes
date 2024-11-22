@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
+import 'package:flutter/material.dart';
 import 'package:notes/components/main/app_bar/main_view_title.dart';
 import 'package:notes/components/main/buttons/account_button.dart';
 import 'package:notes/components/main/buttons/main_view_popupmenu_button.dart';
@@ -8,7 +9,6 @@ import 'package:notes/components/main/edit_folder_dialog.dart';
 import 'package:notes/components/main/list_view/note_list_view.dart';
 import 'package:notes/components/main/notes_search_bar.dart';
 import 'package:notes/extensions/sort_extension.dart';
-import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
@@ -20,7 +20,6 @@ import 'package:notes/views/settings_dialog.dart';
 import 'package:notes/views/trash_view_dialog.dart';
 
 class FloatingWideMenu extends StatefulWidget {
-
   final bool showing;
   final void Function(Note) onNoteSelected;
   final FocusNode focusNode;
@@ -32,7 +31,6 @@ class FloatingWideMenu extends StatefulWidget {
 }
 
 class _FloatingWideMenuState extends State<FloatingWideMenu> {
-
   final TextEditingController searchBarController = TextEditingController();
   late FocusNode focusNode = widget.focusNode;
   late List<dynamic> originalNoteList = AppStorage.getNoteList(appState.history.last?.filename ?? "");
@@ -42,14 +40,13 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
     String text = searchBarController.text;
     if (text.isEmpty) {
       setState(() {
-        AppStorage.getInstance().notes[location] = originalNoteList;
+        appStorage.notes[location] = originalNoteList;
       });
     } else {
       setState(() {
-        AppStorage.getInstance().notes[location] = originalNoteList.where((item) {
+        appStorage.notes[location] = originalNoteList.where((item) {
           if (item is Note) {
-            return item.title.toLowerCase().contains(text.toLowerCase()) ||
-                item.subtitle.toLowerCase().contains(text.toLowerCase());
+            return item.title.toLowerCase().contains(text.toLowerCase()) || item.subtitle.toLowerCase().contains(text.toLowerCase());
           } else {
             return item.title.toLowerCase().contains(text.toLowerCase());
           }
@@ -76,33 +73,31 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
     String location = appState.history.last?.filename ?? "";
     AppStorage.refreshNoteList((allNotes) {
       setState(() {
-        AppStorage.getInstance().notes[location] = AppStorage.getNotes(noteList: allNotes, home: location);
-        AppStorage.getInstance().notes[location]!.sortByOption();
+        appStorage.notes[location] = AppStorage.getNotes(noteList: allNotes, home: location);
+        appStorage.notes[location]!.sortByOption();
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
     String location = appState.history.last?.filename ?? "";
     double normalPosition = appSettings.dockedFloatingMenu ? 0 : 15;
     return PopScope(
-      canPop: AppStorage.getInstance().selectedNotes == null && appState.history.length <= 1,
+      canPop: appStorage.selectedNotes == null && appState.history.length <= 1,
       onPopInvokedWithResult: (value, result) {
-        if (AppStorage.getInstance().selectedNotes != null) {
+        if (appStorage.selectedNotes != null) {
           setState(() {
-            AppStorage.getInstance().selectedNotes = null;
+            appStorage.selectedNotes = null;
           });
-        }
-        else if(appState.history.length > 1) {
+        } else if (appState.history.length > 1) {
           setState(() {
             appState.history.removeLast();
           });
         }
       },
       child: AnimatedPositioned(
-          left: widget.showing? normalPosition : -300,
+          left: widget.showing ? normalPosition : -300,
           top: normalPosition,
           bottom: normalPosition,
           duration: Duration(milliseconds: 500),
@@ -113,16 +108,18 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
             width: 250,
             height: double.infinity,
             decoration: BoxDecoration(
-              borderRadius:  appSettings.dockedFloatingMenu ? BorderRadius.zero : BorderRadius.circular(15),
+              borderRadius: appSettings.dockedFloatingMenu ? BorderRadius.zero : BorderRadius.circular(15),
               color: Theme.of(context).scaffoldBackgroundColor,
-              boxShadow: appSettings.dockedFloatingMenu ? null : [
-                BoxShadow(
-                  color: Theme.of(context).shadowColor,
-                  spreadRadius: 3,
-                  blurRadius: 5,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+              boxShadow: appSettings.dockedFloatingMenu
+                  ? null
+                  : [
+                      BoxShadow(
+                        color: Theme.of(context).shadowColor,
+                        spreadRadius: 3,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -133,19 +130,19 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      IconButton(icon: Icon(Icons.arrow_back, color: location == "" ? Theme.of(context).dividerColor : null),
+                      IconButton(
+                          icon: Icon(Icons.arrow_back, color: location == "" ? Theme.of(context).dividerColor : null),
                           onPressed: () {
-                        if(appState.history.length > 1) {
-                          appState.history.removeLast();
-                          appState.notifySomethingChanged(() {
-
-                          });
-                        }
-
-                      }),
-                      IconButton(icon: Icon(Icons.refresh), onPressed: () {
-                        refresh();
-                      }),
+                            if (appState.history.length > 1) {
+                              appState.history.removeLast();
+                              appState.notifySomethingChanged(() {});
+                            }
+                          }),
+                      IconButton(
+                          icon: Icon(Icons.refresh),
+                          onPressed: () {
+                            refresh();
+                          }),
                     ],
                   ),
                 ),
@@ -160,80 +157,90 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                           title: appState.history.last?.title,
                           onEditNotes: () {
                             setState(() {
-                              AppStorage.getInstance().selectedNotes = [];
+                              appStorage.selectedNotes = [];
                             });
-                      }),
+                          }),
                     ),
-                    AppStorage.getInstance().selectedNotes == null ? MainViewPopupMenuButton() : Row(
-                      children: [
-                        IconButton(
-                            icon: const Icon(AppIcons.move),
-                            onPressed: ()  {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return ChooseFolderDialog();
-                                  });
-                            }),
-                        IconButton(
-                            icon: const Icon(AppIcons.trash),
-                            onPressed: () => showConfirmationDialog(
-                                "@dialog_title_move_to_trash", () {
-                              setState(() {
-                                AppStorage.moveSelectedNotesToTrash(location);
-                              });
-                            })),
-                      ],
-                    ),
+                    appStorage.selectedNotes == null
+                        ? MainViewPopupMenuButton()
+                        : Row(
+                            children: [
+                              IconButton(
+                                  icon: const Icon(AppIcons.move),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return ChooseFolderDialog();
+                                        });
+                                  }),
+                              IconButton(
+                                  icon: const Icon(AppIcons.trash),
+                                  onPressed: () => showConfirmationDialog("@dialog_title_move_to_trash", () {
+                                        setState(() {
+                                          AppStorage.moveSelectedNotesToTrash(location);
+                                        });
+                                      })),
+                            ],
+                          ),
                   ],
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 10),
-                  child: SizedBox(
-                      height: 30,
-                      child: NotesSearchBar(textEditingController: searchBarController)),
+                  child: SizedBox(height: 30, child: NotesSearchBar(textEditingController: searchBarController)),
                 ),
                 Expanded(
                     child: NoteListView(
-                      noteList: AppStorage.getNoteList(location),
-                      onLongPress: () {
-                        setState(() {
-                          AppStorage.getInstance().selectedNotes = [];
+                  noteList: AppStorage.getNoteList(location),
+                  onLongPress: () {
+                    setState(() {
+                      appStorage.selectedNotes = [];
+                    });
+                  },
+                  onNotePressed: (note) {
+                    print(note.filename);
+                    noteEmbedBlocks.clear();
+                    widget.onNoteSelected(note);
+                  },
+                  toUpdateFolder: (folder) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return EditFolderDialog(
+                              folder: folder,
+                              onSave: (changed) {
+                                setState(() {
+                                  appStorage.selectedNotes = null;
+                                  folder = changed;
+                                  AppStorage.getNoteList(location).sortByOption();
+                                });
+                                changed.save();
+                              });
                         });
-                      },
-                      onNotePressed: (note) {
-                        print(note.filename);
-                        noteEmbedBlocks.clear();
-                        widget.onNoteSelected(note);
-                      },
-                      toUpdateFolder: (folder) {
-                        showDialog(context: context, builder: (context) {
-                          return EditFolderDialog(folder: folder, onSave: (changed) {
-                            setState(() {
-                              AppStorage.getInstance().selectedNotes = null;
-                              folder = changed;
-                              AppStorage.getNoteList(location).sortByOption();
-                            });
-                            changed.save();
-                          });
-                        });
-                      },
-                    )),
+                  },
+                )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     AccountButton(),
-                    IconButton(onPressed: () {
-                      showDialog(context: context, builder: (context) {
-                        return TrashViewDialog();
-                      });
-                    }, icon: Icon(AppIcons.trash)),
-                    IconButton(onPressed: () {
-                      showDialog(context: context, builder: (context) {
-                        return SettingsDialog();
-                      });
-                    }, icon: Icon(AppIcons.setting)),
+                    IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return TrashViewDialog();
+                              });
+                        },
+                        icon: Icon(AppIcons.trash)),
+                    IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return SettingsDialog();
+                              });
+                        },
+                        icon: Icon(AppIcons.setting)),
                     PopupMenuButton(
                         icon: Icon(Icons.add_circle_outline_outlined),
                         itemBuilder: (context) {
@@ -245,13 +252,15 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return EditFolderDialog(folder: Folder.createdFolder(location), onSave: (folder) {
-                                          AppStorage.getNoteList(location).add(folder);
-                                          setState(() {
-                                            AppStorage.getNoteList(location).sortByOption();
-                                          });
-                                          folder.save();
-                                        });
+                                        return EditFolderDialog(
+                                            folder: Folder.createdFolder(location),
+                                            onSave: (folder) {
+                                              AppStorage.getNoteList(location).add(folder);
+                                              setState(() {
+                                                AppStorage.getNoteList(location).sortByOption();
+                                              });
+                                              folder.save();
+                                            });
                                       });
                                 }),
                             PopupMenuItem(
@@ -261,13 +270,12 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                                   widget.toCreateNote(Note.createdNote(location));
                                 }),
                           ];
-                    })
+                        })
                   ],
                 )
               ],
             ),
-          )
-      ),
+          )),
     );
   }
 }

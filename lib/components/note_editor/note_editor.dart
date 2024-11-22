@@ -91,10 +91,10 @@ class _NoteEditorState extends State<NoteEditor> {
               1, 1
           ),
             VerticalSpacing(
-                1, 1
+                note.lineHeight ?? 1, note.lineHeight ?? 1
             ),
             VerticalSpacing(
-               note.lineHeight ?? 1,  note.lineHeight ?? 1
+              1,  1
             ),
             BoxDecoration(),),
           lists: DefaultListBlockStyle(
@@ -106,7 +106,7 @@ class _NoteEditorState extends State<NoteEditor> {
                 1, 1
             ),
               VerticalSpacing(
-                  note.lineHeight ?? 1,  note.lineHeight ?? 1
+                  1,  1
               ),
             BoxDecoration(),
               NoteEditorCheckboxBuilder()

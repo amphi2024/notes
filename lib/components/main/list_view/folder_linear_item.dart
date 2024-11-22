@@ -33,7 +33,7 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
 
   @override
   Widget build(BuildContext context) {
-    if (AppStorage.getInstance().selectedNotes == null) {
+    if (appStorage.selectedNotes == null) {
       setState(() {
         selected = false;
       });
@@ -59,12 +59,11 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
               curve: Curves.easeOutQuint,
               top: 0.0,
               bottom: 0.0,
-              left: AppStorage.getInstance().selectedNotes != null ? 10.0 : 0.0,
+              left: appStorage.selectedNotes != null ? 10.0 : 0.0,
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 1000),
                 curve: Curves.easeOutQuint,
-                opacity:
-                    AppStorage.getInstance().selectedNotes != null ? 1.0 : 0,
+                opacity: appStorage.selectedNotes != null ? 1.0 : 0,
                 child: SizedBox(
                   width: 30,
                   height: 30,
@@ -75,13 +74,9 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
                           selected = value!;
                         });
                         if (selected) {
-                          AppStorage.getInstance()
-                              .selectedNotes!
-                              .add(widget.folder);
+                          appStorage.selectedNotes!.add(widget.folder);
                         } else {
-                          AppStorage.getInstance()
-                              .selectedNotes!
-                              .remove(widget.folder);
+                          appStorage.selectedNotes!.remove(widget.folder);
                         }
                       }),
                 ),
@@ -90,7 +85,7 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
             AnimatedPositioned(
               duration: const Duration(milliseconds: 1000),
               curve: Curves.easeOutQuint,
-              left: AppStorage.getInstance().selectedNotes != null ? 40 : 0,
+              left: appStorage.selectedNotes != null ? 40 : 0,
               top: 0,
               bottom: 0,
               child: Row(
@@ -110,19 +105,14 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
                       children: [
                         Text(
                           widget.folder.title,
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
                               "${widget.folder.modified.toLocalizedShortString(context)}   ${AppStorage.getNoteList(widget.folder.filename).length}",
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.onSurface),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                             ),
                           ],
                         )
@@ -137,13 +127,11 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
               curve: Curves.easeOutQuint,
               top: 0.0,
               bottom: 0.0,
-              right:
-                  AppStorage.getInstance().selectedNotes != null ? 10.0 : 0.0,
+              right: appStorage.selectedNotes != null ? 10.0 : 0.0,
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 1000),
                 curve: Curves.easeOutQuint,
-                opacity:
-                    AppStorage.getInstance().selectedNotes != null ? 1.0 : 0,
+                opacity: appStorage.selectedNotes != null ? 1.0 : 0,
                 child: IconButton(
                   icon: const Icon(
                     Icons.build_circle_outlined,

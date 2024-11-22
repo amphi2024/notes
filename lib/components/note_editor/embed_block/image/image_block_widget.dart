@@ -21,10 +21,8 @@ class ImageBlockWidget extends StatefulWidget {
 }
 
 class _ImageBlockWidgetState extends State<ImageBlockWidget> {
-
   @override
   Widget build(BuildContext context) {
-
     String absolutePath = PathUtils.join(appStorage.notesPath, widget.noteFileNameOnly, "images", widget.imageFilename);
     return Align(
       alignment: Alignment.centerLeft,
@@ -38,13 +36,9 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
               menuItem(context, "@image_action_share", Icons.share, () {}),
               menuItem(context, "@image_action_copy", Icons.copy, () {}),
               menuItem(context, "@image_action_save", Icons.save, () async {
-
                 var bytes = await File(absolutePath).readAsBytes();
-                String? selectedPath = await FilePicker.platform.saveFile(
-                  fileName: "image.${FilenameUtils.extensionName(widget.imageFilename)}",
-                  type: FileType.image,
-                  bytes: bytes
-                );
+                String? selectedPath = await FilePicker.platform
+                    .saveFile(fileName: "image.${FilenameUtils.extensionName(widget.imageFilename)}", type: FileType.image, bytes: bytes);
 
                 if (selectedPath != null) {
                   if (App.isDesktop()) {
@@ -61,8 +55,8 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
                       return ImagePageView(path: absolutePath);
                     },
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(0.0, 1.0);  // 아래에서 시작
-                      const end = Offset.zero;         // 최종 위치 (위)
+                      const begin = Offset(0.0, 1.0); // 아래에서 시작
+                      const end = Offset.zero; // 최종 위치 (위)
                       const curve = Curves.ease;
 
                       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
@@ -81,13 +75,11 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
                 //   );
                 // }));
               }),
-              menuItem(context, "@image_action_remove", Icons.delete, () {
-
-              }),
+              menuItem(context, "@image_action_remove", Icons.delete, () {}),
             ]);
           },
           child: ImageFromStorage(
-            noteFileNameOnly: widget.noteFileNameOnly.split(".").first,
+            noteFileNameOnly: widget.noteFileNameOnly,
             imageFilename: widget.imageFilename,
             fit: BoxFit.contain,
           ),
@@ -99,15 +91,15 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
 
 PopupMenuItem menuItem(BuildContext context, String titleKey, IconData icon, void Function() onPressed) {
   return PopupMenuItem(
-    onTap: onPressed,
+      onTap: onPressed,
       child: Row(children: [
-    Padding(
-      padding: const EdgeInsets.only(left: 5, right: 15),
-      child: Icon(icon,
-      // color: Theme.of(context).textTheme.bodyMedium!.color!,
+        Padding(
+          padding: const EdgeInsets.only(left: 5, right: 15),
+          child: Icon(
+            icon,
+            // color: Theme.of(context).textTheme.bodyMedium!.color!,
+          ),
         ),
-    ),
-    Text(AppLocalizations.of(context).get(titleKey))
-  ]
-  ));
+        Text(AppLocalizations.of(context).get(titleKey))
+      ]));
 }

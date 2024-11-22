@@ -1,6 +1,6 @@
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_theme_core.dart';
-
+import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/bottom_sheet_drag_handle.dart';
@@ -8,7 +8,6 @@ import 'package:notes/components/note_editor/edit_style/edit_note_font.dart';
 import 'package:notes/components/note_editor/edit_style/edit_note_text_size.dart';
 import 'package:notes/components/note_editor/edit_style/toggle_attribute_button.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
 import 'package:notes/models/app_colors.dart';
 import 'package:notes/models/app_theme.dart';
 
@@ -25,7 +24,6 @@ class EditNoteTextStyle extends StatefulWidget {
 }
 
 class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
-
   void addNoteTextColor(Color color) {
     appColors.noteTextColors.add(color);
     appColors.save();
@@ -37,43 +35,28 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
   }
 
   Color selectionBackgroundColorToIconColor() {
-    Color? backgroundColor =
-    widget.noteEditingController.selectionBackgroundColor();
+    Color? backgroundColor = widget.noteEditingController.selectionBackgroundColor();
     if (backgroundColor != null) {
       if (backgroundColor.opacity < 0.1) {
-        return Theme
-            .of(context)
-            .cardColor;
+        return Theme.of(context).cardColor;
       } else {
         return backgroundColor;
       }
     } else {
-      return Theme
-          .of(context)
-          .cardColor;
+      return Theme.of(context).cardColor;
     }
   }
 
   bool attributeApplied(Attribute attribute) {
-    return widget.noteEditingController
-        .getSelectionStyle()
-        .containsKey(attribute.key);
+    return widget.noteEditingController.getSelectionStyle().containsKey(attribute.key);
   }
 
   bool listAttributeApplied(Attribute attribute) {
-    return widget.noteEditingController
-        .getSelectionStyle()
-        .attributes["list"]
-        ?.value ==
-        attribute.value;
+    return widget.noteEditingController.getSelectionStyle().attributes["list"]?.value == attribute.value;
   }
 
   bool alignAttributeApplied(Attribute attribute) {
-    return widget.noteEditingController
-        .getSelectionStyle()
-        .attributes["align"]
-        ?.value ==
-        attribute.value;
+    return widget.noteEditingController.getSelectionStyle().attributes["align"]?.value == attribute.value;
   }
 
   void toggleAttribute(Attribute attribute) {
@@ -102,8 +85,7 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
     setState(() {
       widget.noteEditingController.skipRequestKeyboard = attribute.isInline;
       if (alignAttributeApplied(attribute)) {
-        widget.noteEditingController.formatSelection(
-            Attribute(attribute.key, AttributeScope.inline, null));
+        widget.noteEditingController.formatSelection(Attribute(attribute.key, AttributeScope.inline, null));
       } else {
         widget.noteEditingController.formatSelection(attribute);
       }
@@ -112,16 +94,12 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
 
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
     return Container(
       height: App.isDesktop() ? 190 : 375,
       width: double.infinity,
       //width: 300,
-      decoration: BoxDecoration(
-          color: Theme
-              .of(context)
-              .colorScheme
-              .surface,
-          borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(color: themeData.colorScheme.surface, borderRadius: BorderRadius.circular(15)),
       child: Column(
         children: [
           Visibility(
@@ -160,23 +138,14 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                     onPressed: () {
                       showAdaptiveColorPicker(
                           context: context,
-                          color: widget.noteEditingController
-                              .currentTextColor(context),
+                          color: widget.noteEditingController.currentTextColor(context),
                           onAddColor: addNoteTextColor,
                           onColorChanged: (color) {
-                            toggleAttribute(
-                                ColorAttribute(color.toHexString()));
+                            toggleAttribute(ColorAttribute(color.toHexString()));
                           },
-                          colors: AppColors
-                              .getInstance()
-                              .noteTextColors,
+                          colors: appColors.noteTextColors,
                           onRemoveColor: removeNoteTextColor,
-                          defaultColor:
-                          Theme
-                              .of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .color,
+                          defaultColor: themeData.textTheme.bodyMedium!.color,
                           onDefaultColorTap: (color) {
                             toggleAttribute(Attribute.color);
                           });
@@ -196,11 +165,7 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              backgroundColor:
-                              Theme
-                                  .of(context)
-                                  .colorScheme
-                                  .primary,
+                              backgroundColor: themeData.colorScheme.primary,
                               disabledForegroundColor: AppTheme.transparent,
                               disabledBackgroundColor: AppTheme.transparent,
                               surfaceTintColor: AppTheme.transparent,
@@ -209,20 +174,14 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                           onPressed: () {
                             showAdaptiveColorPicker(
                                 context: context,
-                                color: widget.noteEditingController
-                                    .selectionBackgroundColor() ??
-                                    AppTheme.transparent,
+                                color: widget.noteEditingController.selectionBackgroundColor() ?? AppTheme.transparent,
                                 onAddColor: addNoteTextColor,
                                 onColorChanged: (color) {
                                   setState(() {
-                                    widget.noteEditingController
-                                        .formatSelection(BackgroundAttribute(
-                                        color.toHexString()));
+                                    widget.noteEditingController.formatSelection(BackgroundAttribute(color.toHexString()));
                                   });
                                 },
-                                colors: AppColors
-                                    .getInstance()
-                                    .noteTextColors,
+                                colors: AppColors.getInstance().noteTextColors,
                                 onRemoveColor: removeNoteTextColor,
                                 defaultColor: AppTheme.transparent,
                                 onDefaultColorTap: (color) {
@@ -230,8 +189,7 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                                 });
                           },
                           child: Visibility(
-                            visible: widget.noteEditingController
-                                .selectionBackgroundColor() == null,
+                            visible: widget.noteEditingController.selectionBackgroundColor() == null,
                             child: Icon(
                               Icons.square,
                               color: selectionBackgroundColorToIconColor(),
@@ -245,13 +203,8 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 ToggleAttributeButton(
-                  activated: widget.noteEditingController
-                      .getSelectionStyle()
-                      .attributes["list"]
-                      ?.value == Attribute.unchecked.value || widget.noteEditingController
-                      .getSelectionStyle()
-                      .attributes["list"]
-                      ?.value == Attribute.checked.value,
+                  activated: widget.noteEditingController.getSelectionStyle().attributes["list"]?.value == Attribute.unchecked.value ||
+                      widget.noteEditingController.getSelectionStyle().attributes["list"]?.value == Attribute.checked.value,
                   icon: Icons.checklist,
                   onPressed: () => toggleAttribute(Attribute.unchecked),
                 ),
@@ -280,21 +233,16 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                   icon: Icons.height,
                   onPressed: () {
                     setState(() {
-                      final lineHeight = widget.noteEditingController
-                          .getSelectionStyle()
-                          .attributes[Attribute.lineHeight.key]?.value;
+                      final lineHeight = widget.noteEditingController.getSelectionStyle().attributes[Attribute.lineHeight.key]?.value;
                       if (lineHeight != null) {
                         if (lineHeight == LineHeightAttribute.lineHeightTight.value) {
                           widget.noteEditingController.formatSelection(LineHeightAttribute.lineHeightOneAndHalf);
-                        }
-                        else if (lineHeight == LineHeightAttribute.lineHeightOneAndHalf.value) {
+                        } else if (lineHeight == LineHeightAttribute.lineHeightOneAndHalf.value) {
                           widget.noteEditingController.formatSelection(LineHeightAttribute.lineHeightDouble);
-                        }
-                        else {
+                        } else {
                           widget.noteEditingController.formatSelection(Attribute.clone(LineHeightAttribute.lineHeightNormal, null));
                         }
-                      }
-                      else {
+                      } else {
                         widget.noteEditingController.formatSelection(LineHeightAttribute.lineHeightTight);
                       }
                     });
@@ -330,25 +278,30 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               EditNoteTextSize(
-                  value: double.tryParse(widget.noteEditingController.getSelectionStyle().attributes[Attribute.size.key]?.value ?? "") ?? widget.noteEditingController.note.textSize ?? 15,
-                  noteEditingController: widget.noteEditingController, onChange: (size) {
-                setState(() {
-                  widget.noteEditingController.skipRequestKeyboard = Attribute.size.isInline;
-                  if (size == widget.noteEditingController.note.textSize ) {
-                    widget.noteEditingController.formatSelection(Attribute.clone(Attribute.size, null));
-                  } else {
-                    widget.noteEditingController.formatSelection(SizeAttribute(size.toString()));
-                  }
-                });
-              }),
-              EditNoteFont(noteEditingController: widget.noteEditingController, onChange: (font) {
-                widget.noteEditingController.skipRequestKeyboard = Attribute.font.isInline;
-                if (font == "") {
-                  widget.noteEditingController.formatSelection(Attribute.clone(Attribute.font, null));
-                } else {
-                  widget.noteEditingController.formatSelection(FontAttribute(font));
-                }
-              })
+                  value: double.tryParse(widget.noteEditingController.getSelectionStyle().attributes[Attribute.size.key]?.value ?? "") ??
+                      widget.noteEditingController.note.textSize ??
+                      15,
+                  noteEditingController: widget.noteEditingController,
+                  onChange: (size) {
+                    setState(() {
+                      widget.noteEditingController.skipRequestKeyboard = Attribute.size.isInline;
+                      if (size == widget.noteEditingController.note.textSize) {
+                        widget.noteEditingController.formatSelection(Attribute.clone(Attribute.size, null));
+                      } else {
+                        widget.noteEditingController.formatSelection(SizeAttribute(size.toString()));
+                      }
+                    });
+                  }),
+              EditNoteFont(
+                  noteEditingController: widget.noteEditingController,
+                  onChange: (font) {
+                    widget.noteEditingController.skipRequestKeyboard = Attribute.font.isInline;
+                    if (font == "") {
+                      widget.noteEditingController.formatSelection(Attribute.clone(Attribute.font, null));
+                    } else {
+                      widget.noteEditingController.formatSelection(FontAttribute(font));
+                    }
+                  })
             ],
           ),
         ],

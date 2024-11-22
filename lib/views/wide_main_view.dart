@@ -70,6 +70,8 @@ class _WideMainViewState extends State<WideMainView> {
       children: noteEditorToolbarButtons(appState.noteEditingController, (function) => setState(function)),
     );
 
+    var themeData = Theme.of(context);
+
     return MouseRegion(
       // onHover: (event) {
       //   if (App.isDesktop() && !appSettings.dockedFloatingMenu) {
@@ -89,7 +91,7 @@ class _WideMainViewState extends State<WideMainView> {
       //   }
       // },
       child: Scaffold(
-        backgroundColor: Theme.of(context).cardColor,
+        backgroundColor: appState.noteEditingController.note.backgroundColor ?? Theme.of(context).cardColor,
         body: Stack(
           children: [
             AnimatedPositioned(
@@ -160,7 +162,6 @@ class _WideMainViewState extends State<WideMainView> {
                         IconButton(icon: Icon(Icons.edit), onPressed: () {
                           setState(() {
                             appState.noteEditingController.readOnly = false;
-
                           });
                         })
                       ] : [
@@ -196,6 +197,7 @@ class _WideMainViewState extends State<WideMainView> {
                         child: Theme(
                           data: Theme.of(context).noteThemeData(context),
                           child: Scaffold(
+                            backgroundColor: appState.noteEditingController.note.backgroundColor ?? themeData.cardColor,
                             body: NoteEditor(
                               noteEditingController: appState.noteEditingController,
                             ),

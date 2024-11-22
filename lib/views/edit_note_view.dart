@@ -1,14 +1,14 @@
 import 'dart:io';
 
+import 'package:amphi/models/app_localizations.dart';
+import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
-import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/components/edit_note/edit_note_toolbar.dart';
-
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
-import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_detail_button.dart';
+import 'package:notes/components/note_editor/toolbar/buttons/note_editor_export_button.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_redo_button.dart';
 import 'package:notes/components/note_editor/toolbar/buttons/note_editor_undo_button.dart';
 import 'package:notes/models/app_settings.dart';
@@ -62,25 +62,9 @@ class _EditNoteViewState extends State<EditNoteView> {
 
   @override
   void initState() {
-    // appMethodChannel.onImageSelected = (path) {
-    //   final block = BlockEmbed.custom(
-    //     ImageBlockEmbed(path),
-    //   );
-    //   //  final block =  BlockEmbed.image(path);
-    //   appState.noteEditingController.insertBlock(block);
-    // };
-
-    // appMethodChannel.onVideoSelected = (path) {
-    //   final block = BlockEmbed.custom(
-    //     VideoBlockEmbed(path),
-    //   );
-    //   appState.noteEditingController.insertBlock(block);
-    // };
-
     if (!widget.createNote) {
       originalNote = appState.noteEditingController.note;
     }
-
     super.initState();
   }
 
@@ -123,11 +107,13 @@ class _EditNoteViewState extends State<EditNoteView> {
                       } else {
                         Navigator.pop(context);
                       }
-                      appMethodChannel
-                          .setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
+                      appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
                     },
                     icon: const Icon(AppIcons.back)),
                 actions: [
+                  Visibility(
+                      visible: appState.noteEditingController.readOnly,
+                      child: NoteEditorExportButton(noteEditingController: appState.noteEditingController)),
                   Visibility(
                       visible: appState.noteEditingController.readOnly,
                       child: NoteEditorDetailButton(noteEditingController: appState.noteEditingController)),
@@ -179,9 +165,11 @@ class _EditNoteViewState extends State<EditNoteView> {
                     right: 0,
                     child: Visibility(
                       visible: !appState.noteEditingController.readOnly,
-                      child: EditNoteToolbar(noteEditingController: appState.noteEditingController, onNoteStyleChange: (function) {
-                        setState(function);
-                      }),
+                      child: EditNoteToolbar(
+                          noteEditingController: appState.noteEditingController,
+                          onNoteStyleChange: (function) {
+                            setState(function);
+                          }),
                     ),
                   ),
                 ],

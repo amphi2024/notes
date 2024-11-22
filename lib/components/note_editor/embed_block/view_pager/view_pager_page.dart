@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/embed_block/sub_note/edit_sub_note_dialog.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 
 class ViewPagerPage extends StatefulWidget {
-
   final NoteEditingController noteEditingController;
   final bool readOnly;
   const ViewPagerPage({super.key, required this.noteEditingController, required this.readOnly});
@@ -16,10 +14,9 @@ class ViewPagerPage extends StatefulWidget {
 class _ViewPagerPageState extends State<ViewPagerPage> {
   @override
   Widget build(BuildContext context) {
-    if(widget.readOnly) {
+    if (widget.readOnly) {
       return NoteEditor(noteEditingController: widget.noteEditingController);
-    }
-    else {
+    } else {
       return MouseRegion(
         cursor: SystemMouseCursors.basic,
         child: NoteEditor(noteEditingController: widget.noteEditingController),

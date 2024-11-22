@@ -13,22 +13,19 @@ import 'package:notes/models/item.dart';
 import 'package:notes/models/note.dart';
 
 class Folder extends Item {
-
-  Folder({
-    required super.title,
-    required super.filename,
-    required super.path,
-    required super.location,
-    required super.created,
-    required super.originalCreated,
-    required super.modified,
-    required super.originalModified,
-    super.deleted
-});
+  Folder(
+      {required super.title,
+      required super.filename,
+      required super.path,
+      required super.location,
+      required super.created,
+      required super.originalCreated,
+      required super.modified,
+      required super.originalModified,
+      super.deleted});
 
   static Folder createdFolder(String location) {
-    String filename = FilenameUtils.generatedFileName(
-        "folder", appStorage.notesPath);
+    String filename = FilenameUtils.generatedFileName("folder", appStorage.notesPath);
     return Folder(
         title: "",
         filename: filename,
@@ -49,11 +46,11 @@ class Folder extends Item {
       DateTime modified = parsedDateTime(map["modified"]);
       DateTime originalModified = parsedDateTime(map["originalModified"]);
       DateTime? deleted;
-      if(map["deleted"] != null) {
+      if (map["deleted"] != null) {
         deleted = parsedDateTime(map["deleted"]);
       }
       Folder folder = Folder(
-          filename: file.path.split("/").last,
+          filename: PathUtils.basename(file.path),
           title: map["name"],
           location: map["location"] ?? "",
           path: file.path,
@@ -61,11 +58,9 @@ class Folder extends Item {
           modified: modified,
           originalCreated: originalCreated,
           originalModified: originalModified,
-          deleted: deleted
-      );
+          deleted: deleted);
       return folder;
-    }
-    catch(e) {
+    } catch (e) {
       Folder folder = Folder(
           title: "unknown",
           filename: "",
@@ -74,8 +69,7 @@ class Folder extends Item {
           created: DateTime.now(),
           modified: DateTime.now(),
           originalCreated: DateTime.now(),
-          originalModified: DateTime.now()
-      );
+          originalModified: DateTime.now());
       return folder;
     }
   }
@@ -89,15 +83,11 @@ class Folder extends Item {
       "originalCreated": originalCreated.toDataString(),
       "originalModified": originalModified.toDataString(),
     };
-    if(backgroundColor != null) {
-      data.addAll(
-          {"backgroundColor": backgroundColor!.toHex()}
-      );
+    if (backgroundColor != null) {
+      data.addAll({"backgroundColor": backgroundColor!.toHex()});
     }
-    if(deleted != null) {
-      data.addAll(
-          {"deleted": deleted!.toDataString()}
-      );
+    if (deleted != null) {
+      data.addAll({"deleted": deleted!.toDataString()});
     }
     String fileContent = jsonEncode(data);
     return fileContent;
@@ -105,22 +95,22 @@ class Folder extends Item {
 
   Future<void> save({void Function()? onComplete, bool changeModified = true, bool upload = true}) async {
     File file = File(path);
-    if(!file.existsSync()) {
+    if (!file.existsSync()) {
       originalCreated = DateTime.now();
-      if(!editedCreated) {
+      if (!editedCreated) {
         created = DateTime.now();
       }
     }
-    if(changeModified) {
-      if(!editedModified) {
+    if (changeModified) {
+      if (!editedModified) {
         modified = DateTime.now();
       }
       originalModified = DateTime.now();
     }
-   String fileContent = toFileContent();
+    String fileContent = toFileContent();
     await file.writeAsString(fileContent);
 
-    if(upload) {
+    if (upload) {
       appWebChannel.uploadFolder(folder: this, fileContent: fileContent);
     }
   }
@@ -128,15 +118,14 @@ class Folder extends Item {
   Future<void> delete({bool upload = true}) async {
     File file = File(path);
     await file.delete();
-    for(dynamic item in AppStorage.getNoteList(filename)) {
-      if(item is Note) {
+    for (dynamic item in AppStorage.getNoteList(filename)) {
+      if (item is Note) {
         await item.delete();
-      }
-      else if(item is Folder) {
+      } else if (item is Folder) {
         await item.delete();
       }
     }
-    if(upload) {
+    if (upload) {
       appWebChannel.deleteFolder(folder: this);
     }
   }

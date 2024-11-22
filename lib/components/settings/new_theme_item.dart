@@ -21,7 +21,7 @@ class NewThemeItem extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) {
-                    String filename = FilenameUtils.generatedFileName("theme", AppStorage.getInstance().themesPath);
+                    String filename = FilenameUtils.generatedFileName("theme", appStorage.themesPath);
                     return EditThemeDialog(
                         appTheme: AppTheme(
                             filename: filename,

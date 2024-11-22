@@ -1,7 +1,4 @@
-import 'package:amphi/models/app_colors_core.dart';
-import 'package:amphi/models/app_theme_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/models/content.dart';
@@ -131,20 +128,20 @@ font-size: ${textSize ?? 15}px;
                 """;
                 content.style?.forEach((key, value) {
                   switch (key) {
-                  case "list":
-                    switch (value) {
-                      case "bullet":
-                        break;
-                      case "ordered":
-                        break;
-                      case "checked":
-                        html += """<input type="checkbox">""";
-                        break;
-                      case "unchecked":
-                        html += """<input type="checkbox">""";
-                        break;
-                    }
-                    break;
+                    case "list":
+                      switch (value) {
+                        case "bullet":
+                          break;
+                        case "ordered":
+                          break;
+                        case "checked":
+                          html += """<input type="checkbox">""";
+                          break;
+                        case "unchecked":
+                          html += """<input type="checkbox">""";
+                          break;
+                      }
+                      break;
                   }
                 });
               } else {
@@ -184,10 +181,8 @@ font-size: ${textSize ?? 15}px;
             <div style="${style}">${split[i]}</div>
             """;
               }
-
             }
-          }
-          else {
+          } else {
             content.style?.forEach((key, value) {
               switch (key) {
                 case "list":

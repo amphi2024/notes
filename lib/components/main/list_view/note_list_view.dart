@@ -1,3 +1,4 @@
+import 'package:amphi/models/app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:notes/components/main/list_view/folder_grid_item.dart';
@@ -5,15 +6,14 @@ import 'package:notes/components/main/list_view/folder_linear_item.dart';
 import 'package:notes/components/main/list_view/linear_item_border.dart';
 import 'package:notes/components/main/list_view/note_grid_item.dart';
 import 'package:notes/components/main/list_view/note_linear_item.dart';
-import 'package:amphi/models/app.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/views/main_view.dart';
-class NoteListView extends StatefulWidget {
 
+class NoteListView extends StatefulWidget {
   final List<dynamic> noteList;
   final void Function(Note) onNotePressed;
   final VoidCallback onLongPress;
@@ -25,21 +25,19 @@ class NoteListView extends StatefulWidget {
 }
 
 class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClientMixin<NoteListView> {
-
-  ScrollController scrollController = ScrollController(initialScrollOffset:  appState.noteListScrollPosition);
+  ScrollController scrollController = ScrollController(initialScrollOffset: appState.noteListScrollPosition);
 
   @override
   bool get wantKeepAlive => true;
 
   void onFolderPressed(Folder folder) {
     print(folder.filename);
-    if(folder.location != "!Trashes" && AppStorage.getInstance().selectedNotes == null) {
-      if(App.isWideScreen(context)) {
+    if (folder.location != "!Trashes" && appStorage.selectedNotes == null) {
+      if (App.isWideScreen(context)) {
         appState.notifySomethingChanged(() {
           appState.history.add(folder);
         });
-      }
-      else {
+      } else {
         Navigator.push(context, CupertinoPageRoute(builder: (context) {
           return MainView(
             location: folder.filename,
@@ -67,7 +65,7 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if(appSettings.fragmentIndex == 0) {
+    if (appSettings.fragmentIndex == 0) {
       // return AnimatedList(itemBuilder: (BuildContext context, int index, Animation<double> animation) {
       //
       // },
@@ -75,25 +73,24 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
       //
       // );
       return ListView.builder(
-      // primary: true,
-      //  controller: scrollController,
+          // primary: true,
+          //  controller: scrollController,
           itemCount: widget.noteList.length,
           itemBuilder: (context, index) {
             LinearItemBorder border = LinearItemBorder(index: index, length: widget.noteList.length, context: context);
-            if(widget.noteList[index]is Folder) {
+            if (widget.noteList[index] is Folder) {
               return FolderLinearItem(
-                  linearItemBorder: border,
-                  onPressed: () => onFolderPressed(widget.noteList[index]),
-                  onLongPress: widget.onLongPress,
-                  folder: widget.noteList[index],
+                linearItemBorder: border,
+                onPressed: () => onFolderPressed(widget.noteList[index]),
+                onLongPress: widget.onLongPress,
+                folder: widget.noteList[index],
                 toUpdateFolder: () {
-                    if(AppStorage.getInstance().selectedNotes != null) {
-                      widget.toUpdateFolder(widget.noteList[index]);
-                    }
+                  if (appStorage.selectedNotes != null) {
+                    widget.toUpdateFolder(widget.noteList[index]);
+                  }
                 },
               );
-            }
-            else {
+            } else {
               return NoteLinearItem(
                   linearItemBorder: border,
                   onPressed: () => widget.onNotePressed(widget.noteList[index]),
@@ -101,40 +98,34 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
                   note: widget.noteList[index]);
             }
           });
-    }
-    else {
+    } else {
       //  int axisCount =  (MediaQuery.of(context).size.width / 180).toInt();
-        return  LayoutBuilder(
-          builder: (context, constraints) {
-            double width = constraints.maxWidth;
-            int axisCount =  (width / 180).toInt();
-            return MasonryGridView.builder(
-              controller: scrollController,
-              itemCount: widget.noteList.length,
-              gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: axisCount),
-              itemBuilder: (context, index) {
-                if(widget.noteList[index]is Folder) {
-                  return FolderGridItem(
-                      onPressed: () => onFolderPressed(widget.noteList[index]),
-                      onLongPress: widget.onLongPress,
-                      folder: widget.noteList[index] as Folder,
-                    toUpdateFolder: () {
-                      widget.toUpdateFolder(widget.noteList[index]);
-                    },
-                  );
-                }
-                else {
-                  return NoteGridItem(
-                      onPressed: () => widget.onNotePressed(widget.noteList[index]),
-                      onLongPress: widget.onLongPress,
-                      note: widget.noteList[index] as Note
-                  );
-                }
-
-              },
-            );
-          }
+      return LayoutBuilder(builder: (context, constraints) {
+        double width = constraints.maxWidth;
+        int axisCount = (width / 180).toInt();
+        return MasonryGridView.builder(
+          controller: scrollController,
+          itemCount: widget.noteList.length,
+          gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: axisCount),
+          itemBuilder: (context, index) {
+            if (widget.noteList[index] is Folder) {
+              return FolderGridItem(
+                onPressed: () => onFolderPressed(widget.noteList[index]),
+                onLongPress: widget.onLongPress,
+                folder: widget.noteList[index] as Folder,
+                toUpdateFolder: () {
+                  widget.toUpdateFolder(widget.noteList[index]);
+                },
+              );
+            } else {
+              return NoteGridItem(
+                  onPressed: () => widget.onNotePressed(widget.noteList[index]),
+                  onLongPress: widget.onLongPress,
+                  note: widget.noteList[index] as Note);
+            }
+          },
         );
+      });
     }
   }
 }

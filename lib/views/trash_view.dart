@@ -1,9 +1,8 @@
-
-import 'package:flutter/material.dart';
+import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
+import 'package:flutter/material.dart';
 import 'package:notes/components/main/list_view/note_list_view.dart';
 import 'package:notes/components/trashes/trash_view_popupmenu_button.dart';
-import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/icons.dart';
@@ -11,7 +10,6 @@ import 'package:notes/models/note.dart';
 import 'package:notes/views/app_view.dart';
 
 class TrashView extends StatefulWidget {
-
   const TrashView({super.key});
 
   @override
@@ -19,7 +17,6 @@ class TrashView extends StatefulWidget {
 }
 
 class _TrashViewState extends State<TrashView> {
-
   @override
   void initState() {
     super.initState();
@@ -27,7 +24,6 @@ class _TrashViewState extends State<TrashView> {
 
   @override
   Widget build(BuildContext context) {
-
     return AppView(
       child: PopScope(
         canPop: appStorage.selectedNotes == null,
@@ -44,65 +40,67 @@ class _TrashViewState extends State<TrashView> {
             leading: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                appStorage.selectedNotes == null ? ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        AppIcons.back,
-                        size: 25,
-                      ),
-                      Text(
-                        AppLocalizations.of(context).get("@trashes"),
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                          ),
+                appStorage.selectedNotes == null
+                    ? ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              AppIcons.back,
+                              size: 25,
+                            ),
+                            Text(
+                              AppLocalizations.of(context).get("@trashes"),
+                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       )
-                    ],
-                  ),
-                ) :
-                IconButton(icon: Icon(AppIcons.check), onPressed: () {
-                  setState(() {
-                    appStorage.selectedNotes = null;
-                  });
-                }),
+                    : IconButton(
+                        icon: Icon(AppIcons.check),
+                        onPressed: () {
+                          setState(() {
+                            appStorage.selectedNotes = null;
+                          });
+                        }),
               ],
             ),
-            actions: appStorage.selectedNotes != null ? <Widget>[
-              IconButton(
-                  icon: const Icon(Icons.restore),
-                  onPressed: () {
-                    AppStorage.restoreSelectedNotes();
-                  }),
-              IconButton(
-                  icon: const Icon(AppIcons.trash),
-                  onPressed: () {
-                    showDialog(context: context, builder: (context) {
-                    return ConfirmationDialog(title: AppLocalizations.of(context).get("@dialog_title_delete_selected_notes"), onConfirmed: () {
-                      for(dynamic item in appStorage.selectedNotes!) {
-                        if(item is Note) {
-                          item.delete();
-                          AppStorage.trashes().remove(item);
-                        }
-                        else if(item is Folder) {
-                          item.delete();
-                          AppStorage.trashes().remove(item);
-                        }
-                      }
-                      setState(() {
-                        appStorage.selectedNotes = null;
-                      });
-                    });
-                  });
-                  })
-            ] :
-            <Widget>[
-              TrashViewPopupMenuButton()
-            ],
+            actions: appStorage.selectedNotes != null
+                ? <Widget>[
+                    IconButton(
+                        icon: const Icon(Icons.restore),
+                        onPressed: () {
+                          AppStorage.restoreSelectedNotes();
+                        }),
+                    IconButton(
+                        icon: const Icon(AppIcons.trash),
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return ConfirmationDialog(
+                                    title: AppLocalizations.of(context).get("@dialog_title_delete_selected_notes"),
+                                    onConfirmed: () {
+                                      for (dynamic item in appStorage.selectedNotes!) {
+                                        if (item is Note) {
+                                          item.delete();
+                                          AppStorage.trashes().remove(item);
+                                        } else if (item is Folder) {
+                                          item.delete();
+                                          AppStorage.trashes().remove(item);
+                                        }
+                                      }
+                                      setState(() {
+                                        appStorage.selectedNotes = null;
+                                      });
+                                    });
+                              });
+                        })
+                  ]
+                : <Widget>[TrashViewPopupMenuButton()],
           ),
           body: Stack(
             children: [
@@ -115,12 +113,10 @@ class _TrashViewState extends State<TrashView> {
                   noteList: AppStorage.trashes(),
                   onLongPress: () {
                     setState(() {
-                      AppStorage.getInstance().selectedNotes = [];
+                      appStorage.selectedNotes = [];
                     });
                   },
-                  onNotePressed: (note) {
-
-                  },
+                  onNotePressed: (note) {},
                   toUpdateFolder: (folder) {},
                 ),
               ),
@@ -129,8 +125,5 @@ class _TrashViewState extends State<TrashView> {
         ),
       ),
     );
-
   }
-
-
 }

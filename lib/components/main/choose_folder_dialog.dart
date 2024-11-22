@@ -11,7 +11,6 @@ import 'package:notes/models/icons.dart';
 import 'package:notes/models/note.dart';
 
 class ChooseFolderDialog extends StatefulWidget {
-
   const ChooseFolderDialog({super.key});
 
   @override
@@ -19,7 +18,6 @@ class ChooseFolderDialog extends StatefulWidget {
 }
 
 class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
-
   Map<String, List<Folder>> folderList = {};
   List<String> history = [""];
 
@@ -29,22 +27,22 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
     super.initState();
   }
 
- void getFolders()  {
+  void getFolders() {
     Directory directory = Directory(appStorage.notesPath);
-    for(FileSystemEntity file in directory.listSync()) {
-      if(file.path.endsWith(".folder") && file is File) {
+    for (FileSystemEntity file in directory.listSync()) {
+      if (file.path.endsWith(".folder") && file is File) {
         bool exists = false;
-        for(dynamic item in appStorage.selectedNotes!) {
-          if(item is Folder && item.path == file.path) {
+        for (dynamic item in appStorage.selectedNotes!) {
+          if (item is Folder && item.path == file.path) {
             exists = true;
           }
         }
-        if(!exists) {
+        if (!exists) {
           Folder folder = Folder.fromFile(file);
-          if(folderList[folder.location] == null) {
+          if (folderList[folder.location] == null) {
             folderList[folder.location] = [];
           }
-          if(folderList[folder.filename] == null) {
+          if (folderList[folder.filename] == null) {
             folderList[folder.filename] = [];
           }
 
@@ -56,7 +54,7 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
 
   @override
   Widget build(BuildContext context) {
-    if(history.isEmpty) {
+    if (history.isEmpty) {
       history.add("");
     }
 
@@ -72,20 +70,17 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(AppIcons.times)),
+                IconButton(onPressed: () {}, icon: const Icon(AppIcons.times)),
                 IconButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      for( dynamic item in AppStorage.getInstance().selectedNotes!) {
-                        if(item is Note) {
+                      for (dynamic item in appStorage.selectedNotes!) {
+                        if (item is Note) {
                           AppStorage.getNoteList(item.location).remove(item);
                           item.location = history.last;
                           item.save(changeModified: false);
                           AppStorage.getNoteList(history.last).add(item);
-                        }
-                        else if(item is Folder) {
+                        } else if (item is Folder) {
                           AppStorage.getNoteList(item.location).remove(item);
                           item.location = history.last;
                           item.save(changeModified: false);
@@ -94,7 +89,7 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                       }
                       AppStorage.getNoteList(history.last).sortByOption();
                       appState.notifySomethingChanged(() {
-                        AppStorage.getInstance().selectedNotes = null;
+                        appStorage.selectedNotes = null;
                       });
                     },
                     icon: const Icon(AppIcons.check, size: 20))
@@ -107,12 +102,15 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                 child: ListView.builder(
                     itemCount: history.length == 1 ? folderList[history.last]!.length : folderList[history.last]!.length + 1,
                     itemBuilder: (context, index) {
-                      LinearItemBorder border = LinearItemBorder(index: index, length: history.length == 1 ? folderList[history.last]!.length : folderList[history.last]!.length + 1, context: context);
-                      if(index == 0 && history.length > 1) {
+                      LinearItemBorder border = LinearItemBorder(
+                          index: index,
+                          length: history.length == 1 ? folderList[history.last]!.length : folderList[history.last]!.length + 1,
+                          context: context);
+                      if (index == 0 && history.length > 1) {
                         return GestureDetector(
                           onTap: () {
                             setState(() {
-                              if(history.length > 1) {
+                              if (history.length > 1) {
                                 history.removeLast();
                               }
                             });
@@ -123,11 +121,10 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                             height: 60,
                             decoration: BoxDecoration(
                                 color: Theme.of(context).cardColor,
-                                border:  Border(
+                                border: Border(
                                   bottom: border.borderSide,
                                 ),
-                                borderRadius: border.borderRadius
-                            ),
+                                borderRadius: border.borderRadius),
                             child: Row(
                               children: [
                                 const Padding(
@@ -141,24 +138,19 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                                   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                                   child: Text(
                                     "...",
-                                    style: TextStyle(
-                                        color: Theme.of(context).colorScheme.onSurface,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold
-                                    ),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15, fontWeight: FontWeight.bold),
                                   ),
                                 )
                               ],
                             ),
                           ),
                         );
-                      }
-                      else {
+                      } else {
                         Folder folder = folderList[history.last]![history.length > 1 ? index - 1 : index];
                         return GestureDetector(
                           onTap: () {
                             setState(() {
-                             history.add(folder.filename);
+                              history.add(folder.filename);
                             });
                           },
                           child: Container(
@@ -167,11 +159,10 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                             height: 60,
                             decoration: BoxDecoration(
                                 color: Theme.of(context).cardColor,
-                                border:  Border(
+                                border: Border(
                                   bottom: border.borderSide,
                                 ),
-                                borderRadius: border.borderRadius
-                            ),
+                                borderRadius: border.borderRadius),
                             child: Stack(
                               children: [
                                 Row(
@@ -191,18 +182,12 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                                         children: [
                                           Text(
                                             folder.title,
-                                            style: TextStyle(
-                                                color: Theme.of(context).colorScheme.onSurface,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold
-                                            ),
+                                            style:
+                                                TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15, fontWeight: FontWeight.bold),
                                           ),
                                           Text(
                                             "${folder.modified.toLocalizedShortString(context)}   ${AppStorage.getNoteList(folder.filename).length}",
-                                            style: TextStyle(
-                                                color: Theme.of(context).colorScheme.onSurface,
-                                                fontSize: 15
-                                            ),
+                                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15),
                                           )
                                         ],
                                       ),
@@ -214,7 +199,6 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                           ),
                         );
                       }
-
                     }),
               ),
             ),

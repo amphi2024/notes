@@ -1,23 +1,22 @@
 import 'dart:io';
 
+import 'package:amphi/models/app.dart';
+import 'package:amphi/models/app_localizations.dart';
+import 'package:amphi/models/user.dart';
+import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
+import 'package:amphi/widgets/profile_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_sync.dart';
-import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/components/main/account_info/account_item.dart';
 import 'package:notes/components/main/account_info/change_password_dialog.dart';
 import 'package:notes/components/main/list_view/linear_item_border.dart';
-import 'package:amphi/widgets/profile_image.dart';
-import 'package:amphi/models/app.dart';
-import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/note.dart';
-import 'package:amphi/models/update_event.dart';
-import 'package:amphi/models/user.dart';
 import 'package:notes/views/login_view.dart';
 import 'package:notes/views/login_view_dialog.dart';
 
@@ -31,8 +30,7 @@ class AccountInfo extends StatefulWidget {
 class _AccountInfoState extends State<AccountInfo> {
   List<User> unselectedUsers = [];
   late TextEditingController usernameController = TextEditingController(
-    text: AppStorage.getInstance().selectedUser.token.isNotEmpty ? AppStorage.getInstance().selectedUser.name : "Guest" + AppStorage.getInstance().selectedUser.storagePath.split("/").last
-  );
+      text: appStorage.selectedUser.token.isNotEmpty ? appStorage.selectedUser.name : AppLocalizations.of(context).get("@guest"));
   bool editingUsername = false;
   bool sendingRequest = false;
   String? errorMessage = null;
@@ -50,8 +48,8 @@ class _AccountInfoState extends State<AccountInfo> {
         usernameController.text = name;
       });
     });
-    for (User user in AppStorage.getInstance().users) {
-      if (user.storagePath != AppStorage.getInstance().selectedUser.storagePath) {
+    for (User user in appStorage.users) {
+      if (user.storagePath != appStorage.selectedUser.storagePath) {
         unselectedUsers.add(user);
       }
     }
@@ -60,25 +58,22 @@ class _AccountInfoState extends State<AccountInfo> {
 
   @override
   Widget build(BuildContext context) {
-
     return PopScope(
       canPop: true,
       onPopInvokedWithResult: (value, data) {
-        if(Platform.isAndroid) {
+        if (Platform.isAndroid) {
           appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
         }
       },
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height / 2
-        ),
+        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 2),
         child: Column(
           children: [
             GestureDetector(
                 onTap: () {
-                  print(AppStorage.getInstance().selectedUser.token);
+                  print(appStorage.selectedUser.token);
                 },
-                child: ProfileImage(size: 100, fontSize: 50, user: AppStorage.getInstance().selectedUser)),
+                child: ProfileImage(size: 100, fontSize: 50, user: appStorage.selectedUser)),
             SizedBox(
               width: 175,
               child: Stack(
@@ -91,93 +86,93 @@ class _AccountInfoState extends State<AccountInfo> {
                         readOnly: !editingUsername,
                         controller: usernameController,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                        ),
+                        style: TextStyle(),
                         decoration: InputDecoration(
-                          border: editingUsername ? null : InputBorder.none,
-                          focusedBorder: editingUsername ? null : InputBorder.none
-                        ),
+                            border: editingUsername ? null : InputBorder.none, focusedBorder: editingUsername ? null : InputBorder.none),
                       ),
                     ),
                   ),
                   Positioned(
                     right: 0,
                     child: Visibility(
-                      visible: AppStorage.getInstance().selectedUser.token.isNotEmpty,
-                      child: IconButton(icon: Icon( editingUsername ? Icons.check : Icons.edit),
+                      visible: appStorage.selectedUser.token.isNotEmpty,
+                      child: IconButton(
+                          icon: Icon(editingUsername ? Icons.check : Icons.edit),
                           onPressed: () {
-                        if(editingUsername) {
-                          setState(() {
-                            sendingRequest = true;
-                            errorMessage = null;
-                          });
-                        }
-                        else {
-                          setState(() {
-                            sendingRequest = false;
-                            errorMessage = null;
-                          });
-                        }
-                        if(editingUsername && usernameController.text != AppStorage.getInstance().selectedUser.name) {
-                          appWebChannel.changeUsername(name: usernameController.text, onSuccess: () {
-                            appState.notifySomethingChanged(() {
-                              sendingRequest = false;
-                              errorMessage = null;
-                              AppStorage.getInstance().selectedUser.name = usernameController.text;
-                              AppStorage.getInstance().saveSelectedUserInformation();
+                            if (editingUsername) {
+                              setState(() {
+                                sendingRequest = true;
+                                errorMessage = null;
+                              });
+                            } else {
+                              setState(() {
+                                sendingRequest = false;
+                                errorMessage = null;
+                              });
+                            }
+                            if (editingUsername && usernameController.text != appStorage.selectedUser.name) {
+                              appWebChannel.changeUsername(
+                                  name: usernameController.text,
+                                  onSuccess: () {
+                                    appState.notifySomethingChanged(() {
+                                      sendingRequest = false;
+                                      errorMessage = null;
+                                      appStorage.selectedUser.name = usernameController.text;
+                                      appStorage.saveSelectedUserInformation();
+                                    });
+                                  },
+                                  onFailed: (errorCode) {
+                                    if (errorCode == AppWebChannel.failedToAuth) {
+                                      setState(() {
+                                        sendingRequest = false;
+                                        errorMessage = AppLocalizations.of(context).get("@failed_to_auth");
+                                      });
+                                    } else if (errorCode == AppWebChannel.failedToConnect) {
+                                      setState(() {
+                                        sendingRequest = false;
+                                        errorMessage = AppLocalizations.of(context).get("@failed_to_connect");
+                                      });
+                                    }
+                                  });
+                            }
+                            setState(() {
+                              editingUsername = !editingUsername;
                             });
-                          }, onFailed: (errorCode) {
-                            if(errorCode == AppWebChannel.failedToAuth) {
-                              setState(() {
-                                sendingRequest = false;
-                                errorMessage = AppLocalizations.of(context).get("@failed_to_auth");
-                              });
-                            }
-                            else if(errorCode == AppWebChannel.failedToConnect){
-                              setState(() {
-                                sendingRequest = false;
-                                errorMessage = AppLocalizations.of(context).get("@failed_to_connect");
-                              });
-                            }
-                          });
-                        }
-                        setState(() {
-                          editingUsername = !editingUsername;
-                        });
-                      }),
+                          }),
                     ),
                   )
                 ],
               ),
             ),
             Visibility(
-              visible: AppStorage.getInstance().selectedUser.token.isNotEmpty,
+              visible: appStorage.selectedUser.token.isNotEmpty,
               child: TextButton(
                 child: Text(
                   AppLocalizations.of(context).get("@change_password"),
                 ),
                 onPressed: () {
-                  showDialog(context: context, builder: (context) {
-                    return ChangePasswordDialog();
-                  });
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ChangePasswordDialog();
+                      });
                 },
               ),
             ),
             Visibility(
-                visible: AppStorage.getInstance().selectedUser.token.isEmpty,
+                visible: appStorage.selectedUser.token.isEmpty,
                 child: TextButton(
-              child: Text(
-                AppLocalizations.of(context).get("@login"),
-              ),
-              onPressed: () {
-                if(App.isWideScreen(context)) {
-                  showDialog(context: context, builder: (context) => LoginViewDialog());
-                }
-                else {
-                  Navigator.push(context, CupertinoPageRoute(builder: (context) => LoginView()));
-                }
-              },
-            )),
+                  child: Text(
+                    AppLocalizations.of(context).get("@login"),
+                  ),
+                  onPressed: () {
+                    if (App.isWideScreen(context)) {
+                      showDialog(context: context, builder: (context) => LoginViewDialog());
+                    } else {
+                      Navigator.push(context, CupertinoPageRoute(builder: (context) => LoginView()));
+                    }
+                  },
+                )),
             Visibility(
               visible: unselectedUsers.isNotEmpty,
               child: TextButton(
@@ -185,20 +180,20 @@ class _AccountInfoState extends State<AccountInfo> {
                   AppLocalizations.of(context).get("@remove_user"),
                 ),
                 onPressed: () {
-                  if(unselectedUsers.isNotEmpty) {
+                  if (unselectedUsers.isNotEmpty) {
                     showConfirmationDialog("@dialog_title_remove_user", () {
                       Navigator.popUntil(
                         context,
-                            (Route<dynamic> route) => route.isFirst,
+                        (Route<dynamic> route) => route.isFirst,
                       );
-                      AppStorage.getInstance().removeUser(() {
-                        AppStorage.getInstance().saveSelectedUser(unselectedUsers[0]);
-                        AppStorage.getInstance().users.remove(AppStorage.getInstance().selectedUser);
-                        AppStorage.getInstance().selectedUser = unselectedUsers[0];
+                      appStorage.removeUser(() {
+                        appStorage.saveSelectedUser(unselectedUsers[0]);
+                        appStorage.users.remove(appStorage.selectedUser);
+                        appStorage.selectedUser = unselectedUsers[0];
 
-                        AppStorage.getInstance().initPaths();
+                        appStorage.initPaths();
                         appState.notifySomethingChanged(() {
-                          AppStorage.getInstance().initNotes();
+                          appStorage.initNotes();
                         });
                       });
                     });
@@ -206,12 +201,8 @@ class _AccountInfoState extends State<AccountInfo> {
                 },
               ),
             ),
-            Visibility(
-                visible: sendingRequest,
-                child: CircularProgressIndicator()),
-            Visibility(
-                visible: errorMessage != null,
-                child: Text(errorMessage ?? "", style: TextStyle(color: Theme.of(context).highlightColor))),
+            Visibility(visible: sendingRequest, child: CircularProgressIndicator()),
+            Visibility(visible: errorMessage != null, child: Text(errorMessage ?? "", style: TextStyle(color: Theme.of(context).highlightColor))),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
@@ -225,33 +216,27 @@ class _AccountInfoState extends State<AccountInfo> {
                       );
                     },
                     itemBuilder: (context, index) {
-                      LinearItemBorder linearItemBorder = LinearItemBorder(
-                          index: index,
-                          length: unselectedUsers.length + 1,
-                          context: context);
+                      LinearItemBorder linearItemBorder = LinearItemBorder(index: index, length: unselectedUsers.length + 1, context: context);
                       if (index < unselectedUsers.length) {
                         return AccountItem(
-                            icon: ProfileImage(
-                                size: 30,
-                                fontSize: 20,
-                                user: unselectedUsers[index]),
+                            icon: ProfileImage(size: 30, fontSize: 20, user: unselectedUsers[index]),
                             linearItemBorder: linearItemBorder,
-                            title: unselectedUsers[index].name.isEmpty ? "Guest" + unselectedUsers[index].storagePath.split("/").last : unselectedUsers[index].name,
+                            title: unselectedUsers[index].name.isEmpty ? AppLocalizations.of(context).get("@guest") : unselectedUsers[index].name,
                             onPressed: () async {
                               Navigator.popUntil(
                                 context,
-                                    (Route<dynamic> route) => route.isFirst,
+                                (Route<dynamic> route) => route.isFirst,
                               );
-                              await AppStorage.getInstance().saveSelectedUser(unselectedUsers[index]);
-                              AppStorage.getInstance().selectedUser = unselectedUsers[index];
-                              AppStorage.getInstance().initPaths();
+                              await appStorage.saveSelectedUser(unselectedUsers[index]);
+                              appStorage.selectedUser = unselectedUsers[index];
+                              appStorage.initPaths();
                               appSettings.getData();
                               appWebChannel.disconnectWebSocket();
                               appWebChannel.connectWebSocket();
 
                               appState.noteEditingController.setNote(Note.createdNote(""));
                               appState.notifySomethingChanged(() {
-                                AppStorage.getInstance().initNotes();
+                                appStorage.initNotes();
                                 appWebChannel.syncDataFromEvents();
                               });
                             });
@@ -259,23 +244,23 @@ class _AccountInfoState extends State<AccountInfo> {
                         return AccountItem(
                             icon: Icon(Icons.account_circle, size: 30),
                             linearItemBorder: linearItemBorder,
-                            title: "Add account",
+                            title: AppLocalizations.of(context).get("@add_account"),
                             onPressed: () {
                               setState(() {
-                                AppStorage.getInstance().addUser(onFinished: (user) async {
+                                appStorage.addUser(onFinished: (user) async {
                                   Navigator.popUntil(
                                     context,
-                                        (Route<dynamic> route) => route.isFirst,
+                                    (Route<dynamic> route) => route.isFirst,
                                   );
-                                  await AppStorage.getInstance().saveSelectedUser(user);
-                                  AppStorage.getInstance().selectedUser = user;
-                                  AppStorage.getInstance().users.add(user);
-                                  AppStorage.getInstance().initPaths();
+                                  await appStorage.saveSelectedUser(user);
+                                  appStorage.selectedUser = user;
+                                  appStorage.users.add(user);
+                                  appStorage.initPaths();
                                   appSettings.getData();
                                   appWebChannel.disconnectWebSocket();
                                   appState.noteEditingController.setNote(Note.createdNote(""));
                                   appState.notifySomethingChanged(() {
-                                    AppStorage.getInstance().initNotes();
+                                    appStorage.initNotes();
                                   });
                                 });
                               });

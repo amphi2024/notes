@@ -1,19 +1,16 @@
 import 'dart:io';
 
 import 'package:amphi/models/app_localizations.dart';
+import 'package:amphi/widgets/menu/popup/show_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:image_picker_ios/image_picker_ios.dart';
 import 'package:image_picker_macos/image_picker_macos.dart';
+import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_block_embed.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/models/note.dart';
-import 'package:notes/models/note_media_picker.dart';
-import 'package:amphi/widgets/menu/popup/show_menu.dart';
-import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 
 class NoteEditorImageButton extends StatelessWidget {
-
   final NoteEditingController noteEditingController;
   const NoteEditorImageButton({super.key, required this.noteEditingController});
 
@@ -36,13 +33,12 @@ class NoteEditorImageButton extends StatelessWidget {
                   ),
                   onTap: () async {
                     XFile? image;
-                    if(Platform.isIOS) {
-                       image = await ImagePickerIOS().getImage(source: ImageSource.gallery);
-                    }
-                    else {
+                    if (Platform.isIOS) {
+                      image = await ImagePickerIOS().getImage(source: ImageSource.gallery);
+                    } else {
                       image = await ImagePickerMacOS().getImage(source: ImageSource.gallery);
                     }
-                    if(image != null) {
+                    if (image != null) {
                       File file = await noteEditingController.note.createdImageFile(image.path);
                       final block = BlockEmbed.custom(
                         ImageBlockEmbed(file.path),
@@ -66,8 +62,7 @@ class NoteEditorImageButton extends StatelessWidget {
                       final block = BlockEmbed.custom(
                         ImageBlockEmbed(file.path),
                       );
-                      noteEditingController
-                          .insertBlock(block);
+                      noteEditingController.insertBlock(block);
                     }
                   }),
             ]);
