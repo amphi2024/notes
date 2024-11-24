@@ -1,4 +1,4 @@
-import 'package:amphi/utils/file_name_utils.dart';
+
 import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/widgets/video/video_player.dart';
 import 'package:amphi/widgets/video/video_player_network.dart';
@@ -6,17 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   static const int embedBlock = 0;
   static const int view = 1;
 
-  final String path;
+  final String videoFilename;
   final int type;
   final int position;
-  const VideoPlayerWidget({super.key, required this.path, this.type = embedBlock, this.position = 0});
+  final String noteFileNameOnly;
+  const VideoPlayerWidget({super.key, required this.videoFilename, this.type = embedBlock, this.position = 0, required this.noteFileNameOnly});
 
   @override
   State<VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
@@ -296,14 +296,12 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   Widget build(BuildContext context) {
     return VideoPlayer(
-        path: widget.path,
+        path: PathUtils.join(appStorage.notesPath, widget.noteFileNameOnly, "videos", widget.videoFilename),
         errorBuilder: () {
-          String noteFileNameOnly = FilenameUtils.nameOnly(appState.noteEditingController.note.filename);
-          String videoFilename = PathUtils.basename(widget.path);
-          appWebChannel.downloadVideo(noteFileNameOnly: noteFileNameOnly, videoFilename: videoFilename);
+          appWebChannel.downloadVideo(noteFileNameOnly: widget.noteFileNameOnly, videoFilename: widget.videoFilename);
 
           return VideoPlayerNetwork(
-            url: "${appSettings.serverAddress}/notes/${noteFileNameOnly}/videos/${videoFilename}",
+            url: "${appSettings.serverAddress}/notes/${widget.noteFileNameOnly}/videos/${widget.videoFilename}",
             headers: {"Authorization": appStorage.selectedUser.token},
           );
         });

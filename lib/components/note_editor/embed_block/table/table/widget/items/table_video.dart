@@ -1,10 +1,8 @@
 import 'package:amphi/utils/file_name_utils.dart';
-import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/widget/items/table_edit_button.dart';
 import 'package:notes/components/note_editor/embed_block/video/video_player_widget.dart';
 import 'package:notes/models/app_state.dart';
-import 'package:notes/models/app_storage.dart';
 
 class TableVideo extends StatelessWidget {
   final String filename;
@@ -29,9 +27,8 @@ class TableVideo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String noteFileNameOnly = FilenameUtils.nameOnly(appState.noteEditingController.note.filename);
-    String videoPath = PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos", filename);
     if (appState.noteEditingController.readOnly) {
-      return Padding(padding: EdgeInsets.all(7.5), child: VideoPlayerWidget(path: videoPath));
+      return Padding(padding: EdgeInsets.all(7.5), child: VideoPlayerWidget(videoFilename: filename, noteFileNameOnly: noteFileNameOnly,));
     }
 
     return Padding(
@@ -46,7 +43,7 @@ class TableVideo extends StatelessWidget {
               removeColumn: removeColumn,
               removeRow: removeRow,
               clearCell: removeValue),
-          VideoPlayerWidget(path: videoPath),
+          VideoPlayerWidget(videoFilename: filename, noteFileNameOnly: noteFileNameOnly,),
         ],
       ),
     );
