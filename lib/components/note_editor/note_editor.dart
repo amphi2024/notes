@@ -81,13 +81,8 @@ class _NoteEditorState extends State<NoteEditor> {
         //autoFocus: !widget.reading,
         autoFocus: false,
         placeholder: AppLocalizations.of(context).get("@new_note"),
-        customShortcuts: {
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.add): SexIntent(() {
-            setState(() {
-              widget.noteEditingController.formatSelection(Attribute.bold);
-            });
-          })
-        },
+        // customShortcuts: {
+        // },
         customStyles: DefaultStyles(
           paragraph: DefaultTextBlockStyle(
             textStyle,
@@ -191,10 +186,4 @@ List<Widget> noteEditorToolbarButtons(NoteEditingController noteEditingControlle
     // NoteEditorMindMapButton(noteEditingController: appState.noteEditingController),
     // NoteEditorAudioButton(noteEditingController: appState.noteEditingController),
   ];
-}
-
-class SexIntent extends Intent {
-  SexIntent(void Function() function) {
-    function();
-  }
 }
