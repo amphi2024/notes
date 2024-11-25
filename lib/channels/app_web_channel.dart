@@ -61,7 +61,7 @@ class AppWebChannel {
     webSocketChannel?.stream.listen((message) async {
       Map<String, dynamic> jsonData = jsonDecode(message);
       UpdateEvent updateEvent =
-          UpdateEvent(action: jsonData["action"] ?? "", value: jsonData["value"] ?? "", date: DateTime.fromMillisecondsSinceEpoch(jsonData["date"]).toLocal());
+          UpdateEvent(action: jsonData["action"] ?? "", value: jsonData["value"] ?? "", date: DateTime.fromMillisecondsSinceEpoch(jsonData["timestamp"]).toLocal());
 
       switch (updateEvent.action) {
         case UpdateEvent.uploadNote:
@@ -358,7 +358,7 @@ class AppWebChannel {
     if (response.statusCode == 200) {
       List<dynamic> decoded = jsonDecode(utf8.decode(response.bodyBytes));
       for (Map<String, dynamic> map in decoded) {
-        UpdateEvent updateEvent = UpdateEvent(action: map["action"], value: map["value"], date: DateTime.fromMillisecondsSinceEpoch( map["date"]).toLocal());
+        UpdateEvent updateEvent = UpdateEvent(action: map["action"], value: map["value"], date: DateTime.fromMillisecondsSinceEpoch( map["timestamp"]).toLocal());
         list.add(updateEvent);
       }
       onResponse(list);
