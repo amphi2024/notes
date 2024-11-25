@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/note_editor/embed_block/divider/divider_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_embed_builder.dart';
@@ -66,7 +67,6 @@ class _NoteEditorState extends State<NoteEditor> {
   // }
   // },
 
-
   @override
   Widget build(BuildContext context) {
     final TextStyle defaultTextStyle = Theme.of(context).textTheme.bodyMedium!;
@@ -82,7 +82,11 @@ class _NoteEditorState extends State<NoteEditor> {
         autoFocus: false,
         placeholder: AppLocalizations.of(context).get("@new_note"),
         customShortcuts: {
-
+          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.add): SexIntent(() {
+            setState(() {
+              widget.noteEditingController.formatSelection(Attribute.bold);
+            });
+          })
         },
         customStyles: DefaultStyles(
           paragraph: DefaultTextBlockStyle(
@@ -187,4 +191,10 @@ List<Widget> noteEditorToolbarButtons(NoteEditingController noteEditingControlle
     // NoteEditorMindMapButton(noteEditingController: appState.noteEditingController),
     // NoteEditorAudioButton(noteEditingController: appState.noteEditingController),
   ];
+}
+
+class SexIntent extends Intent {
+  SexIntent(void Function() function) {
+    function();
+  }
 }

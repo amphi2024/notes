@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/embed_block/table/calendar/note_calendar_page.dart';
-import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/views/note_calender_events_view.dart';
 
 TableCell noteCalendarCell({required NoteCalendarPage widget, required DateTime dateTime, required int startingIndex, required double height}) {
 
-    int titleIndex = widget.pageInfo["row-index"] ?? 0;
-    int dateIndex = widget.pageInfo["date-row-index"] ?? 0;
+    int titleIndex = widget.pageInfo["rowIndex"] ?? 0;
+    int dateIndex = widget.pageInfo["dateRowIndex"] ?? 0;
 
     List<String> events = [];
 
     widget.tableData.data.forEach((list) {
-      if(list[dateIndex]["date"] is String && list[titleIndex]["text"] is String) {
-        DateTime dateOfEvent = parsedDateTime(list[dateIndex]["date"]);
+      if(list[dateIndex]["date"] is int && list[titleIndex]["text"] is String) {
+        DateTime dateOfEvent = DateTime.fromMillisecondsSinceEpoch(list[dateIndex]["date"]).toLocal();
         if(dateOfEvent.day == dateTime.day && dateOfEvent.year == dateTime.year && dateOfEvent.month == dateTime.month) {
           events.add(list[titleIndex]["text"]);
         }

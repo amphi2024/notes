@@ -47,17 +47,15 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
     }
   }
 
-  bool attributeApplied(Attribute attribute) {
-    return widget.noteEditingController.getSelectionStyle().containsKey(attribute.key);
-  }
+  // bool headerAttributeApplied(Attribute headerAttribute) {
+  //   return widget.noteEditingController.getSelectionStyle().attributes["header"]?.value == headerAttribute.value;
+  // }
 
-  bool listAttributeApplied(Attribute attribute) {
-    return widget.noteEditingController.getSelectionStyle().attributes["list"]?.value == attribute.value;
-  }
+  bool attributeApplied(Attribute attribute) => widget.noteEditingController.getSelectionStyle().containsKey(attribute.key);
 
-  bool alignAttributeApplied(Attribute attribute) {
-    return widget.noteEditingController.getSelectionStyle().attributes["align"]?.value == attribute.value;
-  }
+  bool listAttributeApplied(Attribute attribute) => widget.noteEditingController.getSelectionStyle().attributes["list"]?.value == attribute.value;
+
+  bool alignAttributeApplied(Attribute attribute) => widget.noteEditingController.getSelectionStyle().attributes["align"]?.value == attribute.value;
 
   void toggleAttribute(Attribute attribute) {
     setState(() {
@@ -69,6 +67,17 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
       }
     });
   }
+
+  // void toggleHeaderAttribute(Attribute attribute) {
+  //   setState(() {
+  //     widget.noteEditingController.skipRequestKeyboard = attribute.isInline;
+  //     if (headerAttributeApplied(attribute)) {
+  //       widget.noteEditingController.formatSelection(Attribute.clone(attribute, null));
+  //     } else {
+  //       widget.noteEditingController.formatSelection(attribute);
+  //     }
+  //   });
+  // }
 
   void toggleListAttribute(Attribute attribute) {
     setState(() {
@@ -96,7 +105,7 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     return Container(
-      height: App.isDesktop() ? 190 : 375,
+      height: App.isDesktop() ? 250 : 400,
       width: double.infinity,
       //width: 300,
       decoration: BoxDecoration(color: themeData.colorScheme.surface, borderRadius: BorderRadius.circular(15)),
@@ -109,6 +118,44 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
               child: BottomSheetDragHandle(),
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     children: [
+          //       ToggleAttributeButton(
+          //         activated: headerAttributeApplied(Attribute.h1),
+          //         icon: Icons.h_mobiledata,
+          //         onPressed: () => toggleHeaderAttribute(Attribute.h1),
+          //       ),
+          //       ToggleAttributeButton(
+          //         activated: headerAttributeApplied(Attribute.h2),
+          //         icon: Icons.h_mobiledata,
+          //         onPressed: () => toggleHeaderAttribute(Attribute.h2),
+          //       ),
+          //       ToggleAttributeButton(
+          //         activated: headerAttributeApplied(Attribute.h3),
+          //         icon: Icons.h_mobiledata,
+          //         onPressed: () => toggleHeaderAttribute(Attribute.h3),
+          //       ),
+          //       ToggleAttributeButton(
+          //         activated: headerAttributeApplied(Attribute.h4),
+          //         icon: Icons.h_mobiledata,
+          //         onPressed: () => toggleHeaderAttribute(Attribute.h4),
+          //       ),
+          //       ToggleAttributeButton(
+          //         activated: headerAttributeApplied(Attribute.h5),
+          //         icon: Icons.h_mobiledata,
+          //         onPressed: () => toggleHeaderAttribute(Attribute.h5),
+          //       ),
+          //       ToggleAttributeButton(
+          //         activated: headerAttributeApplied(Attribute.h6),
+          //         icon: Icons.h_mobiledata,
+          //         onPressed: () => toggleHeaderAttribute(Attribute.h6),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: Row(

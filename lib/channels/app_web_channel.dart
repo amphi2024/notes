@@ -6,7 +6,6 @@ import 'package:amphi/utils/path_utils.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart';
 import 'package:notes/channels/app_web_download.dart';
-import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/folder.dart';
@@ -62,7 +61,7 @@ class AppWebChannel {
     webSocketChannel?.stream.listen((message) async {
       Map<String, dynamic> jsonData = jsonDecode(message);
       UpdateEvent updateEvent =
-          UpdateEvent(action: jsonData["action"] ?? "", value: jsonData["value"] ?? "", date: parsedDateTime(jsonData["date"] ?? ""));
+          UpdateEvent(action: jsonData["action"] ?? "", value: jsonData["value"] ?? "", date: DateTime.fromMillisecondsSinceEpoch(jsonData["date"]).toLocal());
 
       switch (updateEvent.action) {
         case UpdateEvent.uploadNote:
@@ -359,8 +358,7 @@ class AppWebChannel {
     if (response.statusCode == 200) {
       List<dynamic> decoded = jsonDecode(utf8.decode(response.bodyBytes));
       for (Map<String, dynamic> map in decoded) {
-        String dateString = map["date"];
-        UpdateEvent updateEvent = UpdateEvent(action: map["action"], value: map["value"], date: parsedDateTime(dateString));
+        UpdateEvent updateEvent = UpdateEvent(action: map["action"], value: map["value"], date: DateTime.fromMillisecondsSinceEpoch( map["date"]).toLocal());
         list.add(updateEvent);
       }
       onResponse(list);

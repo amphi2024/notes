@@ -6,7 +6,6 @@ import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/channels/app_web_upload.dart';
-import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/methods/get_themes.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
@@ -39,8 +38,7 @@ extension AppWebSync on AppWebChannel {
       for (int i = 0; i < list.length; i++) {
         Map<String, dynamic> map = list[i];
         String filename = map["filename"];
-        String modifiedString = map["modified"];
-        DateTime modified = parsedDateTime(modifiedString);
+        DateTime modified = DateTime.fromMillisecondsSinceEpoch(map["modified"]).toLocal();
         File file = File(PathUtils.join(appStorage.themesPath, filename));
         if (!file.existsSync()) {
           downloadTheme(filename: filename);
@@ -83,8 +81,7 @@ extension AppWebSync on AppWebChannel {
         // download items that not exist or older modified
         Map<String, dynamic> map = list[i];
         String filename = map["filename"];
-        String modifiedString = map["modified"];
-        DateTime modified = parsedDateTime(modifiedString);
+        DateTime modified = DateTime.fromMillisecondsSinceEpoch(map["modified"]).toLocal();
         File file = File(PathUtils.join(appStorage.notesPath, filename));
         if (!file.existsSync() || (file.existsSync() && modified.isAfter(file.lastModifiedSync()))) {
           if (filename.endsWith(".note")) {

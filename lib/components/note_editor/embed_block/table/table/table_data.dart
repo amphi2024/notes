@@ -10,7 +10,7 @@ class TableData {
   Map<String, dynamic> toChartDataMap(Map<String, dynamic> pageInfo) {
     Map<String, double> map = {};
     for(List<Map<String, dynamic>> list in data) {
-      String title = list[pageInfo["row-index"] ?? 0]["text"] ?? "";
+      String title = list[pageInfo["rowIndex"] ?? 0]["text"] ?? "";
       if(title.isNotEmpty) {
         if(map[title] == null) {
           map[title] = 1;

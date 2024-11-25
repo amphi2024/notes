@@ -4,10 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_upload.dart';
-import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/dark_theme.dart';
 import 'package:notes/models/light_theme.dart';
-import 'package:notes/models/note.dart';
 import 'package:amphi/models/app_theme_core.dart';
 
 class AppTheme extends AppThemeCore {
@@ -42,8 +40,8 @@ class AppTheme extends AppThemeCore {
       Map<String, dynamic> jsonData = jsonDecode(jsonString);
 
       AppTheme appTheme = AppTheme(
-          created: parsedDateTime(jsonData["created"]),
-          modified: parsedDateTime(jsonData["modified"]),
+          created: DateTime.fromMillisecondsSinceEpoch(jsonData["created"]).toLocal(),
+          modified: DateTime.fromMillisecondsSinceEpoch(jsonData["modified"]).toLocal(),
           path: file.path,
           filename: file.path
               .split("/")
@@ -99,8 +97,8 @@ class AppTheme extends AppThemeCore {
   Map<String, dynamic> toMap() {
     return {
       "title": title,
-      "created": created.toDataString(),
-      "modified": modified.toDataString(),
+      "created": created.toUtc().millisecondsSinceEpoch,
+      "modified": modified.toUtc().millisecondsSinceEpoch,
 
       "lightBackgroundColor": lightTheme.backgroundColor.toHex(),
       "lightTextColor":  lightTheme.textColor.toHex(),

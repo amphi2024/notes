@@ -52,13 +52,13 @@ class _EditChartStyleState extends State<EditChartStyle> {
               children: [
                 Text(AppLocalizations.of(context).get("@editor_chart_rows_to_show")),
                 DropdownButton<int>(
-                  value: widget.pageInfo["row-index"] ?? 0,
+                  value: widget.pageInfo["rowIndex"] ?? 0,
                     items: items,
                     onChanged: (item) {
                       if(item != null) {
                         setState(() {
                           widget.onStyleChange(() {
-                            widget.pageInfo["row-index"] = item;
+                            widget.pageInfo["rowIndex"] = item;
                           });
                         });
                       }

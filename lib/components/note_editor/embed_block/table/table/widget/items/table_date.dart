@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/widget/items/table_item.dart';
-import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_state.dart';
-import 'package:notes/models/note.dart';
-
 import 'table_edit_button.dart';
 
 class TableDate extends TableItem {
-  final String date;
+  final int date;
   const TableDate({super.key, required this.date, required super.addColumnAfter, required super.addColumnBefore, required super.addRowBefore, required super.addRowAfter, required super.removeColumn, required super.removeRow, required super.onEdit, required super.removeValue});
 
   @override
   Widget build(BuildContext context) {
-    DateTime dateTime = parsedDateTime(date);
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(date).toLocal();
     if (appState.noteEditingController.readOnly) {
       return Padding(
         padding: const EdgeInsets.all(7.5),
@@ -24,7 +21,7 @@ class TableDate extends TableItem {
         onTap: () async {
           DateTime? result = await showDatePicker(context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
           if(result != null) {
-            onEdit({"date": result.toDataString()});
+            onEdit({"date": result.toUtc().millisecondsSinceEpoch});
           }
         },
         child: Padding(

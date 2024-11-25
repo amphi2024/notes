@@ -5,7 +5,6 @@ import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/widget/dialogs/table_text_dialog.dart';
 import 'package:notes/models/app_state.dart';
-import 'package:notes/models/note.dart';
 
 class TableAddButton extends StatelessWidget {
   final void Function(Map<String, dynamic>) onEdit;
@@ -65,7 +64,7 @@ class TableAddButton extends StatelessWidget {
                 onTap: () async {
                   DateTime? result = await showDatePicker(context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
                   if (result != null) {
-                    onEdit({"date": result.toDataString()});
+                    onEdit({"date": result.toUtc().millisecondsSinceEpoch});
                   }
                 })
           ];

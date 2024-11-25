@@ -20,7 +20,6 @@ import 'package:notes/components/note_editor/embed_block/video/video_block_embed
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/content.dart';
 import 'package:notes/models/item.dart';
@@ -204,22 +203,28 @@ class Note extends Item {
   }
 
   static Note fromFileContent({required String fileContent, required DateTime originalModified, required String filePath}) {
-    DateTime created = DateTime.now();
-    DateTime originalCreated = DateTime.now();
-    DateTime modified = DateTime.now();
+
     DateTime? deleted;
     String location = "";
 
     try {
       Map<String, dynamic> map = jsonDecode(fileContent);
-      created = parsedDateTime(map["created"]);
-      originalCreated = parsedDateTime(map["originalCreated"]);
-      modified = parsedDateTime(map["modified"]);
-      if (map["originalModified"] != null) {
-        originalModified = parsedDateTime(map["originalModified"]);
-      }
+      // created = parsedDateTime(map["created"]);
+      // originalCreated = parsedDateTime(map["originalCreated"]);
+      // modified = parsedDateTime(map["modified"]);
+      // if (map["originalModified"] != null) {
+      //   originalModified = parsedDateTime(map["originalModified"]);
+      // }
+
+      var created = DateTime.fromMillisecondsSinceEpoch(map["created"]).toLocal();
+      var originalCreated = DateTime.fromMillisecondsSinceEpoch(map["originalCreated"]).toLocal();
+      var modified = DateTime.fromMillisecondsSinceEpoch(map["modified"]).toLocal();
+      originalModified = DateTime.fromMillisecondsSinceEpoch(map["originalModified"]).toLocal();
+
+
       if (map["deleted"] != null) {
-        deleted = parsedDateTime(map["deleted"]);
+        // deleted = parsedDateTime(map["deleted"]);
+        deleted = DateTime.fromMillisecondsSinceEpoch(map["deleted"]).toLocal();
       }
       location = map["location"] ?? "";
 
@@ -250,10 +255,10 @@ class Note extends Item {
           filename: PathUtils.basename(filePath),
           location: location,
           path: filePath,
-          created: created,
-          modified: modified,
+          created: DateTime.now(),
+          modified: DateTime.now(),
           contents: [Content(type: "text", value: fileContent)],
-          originalCreated: originalCreated,
+          originalCreated: DateTime.now(),
           originalModified: originalModified,
           deleted: deleted);
       return note;
@@ -277,10 +282,10 @@ class Note extends Item {
   String toFileContent() {
     Map<String, dynamic> jsonData = {
       "location": location,
-      "created": created.toDataString(),
-      "modified": modified.toDataString(),
-      "originalCreated": originalCreated.toDataString(),
-      "originalModified": originalModified.toDataString(),
+      "created": created.toUtc().millisecondsSinceEpoch,
+      "modified": modified.toUtc().millisecondsSinceEpoch,
+      "originalCreated": originalCreated.toUtc().millisecondsSinceEpoch,
+      "originalModified": originalModified.toUtc().millisecondsSinceEpoch,
       "contents": contentsToMap()
     };
     if (backgroundColor != null) {
@@ -290,7 +295,7 @@ class Note extends Item {
       jsonData.addAll({"textColor": textColor!.toHex()});
     }
     if (deleted != null) {
-      jsonData.addAll({"deleted": deleted!.toDataString()});
+      jsonData.addAll({"deleted": deleted!.toUtc().millisecondsSinceEpoch});
     }
 
     String fileContent = jsonEncode(jsonData);
@@ -374,11 +379,5 @@ class Note extends Item {
               originalModified: $originalModified,
               deleted: $deleted
     """;
-  }
-}
-
-extension DateTimeExtension on DateTime {
-  String toDataString() {
-    return "$year;$month;$day;$hour;$minute;$second";
   }
 }

@@ -40,13 +40,13 @@ class _EditCalenderStyleState extends State<EditCalenderStyle> {
               children: [
                 Text(AppLocalizations.of(context).get("@editor_calendar_rows_to_show")),
                 DropdownButton<int>(
-                    value: widget.pageInfo["row-index"] ?? 0,
+                    value: widget.pageInfo["rowIndex"] ?? 0,
                     items: items,
                     onChanged: (item) {
                       if(item != null) {
                         setState(() {
                           widget.onStyleChange(() {
-                            widget.pageInfo["row-index"] = item;
+                            widget.pageInfo["rowIndex"] = item;
                           });
                         });
                       }
@@ -61,13 +61,13 @@ class _EditCalenderStyleState extends State<EditCalenderStyle> {
               children: [
                 Text(AppLocalizations.of(context).get("@editor_calendar_rows_for_date")),
                 DropdownButton<int>(
-                    value: widget.pageInfo["date-row-index"] ?? 0,
+                    value: widget.pageInfo["dateRowIndex"] ?? 0,
                     items: items,
                     onChanged: (item) {
                       if(item != null) {
                         setState(() {
                           widget.onStyleChange(() {
-                            widget.pageInfo["date-row-index"] = item;
+                            widget.pageInfo["dateRowIndex"] = item;
                           });
                         });
                       }

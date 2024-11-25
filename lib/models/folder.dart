@@ -7,7 +7,6 @@ import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_delete.dart';
 import 'package:notes/channels/app_web_upload.dart';
-import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/item.dart';
 import 'package:notes/models/note.dart';
@@ -41,13 +40,22 @@ class Folder extends Item {
     try {
       String fileContent = file.readAsStringSync();
       Map<String, dynamic> map = jsonDecode(fileContent);
-      DateTime created = parsedDateTime(map["created"]);
-      DateTime originalCreated = parsedDateTime(map["originalCreated"]);
-      DateTime modified = parsedDateTime(map["modified"]);
-      DateTime originalModified = parsedDateTime(map["originalModified"]);
+      // DateTime created = parsedDateTime(map["created"]);
+      // DateTime originalCreated = parsedDateTime(map["originalCreated"]);
+      // DateTime modified = parsedDateTime(map["modified"]);
+      // DateTime originalModified = parsedDateTime(map["originalModified"]);
+
+      DateTime created = DateTime.fromMillisecondsSinceEpoch(map["created"]).toLocal();
+      DateTime originalCreated = DateTime.fromMillisecondsSinceEpoch(map["originalCreated"]).toLocal();
+      DateTime modified = DateTime.fromMillisecondsSinceEpoch(map["modified"]).toLocal();
+      DateTime originalModified = DateTime.fromMillisecondsSinceEpoch(map["originalModified"]).toLocal();
+
+
+
       DateTime? deleted;
       if (map["deleted"] != null) {
-        deleted = parsedDateTime(map["deleted"]);
+        // deleted = parsedDateTime(map["deleted"]);
+        deleted = DateTime.fromMillisecondsSinceEpoch(map["deleted"]).toLocal();
       }
       Folder folder = Folder(
           filename: PathUtils.basename(file.path),
@@ -78,16 +86,16 @@ class Folder extends Item {
     Map<String, dynamic> data = {
       "name": title,
       "location": location,
-      "created": created.toDataString(),
-      "modified": modified.toDataString(),
-      "originalCreated": originalCreated.toDataString(),
-      "originalModified": originalModified.toDataString(),
+      "created": created.toUtc().millisecondsSinceEpoch,
+      "modified": modified.toUtc().millisecondsSinceEpoch,
+      "originalCreated": originalCreated.toUtc().millisecondsSinceEpoch,
+      "originalModified": originalModified.toUtc().millisecondsSinceEpoch,
     };
     if (backgroundColor != null) {
       data.addAll({"backgroundColor": backgroundColor!.toHex()});
     }
     if (deleted != null) {
-      data.addAll({"deleted": deleted!.toDataString()});
+      data.addAll({"deleted": deleted!.toUtc().millisecondsSinceEpoch});
     }
     String fileContent = jsonEncode(data);
     return fileContent;

@@ -235,6 +235,18 @@ class AppStorage extends AppStorageCore {
   void initNotes() {
     notes = {};
     List<dynamic> allNotes = getAllNotes();
+
+    // for(dynamic item in allNotes) {
+    //   if(item is Note && item.filename == "ibIWJ.note") {
+    //    // File file = File(item.path);
+    //    // file.writeAsString(item.toFileContent());
+    //   }
+    //   else if(item is Folder) {
+    //     //File file = File(item.path);
+    //     //file.writeAsString(item.toFileContent());
+    //   }
+    // }
+
     for (dynamic folder in allNotes) {
       if (folder is Folder) {
         notes[folder.filename] = getNotes(noteList: allNotes, home: folder.filename);
