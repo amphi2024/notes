@@ -19,7 +19,7 @@ extension AppWebUpload on AppWebChannel {
         if (onSuccess != null) {
           onSuccess();
         }
-        UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadTheme, value: themeFileContent, date: DateTime.now());
+        UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadTheme, value: themeFileContent, date: DateTime.now().toUtc());
         postWebSocketMessage(updateEvent.toJson());
       } else {
         if (onFailed != null) {
@@ -42,7 +42,7 @@ extension AppWebUpload on AppWebChannel {
         if (onSuccess != null) {
           onSuccess();
         }
-        UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadColors, value: colorsFileContent, date: DateTime.now());
+        UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadColors, value: colorsFileContent, date: DateTime.now().toUtc());
         postWebSocketMessage(updateEvent.toJson());
       } else {
         if (onFailed != null) {
@@ -67,7 +67,7 @@ extension AppWebUpload on AppWebChannel {
           onSuccess();
         }
         if (postWebSocket) {
-          UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadNote, value: note.filename, date: DateTime.now());
+          UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadNote, value: note.filename, date: DateTime.now().toUtc());
           postWebSocketMessage(updateEvent.toJson());
         }
       } else {
@@ -112,7 +112,7 @@ extension AppWebUpload on AppWebChannel {
           onSuccess();
         }
         if (postWebSocket) {
-          UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadNote, value: folder.filename, date: DateTime.now());
+          UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadNote, value: folder.filename, date: DateTime.now().toUtc());
           postWebSocketMessage(updateEvent.toJson());
         }
       } else {
