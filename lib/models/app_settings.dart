@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';
 
@@ -22,7 +23,6 @@ class AppSettings {
   //     modified: DateTime.now()
   // );
   AppTheme? appTheme = null;
-  late String serverAddress;
   late bool useOwnServer;
   late int sortOption;
   late bool reverseSorting;
@@ -32,6 +32,7 @@ class AppSettings {
   Locale? locale = null;
   late int permanentDeletionPeriod;
   late bool floatingMenuShowing;
+  late Map<String, dynamic> data;
 
   void setSortOption(int option) {
     if (sortOption == option) {
@@ -43,9 +44,12 @@ class AppSettings {
   void getData() {
     File file = File(appStorage.settingsPath);
     if (!file.existsSync()) {
+      data = {
+
+      };
       fragmentIndex = 0;
       appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
-      serverAddress = "";
+      appWebChannel.serverAddress = "";
       useOwnServer = false;
       sortOption = SORT_OPTION_MODIFIED_DATE;
       reverseSorting = false;
@@ -68,7 +72,7 @@ class AppSettings {
       }
 
       transparentNavigationBar = jsonData["iosStyleUI"] ?? false;
-      serverAddress = jsonData["serverAddress"] ?? "";
+      appWebChannel.serverAddress = jsonData["serverAddress"] ?? "";
       useOwnServer = jsonData["useOwnServer"] ?? false;
       sortOption = jsonData["sortOption"] ?? 0;
       reverseSorting = jsonData["reverseSorting"] ?? false;
@@ -85,7 +89,7 @@ class AppSettings {
     Map<String, dynamic> jsonData = {
       "fragmentIndex": fragmentIndex,
       "theme": appTheme!.filename,
-      "serverAddress": serverAddress,
+      "serverAddress":  appWebChannel.serverAddress,
       "useOwnServer": useOwnServer,
       "sortOption": sortOption,
       "reverseSorting": reverseSorting,

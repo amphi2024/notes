@@ -4,7 +4,6 @@ import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_download.dart';
-import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_storage.dart';
 
 class ImageFromStorage extends StatelessWidget {
@@ -25,9 +24,9 @@ class ImageFromStorage extends StatelessWidget {
           appWebChannel.downloadImage( noteFileNameOnly: noteFileNameOnly, imageFilename: imageFilename);
         }
         return Image(
-          image: NetworkImage("${appSettings.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}",
+          image: NetworkImage("${appWebChannel.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}",
               headers: {
-                "Authorization": appStorage.selectedUser.token
+                "Authorization": appWebChannel.token
               }
           ),
         );

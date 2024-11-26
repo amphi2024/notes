@@ -37,7 +37,7 @@ class _DesktopSettingsViewState extends State<SettingsDialog> {
 
   @override
   void initState() {
-    serverAddressController.text = appSettings.serverAddress;
+    serverAddressController.text = appWebChannel.serverAddress;
     super.initState();
   }
 
@@ -45,7 +45,7 @@ class _DesktopSettingsViewState extends State<SettingsDialog> {
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvokedWithResult: (value, result) {
-        appSettings.serverAddress = serverAddressController.text;
+        appWebChannel.serverAddress = serverAddressController.text;
         appSettings.save();
         if (!appWebChannel.connected && appSettings.useOwnServer) {
           appWebChannel.connectWebSocket();

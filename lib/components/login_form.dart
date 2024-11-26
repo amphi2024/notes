@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -7,7 +8,6 @@ import 'package:notes/channels/app_web_sync.dart';
 import 'package:notes/components/login_input.dart';
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
-import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/views/register_view.dart';
 import 'package:notes/views/register_view_dialog.dart';
@@ -54,7 +54,7 @@ class _LoginFormState extends State<LoginForm> {
   (Route<dynamic> route) => route.isFirst,
   );
   appStorage.selectedUser.name = username;
-  appStorage.selectedUser.token = token;
+  appWebChannel.token = token;
   await appStorage.saveSelectedUserInformation();
   appWebChannel.syncMissingFiles();
 }
@@ -137,14 +137,14 @@ class _LoginFormState extends State<LoginForm> {
                         id: idController.text,
                         password: passwordController.text,
                         onLoggedIn: onLoggedIn,
-                        onFailed: (int code) {
-                          if(code == AppWebChannel.failedToAuth) {
+                        onFailed: (statusCode) {
+                          if(statusCode == HttpStatus.unauthorized) {
                             setState(() {
                               sendingRequest = false;
                               errorMessage = AppLocalizations.of(context).get("@failed_to_auth");
                             });
                           }
-                          else if(code == AppWebChannel.failedToConnect) {
+                          else if(statusCode == null) {
                             setState(() {
                               sendingRequest = false;
                               errorMessage = AppLocalizations.of(context).get("@connection_failed");
@@ -175,7 +175,7 @@ class _LoginFormState extends State<LoginForm> {
                  visible: errorMessage != null,
                    child: Text(errorMessage ?? "", style: TextStyle(color: Theme.of(context).primaryColor))),
                Visibility(
-                   visible: appSettings.serverAddress.isEmpty,
+                   visible: appWebChannel.serverAddress.isEmpty,
                    child: Text(AppLocalizations.of(context).get("@please_set_server_address"), style: TextStyle(color: Theme.of(context).primaryColor), maxLines: 3,)),
             ]
 

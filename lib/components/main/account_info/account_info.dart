@@ -30,7 +30,7 @@ class AccountInfo extends StatefulWidget {
 class _AccountInfoState extends State<AccountInfo> {
   List<User> unselectedUsers = [];
   late TextEditingController usernameController = TextEditingController(
-      text: appStorage.selectedUser.token.isNotEmpty ? appStorage.selectedUser.name : AppLocalizations.of(context).get("@guest"));
+      text: appWebChannel.token.isNotEmpty ? appStorage.selectedUser.name : AppLocalizations.of(context).get("@guest"));
   bool editingUsername = false;
   bool sendingRequest = false;
   String? errorMessage = null;
@@ -71,9 +71,9 @@ class _AccountInfoState extends State<AccountInfo> {
           children: [
             GestureDetector(
                 onTap: () {
-                  print(appStorage.selectedUser.token);
+                  print(appWebChannel.token);
                 },
-                child: ProfileImage(size: 100, fontSize: 50, user: appStorage.selectedUser)),
+                child: ProfileImage(size: 100, fontSize: 50, user: appStorage.selectedUser, token: appWebChannel.token)),
             SizedBox(
               width: 175,
               child: Stack(
@@ -95,7 +95,7 @@ class _AccountInfoState extends State<AccountInfo> {
                   Positioned(
                     right: 0,
                     child: Visibility(
-                      visible: appStorage.selectedUser.token.isNotEmpty,
+                      visible: appWebChannel.token.isNotEmpty,
                       child: IconButton(
                           icon: Icon(editingUsername ? Icons.check : Icons.edit),
                           onPressed: () {
@@ -121,13 +121,13 @@ class _AccountInfoState extends State<AccountInfo> {
                                       appStorage.saveSelectedUserInformation();
                                     });
                                   },
-                                  onFailed: (errorCode) {
-                                    if (errorCode == AppWebChannel.failedToAuth) {
+                                  onFailed: (statusCode) {
+                                    if (statusCode == HttpStatus.unauthorized) {
                                       setState(() {
                                         sendingRequest = false;
                                         errorMessage = AppLocalizations.of(context).get("@failed_to_auth");
                                       });
-                                    } else if (errorCode == AppWebChannel.failedToConnect) {
+                                    } else if (statusCode == null) {
                                       setState(() {
                                         sendingRequest = false;
                                         errorMessage = AppLocalizations.of(context).get("@failed_to_connect");
@@ -145,7 +145,7 @@ class _AccountInfoState extends State<AccountInfo> {
               ),
             ),
             Visibility(
-              visible: appStorage.selectedUser.token.isNotEmpty,
+              visible: appWebChannel.token.isNotEmpty,
               child: TextButton(
                 child: Text(
                   AppLocalizations.of(context).get("@change_password"),
@@ -160,7 +160,7 @@ class _AccountInfoState extends State<AccountInfo> {
               ),
             ),
             Visibility(
-                visible: appStorage.selectedUser.token.isEmpty,
+                visible: appWebChannel.token.isEmpty,
                 child: TextButton(
                   child: Text(
                     AppLocalizations.of(context).get("@login"),
@@ -219,7 +219,7 @@ class _AccountInfoState extends State<AccountInfo> {
                       LinearItemBorder linearItemBorder = LinearItemBorder(index: index, length: unselectedUsers.length + 1, context: context);
                       if (index < unselectedUsers.length) {
                         return AccountItem(
-                            icon: ProfileImage(size: 30, fontSize: 20, user: unselectedUsers[index]),
+                            icon: ProfileImage(size: 30, fontSize: 20, user: unselectedUsers[index], token: appWebChannel.token),
                             linearItemBorder: linearItemBorder,
                             title: unselectedUsers[index].name.isEmpty ? AppLocalizations.of(context).get("@guest") : unselectedUsers[index].name,
                             onPressed: () async {

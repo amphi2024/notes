@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:http/http.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/models/folder.dart';
@@ -13,8 +12,8 @@ extension AppWebDownload on AppWebChannel {
   void downloadColors({void Function()? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
-        Uri.parse("${appSettings.serverAddress}/notes/colors"),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
+        Uri.parse("$serverAddress/notes/colors"),
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": token},
       );
 
       if (response.statusCode == 200) {
@@ -36,8 +35,8 @@ extension AppWebDownload on AppWebChannel {
   Future<void> downloadNote({required String filename, void Function(Note note)? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
-        Uri.parse("${appSettings.serverAddress}/notes/${filename}"),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
+        Uri.parse("$serverAddress/notes/${filename}"),
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": token},
       );
       if (response.statusCode == 200) {
         File file = File(PathUtils.join(appStorage.notesPath, filename));
@@ -56,8 +55,8 @@ extension AppWebDownload on AppWebChannel {
   Future<void> downloadFolder({required String filename, void Function(Folder folder)? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
-        Uri.parse("${appSettings.serverAddress}/notes/${filename}"),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
+        Uri.parse("$serverAddress/notes/${filename}"),
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": token},
       );
       if (response.statusCode == 200) {
         File file = File(PathUtils.join(appStorage.notesPath, filename));
@@ -77,8 +76,8 @@ extension AppWebDownload on AppWebChannel {
       {required String noteFileNameOnly, required String imageFilename, void Function()? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
-        Uri.parse("${appSettings.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}"),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
+        Uri.parse("$serverAddress/notes/${noteFileNameOnly}/images/${imageFilename}"),
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": token},
       );
       if (response.statusCode == 200) {
         File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, "images" ,imageFilename));
@@ -98,8 +97,8 @@ extension AppWebDownload on AppWebChannel {
       {required String noteFileNameOnly, required String videoFilename, void Function()? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
-        Uri.parse("${appSettings.serverAddress}/notes/${noteFileNameOnly}/videos/${videoFilename}"),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
+        Uri.parse("$serverAddress/notes/${noteFileNameOnly}/videos/${videoFilename}"),
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": token},
       );
       if (response.statusCode == 200) {
         File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos" , videoFilename));
@@ -118,8 +117,8 @@ extension AppWebDownload on AppWebChannel {
   void downloadTheme({required String filename, void Function(AppTheme)? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
-        Uri.parse("${appSettings.serverAddress}/notes/themes/${filename}"),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
+        Uri.parse("$serverAddress/notes/themes/${filename}"),
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": token},
       );
       if (response.statusCode == 200) {
         File file = File(PathUtils.join(appStorage.themesPath, filename));

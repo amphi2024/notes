@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
@@ -113,12 +115,12 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                           Navigator.pop(context);
                         },
                         onFailed: (statusCode) {
-                          if (statusCode == AppWebChannel.failedToAuth) {
+                          if (statusCode == HttpStatus.unauthorized) {
                             setState(() {
                               pending = false;
                               errorMessage = AppLocalizations.of(context).get("@hint_old_password_different");
                             });
-                          } else if (statusCode == AppWebChannel.failedToConnect) {
+                          } else if (statusCode == null) {
                             setState(() {
                               pending = false;
                               errorMessage = AppLocalizations.of(context).get("@failed_to_connect");

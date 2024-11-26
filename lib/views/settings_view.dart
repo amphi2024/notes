@@ -43,7 +43,7 @@ class _SettingsViewState extends State<SettingsView> {
   // data: Theme.of(context).brightness == Brightness.light ? selectedTheme.lightTheme.toThemeData() : selectedTheme.darkTheme.toThemeData(),
   @override
   void initState() {
-    serverAddressController.text = appSettings.serverAddress;
+    serverAddressController.text = appWebChannel.serverAddress;
 
     int languageIndex = 0;
     if(appSettings.locale != null) {
@@ -63,7 +63,7 @@ class _SettingsViewState extends State<SettingsView> {
     return AppView(
       canPopPage: true,
       onPopInvoked: (value, result) {
-          appSettings.serverAddress = serverAddressController.text;
+          appWebChannel.serverAddress = serverAddressController.text;
           appSettings.save();
           if (!appWebChannel.connected && appSettings.useOwnServer) {
             appWebChannel.connectWebSocket();

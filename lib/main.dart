@@ -38,7 +38,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    appStorage.initialize(getData: () {
+    appStorage.initialize(() {
       appSettings.getData();
       appColors.getData();
 
@@ -72,8 +72,10 @@ class _MyAppState extends State<MyApp> {
           });
         });
       }
-    }, onInitialize: () {
-      setState(() {});
+
+      setState(() {
+
+      });
     });
 
     appWebChannel.getDeviceInfo();

@@ -5,7 +5,6 @@ import 'package:amphi/widgets/video/video_player_network.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_download.dart';
-import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_storage.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
@@ -301,8 +300,8 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
           appWebChannel.downloadVideo(noteFileNameOnly: widget.noteFileNameOnly, videoFilename: widget.videoFilename);
 
           return VideoPlayerNetwork(
-            url: "${appSettings.serverAddress}/notes/${widget.noteFileNameOnly}/videos/${widget.videoFilename}",
-            headers: {"Authorization": appStorage.selectedUser.token},
+            url: "${appWebChannel.serverAddress}/notes/${widget.noteFileNameOnly}/videos/${widget.videoFilename}",
+            headers: {"Authorization": appWebChannel.token},
           );
         });
   }

@@ -4,6 +4,7 @@ import 'package:amphi/models/app.dart';
 import 'package:amphi/widgets/profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
+import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/main/account_info/account_bottom_sheet.dart';
 import 'package:notes/components/main/account_info/account_info.dart';
 import 'package:notes/models/app_settings.dart';
@@ -22,7 +23,7 @@ class AccountButton extends StatelessWidget {
       profileIconSize = 15;
     }
     return IconButton(
-        icon: ProfileImage(size: iconSize, fontSize: profileIconSize, user: appStorage.selectedUser),
+        icon: ProfileImage(size: iconSize, fontSize: profileIconSize, user: appStorage.selectedUser, token: appWebChannel.token),
         onPressed: () {
           if (App.isWideScreen(context)) {
             showDialog(

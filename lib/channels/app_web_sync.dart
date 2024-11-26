@@ -133,7 +133,7 @@ extension AppWebSync on AppWebChannel {
   }
 
   Future<void> syncDataFromEvents() async {
-    if (appStorage.selectedUser.token.isNotEmpty) {
+    if (token.isNotEmpty) {
       appWebChannel.getEvents(onResponse: (updateEvents) async {
         for (UpdateEvent updateEvent in updateEvents) {
           switch (updateEvent.action) {
@@ -145,7 +145,7 @@ extension AppWebSync on AppWebChannel {
               File file = File(PathUtils.join(appStorage.notesPath, updateEvent.value));
               if (!file.existsSync()) {
                 _downloadNoteOrFolder(updateEvent);
-              } else if (updateEvent.date.isAfter(file.lastModifiedSync())) {
+              } else if (updateEvent.timestamp.isAfter(file.lastModifiedSync())) {
                 _downloadNoteOrFolder(updateEvent);
               }
               break;
@@ -153,7 +153,7 @@ extension AppWebSync on AppWebChannel {
               File file = File(PathUtils.join(appStorage.themesPath, updateEvent.value));
               if (!file.existsSync()) {
                 appWebChannel.downloadTheme(filename: updateEvent.value);
-              } else if (updateEvent.date.isAfter(file.lastModifiedSync())) {
+              } else if (updateEvent.timestamp.isAfter(file.lastModifiedSync())) {
                 appWebChannel.downloadTheme(filename: updateEvent.value);
               }
               break;

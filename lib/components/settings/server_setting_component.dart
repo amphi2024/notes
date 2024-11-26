@@ -21,7 +21,7 @@ class _ServerSettingComponentState extends State<ServerSettingComponent> {
   bool pending = true;
 
   void testConnection() {
-    if(appSettings.serverAddress.isNotEmpty) {
+    if(appWebChannel.serverAddress.isNotEmpty) {
       appWebChannel.getStorageInfo(onSuccess: (map) {
         setState(() {
           totalSpace = map["total"];
@@ -97,8 +97,7 @@ class _ServerSettingComponentState extends State<ServerSettingComponent> {
                         )),
                     TextButton(
                         onPressed: () {
-                          appSettings.serverAddress =
-                              widget.serverAddressController.text;
+                          appWebChannel.serverAddress = widget.serverAddressController.text;
                           setState(() {
                             pending = true;
                           });
