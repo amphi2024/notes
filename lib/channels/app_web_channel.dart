@@ -6,6 +6,7 @@ import 'package:amphi/models/update_event.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:http/http.dart';
 import 'package:notes/channels/app_web_download.dart';
+import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
@@ -23,6 +24,8 @@ class AppWebChannel extends AppWebChannelCore {
   List<void Function(Note note)> noteUpdateListeners = [];
   List<void Function(Folder folder)> folderUpdateListeners = [];
   List<void Function(String)> userNameUpdateListeners = [];
+  
+  get token => appStorage.selectedUser.token;
 
   @override
   Future<void> connectWebSocket() async => connectWebSocketSuper("/notes/sync");
