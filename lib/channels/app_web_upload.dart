@@ -48,6 +48,7 @@ extension AppWebUpload on AppWebChannel {
     for (Content content in note.contents) {
       String noteFileNameOnly = FilenameUtils.nameOnly(note.filename);
       if (content.type == "img") {
+        print("upload");
         uploadImage(noteFileNameOnly: noteFileNameOnly, imageFilename: content.value);
       } else if (content.type == "video") {
         uploadVideo(noteFileNameOnly: noteFileNameOnly, videoFilename: content.value);

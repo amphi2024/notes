@@ -61,7 +61,7 @@ class Note extends Item {
     String filenameWithoutType = FilenameUtils.nameOnly(filename);
     Directory directory = Directory(PathUtils.join(appStorage.notesPath, filenameWithoutType, directoryName));
     if (!directory.existsSync()) {
-      await directory.create();
+      await directory.create(recursive: true);
     }
 
     String generatedImageFilename = FilenameUtils.generatedFileName(PathUtils.extension(originalPath), directory.path);

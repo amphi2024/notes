@@ -65,7 +65,7 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (appSettings.fragmentIndex == 0) {
+    if (appSettings.viewMode == "linear") {
       // return AnimatedList(itemBuilder: (BuildContext context, int index, Animation<double> animation) {
       //
       // },

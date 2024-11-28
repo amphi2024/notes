@@ -54,7 +54,7 @@ class _LoginFormState extends State<LoginForm> {
   (Route<dynamic> route) => route.isFirst,
   );
   appStorage.selectedUser.name = username;
-  appWebChannel.token = token;
+  appStorage.selectedUser.token = token;
   await appStorage.saveSelectedUserInformation();
   appWebChannel.syncMissingFiles();
 }

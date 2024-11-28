@@ -45,7 +45,7 @@ class _DesktopSettingsViewState extends State<SettingsDialog> {
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvokedWithResult: (value, result) {
-        appWebChannel.serverAddress = serverAddressController.text;
+        appSettings.serverAddress = serverAddressController.text;
         appSettings.save();
         if (!appWebChannel.connected && appSettings.useOwnServer) {
           appWebChannel.connectWebSocket();

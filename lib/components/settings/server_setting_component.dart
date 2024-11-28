@@ -97,7 +97,7 @@ class _ServerSettingComponentState extends State<ServerSettingComponent> {
                         )),
                     TextButton(
                         onPressed: () {
-                          appWebChannel.serverAddress = widget.serverAddressController.text;
+                          appSettings.serverAddress = widget.serverAddressController.text;
                           setState(() {
                             pending = true;
                           });

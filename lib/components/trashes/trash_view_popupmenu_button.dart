@@ -16,7 +16,7 @@ class TrashViewPopupMenuButton extends StatelessWidget {
     Color accentColor = Theme.of(context).colorScheme.primary;
     return PopupMenuButton(
         icon: Icon(
-          appSettings.fragmentIndex == 0 ? AppIcons.linear : AppIcons.grid,
+          appSettings.viewMode == "linear" ? AppIcons.linear : AppIcons.grid,
         ),
         itemBuilder: (context) {
           return [
@@ -25,78 +25,78 @@ class TrashViewPopupMenuButton extends StatelessWidget {
             CustomPopupMenuItem.withIcon(
                 label: AppLocalizations.of(context).get("@popup_menu_item_grid"),
                 icon: AppIcons.grid,
-                color: appSettings.fragmentIndex == 0 ? textColor : accentColor,
+                color: appSettings.viewMode == "linear" ? textColor : accentColor,
                 onTap: () {
                   appState.notifySomethingChanged(() {
-                    appSettings.fragmentIndex = 1;
+                    appSettings.viewMode = "linear";
                   });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.withIcon(
                 label: AppLocalizations.of(context).get("@popup_menu_item_list"),
                 icon: AppIcons.linear,
-                color: AppSettings.getInstance().fragmentIndex == 1 ? textColor : accentColor,
+                color: appSettings.viewMode == "grid" ? textColor : accentColor,
                 onTap: () {
                   appState.notifySomethingChanged(() {
-                    AppSettings.getInstance().fragmentIndex = 0;
+                    appSettings.viewMode = "grid";
                   });
-                  AppSettings.getInstance().save();
+                  appSettings.save();
                 }),
             CustomPopupMenuItem.title(
                 label: AppLocalizations.of(context).get("@popup_menu_leading_sort_by"), color: Theme.of(context).colorScheme.primary),
             CustomPopupMenuItem.text(
                 label: AppLocalizations.of(context).get("@title"),
-                color: AppSettings.getInstance().sortOption == SORT_OPTION_TITLE ? accentColor : textColor,
-                icon: AppSettings.getInstance().reverseSorting ? Icons.arrow_downward : Icons.arrow_upward,
-                iconEnabled: AppSettings.getInstance().sortOption == SORT_OPTION_TITLE,
+                color: appSettings.sortBy == "title" ? accentColor : textColor,
+                icon: appSettings.descending ? Icons.arrow_downward : Icons.arrow_upward,
+                iconEnabled: appSettings.sortBy == "title",
                 onTap: () {
                   appState.notifySomethingChanged(() {
-                    AppSettings.getInstance().setSortOption(SORT_OPTION_TITLE);
+                    appSettings.setSortOption("title");
                     appStorage.notes.updateAll((home, list) {
                       list.sortByOption();
                       return list;
                     });
                   });
-                  AppSettings.getInstance().save();
+                  appSettings.save();
                 }),
             CustomPopupMenuItem.text(
                 label: AppLocalizations.of(context).get("@created_date"),
-                color: AppSettings.getInstance().sortOption == SORT_OPTION_CREATE_DATE ? accentColor : textColor,
-                icon: AppSettings.getInstance().reverseSorting ? Icons.arrow_upward : Icons.arrow_upward,
-                iconEnabled: AppSettings.getInstance().sortOption == SORT_OPTION_CREATE_DATE,
+                color: appSettings.sortBy == "created" ? accentColor : textColor,
+                icon: appSettings.descending ? Icons.arrow_upward : Icons.arrow_upward,
+                iconEnabled: appSettings.sortBy == "created",
                 onTap: () {
                   appState.notifySomethingChanged(() {
-                    AppSettings.getInstance().setSortOption(SORT_OPTION_CREATE_DATE);
+                    appSettings.setSortOption("created");
                     appStorage.notes.updateAll((home, list) {
                       list.sortByOption();
                       return list;
                     });
                   });
-                  AppSettings.getInstance().save();
+                  appSettings.save();
                 }),
             CustomPopupMenuItem.text(
                 label: AppLocalizations.of(context).get("@modified_date"),
-                color: AppSettings.getInstance().sortOption == SORT_OPTION_MODIFIED_DATE ? accentColor : textColor,
-                icon: AppSettings.getInstance().reverseSorting ? Icons.arrow_upward : Icons.arrow_upward,
-                iconEnabled: AppSettings.getInstance().sortOption == SORT_OPTION_MODIFIED_DATE,
+                color: appSettings.sortBy == "modified" ? accentColor : textColor,
+                icon: appSettings.descending ? Icons.arrow_upward : Icons.arrow_upward,
+                iconEnabled: appSettings.sortBy == "modified",
                 onTap: () {
                   appState.notifySomethingChanged(() {
-                    AppSettings.getInstance().setSortOption(SORT_OPTION_MODIFIED_DATE);
+                    appSettings.setSortOption("modified");
                     appStorage.notes.updateAll((home, list) {
                       list.sortByOption();
                       return list;
                     });
                   });
-                  AppSettings.getInstance().save();
+                  appSettings.save();
                 }),
             CustomPopupMenuItem.text(
                 label: AppLocalizations.of(context).get("@deleted_date"),
-                color: AppSettings.getInstance().sortOption == SORT_OPTION_DELETED_DATE ? accentColor : textColor,
-                icon: AppSettings.getInstance().reverseSorting ? Icons.arrow_upward : Icons.arrow_upward,
-                iconEnabled: AppSettings.getInstance().sortOption == SORT_OPTION_DELETED_DATE,
+                color: appSettings.sortBy == "deleted" ? accentColor : textColor,
+                icon: appSettings.descending ? Icons.arrow_upward : Icons.arrow_upward,
+                iconEnabled: appSettings.sortBy == "deleted",
                 onTap: () {
                   appState.notifySomethingChanged(() {
-                    AppSettings.getInstance().setSortOption(SORT_OPTION_DELETED_DATE);
+                    appSettings.setSortOption("deleted");
                     appStorage.notes.updateAll((home, list) {
                       list.sortByOption();
                       return list;

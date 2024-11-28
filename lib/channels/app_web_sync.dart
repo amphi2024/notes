@@ -32,7 +32,9 @@ extension AppWebSync on AppWebChannel {
 
       for (AppTheme appTheme in appThemeList) {
         // upload themes that not exist
-        uploadTheme(themeFileContent: jsonEncode(appTheme.toMap()), themeFilename: appTheme.filename);
+        if(appTheme.filename != "!DEFAULT") {
+          uploadTheme(themeFileContent: jsonEncode(appTheme.toMap()), themeFilename: appTheme.filename);
+        }
       }
 
       for (int i = 0; i < list.length; i++) {

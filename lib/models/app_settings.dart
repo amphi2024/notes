@@ -5,7 +5,6 @@ import 'dart:ui';
 
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';
 
@@ -17,53 +16,64 @@ class AppSettings {
 
   static AppSettings getInstance() => _instance;
 
-  late int fragmentIndex;
-  // AppTheme   appTheme = AppTheme(
-  //     created: DateTime.now(),
-  //     modified: DateTime.now()
-  // );
   AppTheme? appTheme = null;
-  late bool useOwnServer;
-  late int sortOption;
-  late bool reverseSorting;
-  late bool dancingFloatingButton;
-  late bool transparentNavigationBar;
-  late bool dockedFloatingMenu;
   Locale? locale = null;
-  late int permanentDeletionPeriod;
-  late bool floatingMenuShowing;
   late Map<String, dynamic> data;
 
-  void setSortOption(int option) {
-    if (sortOption == option) {
-      reverseSorting = !reverseSorting;
+  set viewMode(value) => data["viewMode"] = value;
+  String get viewMode => data.putIfAbsent("viewMode", () => "linear");
+
+  set serverAddress(value) => data["serverAddress"] = value;
+  String get serverAddress => data.putIfAbsent("serverAddress", () => "");
+
+  set useOwnServer(value) => data["useOwnServer"] = value;
+  bool get useOwnServer => data.putIfAbsent("useOwnServer", () => false);
+
+  String get sortBy => data.putIfAbsent("sortBy", () => "modified");
+
+  bool get descending => data.putIfAbsent("descending", () => false);
+
+  set transparentNavigationBar(value) => data["transparentNavigationBar"] = value;
+  bool get transparentNavigationBar => data.putIfAbsent("transparentNavigationBar", () => false);
+
+  set dockedFloatingMenu(value) => data["dockedFloatingMenu"] = value;
+  bool get dockedFloatingMenu => data.putIfAbsent("dockedFloatingMenu", () => true);
+
+  set permanentDeletionPeriod(value) => data["permanentDeletionPeriod"] = value;
+  int get permanentDeletionPeriod => data.putIfAbsent("permanentDeletionPeriod", () => 30);
+
+  set floatingMenuShowing(value) => data["floatingMenuShowing"] = value;
+  bool get floatingMenuShowing => data.putIfAbsent("floatingMenuShowing", () => true);
+
+  void setSortOption(String option) {
+    if (sortBy == option) {
+      data["descending"] = !descending;
     }
-    sortOption = option;
+    data["sortBy"] = option;
   }
 
   void getData() {
     File file = File(appStorage.settingsPath);
     if (!file.existsSync()) {
       data = {
-
+        "viewMode": "linear",
+        "theme": appTheme!.filename,
+        "serverAddress": "",
+        "useOwnServer": false,
+        "sortBy": "modified",
+        "descending": false,
+        "locale": locale?.languageCode ?? null,
+        "transparentNavigationBar": false,
+        "dockedFloatingMenu": true,
+        "permanentDeletionPeriod": 30,
+        "floatingMenuShowing": true
       };
-      fragmentIndex = 0;
       appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
-      appWebChannel.serverAddress = "";
-      useOwnServer = false;
-      sortOption = SORT_OPTION_MODIFIED_DATE;
-      reverseSorting = false;
-      dancingFloatingButton = true;
-      transparentNavigationBar = false;
-      dockedFloatingMenu = true;
-      permanentDeletionPeriod = 30;
-      floatingMenuShowing = true;
       save();
     } else {
-      String jsonString = file.readAsStringSync();
-      Map<String, dynamic> jsonData = jsonDecode(jsonString);
-      fragmentIndex = jsonData["fragmentIndex"] ?? 0;
-      String themeFilename = jsonData["theme"] ?? "!DEFAULT";
+      data = jsonDecode(file.readAsStringSync());
+
+      String themeFilename = data["theme"] ?? "!DEFAULT";
       File themeFile = File(PathUtils.join(appStorage.themesPath, themeFilename));
       if (themeFilename != "!DEFAULT" && themeFile.existsSync()) {
         appTheme = AppTheme.fromFile(themeFile);
@@ -71,41 +81,18 @@ class AppSettings {
         appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
       }
 
-      transparentNavigationBar = jsonData["iosStyleUI"] ?? false;
-      appWebChannel.serverAddress = jsonData["serverAddress"] ?? "";
-      useOwnServer = jsonData["useOwnServer"] ?? false;
-      sortOption = jsonData["sortOption"] ?? 0;
-      reverseSorting = jsonData["reverseSorting"] ?? false;
-      if (jsonData["locale"] != null) {
-        locale = Locale(jsonData["language"]);
+
+      if (data["locale"] != null) {
+        locale = Locale(data["locale"]);
       }
-      dockedFloatingMenu = jsonData["dockedFloatingMenu"] ?? true;
-      permanentDeletionPeriod = jsonData["permanentDeletionPeriod"] ?? 30;
-      floatingMenuShowing = jsonData["floatingMenuShowing"] ?? true;
     }
   }
 
   Future<void> save() async {
-    Map<String, dynamic> jsonData = {
-      "fragmentIndex": fragmentIndex,
-      "theme": appTheme!.filename,
-      "serverAddress":  appWebChannel.serverAddress,
-      "useOwnServer": useOwnServer,
-      "sortOption": sortOption,
-      "reverseSorting": reverseSorting,
-      "locale": locale?.languageCode ?? null,
-      "transparentNavigationBar": transparentNavigationBar,
-      "dockedFloatingMenu": dockedFloatingMenu,
-      "permanentDeletionPeriod": permanentDeletionPeriod,
-      "floatingMenuShowing": floatingMenuShowing
-    };
+    data["theme"] = appTheme!.filename;
+    data["locale"] =  locale?.languageCode ?? null;
 
-    File file = File(appStorage.selectedUser.storagePath + "/settings.json");
-    file.writeAsString(jsonEncode(jsonData));
+    File file = File( appStorage.settingsPath);
+    file.writeAsString(jsonEncode(data));
   }
 }
-
-const int SORT_OPTION_TITLE = 0;
-const int SORT_OPTION_CREATE_DATE = 1;
-const int SORT_OPTION_MODIFIED_DATE = 2;
-const int SORT_OPTION_DELETED_DATE = 3;

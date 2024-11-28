@@ -3,21 +3,21 @@ import 'package:notes/models/app_settings.dart';
 extension SortExtension on List<dynamic> {
 
   void sortByOption() {
-    switch (appSettings.sortOption) {
-      case SORT_OPTION_TITLE:
+    switch (appSettings.sortBy) {
+      case "title":
         sortByTitle();
         break;
-      case SORT_OPTION_CREATE_DATE:
+      case "created":
         sortByCreatedDate();
         break;
-      case SORT_OPTION_MODIFIED_DATE:
+      case "modified":
         sortByModifiedDate();
         break;
     }
   }
 
   void sortByTitle() {
-    if(appSettings.reverseSorting) {
+    if(appSettings.descending) {
       sort((a, b) {
         return b.title.compareTo(a.title);
       });
@@ -30,7 +30,7 @@ extension SortExtension on List<dynamic> {
   }
 
   void sortByCreatedDate() {
-    if(appSettings.reverseSorting) {
+    if(appSettings.descending) {
       sort((a, b) {
         return a.created.compareTo(b.created);
       });
@@ -42,7 +42,7 @@ extension SortExtension on List<dynamic> {
     }
   }
   void sortByModifiedDate() {
-    if(appSettings.reverseSorting) {
+    if(appSettings.descending) {
       sort((a, b) {
         return a.modified.compareTo(b.modified);
       });

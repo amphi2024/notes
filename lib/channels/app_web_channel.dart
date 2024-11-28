@@ -27,6 +27,8 @@ class AppWebChannel extends AppWebChannelCore {
   
   get token => appStorage.selectedUser.token;
 
+  get serverAddress => appSettings.serverAddress;
+
   @override
   Future<void> connectWebSocket() async => connectWebSocketSuper("/notes/sync");
 
@@ -154,15 +156,15 @@ class AppWebChannel extends AppWebChannelCore {
       Uri.parse("$serverAddress/notes/events"),
       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appWebChannel.token},
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == HttpStatus.ok) {
       List<dynamic> decoded = jsonDecode(utf8.decode(response.bodyBytes));
       for (Map<String, dynamic> map in decoded) {
         UpdateEvent updateEvent = UpdateEvent(action: map["action"], value: map["value"], timestamp: DateTime.fromMillisecondsSinceEpoch( map["timestamp"]).toLocal());
         list.add(updateEvent);
       }
       onResponse(list);
-    } else if (response.statusCode == 401) {
-      token = "";
+    } else if (response.statusCode == HttpStatus.unauthorized) {
+      appStorage.selectedUser.token = "";
     }
   }
 

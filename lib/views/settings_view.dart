@@ -63,7 +63,7 @@ class _SettingsViewState extends State<SettingsView> {
     return AppView(
       canPopPage: true,
       onPopInvoked: (value, result) {
-          appWebChannel.serverAddress = serverAddressController.text;
+          appSettings.serverAddress = serverAddressController.text;
           appSettings.save();
           if (!appWebChannel.connected && appSettings.useOwnServer) {
             appWebChannel.connectWebSocket();
