@@ -55,6 +55,7 @@ class AppSettings {
   void getData() {
     File file = File(appStorage.settingsPath);
     if (!file.existsSync()) {
+      appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
       data = {
         "viewMode": "linear",
         "theme": appTheme!.filename,
@@ -68,7 +69,6 @@ class AppSettings {
         "permanentDeletionPeriod": 30,
         "floatingMenuShowing": true
       };
-      appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
       save();
     } else {
       data = jsonDecode(file.readAsStringSync());
