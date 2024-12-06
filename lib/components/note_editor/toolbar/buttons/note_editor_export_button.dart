@@ -11,6 +11,7 @@ import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/extensions/note_extension.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/content.dart';
+import 'package:notes/models/icons.dart';
 import 'package:notes/models/note.dart';
 
 class NoteEditorExportButton extends StatelessWidget {
@@ -87,7 +88,7 @@ class NoteEditorExportButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     return IconButton(
-        icon: Icon(Icons.outbond_outlined, size: 20),
+        icon: Icon(AppIcons.export, size: 20),
         onPressed: () {
           showMenuByRelative(context: context, items: [
             PopupMenuItem(child: Text(localizations.get("@note_export_label_note")), onTap: exportToNote),

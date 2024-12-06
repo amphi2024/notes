@@ -14,6 +14,7 @@ import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme_data.dart';
+import 'package:notes/models/icons.dart';
 import 'package:notes/models/note.dart';
 
 class WideMainView extends StatefulWidget {
@@ -255,7 +256,7 @@ class _WideMainViewState extends State<WideMainView> {
                     }
                   },
                   child: IconButton(
-                      icon: Icon(Icons.view_sidebar),
+                      icon: Icon(AppIcons.sidebar),
                       onPressed: () {
                         setState(() {
                           appSettings.floatingMenuShowing = !appSettings.floatingMenuShowing;
