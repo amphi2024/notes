@@ -5,7 +5,7 @@ import 'package:notes/models/content.dart';
 import 'package:notes/models/dark_theme.dart';
 import 'package:notes/models/light_theme.dart';
 import 'package:notes/models/note.dart';
-
+import 'package:pdf/widgets.dart' as PDF;
 extension NoteExtension on Note {
   String toHTML(String directoryName) {
     AppTheme appTheme = appSettings.appTheme!;
@@ -92,121 +92,165 @@ font-size: ${textSize ?? 15}px;
           """;
           break;
         case "text":
-          String text = content.value;
-          // List<String> split = text.split("\n");
-          // for(int i = 0 ; i< split.length; i++) {
-          //   String style  = "";
-          //   content.style?.forEach((key, value) {
-          //     switch (key) {
-          //       case "bold":
-          //         style += "font-weight: bold;";
-          //         break;
-          //       case "size":
-          //         style += "font-size: ${value}px;";
-          //         break;
-          //     }
-          //   });
-          //
-          // if(i == split.length - 1) {
-          //   html += """
-          // <div style="${style}">${split[i]}</div>
-          // """;
-          // }
-          // else {
-          //   html += """
-          // <div style="${style}">${split[i]}<br></div>
-          // """;
-          // }
-          //
-          // }
-          if (text != "\n") {
-            List<String> split = text.split("\n");
-            for (int i = 0; i < split.length; i++) {
-              if (split[i].isEmpty) {
-                html += """
-                  <br>
-                """;
-                content.style?.forEach((key, value) {
-                  switch (key) {
-                    case "list":
-                      switch (value) {
-                        case "bullet":
-                          break;
-                        case "ordered":
-                          break;
-                        case "checked":
-                          html += """<input type="checkbox">""";
-                          break;
-                        case "unchecked":
-                          html += """<input type="checkbox">""";
-                          break;
-                      }
-                      break;
-                  }
-                });
-              } else {
-                String style = "";
-                content.style?.forEach((key, value) {
-                  switch (key) {
-                    case "bold":
-                      style += "font-weight: bold;";
-                      break;
-                    case "size":
-                      style += "font-size: ${value}px;";
-                      break;
-                    case "list":
-                      switch (value) {
-                        case "bullet":
-                          break;
-                        case "ordered":
-                          break;
-                        case "checked":
-                          html += """<input type="checkbox">""";
-                          break;
-                        case "unchecked":
-                          html += """<input type="checkbox">""";
-                          break;
-                      }
-                      break;
-                    case "underline":
-                      style += "text-decoration: underline;";
-                      break;
-                    default:
-                      print(key);
-                      break;
-                  }
-                });
-
-                html += """
-            <div style="${style}">${split[i]}</div>
-            """;
-              }
-            }
-          } else {
-            content.style?.forEach((key, value) {
-              switch (key) {
-                case "list":
-                  switch (value) {
-                    case "bullet":
-                      break;
-                    case "ordered":
-                      break;
-                    case "checked":
-                      html += """<input type="checkbox" checked>""";
-                      break;
-                    case "unchecked":
-                      html += """<input type="checkbox">""";
-                      break;
-                  }
-                  break;
-              }
-            });
-          }
-
+          html += content.textToHTML();
           break;
       }
     }
     return html;
+  }
+
+  String toMarkdown() {
+    String markdown = "";
+
+    for(var content in contents) {
+      switch(content.type) {
+        case "text":
+          markdown += content.textToHTML();
+        default:
+          markdown += "\n";
+          break;
+      }
+    }
+
+    return markdown;
+  }
+
+  PDF.Document toPDF() {
+    final pdf = PDF.Document();
+    List<PDF.Widget> list = [];
+    for (Content content in contents) {
+      switch (content.type) {
+        case "text":
+          list.add(
+              PDF.Text(content.value,
+            style: content.style?.toPDFTextStyle(),
+          ));
+          break;
+        case "img":
+
+          break;
+
+        case "video":
+
+          break;
+      }
+    }
+
+    var page = PDF.Page(
+      build: (context) => PDF.Column(
+        crossAxisAlignment: PDF.CrossAxisAlignment.start,
+        children: list,
+      )
+    );
+
+    pdf.addPage(page);
+    for(var widget in list) {
+
+    }
+
+    return pdf;
+  }
+}
+
+extension NoteContentExtension on Content {
+  String textToHTML() {
+    String text = value;
+    String html = "";
+    if (text != "\n") {
+      List<String> split = text.split("\n");
+      for (int i = 0; i < split.length; i++) {
+        if (split[i].isEmpty) {
+          html += """
+                  <br>
+                """;
+          style?.forEach((key, value) {
+            switch (key) {
+              case "list":
+                switch (value) {
+                  case "bullet":
+                    break;
+                  case "ordered":
+                    break;
+                  case "checked":
+                    html += """<input type="checkbox">""";
+                    break;
+                  case "unchecked":
+                    html += """<input type="checkbox">""";
+                    break;
+                }
+                break;
+            }
+          });
+        } else {
+          String styleText = "";
+          style?.forEach((key, value) {
+            switch (key) {
+              case "bold":
+                styleText += "font-weight: bold;";
+                break;
+              case "size":
+                styleText += "font-size: ${value}px;";
+                break;
+              case "list":
+                switch (value) {
+                  case "bullet":
+                    break;
+                  case "ordered":
+                    break;
+                  case "checked":
+                    html += """<input type="checkbox">""";
+                    break;
+                  case "unchecked":
+                    html += """<input type="checkbox">""";
+                    break;
+                }
+                break;
+              case "underline":
+                styleText += "text-decoration: underline;";
+                break;
+              default:
+                print(key);
+                break;
+            }
+          });
+
+          html += """
+            <div style="${styleText}">${split[i]}</div>
+            """;
+        }
+      }
+    } else {
+      style?.forEach((key, value) {
+        switch (key) {
+          case "list":
+            switch (value) {
+              case "bullet":
+                break;
+              case "ordered":
+                break;
+              case "checked":
+                html += """<input type="checkbox" checked>""";
+                break;
+              case "unchecked":
+                html += """<input type="checkbox">""";
+                break;
+            }
+            break;
+        }
+      });
+
+
+    }
+
+    return html;
+  }
+}
+
+extension NoteStyleExtension on Map {
+  PDF.TextStyle toPDFTextStyle() {
+    return PDF.TextStyle(
+
+    );
   }
 }
 

@@ -12,14 +12,14 @@ import 'package:notes/components/note_editor/embed_block/video/video_embed_build
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_embed_builder.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor_check_box_builder.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_sub_note_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_image_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_text_style_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_divider_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_edit_detail_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_table_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_video_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_view_pager_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_sub_note_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_image_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_text_style_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_divider_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_edit_detail_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_table_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_video_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_view_pager_button.dart';
 import 'package:notes/models/note.dart';
 
 class NoteEditor extends StatefulWidget {

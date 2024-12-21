@@ -68,6 +68,7 @@ dependencies:
 
   amphi:
     path: ../amphi
+  pdf: ^3.11.1
 
 #  editable_table:
 #    path: ../editable_table

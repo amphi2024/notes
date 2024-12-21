@@ -20,9 +20,7 @@ class ImageFromStorage extends StatelessWidget {
       fit: fit,
       File(absolutePath),
       errorBuilder: (context, object, stack) {
-        if(!File(absolutePath).existsSync()) {
-          appWebChannel.downloadImage( noteFileNameOnly: noteFileNameOnly, imageFilename: imageFilename);
-        }
+        appWebChannel.downloadImage( noteFileNameOnly: noteFileNameOnly, imageFilename: imageFilename);
         return Image(
           image: NetworkImage("${appWebChannel.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}",
               headers: {

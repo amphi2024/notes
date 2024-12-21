@@ -48,12 +48,11 @@ class NoteEditorExportButton extends StatelessWidget {
     }
   }
 
-  void exportToHTMl() async {
+  void exportToHTML() async {
     Note note = noteEditingController.note;
     String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.html");
 
     if (selectedPath != null) {
-      if (App.isDesktop()) {
         Directory directory = Directory(selectedPath.split(".").first);
         String html = note.toHTML(PathUtils.basenameWithoutExtension(directory.path));
         File file = File(selectedPath);
@@ -74,16 +73,40 @@ class NoteEditorExportButton extends StatelessWidget {
               file.copy(PathUtils.join(directory.path, content.value));
               break;
           }
-        }
       }
     }
   }
 
-  void exportAsMarkdown() async {}
+  void exportAsMarkdown() async {
+    Note note = noteEditingController.note;
+    String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.md");
 
-  void exportAsWord() async {}
+    if (selectedPath != null) {
+      File file = File(selectedPath);
+      await file.writeAsString(note.toMarkdown());
+    }
+  }
 
-  void exportAsPDF() async {}
+  void exportAsWord() async {
+    Note note = noteEditingController.note;
+    String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.html");
+
+    if (selectedPath != null) {
+
+    }
+  }
+
+  // void exportAsPDF() async {
+  //   Note note = noteEditingController.note;
+  //   String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.pdf");
+  //
+  //
+  //   if (selectedPath != null) {
+  //
+  //     File file = File(selectedPath);
+  //     await file.writeAsBytes(await note.toPDF().save());
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
@@ -92,10 +115,10 @@ class NoteEditorExportButton extends StatelessWidget {
         onPressed: () {
           showMenuByRelative(context: context, items: [
             PopupMenuItem(child: Text(localizations.get("@note_export_label_note")), onTap: exportToNote),
-            PopupMenuItem(child: Text(localizations.get("@note_export_label_html")), onTap: exportToHTMl),
+            PopupMenuItem(child: Text(localizations.get("@note_export_label_html")), onTap: exportToHTML),
             PopupMenuItem(child: Text(localizations.get("@note_export_label_markdown")), onTap: exportAsMarkdown),
             PopupMenuItem(child: Text(localizations.get("@note_export_label_word")), onTap: exportAsWord),
-            PopupMenuItem(child: Text(localizations.get("@note_export_label_pdf")), onTap: exportAsPDF),
+            // PopupMenuItem(child: Text(localizations.get("@note_export_label_pdf")), onTap: exportAsPDF),
           ]);
         });
   }

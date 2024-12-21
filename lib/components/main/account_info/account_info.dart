@@ -71,7 +71,6 @@ class _AccountInfoState extends State<AccountInfo> {
           children: [
             GestureDetector(
                 onTap: () {
-                  print(appWebChannel.token);
                 },
                 child: ProfileImage(size: 100, fontSize: 50, user: appStorage.selectedUser, token: appWebChannel.token)),
             SizedBox(

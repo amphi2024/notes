@@ -2,7 +2,6 @@ import 'package:amphi/utils/file_name_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/image_from_storage_rounded.dart';
 import 'package:notes/components/main/list_view/list_view_item.dart';
-import 'package:notes/components/main/list_view/parsed_contents.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/note.dart';
@@ -48,10 +47,14 @@ class _NoteGridItemState extends State<NoteGridItem> {
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)))),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 13.0),
-              child: ParsedContents(
-                note: widget.note,
-              ),
+              child: Text(widget.note.title),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 13.0),
+            //   child: ParsedContents(
+            //     note: widget.note,
+            //   ),
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

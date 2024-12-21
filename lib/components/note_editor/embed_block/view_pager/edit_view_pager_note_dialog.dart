@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_redo_button.dart';
-import 'package:notes/components/note_editor/toolbar/buttons/note_editor_undo_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
 
 class EditViewPagerNoteDialog extends StatefulWidget {
 

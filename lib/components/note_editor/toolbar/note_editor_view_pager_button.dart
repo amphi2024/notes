@@ -4,7 +4,7 @@ import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_b
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 
-import '../../../../models/note_embed_blocks.dart';
+import '../../../models/note_embed_blocks.dart';
 
 class NoteEditorViewPagerButton extends StatelessWidget {
 
