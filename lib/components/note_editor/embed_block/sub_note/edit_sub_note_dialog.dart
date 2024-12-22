@@ -2,6 +2,7 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_import_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
 
@@ -52,6 +53,7 @@ class _EditSubNoteDialogState extends State<EditSubNoteDialog> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  NoteEditorImportButton(noteEditingController: widget.noteEditingController),
                   NoteEditorUndoButton(noteEditingController: widget.noteEditingController),
                   NoteEditorRedoButton(noteEditingController: widget.noteEditingController),
                   IconButton(icon: Icon(Icons.check_circle_outline), onPressed: () {

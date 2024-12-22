@@ -21,5 +21,6 @@ abstract final class AppIcons {
    static const IconData restore = IconData(0xe907, fontFamily: "FontIcon");
    static const IconData move = IconData(0xe911, fontFamily: "FontIcon");
    static const IconData export = IconData(0xe900, fontFamily: "Icons");
-   static const IconData sidebar = IconData(0xe901, fontFamily: "Icons");
+   static const IconData sidebar = IconData(0xe902, fontFamily: "Icons");
+   static const IconData import = IconData(0xe901, fontFamily: "Icons");
 }

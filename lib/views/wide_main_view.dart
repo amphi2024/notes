@@ -17,6 +17,8 @@ import 'package:notes/models/app_theme_data.dart';
 import 'package:notes/models/icons.dart';
 import 'package:notes/models/note.dart';
 
+import '../components/note_editor/toolbar/note_editor_import_button.dart';
+
 class WideMainView extends StatefulWidget {
   final String? title;
 
@@ -166,6 +168,7 @@ class _WideMainViewState extends State<WideMainView> {
                           });
                         })
                       ] : [
+                        NoteEditorImportButton(noteEditingController: appState.noteEditingController),
                         NoteEditorUndoButton(noteEditingController: appState.noteEditingController),
                         NoteEditorRedoButton(noteEditingController: appState.noteEditingController),
                         IconButton(icon: Icon(Icons.check_circle_outline), onPressed: () {

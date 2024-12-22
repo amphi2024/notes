@@ -3,6 +3,7 @@ import 'package:amphi/widgets/menu/popup/show_menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:notes/models/icons.dart';
 import 'package:notes/models/note.dart';
 
 class NoteEditorImportButton extends StatelessWidget {
@@ -11,8 +12,15 @@ class NoteEditorImportButton extends StatelessWidget {
   const NoteEditorImportButton({super.key, required this.noteEditingController});
 
   void importFromNote() async {
-    Note note = noteEditingController.note;
-    String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.note");
+    var selectedFiles = await FilePicker.platform.pickFiles();
+    if(selectedFiles != null) {
+      for(var file in selectedFiles.files) {
+        String fileContent = await file.xFile.readAsString();
+        Note note = Note.fromFileContent(fileContent: fileContent, originalModified: DateTime.now(), filePath: file.path ?? "");
+        noteEditingController.note.contents.addAll(note.contents);
+        noteEditingController.document = noteEditingController.note.toDocument();
+      }
+    }
 
   }
 
@@ -42,7 +50,7 @@ class NoteEditorImportButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     return IconButton(
-      icon: Icon(Icons.import_contacts),
+      icon: Icon(AppIcons.import, size: 20),
       onPressed: () {
         showMenuByRelative(context: context, items: [
           PopupMenuItem(child: Text(localizations.get("@note_export_label_note")), onTap: importFromNote),
