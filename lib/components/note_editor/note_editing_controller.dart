@@ -13,20 +13,17 @@ import 'package:notes/models/note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 
 class NoteEditingController extends QuillController {
-  Future<File?> selectedImageFile() async {
-    final result = await FilePicker.platform.pickFiles(type: FileType.image);
-
+  Future<List<File>> selectedImageFiles() async {
+    final result = await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: true);
+    List<File> list = [];
     if (result?.files.isNotEmpty ?? false) {
-      final selectedFile = result!.files.first;
-
-      if (selectedFile.path != null) {
-        return note.createdImageFile(selectedFile.path!);
-      } else {
-        return null;
+      for(var file in result!.files) {
+        list.add(await note.createdImageFile(file.path!));
       }
-    } else {
-      return null;
     }
+
+    return list;
+
   }
 
   Future<File?> selectedVideoFile() async {

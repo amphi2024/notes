@@ -19,7 +19,7 @@ class NoteEditorImageButton extends StatelessWidget {
     return IconButton(
         icon: Icon(Icons.image),
         onPressed: () async {
-          if (Platform.isIOS || Platform.isMacOS) {
+          if (Platform.isIOS) {
             showMenuByRelative(context: context, items: [
               PopupMenuItem(
                   child: Row(
@@ -33,11 +33,12 @@ class NoteEditorImageButton extends StatelessWidget {
                   ),
                   onTap: () async {
                     XFile? image;
-                    if (Platform.isIOS) {
-                      image = await ImagePickerIOS().getImage(source: ImageSource.gallery);
-                    } else {
-                      image = await ImagePickerMacOS().getImage(source: ImageSource.gallery);
-                    }
+                    image = await ImagePickerIOS().getImage(source: ImageSource.gallery);
+                    // if (Platform.isIOS) {
+                    //   image = await ImagePickerIOS().getImage(source: ImageSource.gallery);
+                    // } else {
+                    //   image = await ImagePickerMacOS().getImage(source: ImageSource.gallery);
+                    // }
                     if (image != null) {
                       File file = await noteEditingController.note.createdImageFile(image.path);
                       final block = BlockEmbed.custom(
@@ -57,8 +58,8 @@ class NoteEditorImageButton extends StatelessWidget {
                     ],
                   ),
                   onTap: () async {
-                    File? file = await noteEditingController.selectedImageFile();
-                    if (file != null) {
+                    var files = await noteEditingController.selectedImageFiles();
+                    for(var file in files) {
                       final block = BlockEmbed.custom(
                         ImageBlockEmbed(file.path),
                       );
@@ -67,9 +68,8 @@ class NoteEditorImageButton extends StatelessWidget {
                   }),
             ]);
           } else {
-            // appMethodChannel.selectImage();
-            File? file = await noteEditingController.selectedImageFile();
-            if (file != null) {
+            var files = await noteEditingController.selectedImageFiles();
+            for(var file in files) {
               final block = BlockEmbed.custom(
                 ImageBlockEmbed(file.path),
               );

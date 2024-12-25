@@ -24,7 +24,7 @@ class Folder extends Item {
       super.deleted});
 
   static Folder createdFolder(String location) {
-    String filename = FilenameUtils.generatedFileName("folder", appStorage.notesPath);
+    String filename = FilenameUtils.generatedFileName(".folder", appStorage.notesPath);
     return Folder(
         title: "",
         filename: filename,

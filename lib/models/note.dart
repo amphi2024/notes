@@ -90,7 +90,7 @@ class Note extends Item {
   }
 
   static Note createdNote(String home) {
-    String filename = FilenameUtils.generatedFileName("note", appStorage.notesPath);
+    String filename = FilenameUtils.generatedFileName(".note", appStorage.notesPath);
     return Note(
         filename: filename,
         path: PathUtils.join(appStorage.notesPath, filename),

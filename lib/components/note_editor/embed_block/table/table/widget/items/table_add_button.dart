@@ -46,8 +46,8 @@ class TableAddButton extends StatelessWidget {
             PopupMenuItem(
                 child: Text(AppLocalizations.of(context).get("@editor_table_insert_image")),
                 onTap: () async {
-                  File? file = await appState.noteEditingController.selectedImageFile();
-                  if (file != null) {
+                  var files = await appState.noteEditingController.selectedImageFiles();
+                  for(var file in files) {
                     onEdit({"img": PathUtils.basename(file.path)});
                   }
                 }),
