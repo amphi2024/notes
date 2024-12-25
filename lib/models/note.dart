@@ -180,6 +180,8 @@ class Note extends Item {
       delta.insert("\n");
     }
 
+    print(delta.toList());
+
     return Document.fromDelta(delta);
   }
 

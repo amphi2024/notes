@@ -23,7 +23,6 @@ class NoteEditorImportButton extends StatelessWidget {
         String fileContent = await file.xFile.readAsString();
         Note note = Note.fromFileContent(fileContent: fileContent, originalModified: DateTime.now(), filePath: file.path ?? "");
         var directory = Directory(file.xFile.path.split(".").first);
-        if(directory.existsSync()) {
           for(Content content in note.contents) {
             if(content.type == "img") {
               try {
@@ -64,7 +63,7 @@ class NoteEditorImportButton extends StatelessWidget {
           }
         }
         noteEditingController.document = noteEditingController.note.toDocument();
-      }
+
     }
 
   }
