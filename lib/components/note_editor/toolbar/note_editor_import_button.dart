@@ -26,12 +26,26 @@ class NoteEditorImportButton extends StatelessWidget {
           for(Content content in note.contents) {
             if(content.type == "img") {
               try {
-                var file = await noteEditingController.note.createdImageFile(PathUtils.join(directory.path, content.value));
-                var image = Content(
-                    value: PathUtils.basename(file.path),
-                    type: "img"
-                );
-                noteEditingController.note.contents.add(image);
+                String value = content.value;
+                if(value.startsWith("!BASE64")) {
+                  var split = value.split(";");
+                  String imageExtension = split[1];
+                  String base64 = split[2];
+                  var file = await noteEditingController.note.createdImageFileWithBase64(base64, imageExtension);
+                  var image = Content(
+                      value: PathUtils.basename(file.path),
+                      type: "img"
+                  );
+                  noteEditingController.note.contents.add(image);
+                }
+                else {
+                  var file = await noteEditingController.note.createdImageFile(PathUtils.join(directory.path, value));
+                  var image = Content(
+                      value: PathUtils.basename(file.path),
+                      type: "img"
+                  );
+                  noteEditingController.note.contents.add(image);
+                }
               }
               catch(e) {
                 noteEditingController.note.contents.add(Content(

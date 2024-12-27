@@ -57,6 +57,21 @@ class Note extends Item {
     }
   }
 
+  Future<File> createdFileWithBase64(String base64, String fileExtension ,String directoryName) async {
+    String filenameWithoutType = FilenameUtils.nameOnly(filename);
+    Directory directory = Directory(PathUtils.join(appStorage.notesPath, filenameWithoutType, directoryName));
+    if (!directory.existsSync()) {
+      await directory.create(recursive: true);
+    }
+
+    String generatedImageFilename = FilenameUtils.generatedFileName(fileExtension, directory.path);
+
+    File file = File(PathUtils.join(directory.path, generatedImageFilename));
+    await file.writeAsBytes(base64Decode(base64));
+
+    return file;
+  }
+
   Future<File> createdFile(String originalPath, String directoryName) async {
     String filenameWithoutType = FilenameUtils.nameOnly(filename);
     Directory directory = Directory(PathUtils.join(appStorage.notesPath, filenameWithoutType, directoryName));
@@ -76,6 +91,10 @@ class Note extends Item {
   Future<File> createdImageFile(String originalPath) async => createdFile(originalPath, "images");
 
   Future<File> createdVideoFile(String originalPath) async => createdFile(originalPath, "videos");
+
+  Future<File> createdImageFileWithBase64(String base64, String fileExtension) async => createdFileWithBase64(base64, fileExtension , "images");
+
+  Future<File> createdVideoFileWithBase64(String base64, String fileExtension) async => createdFileWithBase64(base64, fileExtension , "videos");
 
   static Note subNote() {
     return Note(
@@ -179,8 +198,6 @@ class Note extends Item {
     if (!delta.last.data.toString().endsWith('\n')) {
       delta.insert("\n");
     }
-
-    print(delta.toList());
 
     return Document.fromDelta(delta);
   }

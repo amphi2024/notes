@@ -164,8 +164,17 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                 ToggleAttributeButton(
                   activated: attributeApplied(Attribute.bold),
                   icon: Icons.format_bold,
-                  onPressed: () => toggleAttribute(Attribute.bold),
+                  onPressed: () {
+                    widget.noteEditingController.formatSelection(IndentAttribute(level: 1));
+                    print(widget.noteEditingController.getSelectionStyle());
+                    print(widget.noteEditingController.getNote().contents);
+                  },
                 ),
+                // ToggleAttributeButton(
+                //   activated: attributeApplied(Attribute.bold),
+                //   icon: Icons.format_bold,
+                //   onPressed: () => toggleAttribute(Attribute.bold),
+                // ),
                 ToggleAttributeButton(
                   activated: attributeApplied(Attribute.italic),
                   icon: Icons.format_italic,

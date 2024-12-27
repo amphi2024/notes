@@ -117,7 +117,7 @@ class NoteEditorExportButton extends StatelessWidget {
             PopupMenuItem(child: Text(localizations.get("@note_export_label_note")), onTap: exportToNote),
             PopupMenuItem(child: Text(localizations.get("@note_export_label_html")), onTap: exportToHTML),
             PopupMenuItem(child: Text(localizations.get("@note_export_label_markdown")), onTap: exportAsMarkdown),
-            PopupMenuItem(child: Text(localizations.get("@note_export_label_word")), onTap: exportAsWord),
+            //PopupMenuItem(child: Text(localizations.get("@note_export_label_word")), onTap: exportAsWord),
             // PopupMenuItem(child: Text(localizations.get("@note_export_label_pdf")), onTap: exportAsPDF),
           ]);
         });
