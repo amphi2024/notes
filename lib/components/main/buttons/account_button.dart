@@ -25,41 +25,46 @@ class AccountButton extends StatelessWidget {
     return IconButton(
         icon: ProfileImage(size: iconSize, fontSize: profileIconSize, user: appStorage.selectedUser, token: appWebChannel.token),
         onPressed: () {
-          if (App.isWideScreen(context)) {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return Dialog(
-                    child: Container(
-                      width: 250,
-                      height: 500,
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: IconButton(
-                                icon: Icon(AppIcons.times),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                }),
-                          ),
-                          Expanded(child: AccountInfo())
-                        ],
-                      ),
-                    ),
-                  );
-                });
-          } else {
-            if (Platform.isAndroid) {
-              appMethodChannel.setNavigationBarColor(Theme.of(context).cardColor, appSettings.transparentNavigationBar);
-            }
-            showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context) {
-                return AccountBottomSheet();
-              },
-            );
-          }
+          onAccountButtonPressed(context);
+        }
+    );
+  }
+}
+
+void onAccountButtonPressed(BuildContext context) {
+  if (App.isWideScreen(context)) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            child: Container(
+              width: 250,
+              height: 500,
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                        icon: Icon(AppIcons.times),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }),
+                  ),
+                  Expanded(child: AccountInfo())
+                ],
+              ),
+            ),
+          );
         });
+  } else {
+    if (Platform.isAndroid) {
+      appMethodChannel.setNavigationBarColor(Theme.of(context).cardColor, appSettings.transparentNavigationBar);
+    }
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return AccountBottomSheet();
+      },
+    );
   }
 }
