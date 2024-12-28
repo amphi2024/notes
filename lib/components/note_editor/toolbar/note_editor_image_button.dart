@@ -5,7 +5,6 @@ import 'package:amphi/widgets/menu/popup/show_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:image_picker_ios/image_picker_ios.dart';
-import 'package:image_picker_macos/image_picker_macos.dart';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_block_embed.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';

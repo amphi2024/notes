@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:amphi/models/app_localizations.dart';
-import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/widgets/menu/popup/show_menu.dart';
 import 'package:file_picker/file_picker.dart';
@@ -82,27 +81,27 @@ class NoteEditorImportButton extends StatelessWidget {
 
   }
 
-  void importFromHTML() async {
-    Note note = noteEditingController.note;
-    String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.html");
+  // void importFromHTML() async {
+  //   Note note = noteEditingController.note;
+  //   String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.html");
+  //
+  //
+  // }
+  //
+  // void importFromMarkdown() async {
+  //   Note note = noteEditingController.note;
+  //   String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.md");
+  //
+  // }
 
-
-  }
-
-  void importFromMarkdown() async {
-    Note note = noteEditingController.note;
-    String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.md");
-
-  }
-
-  void importFromWord() async {
-    Note note = noteEditingController.note;
-    String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.html");
-
-    if (selectedPath != null) {
-
-    }
-  }
+  // void importFromWord() async {
+  //   Note note = noteEditingController.note;
+  //   String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.html");
+  //
+  //   if (selectedPath != null) {
+  //
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -112,9 +111,9 @@ class NoteEditorImportButton extends StatelessWidget {
       onPressed: () {
         showMenuByRelative(context: context, items: [
           PopupMenuItem(child: Text(localizations.get("@note_export_label_note")), onTap: importFromNote),
-          PopupMenuItem(child: Text(localizations.get("@note_export_label_html")), onTap: importFromHTML),
-          PopupMenuItem(child: Text(localizations.get("@note_export_label_markdown")), onTap: importFromMarkdown),
-          PopupMenuItem(child: Text(localizations.get("@note_export_label_word")), onTap: importFromWord),
+          // PopupMenuItem(child: Text(localizations.get("@note_export_label_html")), onTap: importFromHTML),
+          // PopupMenuItem(child: Text(localizations.get("@note_export_label_markdown")), onTap: importFromMarkdown),
+          //PopupMenuItem(child: Text(localizations.get("@note_export_label_word")), onTap: importFromWord),
           // PopupMenuItem(child: Text(localizations.get("@note_export_label_pdf")), onTap: exportAsPDF),
         ]);
       },
