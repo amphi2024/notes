@@ -70,7 +70,7 @@ extension AppWebUpload on AppWebChannel {
     uploadJson(url: "$serverAddress/notes/${folder.filename}", jsonBody: fileContent, updateEvent: updateEvent, onSuccess: onSuccess, onFailed: onFailed);
   }
 
-  void uploadFile({required String url, required String filePath, void Function()? onSuccess, void Function(int?)? onFailed}) async {
+  void uploadFileOfNote({required String url, required String filePath, void Function()? onSuccess, void Function(int?)? onFailed}) async {
     try {
       MultipartRequest request = MultipartRequest('POST', Uri.parse(url));
       MultipartFile multipartFile =
@@ -79,7 +79,7 @@ extension AppWebUpload on AppWebChannel {
       request.headers.addAll({"Authorization": token});
       request.files.add(multipartFile);
       var response = await request.send();
-
+      // Need to add something to indicate progressing later
       if (response.statusCode == 200) {
         if (onSuccess != null) {
           onSuccess();
@@ -98,11 +98,15 @@ extension AppWebUpload on AppWebChannel {
 
   void uploadImage(
       {required String noteFileNameOnly, required String imageFilename, void Function(int?)? onFailed, void Function()? onSuccess}) async {
-    uploadFile(url: "$serverAddress/notes/${noteFileNameOnly}/images/${imageFilename}", filePath: PathUtils.join(appStorage.notesPath, noteFileNameOnly, "images", imageFilename), onSuccess: onSuccess, onFailed:  onFailed);
+    uploadFileOfNote(url: "$serverAddress/notes/${noteFileNameOnly}/images/${imageFilename}", filePath: PathUtils.join(appStorage.notesPath, noteFileNameOnly, "images", imageFilename), onSuccess: onSuccess, onFailed:  onFailed);
   }
 
   void uploadVideo(
       {required String noteFileNameOnly, required String videoFilename, void Function(int?)? onFailed, void Function()? onSuccess}) async {
-    uploadFile(url: "$serverAddress/notes/${noteFileNameOnly}/videos/${videoFilename}", filePath: PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos", videoFilename), onSuccess: onSuccess, onFailed:  onFailed);
+    uploadFileOfNote(url: "$serverAddress/notes/${noteFileNameOnly}/videos/${videoFilename}", filePath: PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos", videoFilename), onSuccess: onSuccess, onFailed:  onFailed);
+  }
+
+  void uploadFile({required String noteFileNameOnly, required String filename, void Function(int?)? onFailed, void Function()? onSuccess}) async{
+  uploadFileOfNote(url: "$serverAddress/notes/${noteFileNameOnly}/files/${filename}", filePath: PathUtils.join(appStorage.notesPath, noteFileNameOnly, "files", filename), onSuccess: onSuccess, onFailed:  onFailed);
   }
 }

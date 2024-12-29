@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/note_editor/embed_block/divider/divider_embed_builder.dart';
+import 'package:notes/components/note_editor/embed_block/file/file_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/sub_note/sub_note_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/table/note_table_embed_builder.dart';
@@ -121,47 +122,8 @@ class _NoteEditorState extends State<NoteEditor> {
           NoteTableEmbedBuilder(),
           SubNoteEmbedBuilder(),
           DividerEmbedBuilder(),
-          ViewPagerEmbedBuilder()
-          // ...FlutterQuillEmbeds.editorBuilders(
-          //   imageEmbedConfigurations: QuillEditorImageEmbedConfigurations(
-          //     imageErrorWidgetBuilder: (context, error, stackTrace) {
-          //       return Text(
-          //         'Error while loading an image: ${error.toString()}',
-          //       );
-          //     },
-          //     imageProviderBuilder: (context, imageUrl) {
-          //
-          //       // cached_network_image is supported
-          //       // only for Android, iOS and web
-          //
-          //       // We will use it only if image from network
-          //       // if (isAndroid(supportWeb: false) ||
-          //       //     isIOS(supportWeb: false) ||
-          //       //     isWeb()) {
-          //       //   // if (isHttpBasedUrl(imageUrl)) {
-          //       //   //   return CachedNetworkImageProvider(
-          //       //   //     imageUrl,
-          //       //   //   );
-          //       //   // }
-          //       // }
-          //       return getImageProviderByImageSource(
-          //         imageUrl,
-          //         imageProviderBuilder: null,
-          //         context: context,
-          //         assetsPrefix:
-          //             QuillSharedExtensionsConfigurations.get(context: context)
-          //                 .assetsPrefix,
-          //       );
-          //     },
-          //   ),
-          //   videoEmbedConfigurations: QuillEditorVideoEmbedConfigurations(
-          //     // Loading YouTube videos on Desktop is not supported yet
-          //     // // when using iframe platform view
-          //     // youtubeVideoSupportMode: isDesktop(supportWeb: false)
-          //     //     ? YoutubeVideoSupportMode.customPlayerWithDownloadUrl
-          //     //     : YoutubeVideoSupportMode.iframeView,
-          //   ),
-          // )
+          ViewPagerEmbedBuilder(),
+          FileEmbedBuilder()
         ],
       ),
       focusNode: focusNode,
