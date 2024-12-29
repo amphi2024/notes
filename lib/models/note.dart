@@ -31,6 +31,7 @@ class Note extends Item {
   double? textSize;
   double? lineHeight;
   String? font;
+  String get name => FilenameUtils.nameOnly(filename);
 
   List<Content> contents;
 

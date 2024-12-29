@@ -106,7 +106,29 @@ extension AppWebUpload on AppWebChannel {
     uploadFileOfNote(url: "$serverAddress/notes/${noteFileNameOnly}/videos/${videoFilename}", filePath: PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos", videoFilename), onSuccess: onSuccess, onFailed:  onFailed);
   }
 
-  void uploadFile({required String noteFileNameOnly, required String filename, void Function(int?)? onFailed, void Function()? onSuccess}) async{
-  uploadFileOfNote(url: "$serverAddress/notes/${noteFileNameOnly}/files/${filename}", filePath: PathUtils.join(appStorage.notesPath, noteFileNameOnly, "files", filename), onSuccess: onSuccess, onFailed:  onFailed);
+  void uploadFile({required String noteFileNameOnly, required String filename, void Function(int?)? onFailed, void Function()? onSuccess, required String filePath}) async{
+    try {
+      MultipartRequest request = MultipartRequest('POST', Uri.parse("$serverAddress/notes/${noteFileNameOnly}/files/${filename}"));
+      MultipartFile multipartFile =
+      await MultipartFile.fromPath("file", filePath);
+
+      request.headers.addAll({"Authorization": token});
+      request.files.add(multipartFile);
+      var response = await request.send();
+      // Need to add something to indicate progressing later
+      if (response.statusCode == 200) {
+        if (onSuccess != null) {
+          onSuccess();
+        }
+      } else {
+        if (onFailed != null) {
+          onFailed(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (onFailed != null) {
+        onFailed(null);
+      }
+    }
   }
 }

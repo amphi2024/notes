@@ -95,10 +95,10 @@ class AppWebChannel extends AppWebChannelCore {
     }, cancelOnError: true);
   }
 
-  void getNotes({void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
+  void getItems({required String url, void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
     try {
       final response = await get(
-        Uri.parse("$serverAddress/notes"),
+        Uri.parse(url),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appWebChannel.token},
       );
       if (onSuccess != null && response.statusCode == 200) {
@@ -115,24 +115,16 @@ class AppWebChannel extends AppWebChannelCore {
     }
   }
 
+  void getNotes({void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
+    getItems(url: "$serverAddress/notes", onFailed: onFailed, onSuccess: onSuccess);
+  }
+
   void getThemes({void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
-    try {
-      final response = await get(
-        Uri.parse("$serverAddress/notes/themes"),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appWebChannel.token},
-      );
-      if (onSuccess != null && response.statusCode == 200) {
-        onSuccess(jsonDecode(response.body));
-      } else {
-        if (onFailed != null) {
-          onFailed();
-        }
-      }
-    } catch (e) {
-      if (onFailed != null) {
-        onFailed();
-      }
-    }
+    getItems(url: "$serverAddress/notes/themes", onFailed: onFailed, onSuccess: onSuccess);
+  }
+
+  void getFiles({required String noteName , void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
+    getItems(url: "$serverAddress/notes/$noteName/files", onSuccess: onSuccess, onFailed: onFailed);
   }
 
   void acknowledgeEvent(UpdateEvent updateEvent) async {

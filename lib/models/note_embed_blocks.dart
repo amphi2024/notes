@@ -4,6 +4,7 @@ import 'package:amphi/utils/random_string.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/table_data.dart';
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:notes/models/file_in_note.dart';
 import 'package:notes/models/note.dart';
 
 final noteEmbedBlocks = NoteEmbedBlocks.getInstance();
@@ -18,11 +19,13 @@ class NoteEmbedBlocks {
   Map<String, NoteEditingController> subNotes = {};
   Map<String, Color> dividers = {};
   Map<String, ViewPagerData> viewPagers = {};
+  Map<String, FileInNote> files = {};
 
   String generatedTableKey() => generatedKey(tables);
   String generatedSubNoteKey() => generatedKey(subNotes);
   String generatedDividerKey() => generatedKey(dividers);
   String generatedViewPagerKey() => generatedKey(viewPagers);
+  String generatedFileKey() => generatedKey(files);
 
   NoteEditingController getSubNote(String key) {
     if(subNotes[key] != null) {
@@ -53,6 +56,8 @@ class NoteEmbedBlocks {
       return viewPagers[key]!;
     }
   }
+  
+  FileInNote getFile(String key) => files.putIfAbsent(key, () => FileInNote(filename: "not found"));
 
   String generatedKey(Map map) {
     String key = randomString(9);
@@ -69,6 +74,7 @@ class NoteEmbedBlocks {
     tables.clear();
     subNotes.clear();
     dividers.clear();
+    files.clear();
   }
 
 }

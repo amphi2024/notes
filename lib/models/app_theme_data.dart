@@ -124,6 +124,8 @@ class AppThemeData {
       textTheme: TextTheme(
         bodyMedium: TextStyle(
             color: textColor, fontSize: 15, overflow: TextOverflow.ellipsis),
+        bodyLarge: TextStyle(
+            color: textColor, fontSize: 20, overflow: TextOverflow.ellipsis)
       ),
       dialogTheme: DialogTheme(
           shape: RoundedRectangleBorder(
@@ -177,6 +179,8 @@ extension ThemeDataExtension on ThemeData {
         iconTheme: IconThemeData(
           color: themeData.iconTheme.color,
           size: 30
-        ));
+        ),
+        shadowColor: themeData.shadowColor
+    );
   }
 }

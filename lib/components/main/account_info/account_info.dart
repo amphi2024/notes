@@ -165,11 +165,7 @@ class _AccountInfoState extends State<AccountInfo> {
                     AppLocalizations.of(context).get("@login"),
                   ),
                   onPressed: () {
-                    if (App.isWideScreen(context)) {
-                      showDialog(context: context, builder: (context) => LoginViewDialog());
-                    } else {
-                      Navigator.push(context, CupertinoPageRoute(builder: (context) => LoginView()));
-                    }
+                    onLoginButtonPressed(context);
                   },
                 )),
             Visibility(
@@ -272,5 +268,13 @@ class _AccountInfoState extends State<AccountInfo> {
         ),
       ),
     );
+  }
+}
+
+void onLoginButtonPressed(BuildContext context) {
+  if (App.isWideScreen(context)) {
+    showDialog(context: context, builder: (context) => LoginViewDialog());
+  } else {
+    Navigator.push(context, CupertinoPageRoute(builder: (context) => LoginView()));
   }
 }
