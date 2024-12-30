@@ -31,52 +31,54 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
         child: GestureDetector(
           onLongPress: () {},
           onTap: () {
-            showMenuByRelative(context: context, items: [
-              menuItem(context, "@image_action_resize", Icons.settings, () {}),
-              menuItem(context, "@image_action_share", Icons.share, () {}),
-              menuItem(context, "@image_action_copy", Icons.copy, () {}),
-              menuItem(context, "@image_action_save", Icons.save, () async {
-                var bytes = await File(absolutePath).readAsBytes();
-                String? selectedPath = await FilePicker.platform
-                    .saveFile(fileName: "image.${FilenameUtils.extensionName(widget.imageFilename)}", type: FileType.image, bytes: bytes);
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return ImagePageView(path: absolutePath);
+                },
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(0.0, 1.0); // 아래에서 시작
+                  const end = Offset.zero; // 최종 위치 (위)
+                  const curve = Curves.ease;
 
-                if (selectedPath != null) {
-                  if (App.isDesktop()) {
-                    File file = File(selectedPath);
-                    file.writeAsBytes(bytes);
-                  }
-                }
-              }),
-              menuItem(context, "@image_action_zoom", Icons.zoom_in, () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                      return ImagePageView(path: absolutePath);
-                    },
-                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(0.0, 1.0); // 아래에서 시작
-                      const end = Offset.zero; // 최종 위치 (위)
-                      const curve = Curves.ease;
+                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
 
-                      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                      var offsetAnimation = animation.drive(tween);
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,
+                  );
+                },
+              ),
+            );
 
-                      return SlideTransition(
-                        position: offsetAnimation,
-                        child: child,
-                      );
-                    },
-                  ),
-                );
-                // Navigator.push(context, Route(builder: (context) {
-                //   return Center(
-                //
-                //   );
-                // }));
-              }),
-              menuItem(context, "@image_action_remove", Icons.delete, () {}),
-            ]);
+            // showMenuByRelative(context: context, items: [
+            //   menuItem(context, "@image_action_resize", Icons.settings, () {}),
+            //   menuItem(context, "@image_action_share", Icons.share, () {}),
+            //   menuItem(context, "@image_action_copy", Icons.copy, () {}),
+            //   menuItem(context, "@image_action_save", Icons.save, () async {
+            //     var bytes = await File(absolutePath).readAsBytes();
+            //     String? selectedPath = await FilePicker.platform
+            //         .saveFile(fileName: "image.${FilenameUtils.extensionName(widget.imageFilename)}", type: FileType.image, bytes: bytes);
+            //
+            //     if (selectedPath != null) {
+            //       if (App.isDesktop()) {
+            //         File file = File(selectedPath);
+            //         file.writeAsBytes(bytes);
+            //       }
+            //     }
+            //   }),
+            //   menuItem(context, "@image_action_zoom", Icons.zoom_in, () {
+            //
+            //     // Navigator.push(context, Route(builder: (context) {
+            //     //   return Center(
+            //     //
+            //     //   );
+            //     // }));
+            //   }),
+            //   menuItem(context, "@image_action_remove", Icons.delete, () {}),
+            // ]);
           },
           child: ImageFromStorage(
             noteFileNameOnly: widget.noteFileNameOnly,

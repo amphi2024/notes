@@ -21,6 +21,7 @@ import 'package:notes/components/note_editor/embed_block/video/video_block_embed
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/content.dart';
 import 'package:notes/models/file_in_note.dart';
@@ -153,7 +154,7 @@ class Note extends Item {
           }
 
           String subNoteKey = noteEmbedBlocks.generatedSubNoteKey();
-          noteEmbedBlocks.subNotes[subNoteKey] = NoteEditingController(note: subNote);
+          noteEmbedBlocks.subNotes[subNoteKey] = NoteEditingController(note: subNote, readOnly: true);
           BlockEmbed blockEmbed = BlockEmbed.custom(SubNoteBlockEmbed(subNoteKey));
           delta.insert(blockEmbed.toJson());
 

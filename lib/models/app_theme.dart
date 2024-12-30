@@ -86,7 +86,9 @@ class AppTheme extends AppThemeCore {
 
   Future<void> save({bool upload = true}) async {
     await saveFile((fileContent) {
-      appWebChannel.uploadTheme(themeFileContent: fileContent, themeFilename: filename);
+      if(upload) {
+        appWebChannel.uploadTheme(themeFileContent: fileContent, themeFilename: filename);
+      }
     });
   }
 

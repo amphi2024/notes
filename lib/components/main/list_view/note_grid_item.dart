@@ -42,7 +42,7 @@ class _NoteGridItemState extends State<NoteGridItem> {
             Visibility(
                 visible: widget.note.thumbnailImageFilename != null,
                 child: ImageFromStorageRounded(
-                    noteFileNameOnly: FilenameUtils.nameOnly(widget.note.filename),
+                    noteName: FilenameUtils.nameOnly(widget.note.filename),
                     filename: widget.note.thumbnailImageFilename ?? "",
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)))),
             Padding(

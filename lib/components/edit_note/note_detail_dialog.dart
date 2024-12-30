@@ -19,7 +19,7 @@ class NoteDetailDialog extends StatelessWidget {
     }
     return Dialog(
       child: Container(
-        width: 300,
+        width: 400,
         height: 150,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
         child: Padding(

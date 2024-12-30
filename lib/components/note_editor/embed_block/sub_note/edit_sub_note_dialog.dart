@@ -22,6 +22,7 @@ class _EditSubNoteDialogState extends State<EditSubNoteDialog> {
   @override
   void dispose() {
     textEditingController.dispose();
+    widget.noteEditingController.readOnly = true;
     super.dispose();
   }
 

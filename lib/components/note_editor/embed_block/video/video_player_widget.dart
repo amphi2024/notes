@@ -297,7 +297,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     return VideoPlayer(
         path: PathUtils.join(appStorage.notesPath, widget.noteFileNameOnly, "videos", widget.videoFilename),
         errorBuilder: () {
-          appWebChannel.downloadVideo(noteFileNameOnly: widget.noteFileNameOnly, videoFilename: widget.videoFilename);
+          appWebChannel.downloadVideo(noteName: widget.noteFileNameOnly, filename: widget.videoFilename);
 
           return VideoPlayerNetwork(
             url: "${appWebChannel.serverAddress}/notes/${widget.noteFileNameOnly}/videos/${widget.videoFilename}",

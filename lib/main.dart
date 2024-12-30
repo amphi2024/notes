@@ -99,7 +99,7 @@ class _MyAppState extends State<MyApp> {
     }
     if (appTheme != null) {
       return MaterialApp(
-          // debugShowCheckedModeBanner: false,
+           debugShowCheckedModeBanner: false,
           theme: appTheme.lightTheme.toThemeData(context),
           darkTheme: appTheme.darkTheme.toThemeData(context),
           locale: locale,

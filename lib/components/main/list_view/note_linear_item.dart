@@ -110,7 +110,7 @@ class _NoteLinearItemState extends State<NoteLinearItem> {
                             width: 50,
                             height: 50,
                             child: ImageFromStorageRounded(
-                                noteFileNameOnly: FilenameUtils.nameOnly(widget.note.filename),
+                                noteName: FilenameUtils.nameOnly(widget.note.filename),
                                 filename: widget.note.thumbnailImageFilename ?? "",
                                 borderRadius: BorderRadius.circular(10)),
                           ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:amphi/utils/path_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/models/app_storage.dart';
@@ -9,6 +10,7 @@ import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
 
 extension AppWebDownload on AppWebChannel {
+
   void downloadColors({void Function()? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
@@ -72,15 +74,14 @@ extension AppWebDownload on AppWebChannel {
     }
   }
 
-  void downloadImage(
-      {required String noteFileNameOnly, required String imageFilename, void Function()? onSuccess, void Function()? onFailed}) async {
+  void downloadImage({required String noteName, required String filename, void Function()? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
-        Uri.parse("$serverAddress/notes/${noteFileNameOnly}/images/${imageFilename}"),
+        Uri.parse("$serverAddress/notes/${noteName}/images/${filename}"),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": token},
       );
       if (response.statusCode == 200) {
-        File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, "images" ,imageFilename));
+        File file = File(PathUtils.join(appStorage.notesPath, noteName, "images" ,filename));
         await file.writeAsBytes(response.bodyBytes);
         if (onSuccess != null) {
           onSuccess();
@@ -93,15 +94,14 @@ extension AppWebDownload on AppWebChannel {
     }
   }
 
-  void downloadVideo(
-      {required String noteFileNameOnly, required String videoFilename, void Function()? onSuccess, void Function()? onFailed}) async {
+  void downloadVideo({required String noteName, required String filename, void Function()? onSuccess, void Function()? onFailed}) async {
     try {
       final response = await get(
-        Uri.parse("$serverAddress/notes/${noteFileNameOnly}/videos/${videoFilename}"),
+        Uri.parse("$serverAddress/notes/${noteName}/videos/${filename}"),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": token},
       );
       if (response.statusCode == 200) {
-        File file = File(PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos" , videoFilename));
+        File file = File(PathUtils.join(appStorage.notesPath, noteName, "videos" , filename));
         await file.writeAsBytes(response.bodyBytes);
         if (onSuccess != null) {
           onSuccess();
@@ -110,6 +110,26 @@ extension AppWebDownload on AppWebChannel {
     } catch (e) {
       if (onFailed != null) {
         onFailed();
+      }
+    }
+  }
+
+  void downloadFile({required String noteName, required String filename, required void Function(Uint8List) onSuccess, void Function(int?)? onFailed}) async {
+
+    try {
+      final response = await get(
+        Uri.parse("$serverAddress/notes/${noteName}/files/${filename}"),
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": token},
+      );
+      if (response.statusCode == 200) {
+        onSuccess(response.bodyBytes);
+      }
+      else if (onFailed != null) {
+        onFailed(response.statusCode);
+      }
+    } catch (e) {
+      if (onFailed != null) {
+        onFailed(null);
       }
     }
   }

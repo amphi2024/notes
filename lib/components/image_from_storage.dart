@@ -20,13 +20,17 @@ class ImageFromStorage extends StatelessWidget {
       fit: fit,
       File(absolutePath),
       errorBuilder: (context, object, stack) {
-        appWebChannel.downloadImage( noteFileNameOnly: noteFileNameOnly, imageFilename: imageFilename);
+        appWebChannel.downloadImage( noteName: noteFileNameOnly, filename: imageFilename);
         return Image(
+          fit: fit,
           image: NetworkImage("${appWebChannel.serverAddress}/notes/${noteFileNameOnly}/images/${imageFilename}",
               headers: {
                 "Authorization": appWebChannel.token
               }
           ),
+          errorBuilder: (context, obj, stack) {
+            return Text("SEXSEXSEX");
+          },
         );
       },
     );

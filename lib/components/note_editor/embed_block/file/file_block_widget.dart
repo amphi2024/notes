@@ -1,18 +1,56 @@
+import 'dart:io';
+
 import 'package:amphi/models/app.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/channels/app_web_channel.dart';
+import 'package:notes/channels/app_web_download.dart';
+import 'package:notes/models/app_state.dart';
+import 'package:notes/models/file_in_note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
+import 'package:notes/utils/toast.dart';
 
 class FileBlockWidget extends StatelessWidget {
 
   final String blockKey;
   const FileBlockWidget({super.key, required this.blockKey});
 
+  void downloadFile( BuildContext context,  FileInNote fileInNote) async {
+    var selectedPath = await FilePicker.platform.saveFile(fileName: fileInNote.label);
+
+    if (selectedPath != null) {
+      if (App.isDesktop()) {
+        File file = File(selectedPath);
+        appWebChannel.downloadFile(
+          noteName: appState.noteEditingController.note.name,
+          filename: fileInNote.filename,
+          onSuccess: (bytes) async {
+            await file.writeAsBytes(bytes);
+          },
+          onFailed: (statusCode) {
+            if(statusCode == HttpStatus.unauthorized) {
+              showToast(context, "");
+            }
+            else if(statusCode == HttpStatus.notFound) {
+              showToast(context, "");
+            }
+            else {
+              showToast(context, "");
+            }
+          }
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var model = noteEmbedBlocks.getFile(blockKey);
     var themeData = Theme.of(context);
 
-    Widget downloadButtonOrSomething =  IconButton(onPressed: () {}, icon: Icon(Icons.download));
+    Widget downloadButtonOrSomething =  IconButton(onPressed: () {
+      downloadFile(context, model);
+    }, icon: Icon(Icons.download));
     if(!model.uploaded) {
       downloadButtonOrSomething = CircularProgressIndicator();
     }

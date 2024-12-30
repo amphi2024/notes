@@ -4,6 +4,7 @@ import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_delete.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/components/settings/edit_theme_dialog.dart';
+import 'package:notes/components/settings/new_theme_item.dart';
 import 'package:notes/components/settings/theme_item.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
@@ -43,61 +44,72 @@ class _ThemeSelectDialogState extends State<ThemeSelectDialog> {
             ),
             Expanded(
               child: GridView.builder(
-                itemCount: widget.themeList.length,
+                itemCount: widget.themeList.length + 1,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // Number of columns in the grid
                   crossAxisSpacing: 10.0,
                   mainAxisSpacing: 10.0, // Spacing between rows
                 ),
                 itemBuilder: (context, index) {
-                return SizedBox(
-                  height: 200,
-                  child: Listener(
-                    onPointerDown: (event) {
-                      if(event.kind == PointerDeviceKind.mouse && event.buttons == kSecondaryMouseButton) {
+                  if(index == widget.themeList.length) {
+                    return NewThemeItem(onSave: (appTheme) {
+                      setState(() {
+                        widget.themeList.add(appTheme);
+                      });
+                      appTheme.save();
+                    });
+                  }
+                  else {
+                    return SizedBox(
+                      height: 200,
+                      child: Listener(
+                          onPointerDown: (event) {
+                            if(event.kind == PointerDeviceKind.mouse && event.buttons == kSecondaryMouseButton) {
 
-                      }
-                    },
-                    onPointerHover: (event) {
+                            }
+                          },
+                          onPointerHover: (event) {
 
-                    },
-                     child: ThemeItem(
-                                   appTheme: widget.themeList[index],
-                                   onLongPressed: () {
+                          },
+                          child: ThemeItem(
+                              appTheme: widget.themeList[index],
+                              onLongPressed: () {
 
-                                   },
-                                   onButtonPressed: () {
+                              },
+                              onButtonPressed: () {
 
-                                     showDialog(context: context, builder: (context) {
-                                         return ConfirmationDialog(title: AppLocalizations.of(context).get("@dialog_title_delete_theme"), onConfirmed: () {
-                                           widget.themeList[index].delete();
-                                           appWebChannel.deleteTheme(appTheme: widget.themeList[index]);
-                                           setState(() {
-                                             widget.themeList.removeAt(index);
-                                           });
-                                         });
-                                     });
-
-                                   },
-                                   onBelowButtonPressed: () {
-                                    showDialog(context: context, builder: (context) {
-                                      return EditThemeDialog(appTheme: widget.themeList[index],
-                                        onSave: (AppTheme appTheme) {
-                                          setState(() {
-                                            widget.themeList[index] = appTheme;
-                                          });
-                                          appTheme.save();
-                                        });
+                                showDialog(context: context, builder: (context) {
+                                  return ConfirmationDialog(title: AppLocalizations.of(context).get("@dialog_title_delete_theme"), onConfirmed: () {
+                                    widget.themeList[index].delete();
+                                    appWebChannel.deleteTheme(appTheme: widget.themeList[index]);
+                                    setState(() {
+                                      widget.themeList.removeAt(index);
                                     });
-                                   },
-                                  eventAllowed: index > 0,
-                                   onTap: () {
-                                     appState.notifySomethingChanged(() {
-                                       appSettings.appTheme = widget.themeList[index];
-                                     });
-                                   Navigator.pop(context);
-                                 })),
-                );
+                                  });
+                                });
+
+                              },
+                              onBelowButtonPressed: () {
+                                showDialog(context: context, builder: (context) {
+                                  return EditThemeDialog(appTheme: widget.themeList[index],
+                                      onSave: (AppTheme appTheme) {
+                                        setState(() {
+                                          widget.themeList[index] = appTheme;
+                                        });
+                                        appTheme.save();
+                                      });
+                                });
+                              },
+                              eventAllowed: index > 0,
+                              onTap: () {
+                                appState.notifySomethingChanged(() {
+                                  appSettings.appTheme = widget.themeList[index];
+                                });
+                                Navigator.pop(context);
+                              })),
+                    );
+                  }
+
               }),
             ),
           ],
