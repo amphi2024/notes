@@ -6,7 +6,7 @@ import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/channels/app_web_upload.dart';
-import 'package:notes/methods/get_themes.dart';
+import 'package:notes/utils/get_themes.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';

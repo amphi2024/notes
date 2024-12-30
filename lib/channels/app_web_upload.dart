@@ -46,18 +46,18 @@ extension AppWebUpload on AppWebChannel {
     uploadJson(url: "$serverAddress/notes/${note.filename}", jsonBody: fileContent, updateEvent: updateEvent, onSuccess: onSuccess, onFailed: onFailed);
 
     for (Content content in note.contents) {
-      String noteFileNameOnly = FilenameUtils.nameOnly(note.filename);
+      String noteName = note.name;
       if (content.type == "img") {
-        uploadImage(noteFileNameOnly: noteFileNameOnly, imageFilename: content.value);
+        uploadImage(noteName: noteName, imageFilename: content.value);
       } else if (content.type == "video") {
-        uploadVideo(noteFileNameOnly: noteFileNameOnly, videoFilename: content.value);
+        uploadVideo(noteName: noteName, videoFilename: content.value);
       } else if (content.type == "table" && content.value is List<List<Map<String, dynamic>>>) {
         for (List<Map<String, dynamic>> rows in content.value) {
           for (Map<String, dynamic> cell in rows) {
             if (cell["img"] != null) {
-              uploadImage(noteFileNameOnly: noteFileNameOnly, imageFilename: cell["img"]);
+              uploadImage(noteName: noteName, imageFilename: cell["img"]);
             } else if (cell["video"] != null) {
-              uploadVideo(noteFileNameOnly: noteFileNameOnly, videoFilename: cell["video"]);
+              uploadVideo(noteName: noteName, videoFilename: cell["video"]);
             }
           }
         }
@@ -97,18 +97,18 @@ extension AppWebUpload on AppWebChannel {
   }
 
   void uploadImage(
-      {required String noteFileNameOnly, required String imageFilename, void Function(int?)? onFailed, void Function()? onSuccess}) async {
-    uploadFileOfNote(url: "$serverAddress/notes/${noteFileNameOnly}/images/${imageFilename}", filePath: PathUtils.join(appStorage.notesPath, noteFileNameOnly, "images", imageFilename), onSuccess: onSuccess, onFailed:  onFailed);
+      {required String noteName, required String imageFilename, void Function(int?)? onFailed, void Function()? onSuccess}) async {
+    uploadFileOfNote(url: "$serverAddress/notes/${noteName}/images/${imageFilename}", filePath: PathUtils.join(appStorage.notesPath, noteName, "images", imageFilename), onSuccess: onSuccess, onFailed:  onFailed);
   }
 
   void uploadVideo(
-      {required String noteFileNameOnly, required String videoFilename, void Function(int?)? onFailed, void Function()? onSuccess}) async {
-    uploadFileOfNote(url: "$serverAddress/notes/${noteFileNameOnly}/videos/${videoFilename}", filePath: PathUtils.join(appStorage.notesPath, noteFileNameOnly, "videos", videoFilename), onSuccess: onSuccess, onFailed:  onFailed);
+      {required String noteName, required String videoFilename, void Function(int?)? onFailed, void Function()? onSuccess}) async {
+    uploadFileOfNote(url: "$serverAddress/notes/${noteName}/videos/${videoFilename}", filePath: PathUtils.join(appStorage.notesPath, noteName, "videos", videoFilename), onSuccess: onSuccess, onFailed:  onFailed);
   }
 
-  void uploadFile({required String noteFileNameOnly, required String filename, void Function(int?)? onFailed, void Function()? onSuccess, required String filePath}) async{
+  void uploadFile({required String noteName, required String filename, void Function(int?)? onFailed, void Function()? onSuccess, required String filePath}) async{
     try {
-      MultipartRequest request = MultipartRequest('POST', Uri.parse("$serverAddress/notes/${noteFileNameOnly}/files/${filename}"));
+      MultipartRequest request = MultipartRequest('POST', Uri.parse("$serverAddress/notes/${noteName}/files/${filename}"));
       MultipartFile multipartFile =
       await MultipartFile.fromPath("file", filePath);
 

@@ -12,6 +12,7 @@ import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_delete.dart';
 import 'package:notes/channels/app_web_upload.dart';
 import 'package:notes/components/note_editor/embed_block/divider/divider_block_embed.dart';
+import 'package:notes/components/note_editor/embed_block/file/file_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/sub_note/sub_note_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/table/note_table_block_embed.dart';
@@ -22,6 +23,7 @@ import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_d
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/content.dart';
+import 'package:notes/models/file_in_note.dart';
 import 'package:notes/models/item.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 
@@ -171,6 +173,12 @@ class Note extends Item {
           BlockEmbed blockEmbed = BlockEmbed.custom(ViewPagerBlockEmbed(viewPagerKey));
           delta.insert(blockEmbed.toJson());
           break;
+        case "file":
+          var key = noteEmbedBlocks.generatedFileKey();
+          noteEmbedBlocks.files[key] = FileInNote.fromContent(content);
+          BlockEmbed blockEmbed = BlockEmbed.custom(FileBlockEmbed(key));
+          delta.insert(blockEmbed.toJson());
+          break;
         case "text":
           if (content.value is String) {
             // if(!content.value.endsWith("\n")) {
@@ -181,6 +189,7 @@ class Note extends Item {
             delta.insert(content.value, content.style);
             break;
           }
+
 
         default:
           // if(!content.value.toString().endsWith("\n")) {

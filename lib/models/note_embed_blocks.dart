@@ -57,7 +57,7 @@ class NoteEmbedBlocks {
     }
   }
   
-  FileInNote getFile(String key) => files.putIfAbsent(key, () => FileInNote(filename: "not found"));
+  FileInNote getFile(String key) => files.putIfAbsent(key, () => FileInNote(filename: "not found", label: "not found"));
 
   String generatedKey(Map map) {
     String key = randomString(9);

@@ -1,10 +1,5 @@
-import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_sync.dart';
-import 'package:notes/channels/app_web_upload.dart';
-import 'package:notes/models/app_state.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 
 class FileBlockWidget extends StatelessWidget {
@@ -17,7 +12,11 @@ class FileBlockWidget extends StatelessWidget {
     var model = noteEmbedBlocks.getFile(blockKey);
     var themeData = Theme.of(context);
 
-    if(model.uploaded) {
+    Widget downloadButtonOrSomething =  IconButton(onPressed: () {}, icon: Icon(Icons.download));
+    if(!model.uploaded) {
+      downloadButtonOrSomething = CircularProgressIndicator();
+    }
+
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -25,7 +24,7 @@ class FileBlockWidget extends StatelessWidget {
             MouseRegion(
               cursor: SystemMouseCursors.basic,
               child: Container(
-                width: 300,
+                width: App.isWideScreen(context) ? 350 : 250,
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -45,10 +44,10 @@ class FileBlockWidget extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(model.filename, style: themeData.textTheme.bodyLarge, maxLines: 1,overflow: TextOverflow.ellipsis,),
+                        child: Text(model.label, style: themeData.textTheme.bodyLarge, maxLines: 1,overflow: TextOverflow.ellipsis,),
                       ),
                     ),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.download))
+                    downloadButtonOrSomething
                   ],
                 ),
               ),
@@ -56,17 +55,6 @@ class FileBlockWidget extends StatelessWidget {
           ],
         ),
       );
-    }
-    else {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            CircularProgressIndicator()
-          ],
-        ),
-      );
-    }
 
   }
 }

@@ -7,7 +7,7 @@ import 'package:notes/components/settings/server_setting_component.dart';
 import 'package:notes/components/settings/theme_select_dialog.dart';
 import 'package:notes/components/settings/titled_check_box.dart';
 import 'package:notes/components/settings/titled_widget.dart';
-import 'package:notes/methods/get_themes.dart';
+import 'package:notes/utils/get_themes.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';

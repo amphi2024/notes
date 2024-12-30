@@ -8,7 +8,7 @@ import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/settings/app_theme_page_view.dart';
 import 'package:notes/components/settings/server_setting_component.dart';
 import 'package:notes/components/settings/titled_check_box.dart';
-import 'package:notes/methods/get_themes.dart';
+import 'package:notes/utils/get_themes.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';

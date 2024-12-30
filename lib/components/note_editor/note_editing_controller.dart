@@ -82,6 +82,11 @@ class NoteEditingController extends QuillController {
           ViewPagerData viewPagerData = noteEmbedBlocks.getViewPager(key);
           note.contents.add(viewPagerData.toContent());
         }
+        else if(blockData.containsKey("file")) {
+          String key = blockData["file"];
+          var fileModel = noteEmbedBlocks.getFile(key);
+          note.contents.add(fileModel.toContent());
+        }
       }
     }
 

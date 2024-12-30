@@ -95,35 +95,36 @@ class AppWebChannel extends AppWebChannelCore {
     }, cancelOnError: true);
   }
 
-  void getItems({required String url, void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
+  void getItems({required String url, void Function(int?)? onFailed, void Function(List<Map<String, dynamic>>)? onSuccess}) async {
     try {
       final response = await get(
         Uri.parse(url),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appWebChannel.token},
       );
       if (onSuccess != null && response.statusCode == 200) {
-        onSuccess(jsonDecode(response.body));
+        List<dynamic> list = jsonDecode(response.body);
+        onSuccess(list.map((item) => item as Map<String, dynamic>).toList());
       } else {
         if (onFailed != null) {
-          onFailed();
+          onFailed(response.statusCode);
         }
       }
     } catch (e) {
       if (onFailed != null) {
-        onFailed();
+        onFailed(null);
       }
     }
   }
 
-  void getNotes({void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
+  void getNotes({void Function(int?)? onFailed, void Function(List<Map<String, dynamic>>)? onSuccess}) async {
     getItems(url: "$serverAddress/notes", onFailed: onFailed, onSuccess: onSuccess);
   }
 
-  void getThemes({void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
+  void getThemes({void Function(int?)? onFailed, void Function(List<Map<String, dynamic>>)? onSuccess}) async {
     getItems(url: "$serverAddress/notes/themes", onFailed: onFailed, onSuccess: onSuccess);
   }
 
-  void getFiles({required String noteName , void Function()? onFailed, void Function(List<dynamic>)? onSuccess}) async {
+  void getFiles({required String noteName , void Function(int?)? onFailed, void Function(List<Map<String, dynamic>>)? onSuccess}) async {
     getItems(url: "$serverAddress/notes/$noteName/files", onSuccess: onSuccess, onFailed: onFailed);
   }
 
