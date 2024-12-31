@@ -57,7 +57,7 @@ class NoteEditorExportButton extends StatelessWidget {
 
     if (selectedPath != null) {
         Directory directory = Directory(selectedPath.split(".").first);
-        String html = note.toHTML(PathUtils.basenameWithoutExtension(directory.path));
+        String html = note.toHTML(PathUtils.basenameWithoutExtension(directory.path), context);
         File file = File(selectedPath);
         await file.writeAsString(html);
 

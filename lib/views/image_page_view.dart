@@ -15,20 +15,20 @@ class ImagePageView extends StatefulWidget {
 }
 
 class _ImagePageViewState extends State<ImagePageView> {
-  double _scale = 1.0; // 기본 확대/축소 비율
-  double _previousScale = 1.0;
   late var imageHeight = MediaQuery.of(context).size.height;
   var toolbarVisible = false;
   Timer? timer;
 
-  var verticalController = ScrollController();
-  var horizontalController = ScrollController();
+  var controller = TransformationController();
 
   @override
   void dispose() {
-    verticalController.dispose();
-    horizontalController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   void toggleToolbarVisible() {
@@ -42,6 +42,8 @@ class _ImagePageViewState extends State<ImagePageView> {
       toolbarVisible = true;
     });
   }
+  var left = 0.0;
+  var top = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,35 +56,18 @@ class _ImagePageViewState extends State<ImagePageView> {
         child: Stack(
           children: [
             Positioned(
-              left: -100,
-              right: -100,
-              bottom: -100,
-              top: -100,
-              child: GestureDetector(
-                onScaleStart: (ScaleStartDetails details) {
-                  _previousScale = _scale;
-                },
-                onScaleUpdate: (ScaleUpdateDetails details) {
-                  toggleToolbarVisible();
-                  setState(() {
-                    imageHeight += details.scale;
-                  });
-                },
-                onScaleEnd: (ScaleEndDetails details) {
-                  if (imageHeight < screenHeight) {
-                    setState(() {
-                      imageHeight = screenHeight;
-                    });
-                  }
-                },
-                child: AnimatedContainer(
-                  height: imageHeight,
-                  curve: Curves.easeOutQuint,
-                  duration: Duration(milliseconds: 200),
-                  child: Image.file(
-                    fit: BoxFit.contain,
-                    File(widget.path),
-                  ),
+              left: 0,
+              top: 0,
+              bottom: 0,
+              right: 0,
+              child: InteractiveViewer(
+                maxScale: 30,
+                transformationController: controller,
+                scaleEnabled: true,
+                panEnabled: true,
+                child: Image.file(
+                  fit: BoxFit.contain,
+                  File(widget.path),
                 ),
               ),
             ),
@@ -107,7 +92,7 @@ class _ImagePageViewState extends State<ImagePageView> {
                                 timer?.cancel();
                                 toolbarVisible = true;
                                 setState(() {
-                                  imageHeight = screenHeight;
+                                  controller.value = Matrix4.identity()..scale(1.0);
                                 });
                               }),
                           IconButton(
@@ -116,11 +101,8 @@ class _ImagePageViewState extends State<ImagePageView> {
                                 timer?.cancel();
                                 toolbarVisible = true;
                                 setState(() {
-                                  if (imageHeight > screenHeight) {
-                                    imageHeight -= 5;
-                                  }
-                                  else {
-                                    imageHeight = screenHeight;
+                                  if(controller.value.getMaxScaleOnAxis() > 1.0) {
+                                    controller.value = Matrix4.identity()..scale(controller.value.getMaxScaleOnAxis() - 0.01);
                                   }
                                 });
                               }),
@@ -130,7 +112,7 @@ class _ImagePageViewState extends State<ImagePageView> {
                                 timer?.cancel();
                                 toolbarVisible = true;
                                 setState(() {
-                                  imageHeight += 5;
+                                  controller.value = Matrix4.identity()..scale(controller.value.getMaxScaleOnAxis() + 0.01);
                                 });
                               })
                         ],

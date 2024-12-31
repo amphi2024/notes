@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:notes/components/edit_note/note_detail_dialog.dart';
+import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/models/content.dart';
@@ -7,7 +10,7 @@ import 'package:notes/models/light_theme.dart';
 import 'package:notes/models/note.dart';
 import 'package:pdf/widgets.dart' as PDF;
 extension NoteExtension on Note {
-  String toHTML(String directoryName) {
+  String toHTML(String directoryName, BuildContext context) {
     AppTheme appTheme = appSettings.appTheme!;
     LightTheme lightTheme = appTheme.lightTheme;
     DarkTheme darkTheme = appTheme.darkTheme;
@@ -36,12 +39,27 @@ font-size: ${textSize ?? 15}px;
                 font-size: ${textSize ?? 15}px;
             }
         }
+        
+          img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    table {
+       border-collapse: collapse;
+      width: 100%;
+    }
+    td {
+      border: 1px solid;
+      padding: 8px;
+      text-align: left;
+    }
    </style>
     </head>
     <body>
     """;
 
-    html += toHtmlContents(directoryName, contents);
+    html += toHtmlContents(directoryName, contents, context);
 
     html += """
     </body>
@@ -53,7 +71,7 @@ font-size: ${textSize ?? 15}px;
     return html;
   }
 
-  String toHtmlContents(String directoryName, List<Content> contentList) {
+  String toHtmlContents(String directoryName, List<Content> contentList, BuildContext context) {
     String html = "";
 
     for (Content content in contentList) {
@@ -69,6 +87,44 @@ font-size: ${textSize ?? 15}px;
           """;
           break;
         case "table":
+          html += "<table border='1'><tbody>";
+          print(content.value.runtimeType);
+          for(var rows in content.value) {
+            html += "<tr>";
+            for(Map<String, dynamic> data in rows) {
+              if(data.containsKey("text")) {
+                html += """
+                <td>
+                ${data["text"]}
+                </td>
+                """;
+              }
+              else if(data.containsKey("img")) {
+                html += """
+                    <td>
+                    <img src="${directoryName}/${data["img"]}">
+                     </td>
+          """;
+              }
+              else if(data.containsKey("video")) {
+                html += """
+                    <td>
+                    <video src="${directoryName}/${data["video"]}">
+                     </td>
+          """;
+              }
+              else if(data.containsKey("date")) {
+                html += """
+                    <td>
+                   ${DateTime.fromMillisecondsSinceEpoch(data["date"]).toLocal().toLocalizedString(context)}
+                     </td>
+          """;
+              }
+            }
+            html += "</tr>";
+          }
+          html += "</tbody>";
+          html += "</table>";
           break;
         case "note":
           Map<String, dynamic> map = content.value;
@@ -80,7 +136,7 @@ font-size: ${textSize ?? 15}px;
           html += """
           <details>
            <summary>${map["title"]}</summary>
-            ${toHtmlContents(directoryName, subNoteContents)}
+            ${toHtmlContents(directoryName, subNoteContents, context)}
           </details>
           """;
           break;
