@@ -1,7 +1,6 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:notes/components/note_editor/edit_style/edit_note_text_size.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/models/app_colors.dart';

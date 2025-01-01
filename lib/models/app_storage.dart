@@ -224,7 +224,6 @@ class AppStorage extends AppStorageCore {
   @override
   void initPaths() {
     super.initPaths();
-    print(selectedUser.storagePath);
     notesPath = "${selectedUser.storagePath}/notes";
     themesPath = "${selectedUser.storagePath}/themes";
 

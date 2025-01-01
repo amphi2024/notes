@@ -31,7 +31,6 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
   bool get wantKeepAlive => true;
 
   void onFolderPressed(Folder folder) {
-    print(folder.filename);
     if (folder.location != "!Trashes" && appStorage.selectedNotes == null) {
       if (App.isWideScreen(context)) {
         appState.notifySomethingChanged(() {

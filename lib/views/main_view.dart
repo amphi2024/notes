@@ -155,7 +155,6 @@ class _MainViewState extends State<MainView> {
                         });
                       },
                       onNotePressed: (Note note) {
-                        print(note.filename);
                         if (appStorage.selectedNotes == null) {
                           appState.noteEditingController.setNote(note);
                           appState.noteEditingController.readOnly = true;

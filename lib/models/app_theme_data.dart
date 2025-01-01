@@ -52,12 +52,12 @@ class AppThemeData {
                   fontSize: 20,
                   fontWeight: FontWeight.bold))),
       dialogBackgroundColor: backgroundColor,
-      scrollbarTheme: ScrollbarThemeData(
-        trackColor: WidgetStateColor.transparent,
-        thumbColor: WidgetStatePropertyAll(
-          Colors.red
-        )
-      ),
+      // scrollbarTheme: ScrollbarThemeData(
+      //   trackColor: WidgetStateColor.transparent,
+      //   thumbColor: WidgetStatePropertyAll(
+      //     Colors.red
+      //   )
+      // ),
       dividerColor: inactiveColor,
       popupMenuTheme: PopupMenuThemeData(
         surfaceTintColor: backgroundColor,

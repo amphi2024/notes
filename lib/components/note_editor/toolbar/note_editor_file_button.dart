@@ -7,11 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_upload.dart';
-import 'package:notes/components/main/account_info/account_info.dart';
-import 'package:notes/components/main/buttons/account_button.dart';
 import 'package:notes/components/note_editor/embed_block/file/file_block_embed.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/file_in_note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/utils/toast.dart';
@@ -45,11 +42,10 @@ class NoteEditorFileButton extends StatelessWidget {
     var result = await FilePicker.platform.pickFiles(allowMultiple: true);
     if(result != null) {
       for(int i = 0; i < result.files.length; i++) {
-        // Need to create something to check for duplicate files later.
 
         var file = result.files[i].xFile;
 
-        var filename = generatedFileNameCompareToList(FilenameUtils.extensionName(file.name), list);
+        var filename = generatedFileNameCompareToList(".${FilenameUtils.extensionName(file.name)}", list);
 
         var fileModel = FileInNote(filename: filename, originalPath: file.path, label: file.name);
         var blockKey = noteEmbedBlocks.generatedFileKey();
@@ -75,7 +71,6 @@ class NoteEditorFileButton extends StatelessWidget {
       onPressed: () async {
         var noteName = appState.noteEditingController.note.name;
         appWebChannel.getFiles(noteName: noteName, onSuccess: (list) async {
-          print(list);
           pickFilesAndInsert(list);
         }, onFailed: (statusCode) {
           if(statusCode == HttpStatus.notFound) {

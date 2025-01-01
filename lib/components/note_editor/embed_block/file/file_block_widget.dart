@@ -19,13 +19,13 @@ class FileBlockWidget extends StatelessWidget {
     var selectedPath = await FilePicker.platform.saveFile(fileName: fileInNote.label);
 
     if (selectedPath != null) {
-      if (App.isDesktop()) {
         File file = File(selectedPath);
         appWebChannel.downloadFile(
           noteName: appState.noteEditingController.note.name,
           filename: fileInNote.filename,
           onSuccess: (bytes) async {
             await file.writeAsBytes(bytes);
+            showToast(context, "");
           },
           onFailed: (statusCode) {
             if(statusCode == HttpStatus.unauthorized) {
@@ -39,7 +39,6 @@ class FileBlockWidget extends StatelessWidget {
             }
           }
         );
-      }
     }
   }
 

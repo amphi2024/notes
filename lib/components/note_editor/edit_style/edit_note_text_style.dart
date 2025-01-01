@@ -118,44 +118,6 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
               child: BottomSheetDragHandle(),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-          //       ToggleAttributeButton(
-          //         activated: headerAttributeApplied(Attribute.h1),
-          //         icon: Icons.h_mobiledata,
-          //         onPressed: () => toggleHeaderAttribute(Attribute.h1),
-          //       ),
-          //       ToggleAttributeButton(
-          //         activated: headerAttributeApplied(Attribute.h2),
-          //         icon: Icons.h_mobiledata,
-          //         onPressed: () => toggleHeaderAttribute(Attribute.h2),
-          //       ),
-          //       ToggleAttributeButton(
-          //         activated: headerAttributeApplied(Attribute.h3),
-          //         icon: Icons.h_mobiledata,
-          //         onPressed: () => toggleHeaderAttribute(Attribute.h3),
-          //       ),
-          //       ToggleAttributeButton(
-          //         activated: headerAttributeApplied(Attribute.h4),
-          //         icon: Icons.h_mobiledata,
-          //         onPressed: () => toggleHeaderAttribute(Attribute.h4),
-          //       ),
-          //       ToggleAttributeButton(
-          //         activated: headerAttributeApplied(Attribute.h5),
-          //         icon: Icons.h_mobiledata,
-          //         onPressed: () => toggleHeaderAttribute(Attribute.h5),
-          //       ),
-          //       ToggleAttributeButton(
-          //         activated: headerAttributeApplied(Attribute.h6),
-          //         icon: Icons.h_mobiledata,
-          //         onPressed: () => toggleHeaderAttribute(Attribute.h6),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: Row(
@@ -164,17 +126,8 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                 ToggleAttributeButton(
                   activated: attributeApplied(Attribute.bold),
                   icon: Icons.format_bold,
-                  onPressed: () {
-                    widget.noteEditingController.formatSelection(IndentAttribute(level: 1));
-                    print(widget.noteEditingController.getSelectionStyle());
-                    print(widget.noteEditingController.getNote().contents);
-                  },
+                  onPressed: () => toggleAttribute(Attribute.bold),
                 ),
-                // ToggleAttributeButton(
-                //   activated: attributeApplied(Attribute.bold),
-                //   icon: Icons.format_bold,
-                //   onPressed: () => toggleAttribute(Attribute.bold),
-                // ),
                 ToggleAttributeButton(
                   activated: attributeApplied(Attribute.italic),
                   icon: Icons.format_italic,

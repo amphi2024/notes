@@ -21,7 +21,8 @@ import 'package:notes/components/note_editor/embed_block/video/video_block_embed
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/models/app_state.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_export_button.dart';
+import 'package:notes/extensions/note_extension.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/content.dart';
 import 'package:notes/models/file_in_note.dart';
@@ -280,7 +281,6 @@ class Note extends Item {
       note.initTitles();
       return note;
     } catch (e) {
-      print(e);
       Note note = Note(
           filename: PathUtils.basename(filePath),
           location: location,
@@ -307,6 +307,70 @@ class Note extends Item {
       contentList.add(contents[i].toMap());
     }
     return contentList;
+  }
+
+  List<Map<String, dynamic>> convertContentsDataToBase64(List<Map<String, dynamic>> list) {
+    List<Map<String, dynamic>> result = [];
+    for(var map in list) {
+      switch(map["type"]) {
+        case "img":
+          var fileType = FilenameUtils.extensionName(map["value"]);
+          result.add({
+            "type": "img",
+            "value": "!BASE64;$fileType;${base64FromSomething(map["value"], "images")}"
+          });
+        case "video":
+          var fileType = FilenameUtils.extensionName(map["value"]);
+          result.add({
+            "type": "video",
+            "value": "!BASE64;$fileType;${base64FromSomething(map["value"], "videos")}"
+          });
+        case "table":
+
+        case "note":
+          result.add({
+            "type": "note",
+            "value": {
+              "title": map["value"]["title"],
+              "contents": convertContentsDataToBase64(map["value"]["contents"])
+            }
+          });
+        // case "view-pager":
+        //   result.add({
+        //     "type": "note",
+        //     "value": {
+        //       "title": map["value"]["title"],
+        //       "contents": convertContentsDataToBase64(map["value"]["contents"])
+        //     }
+        //   });
+        default:
+          result.add(map);
+      }
+    }
+    return result;
+  }
+
+  String toFileContentBase64() {
+    Map<String, dynamic> jsonData = {
+      "location": location,
+      "created": created.toUtc().millisecondsSinceEpoch,
+      "modified": modified.toUtc().millisecondsSinceEpoch,
+      "originalCreated": originalCreated.toUtc().millisecondsSinceEpoch,
+      "originalModified": originalModified.toUtc().millisecondsSinceEpoch,
+      "contents": convertContentsDataToBase64(contentsToMap())
+    };
+    if (backgroundColor != null) {
+      jsonData.addAll({"backgroundColor": backgroundColor!.toHex()});
+    }
+    if (textColor != null) {
+      jsonData.addAll({"textColor": textColor!.toHex()});
+    }
+    if (deleted != null) {
+      jsonData.addAll({"deleted": deleted!.toUtc().millisecondsSinceEpoch});
+    }
+
+    String fileContent = jsonEncode(jsonData);
+    return fileContent;
   }
 
   String toFileContent() {

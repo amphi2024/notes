@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/models/icons.dart';
 
@@ -47,7 +46,6 @@ class _ImagePageViewState extends State<ImagePageView> {
 
   @override
   Widget build(BuildContext context) {
-    var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: MouseRegion(
         onHover: (e) {

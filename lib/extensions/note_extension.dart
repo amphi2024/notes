@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:notes/components/edit_note/note_detail_dialog.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_settings.dart';
+import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/models/content.dart';
 import 'package:notes/models/dark_theme.dart';
@@ -10,7 +14,7 @@ import 'package:notes/models/light_theme.dart';
 import 'package:notes/models/note.dart';
 import 'package:pdf/widgets.dart' as PDF;
 extension NoteExtension on Note {
-  String toHTML(String directoryName, BuildContext context) {
+  String toHTML(BuildContext context) {
     AppTheme appTheme = appSettings.appTheme!;
     LightTheme lightTheme = appTheme.lightTheme;
     DarkTheme darkTheme = appTheme.darkTheme;
@@ -59,36 +63,34 @@ font-size: ${textSize ?? 15}px;
     <body>
     """;
 
-    html += toHtmlContents(directoryName, contents, context);
+    html += toHtmlContents(context, contents);
 
     html += """
     </body>
-    <script>
-    </script>
     </html>
     """;
 
     return html;
   }
 
-  String toHtmlContents(String directoryName, List<Content> contentList, BuildContext context) {
+  String toHtmlContents(BuildContext context, List<Content> contentList) {
     String html = "";
-
     for (Content content in contentList) {
       switch (content.type) {
         case "img":
+          var fileType = FilenameUtils.extensionName(content.value);
           html += """
-          <img src="${directoryName}/${content.value}">
+          <img src="data:image/$fileType;${base64FromSomething(content.value, "images")}">
           """;
           break;
         case "video":
+          var fileType = FilenameUtils.extensionName(content.value);
           html += """
-          <video src="${directoryName}/${content.value}">
+          <video src="data:image/$fileType;${base64FromSomething(content.value, "videos")}">
           """;
           break;
         case "table":
           html += "<table border='1'><tbody>";
-          print(content.value.runtimeType);
           for(var rows in content.value) {
             html += "<tr>";
             for(Map<String, dynamic> data in rows) {
@@ -100,16 +102,16 @@ font-size: ${textSize ?? 15}px;
                 """;
               }
               else if(data.containsKey("img")) {
+                var fileType = FilenameUtils.extensionName(content.value);
                 html += """
-                    <td>
-                    <img src="${directoryName}/${data["img"]}">
-                     </td>
-          """;
+                    <td><img src="data:image/$fileType;${base64FromSomething(data["img"], "images")}"></td>
+                     """;
               }
               else if(data.containsKey("video")) {
+                var fileType = FilenameUtils.extensionName(content.value);
                 html += """
                     <td>
-                    <video src="${directoryName}/${data["video"]}">
+                    <video src="data:video/$fileType;${base64FromSomething(data["video"], "images")}">
                      </td>
           """;
               }
@@ -130,13 +132,12 @@ font-size: ${textSize ?? 15}px;
           Map<String, dynamic> map = content.value;
           List<Content> subNoteContents = [];
           for (Map<String, dynamic> contentMap in map["contents"]) {
-            print(contentMap);
             subNoteContents.add(Content.fromMap(contentMap));
           }
           html += """
           <details>
            <summary>${map["title"]}</summary>
-            ${toHtmlContents(directoryName, subNoteContents, context)}
+            ${toHtmlContents(context, subNoteContents)}
           </details>
           """;
           break;
@@ -200,11 +201,16 @@ font-size: ${textSize ?? 15}px;
     );
 
     pdf.addPage(page);
-    for(var widget in list) {
-
-    }
+    // for(var widget in list) {
+    //
+    // }
 
     return pdf;
+  }
+
+  String base64FromSomething(String value, String directoryName) {
+    var file = File(PathUtils.join(appStorage.notesPath, name, "images", value));
+    return base64Encode( file.readAsBytesSync());
   }
 }
 
@@ -265,7 +271,6 @@ extension NoteContentExtension on Content {
                 styleText += "text-decoration: underline;";
                 break;
               default:
-                print(key);
                 break;
             }
           });

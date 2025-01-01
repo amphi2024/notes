@@ -9,7 +9,6 @@ import 'package:notes/components/settings/edit_theme_dialog.dart';
 import 'package:notes/components/settings/new_theme_item.dart';
 import 'package:notes/components/settings/theme_item.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_theme.dart';
 
 class AppThemePageView extends StatefulWidget {

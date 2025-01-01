@@ -63,7 +63,7 @@ class _MainViewTitleState extends State<MainViewTitle> {
                     ),
                   ),
                   Visibility(
-                    visible: App.isWideScreen(context),
+                    visible: App.isWideScreen(context) && fileCountVisibility,
                     child: AnimatedOpacity(
                       duration: const Duration(milliseconds: 750),
                       opacity: fileCountVisibility ? 1.0 : 0.0,

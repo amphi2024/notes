@@ -198,7 +198,6 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                     });
                   },
                   onNotePressed: (note) {
-                    print(note.filename);
                     noteEmbedBlocks.clear();
                     widget.onNoteSelected(note);
                   },
