@@ -33,12 +33,9 @@ class NoteEditorExportButton extends StatelessWidget {
     String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.html");
 
     if (selectedPath != null) {
-        Directory directory = Directory(selectedPath.split(".").first);
         String html = note.toHTML(context);
         File file = File(selectedPath);
         await file.writeAsString(html);
-
-        await directory.create();
 
         showToast(context, "");
     }

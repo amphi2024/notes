@@ -37,12 +37,13 @@ class ViewPagerData {
     );
   }
 
-  static ViewPagerData fromContent(Content content) {
+  static ViewPagerData fromContent(Note parent, Content content) {
     ViewPagerData viewPagerData = ViewPagerData();
     try {
+      viewPagerData.style = content.style ?? {};
       List<Map<String, dynamic>> list = (content.value as List).map((item) => item as Map<String, dynamic>).toList();
       for(Map<String, dynamic> map in list) {
-        Note note = Note.subNote();
+        Note note = Note.subNote(parent);
         note.backgroundColor = map["backgroundColor"];
         note.textSize = map["textSize"];
         note.textColor = map["textColor"];

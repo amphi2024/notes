@@ -80,13 +80,13 @@ font-size: ${textSize ?? 15}px;
         case "img":
           var fileType = FilenameUtils.extensionName(content.value);
           html += """
-          <img src="data:image/$fileType;${base64FromSomething(content.value, "images")}">
+          <img src="data:image/$fileType;base64,${base64FromSomething(content.value, "images")}">
           """;
           break;
         case "video":
           var fileType = FilenameUtils.extensionName(content.value);
           html += """
-          <video src="data:image/$fileType;${base64FromSomething(content.value, "videos")}">
+          <video src="data:image/$fileType;base64,${base64FromSomething(content.value, "videos")}">
           """;
           break;
         case "table":
@@ -102,16 +102,16 @@ font-size: ${textSize ?? 15}px;
                 """;
               }
               else if(data.containsKey("img")) {
-                var fileType = FilenameUtils.extensionName(content.value);
+                var fileType = FilenameUtils.extensionName(data["img"]);
                 html += """
-                    <td><img src="data:image/$fileType;${base64FromSomething(data["img"], "images")}"></td>
+                    <td><img src="data:image/$fileType;base64,${base64FromSomething(data["img"], "images")}"></td>
                      """;
               }
               else if(data.containsKey("video")) {
-                var fileType = FilenameUtils.extensionName(content.value);
+                var fileType = FilenameUtils.extensionName(data["video"]);
                 html += """
                     <td>
-                    <video src="data:video/$fileType;${base64FromSomething(data["video"], "images")}">
+                    <video src="data:video/$fileType;base64,${base64FromSomething(data["video"], "images")}">
                      </td>
           """;
               }
@@ -142,6 +142,15 @@ font-size: ${textSize ?? 15}px;
           """;
           break;
         case "view-pager":
+          html += "<div>";
+          for(Map<String, dynamic> data in content.value) {
+            List<Content> viewPagerContents = [];
+            for(Map<String, dynamic> contentData in data["contents"]) {
+              viewPagerContents.add(Content.fromMap(contentData));
+            }
+            html+= toHtmlContents(context, viewPagerContents);
+          }
+          html += "</div>";
           break;
         case "divider":
           html += """
@@ -209,7 +218,7 @@ font-size: ${textSize ?? 15}px;
   }
 
   String base64FromSomething(String value, String directoryName) {
-    var file = File(PathUtils.join(appStorage.notesPath, name, "images", value));
+    var file = File(PathUtils.join(appStorage.notesPath, name, directoryName, value));
     return base64Encode( file.readAsBytesSync());
   }
 }

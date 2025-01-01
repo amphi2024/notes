@@ -4,6 +4,7 @@ import 'package:amphi/utils/random_string.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/table_data.dart';
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:notes/models/app_state.dart';
 import 'package:notes/models/file_in_note.dart';
 import 'package:notes/models/note.dart';
 
@@ -32,7 +33,7 @@ class NoteEmbedBlocks {
       return subNotes[key]!;
     }
     else {
-      subNotes[key] = NoteEditingController(note: Note.subNote() );
+      subNotes[key] = NoteEditingController(note: Note.subNote(appState.noteEditingController.note) );
       return subNotes[key]!;
     }
   }

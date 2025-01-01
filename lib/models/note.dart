@@ -21,7 +21,6 @@ import 'package:notes/components/note_editor/embed_block/video/video_block_embed
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_export_button.dart';
 import 'package:notes/extensions/note_extension.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/content.dart';
@@ -31,6 +30,7 @@ import 'package:notes/models/note_embed_blocks.dart';
 
 class Note extends Item {
   String subtitle = "";
+  String longSubtitle = "";
   String? thumbnailImageFilename;
   double? textSize;
   double? lineHeight;
@@ -101,11 +101,11 @@ class Note extends Item {
 
   Future<File> createdVideoFileWithBase64(String base64, String fileExtension) async => createdFileWithBase64(base64, fileExtension , "videos");
 
-  static Note subNote() {
+  static Note subNote(Note parent) {
     return Note(
-        filename: "",
-        path: "",
-        location: "",
+        filename: parent.filename,
+        path: parent.path,
+        location: parent.filename,
         created: DateTime.now(),
         originalCreated: DateTime.now(),
         modified: DateTime.now(),
@@ -147,7 +147,7 @@ class Note extends Item {
         case "note":
           Map<String, dynamic> subNoteData = content.value;
 
-          Note subNote = Note.subNote();
+          Note subNote = Note.subNote(this);
           subNote.title = subNoteData["title"] ?? "";
           for (dynamic data in subNoteData["contents"] ?? []) {
             Map<String, dynamic> map = data;
@@ -171,7 +171,7 @@ class Note extends Item {
           break;
         case "view-pager":
           String viewPagerKey = noteEmbedBlocks.generatedViewPagerKey();
-          noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData.fromContent(content);
+          noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData.fromContent(this, content);
           BlockEmbed blockEmbed = BlockEmbed.custom(ViewPagerBlockEmbed(viewPagerKey));
           delta.insert(blockEmbed.toJson());
           break;
@@ -309,9 +309,9 @@ class Note extends Item {
     return contentList;
   }
 
-  List<Map<String, dynamic>> convertContentsDataToBase64(List<Map<String, dynamic>> list) {
+  List<Map<String, dynamic>> convertContentsDataToBase64(List<dynamic> list) {
     List<Map<String, dynamic>> result = [];
-    for(var map in list) {
+    for(Map<String, dynamic> map in list) {
       switch(map["type"]) {
         case "img":
           var fileType = FilenameUtils.extensionName(map["value"]);
@@ -326,23 +326,58 @@ class Note extends Item {
             "value": "!BASE64;$fileType;${base64FromSomething(map["value"], "videos")}"
           });
         case "table":
-
+          List<List<Map<String, dynamic>>> tableData = [];
+          for(List<Map<String, dynamic>> rows in map["value"]) {
+            List<Map<String, dynamic>> addingRows = [];
+            for(var data in rows) {
+              if(data["img"] != null) {
+                var fileType = FilenameUtils.extensionName(data["img"]);
+                addingRows.add({
+                  "img": "!BASE64;$fileType;${base64FromSomething(data["img"], "images")}"
+                });
+              }
+              else if(data["video"] != null) {
+                var fileType = FilenameUtils.extensionName(data["video"]);
+                addingRows.add({
+                  "img": "!BASE64;$fileType;${base64FromSomething(data["video"], "videos")}"
+                });
+              }
+              else {
+                addingRows.add(data);
+              }
+            }
+            tableData.add(addingRows);
+          }
+          result.add({
+            "type": "table",
+            "value": tableData,
+            "style": map["style"]
+          });
         case "note":
           result.add({
             "type": "note",
             "value": {
               "title": map["value"]["title"],
               "contents": convertContentsDataToBase64(map["value"]["contents"])
-            }
+            },
+            "style": map["style"]
           });
-        // case "view-pager":
-        //   result.add({
-        //     "type": "note",
-        //     "value": {
-        //       "title": map["value"]["title"],
-        //       "contents": convertContentsDataToBase64(map["value"]["contents"])
-        //     }
-        //   });
+        case "view-pager":
+          List<Map<String, dynamic>> viewPagerData = [];
+          for(Map<String, dynamic> data in map["value"]) {
+            viewPagerData.add({
+              "backgroundColor": data["backgroundColor"],
+              "textSize": data["textSize"],
+              "textColor": data["textColor"],
+              "lineHeight": data["lineHeight"],
+              "contents": convertContentsDataToBase64( data["contents"] ?? [])
+            });
+          }
+          result.add({
+            "type": "view-pager",
+            "value": viewPagerData,
+            "style": map["style"]
+          });
         default:
           result.add(map);
       }
@@ -424,6 +459,7 @@ class Note extends Item {
   void initTitles() {
     title = "";
     subtitle = "";
+    longSubtitle = "";
     thumbnailImageFilename = null;
 
     for (Content content in contents) {
@@ -434,8 +470,13 @@ class Note extends Item {
             if (line.trim().isNotEmpty) {
               if (title.isEmpty) {
                 title = line;
-              } else if (subtitle.isEmpty) {
-                subtitle = line;
+              } else {
+                if (subtitle.isEmpty) {
+                  subtitle = line;
+                }
+                if(longSubtitle.length < 300) {
+                  longSubtitle += line;
+                }
               }
             }
           }
@@ -443,8 +484,13 @@ class Note extends Item {
           if (content.value.trim().isNotEmpty) {
             if (title.isEmpty) {
               title = content.value;
-            } else if (subtitle.isEmpty) {
+            } else {
+              if (subtitle.isEmpty) {
               subtitle = content.value;
+              }
+              if(longSubtitle.length < 300) {
+                longSubtitle += content.value;
+              }
             }
           }
         }
@@ -454,10 +500,13 @@ class Note extends Item {
           thumbnailImageFilename = content.value;
         }
       }
-      if (thumbnailImageFilename != null && title.isNotEmpty && subtitle.isNotEmpty) {
+      if (thumbnailImageFilename != null && title.isNotEmpty && subtitle.isNotEmpty && longSubtitle.length > 300) {
+
         break;
       }
     }
+
+    print(longSubtitle);
   }
 
   @override

@@ -16,7 +16,6 @@ class NoteGridItem extends ListViewItem {
 }
 
 class _NoteGridItemState extends State<NoteGridItem> {
-  List<Widget> list = [];
 
   bool selected = false;
 
@@ -47,7 +46,11 @@ class _NoteGridItemState extends State<NoteGridItem> {
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)))),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 13.0),
-              child: Text(widget.note.title),
+              child: Text(widget.note.title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 13.0),
+              child: Text(widget.note.longSubtitle, maxLines: 5,),
             ),
             // Padding(
             //   padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 13.0),

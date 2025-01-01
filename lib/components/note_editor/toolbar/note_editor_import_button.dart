@@ -105,17 +105,18 @@ class NoteEditorImportButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    //var localizations = AppLocalizations.of(context);
     return IconButton(
       icon: Icon(AppIcons.import, size: 20),
       onPressed: () {
-        showMenuByRelative(context: context, items: [
-          PopupMenuItem(child: Text(localizations.get("@note_export_label_note")), onTap: importFromNote),
-          // PopupMenuItem(child: Text(localizations.get("@note_export_label_html")), onTap: importFromHTML),
-          // PopupMenuItem(child: Text(localizations.get("@note_export_label_markdown")), onTap: importFromMarkdown),
-          //PopupMenuItem(child: Text(localizations.get("@note_export_label_word")), onTap: importFromWord),
-          // PopupMenuItem(child: Text(localizations.get("@note_export_label_pdf")), onTap: exportAsPDF),
-        ]);
+        importFromNote();
+        // showMenuByRelative(context: context, items: [
+        //   PopupMenuItem(child: Text(localizations.get("@note_export_label_note")), onTap: importFromNote),
+        //   // PopupMenuItem(child: Text(localizations.get("@note_export_label_html")), onTap: importFromHTML),
+        //   // PopupMenuItem(child: Text(localizations.get("@note_export_label_markdown")), onTap: importFromMarkdown),
+        //   //PopupMenuItem(child: Text(localizations.get("@note_export_label_word")), onTap: importFromWord),
+        //   // PopupMenuItem(child: Text(localizations.get("@note_export_label_pdf")), onTap: exportAsPDF),
+        // ]);
       },
     );
   }

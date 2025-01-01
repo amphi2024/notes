@@ -101,7 +101,7 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
       //  int axisCount =  (MediaQuery.of(context).size.width / 180).toInt();
       return LayoutBuilder(builder: (context, constraints) {
         double width = constraints.maxWidth;
-        int axisCount = (width / 180).toInt();
+        int axisCount = (width / 150).toInt();
         return MasonryGridView.builder(
           controller: scrollController,
           itemCount: widget.noteList.length,
