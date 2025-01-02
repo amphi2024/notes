@@ -50,14 +50,8 @@ class _NoteGridItemState extends State<NoteGridItem> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 13.0),
-              child: Text(widget.note.longSubtitle, maxLines: 5,),
+              child: Text(widget.note.longSubtitle, maxLines: 10,),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 13.0),
-            //   child: ParsedContents(
-            //     note: widget.note,
-            //   ),
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

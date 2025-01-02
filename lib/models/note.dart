@@ -463,7 +463,7 @@ class Note extends Item {
     thumbnailImageFilename = null;
 
     for (Content content in contents) {
-      if ((title.isEmpty || subtitle.isEmpty) && content.type == "text" && content.value is String) {
+      if (content.type == "text" && content.value is String) {
         List<String> textLines = content.value.split("\n");
         if (textLines.length > 1) {
           for (String line in textLines) {
@@ -474,8 +474,8 @@ class Note extends Item {
                 if (subtitle.isEmpty) {
                   subtitle = line;
                 }
-                if(longSubtitle.length < 300) {
-                  longSubtitle += line;
+                if(longSubtitle.length < 500) {
+                  longSubtitle += line + "\n";
                 }
               }
             }
@@ -488,8 +488,8 @@ class Note extends Item {
               if (subtitle.isEmpty) {
               subtitle = content.value;
               }
-              if(longSubtitle.length < 300) {
-                longSubtitle += content.value;
+              if(longSubtitle.length < 500) {
+                longSubtitle += content.value + "\n";
               }
             }
           }
@@ -500,13 +500,11 @@ class Note extends Item {
           thumbnailImageFilename = content.value;
         }
       }
-      if (thumbnailImageFilename != null && title.isNotEmpty && subtitle.isNotEmpty && longSubtitle.length > 300) {
-
+      if (thumbnailImageFilename != null && title.isNotEmpty && subtitle.isNotEmpty && longSubtitle.length > 500) {
         break;
       }
     }
 
-    print(longSubtitle);
   }
 
   @override
