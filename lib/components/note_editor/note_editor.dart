@@ -23,6 +23,8 @@ import 'package:notes/components/note_editor/toolbar/note_editor_video_button.da
 import 'package:notes/components/note_editor/toolbar/note_editor_view_pager_button.dart';
 import 'package:notes/models/note.dart';
 
+import 'toolbar/note_editor_edit_detail_button.dart';
+
 class NoteEditor extends StatefulWidget {
 
   final NoteEditingController noteEditingController;
@@ -71,9 +73,10 @@ class _NoteEditorState extends State<NoteEditor> {
   @override
   Widget build(BuildContext context) {
     final TextStyle defaultTextStyle = Theme.of(context).textTheme.bodyMedium!;
+    var isDarkMode = Theme.of(context).brightness == Brightness.dark;
     Note note = widget.noteEditingController.note;
     final TextStyle textStyle =     TextStyle(
-        color: note.textColor ?? defaultTextStyle.color,
+        color: note.textColorByTheme(isDarkMode) ?? defaultTextStyle.color,
         fontSize: note.textSize ?? defaultTextStyle.fontSize,
     fontFamily: note.font);
     return QuillEditor(
@@ -139,11 +142,11 @@ List<Widget> noteEditorToolbarButtons(NoteEditingController noteEditingControlle
     NoteEditorImageButton(noteEditingController: noteEditingController),
     NoteEditorTableButton(noteEditingController: noteEditingController),
     NoteEditorFileButton(noteEditingController: noteEditingController),
-    //NoteEditorEditDetailButton(noteEditingController: noteEditingController, onChange: onNoteDetailChanged),
     NoteEditorVideoButton(noteEditingController: noteEditingController),
     NoteEditorSubNoteButton(noteEditingController: noteEditingController),
     NoteEditorDividerButton(noteEditingController: noteEditingController),
-    NoteEditorViewPagerButton(noteEditingController: noteEditingController),
+    NoteEditorEditDetailButton(noteEditingController: noteEditingController, onChange: onNoteDetailChanged),
+    //NoteEditorViewPagerButton(noteEditingController: noteEditingController),
     //  NoteEditorFileButton(noteEditingController: appState.noteEditingController),
     // NoteEditorChartButton(noteEditingController: appState.noteEditingController),
     // NoteEditorMindMapButton(noteEditingController: appState.noteEditingController),

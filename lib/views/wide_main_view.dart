@@ -74,6 +74,7 @@ class _WideMainViewState extends State<WideMainView> {
     );
 
     var themeData = Theme.of(context);
+    var isDarkMode = themeData.brightness == Brightness.dark;
 
     return MouseRegion(
       // onHover: (event) {
@@ -94,7 +95,7 @@ class _WideMainViewState extends State<WideMainView> {
       //   }
       // },
       child: Scaffold(
-        backgroundColor: appState.noteEditingController.note.backgroundColor ?? Theme.of(context).cardColor,
+        backgroundColor: appState.noteEditingController.note.backgroundColorByTheme(isDarkMode) ?? themeData.cardColor,
         body: Stack(
           children: [
             AnimatedPositioned(
@@ -201,7 +202,7 @@ class _WideMainViewState extends State<WideMainView> {
                         child: Theme(
                           data: Theme.of(context).noteThemeData(context),
                           child: Scaffold(
-                            backgroundColor: appState.noteEditingController.note.backgroundColor ?? themeData.cardColor,
+                            backgroundColor: appState.noteEditingController.note.backgroundColorByTheme(Theme.of(context).brightness == Brightness.dark) ?? themeData.cardColor,
                             body: NoteEditor(
                               noteEditingController: appState.noteEditingController,
                             ),

@@ -27,7 +27,23 @@ abstract class Item {
     required this.modified,
     required this.originalModified,
     this.deleted,
-    this.title = ""
+    this.title = "",
+    this.textColor,
+    this.backgroundColor
   });
 
+  Color? textColorByTheme(bool darkMode) {
+    return darkMode ? textColor?.inverted() : textColor;
+  }
+
+  Color? backgroundColorByTheme(bool darkMode) {
+    return darkMode ? backgroundColor?.inverted() : backgroundColor;
+  }
+
+}
+
+extension ColorInvertEx on Color {
+  Color inverted() {
+    return Color.fromARGB(alpha, 255 - red, 255 - green, 255 - blue);
+  }
 }

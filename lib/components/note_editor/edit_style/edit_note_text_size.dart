@@ -39,7 +39,7 @@ class _EditNoteTextSizeState extends State<EditNoteTextSize> {
             onSelectedItemChanged: (i) async {
               widget.onChange(list[i]);
             },
-            children: list.map((item) => Text(item.toString())).toList() ),
+            children: list.map((item) => Text(item.toInt().toString())).toList() ),
       );
     }
   }

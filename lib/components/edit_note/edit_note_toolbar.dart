@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_divider_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_image_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_sub_note_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_table_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_text_style_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_video_button.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_view_pager_button.dart';
 
-import '../note_editor/toolbar/note_editor_file_button.dart';
+import '../note_editor/note_editor.dart';
 
 class EditNoteToolbar extends StatefulWidget {
   final NoteEditingController noteEditingController;
@@ -24,6 +17,7 @@ class _EditNoteToolbarState extends State<EditNoteToolbar> {
 
   @override
   Widget build(BuildContext context) {
+    var buttons = noteEditorToolbarButtons(widget.noteEditingController, widget.onNoteStyleChange);
     return Container(
       height: 60,
       color: Theme.of(context).appBarTheme.backgroundColor,
@@ -33,47 +27,22 @@ class _EditNoteToolbarState extends State<EditNoteToolbar> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              NoteEditorTextStyleButton(
-                  noteEditingController: widget.noteEditingController),
-              NoteEditorImageButton(
-                  noteEditingController: widget.noteEditingController),
-              NoteEditorTableButton(
-                  noteEditingController: widget.noteEditingController),
-              NoteEditorFileButton(
-                  noteEditingController: widget.noteEditingController),
-              // NoteEditorEditDetailButton(
-              //     noteEditingController: widget.noteEditingController, onChange: widget.onNoteStyleChange),
+              buttons[0],
+              buttons[1],
+              buttons[2],
+              buttons[3],
             ],
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              NoteEditorVideoButton(
-                  noteEditingController: widget.noteEditingController),
-              NoteEditorSubNoteButton(
-                  noteEditingController: widget.noteEditingController),
-              NoteEditorDividerButton(
-                  noteEditingController: widget.noteEditingController),
-
-              NoteEditorViewPagerButton(
-                  noteEditingController: widget.noteEditingController),
+              buttons[4],
+              buttons[5],
+              buttons[6],
+              buttons[7],
             ],
           ),
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     NoteEditorFileButton(
-          //         noteEditingController: widget.noteEditingController),
-          //     NoteEditorChartButton(
-          //         noteEditingController: widget.noteEditingController),
-          //     NoteEditorMindMapButton(
-          //         noteEditingController: widget.noteEditingController),
-          //     NoteEditorAudioButton(
-          //         noteEditingController: widget.noteEditingController),
-          //   ],
-          // ),
         ],
       ),
     );

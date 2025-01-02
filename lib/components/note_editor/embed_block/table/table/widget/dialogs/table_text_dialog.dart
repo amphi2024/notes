@@ -25,13 +25,15 @@ class _TableTextDialogState extends State<TableTextDialog> {
         ),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: TextField(
-                controller: textEditingController,
-                maxLines: 5,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder()
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: textEditingController,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder()
+                  ),
                 ),
               ),
             ),

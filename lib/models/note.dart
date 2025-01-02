@@ -48,7 +48,11 @@ class Note extends Item {
       required super.originalCreated,
       required super.modified,
       required super.originalModified,
-      super.deleted}) {
+      super.deleted,
+      this.lineHeight,
+      this.textSize,
+      super.textColor,
+        super.backgroundColor}) {
     String filenameWithoutType = FilenameUtils.nameOnly(filename);
     Directory imagesDir = Directory(PathUtils.join(appStorage.notesPath, filenameWithoutType, "images"));
     Directory videosDir = Directory(PathUtils.join(appStorage.notesPath, filenameWithoutType, "videos"));
@@ -268,6 +272,11 @@ class Note extends Item {
 
       String filename = PathUtils.basename(filePath);
 
+      Color? backgroundColor = map["backgroundColor"] != null  ? Color(map["backgroundColor"]) : null;
+      Color? textColor = map["textColor"] != null  ? Color(map["textColor"]) : null;
+      double? lineHeight = map["lineHeight"];
+      double? textSize = map["textSize"];
+
       Note note = Note(
           filename: filename,
           location: location,
@@ -277,7 +286,12 @@ class Note extends Item {
           contents: contents,
           originalCreated: originalCreated,
           originalModified: originalModified,
-          deleted: deleted);
+          deleted: deleted,
+      backgroundColor: backgroundColor,
+        textColor: textColor,
+        lineHeight: lineHeight,
+        textSize: textSize
+      );
       note.initTitles();
       return note;
     } catch (e) {
@@ -415,17 +429,11 @@ class Note extends Item {
       "modified": modified.toUtc().millisecondsSinceEpoch,
       "originalCreated": originalCreated.toUtc().millisecondsSinceEpoch,
       "originalModified": originalModified.toUtc().millisecondsSinceEpoch,
+      "backgroundColor": backgroundColor?.toHex(),
+      "textColor": textColor?.toHex(),
+      "deleted": deleted?.toUtc().millisecondsSinceEpoch,
       "contents": contentsToMap()
     };
-    if (backgroundColor != null) {
-      jsonData.addAll({"backgroundColor": backgroundColor!.toHex()});
-    }
-    if (textColor != null) {
-      jsonData.addAll({"textColor": textColor!.toHex()});
-    }
-    if (deleted != null) {
-      jsonData.addAll({"deleted": deleted!.toUtc().millisecondsSinceEpoch});
-    }
 
     String fileContent = jsonEncode(jsonData);
     return fileContent;

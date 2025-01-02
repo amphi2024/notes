@@ -1,9 +1,14 @@
+import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:notes/components/note_editor/edit_style/edit_note_text_size.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/models/app_colors.dart';
+import 'package:notes/models/item.dart';
+import 'package:notes/models/note.dart';
 
 class EditNoteDetail extends StatefulWidget {
   final NoteEditingController noteEditingController;
@@ -57,7 +62,7 @@ class _EditNoteDetailState extends State<EditNoteDetail> {
 
     return Container(
       width: 250,
-      height: 250,
+      height: App.isDesktop() ? 250 : 375,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -75,9 +80,15 @@ class _EditNoteDetailState extends State<EditNoteDetail> {
                             appColors.noteBackgroundColors.add(color);
                             appColors.save();
                           },
-                          onColorChanged: (color) {
-                            widget.onChange(() {
-                              widget.noteEditingController.note.backgroundColor = color;
+                          onColorChanged: (value) {
+                            var color = value;
+                            if(Theme.of(context).brightness == Brightness.dark) {
+                              color = value.inverted();
+                            }
+                            setState(() {
+                              widget.onChange(() {
+                                widget.noteEditingController.note.backgroundColor = color;
+                              });
                             });
                           },
                           colors: appColors.noteTextColors,
@@ -86,9 +97,11 @@ class _EditNoteDetailState extends State<EditNoteDetail> {
                             appColors.save();
                           },
                           defaultColor: themeData.cardColor,
-                          onDefaultColorTap: (color) {
-                            widget.onChange(() {
-                              widget.noteEditingController.note.backgroundColor = null;
+                          onDefaultColorTap: (value) {
+                            setState(() {
+                              widget.onChange(() {
+                                widget.noteEditingController.note.backgroundColor = null;
+                              });
                             });
                           });
                     })
@@ -102,19 +115,27 @@ class _EditNoteDetailState extends State<EditNoteDetail> {
                     onPressed: () {
                       showAdaptiveColorPicker(
                           context: context,
-                          color: widget.noteEditingController.currentTextColor(context),
+                          color: widget.noteEditingController.note.textColor ?? themeData.textTheme.bodyMedium!.color!,
                           onAddColor: addNoteTextColor,
-                          onColorChanged: (color) {
-                            widget.onChange(() {
-                              widget.noteEditingController.note.textColor = color;
+                          onColorChanged: (value) {
+                            var color = value;
+                            if(Theme.of(context).brightness == Brightness.dark) {
+                              color = value.inverted();
+                            }
+                            setState(() {
+                              widget.onChange(() {
+                                widget.noteEditingController.note.textColor = color;
+                              });
                             });
                           },
                           colors: appColors.noteTextColors,
                           onRemoveColor: removeNoteTextColor,
                           defaultColor: Theme.of(context).textTheme.bodyMedium!.color,
                           onDefaultColorTap: (color) {
-                            widget.onChange(() {
-                              widget.noteEditingController.note.textColor = null;
+                            setState(() {
+                              widget.onChange(() {
+                                widget.noteEditingController.note.textColor = null;
+                              });
                             });
                           });
                     })
@@ -129,8 +150,10 @@ class _EditNoteDetailState extends State<EditNoteDetail> {
                       value: widget.noteEditingController.note.textSize ?? 15,
                       noteEditingController: widget.noteEditingController,
                       onChange: (size) {
-                        widget.onChange(() {
-                          widget.noteEditingController.note.textSize = size;
+                        setState(() {
+                          widget.onChange(() {
+                            widget.noteEditingController.note.textSize = size;
+                          });
                         });
                       }),
                 )
@@ -141,13 +164,14 @@ class _EditNoteDetailState extends State<EditNoteDetail> {
                 Text(AppLocalizations.of(context).get("@note_line_height")),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: SizedBox(
-                    width: 50,
-                    child: TextField(
-                      controller: lineHeightController,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
+                  child: _EditNoteLineHeight(value: widget.noteEditingController.note.lineHeight ?? 1, onChange: (value) {
+                    setState(() {
+                      widget.onChange(() {
+                        widget.noteEditingController.note.lineHeight = value;
+                      });
+                    });
+
+                  }),
                 )
               ],
             ),
@@ -156,4 +180,54 @@ class _EditNoteDetailState extends State<EditNoteDetail> {
       ),
     );
   }
+}
+
+class _EditNoteLineHeight extends StatefulWidget {
+
+  final double value;
+  final void Function(double) onChange;
+  const _EditNoteLineHeight({required this.value, required this.onChange});
+
+  @override
+  State<_EditNoteLineHeight> createState() => _EditNoteLineHeightState();
+}
+
+class _EditNoteLineHeightState extends State<_EditNoteLineHeight> {
+
+  late FixedExtentScrollController fixedExtentScrollController =
+  FixedExtentScrollController(initialItem: _getLineHeightIndex(widget.value, list));
+  List<double> list = List.generate(25, (size) => size + 1.toDouble());
+  @override
+  Widget build(BuildContext context) {
+    if(App.isDesktop()) {
+      return DropdownButton<double>(
+          value: widget.value,
+          items: list.map((item) => DropdownMenuItem<double>(value: item,  child: Text(item.toInt().toString()))).toList(),
+          onChanged: (item) {
+            widget.onChange(item ?? 1);
+          });
+    }
+    else {
+      return SizedBox(
+        width: 150,
+        height: 200,
+        child: CupertinoPicker(
+            scrollController: fixedExtentScrollController,
+            itemExtent: 30,
+            onSelectedItemChanged: (i) async {
+              widget.onChange(list[i]);
+            },
+            children: list.map((item) => Text(item.toInt().toString())).toList() ),
+      );
+    }
+  }
+}
+
+int _getLineHeightIndex(double value , List<double> list) {
+  for(int i = 0; i < list.length ; i++) {
+    if(value == list[i]) {
+      return i;
+    }
+  }
+  return 0;
 }
