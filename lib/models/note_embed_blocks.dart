@@ -53,7 +53,7 @@ class NoteEmbedBlocks {
       return viewPagers[key]!;
     }
     else {
-      viewPagers[key ] = ViewPagerData();
+      viewPagers[key ] = ViewPagerData(appState.noteEditingController.note);
       return viewPagers[key]!;
     }
   }

@@ -15,7 +15,7 @@ class NoteEditorViewPagerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(icon: Icon(Icons.view_array), onPressed: () {
       String viewPagerKey = noteEmbedBlocks.generatedViewPagerKey();
-      noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData();
+      noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData(noteEditingController.note);
       BlockEmbed blockEmbed = BlockEmbed.custom(
           ViewPagerBlockEmbed(viewPagerKey)
       );

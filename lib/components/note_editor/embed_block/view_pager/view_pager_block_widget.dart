@@ -59,6 +59,7 @@ class _ViewPagerBlockWidgetState extends State<ViewPagerBlockWidget> {
                 Visibility(
                   visible: focusingPageIndex != viewPagerData.pages.length,
                   child: IconButton(icon: Icon(Icons.edit), onPressed: () {
+                    viewPagerData.pages[focusingPageIndex].readOnly = false;
                     showDialog(context: context, builder: (context) => EditViewPagerNoteDialog(noteEditingController: viewPagerData.pages[focusingPageIndex]));
                   }),
                 ),

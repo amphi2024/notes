@@ -3,10 +3,16 @@ import 'package:notes/models/content.dart';
 import 'package:notes/models/note.dart';
 
 class ViewPagerData {
-  List<NoteEditingController> pages = [];
+  late List<NoteEditingController> pages;
   Map<String, dynamic> style = {
     "height" : 250.0
   };
+
+  ViewPagerData(Note parent) {
+    pages = [
+      NoteEditingController(note: Note.subNote(parent))
+    ];
+  }
 
   Content toContent() {
     List<Map<String, dynamic>> children = [];
@@ -38,7 +44,7 @@ class ViewPagerData {
   }
 
   static ViewPagerData fromContent(Note parent, Content content) {
-    ViewPagerData viewPagerData = ViewPagerData();
+    ViewPagerData viewPagerData = ViewPagerData(parent);
     try {
       viewPagerData.style = content.style ?? {};
       List<Map<String, dynamic>> list = (content.value as List).map((item) => item as Map<String, dynamic>).toList();

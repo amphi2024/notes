@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_divider_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_edit_detail_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_image_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_sub_note_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_table_button.dart';
@@ -8,6 +7,8 @@ import 'package:notes/components/note_editor/toolbar/note_editor_text_style_butt
 import 'package:notes/components/note_editor/toolbar/note_editor_video_button.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_view_pager_button.dart';
+
+import '../note_editor/toolbar/note_editor_file_button.dart';
 
 class EditNoteToolbar extends StatefulWidget {
   final NoteEditingController noteEditingController;
@@ -38,8 +39,10 @@ class _EditNoteToolbarState extends State<EditNoteToolbar> {
                   noteEditingController: widget.noteEditingController),
               NoteEditorTableButton(
                   noteEditingController: widget.noteEditingController),
-              NoteEditorEditDetailButton(
-                  noteEditingController: widget.noteEditingController, onChange: widget.onNoteStyleChange),
+              NoteEditorFileButton(
+                  noteEditingController: widget.noteEditingController),
+              // NoteEditorEditDetailButton(
+              //     noteEditingController: widget.noteEditingController, onChange: widget.onNoteStyleChange),
             ],
           ),
           Row(
@@ -52,8 +55,7 @@ class _EditNoteToolbarState extends State<EditNoteToolbar> {
                   noteEditingController: widget.noteEditingController),
               NoteEditorDividerButton(
                   noteEditingController: widget.noteEditingController),
-              // NoteEditorFileButton(
-              //     noteEditingController: widget.noteEditingController),
+
               NoteEditorViewPagerButton(
                   noteEditingController: widget.noteEditingController),
             ],
