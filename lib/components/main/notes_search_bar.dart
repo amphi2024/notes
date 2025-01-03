@@ -8,7 +8,7 @@ class NotesSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Color borderColor = Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.1);
+    Color borderColor = Theme.of(context).textTheme.bodyMedium!.color!.withValues(alpha: 0.1);
 
     return TextField(
       controller: textEditingController,
@@ -20,7 +20,7 @@ class NotesSearchBar extends StatelessWidget {
         prefixIcon: Icon(
           Icons.search,
           size: 15,
-          color: borderColor.withOpacity(0.5),
+          color: borderColor.withValues(alpha: 0.1),
         ),
         contentPadding: EdgeInsets.only(left: 5, right: 5),
         enabledBorder: OutlineInputBorder(

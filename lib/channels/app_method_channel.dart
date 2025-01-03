@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 
 final appMethodChannel = AppMethodChannel.getInstance();
@@ -9,29 +8,6 @@ class AppMethodChannel extends MethodChannel {
   AppMethodChannel._internal(super.name) {
     setMethodCallHandler((call) async {
       switch (call.method) {
-        // case "on_image_selected":
-        //   String originalPath = call.arguments;
-        //   String filename = generatedFileName(originalPath.split(".").last, appStorage.imagesPath);
-        //
-        //   File originalFile = File(originalPath);
-        //   File file = File("${appStorage.imagesPath}/$filename");
-        //   await originalFile.copy(file.path);
-        //   onImageSelected(file.path);
-        //   break;
-        // case "on_video_selected":
-        //   String originalPath = call.arguments;
-        //   String filename = generatedFileName(originalPath.split(".").last, appStorage.videosPath);
-        //
-        //   File originalFile = File(originalPath);
-        //   File file = File("${appStorage.videosPath}/$filename");
-        //   await originalFile.copy(file.path);
-        //   onVideoSelected(file.path);
-        //   break;
-
-        case "light_theme":
-          break;
-        case "dark_theme":
-          break;
         default:
           break;
       }
@@ -43,9 +19,6 @@ class AppMethodChannel extends MethodChannel {
 
   static AppMethodChannel getInstance() => _instance;
 
-  //late void Function(String) onImageSelected;
-  //late void Function(String) onVideoSelected;
-
   List<Function> listeners = [];
 
   int? systemVersion;
@@ -55,14 +28,6 @@ class AppMethodChannel extends MethodChannel {
     if(!directory.existsSync()) {
       directory.createSync();
     }
-  }
-
-  void addListener(Function function) {
-    listeners.add(function);
-  }
-
-  void removeListener(Function function) {
-    listeners.remove(function);
   }
 
   void selectImage() async {

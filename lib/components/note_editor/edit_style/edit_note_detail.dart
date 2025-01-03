@@ -1,3 +1,4 @@
+import 'package:amphi/extensions/color_extension.dart';
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';

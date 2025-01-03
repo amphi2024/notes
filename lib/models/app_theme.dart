@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:amphi/extensions/color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_upload.dart';

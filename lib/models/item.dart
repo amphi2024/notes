@@ -1,6 +1,4 @@
-
-import 'dart:ui';
-
+import 'package:amphi/extensions/color_extension.dart';
 import 'package:flutter/material.dart';
 
 abstract class Item {
@@ -42,18 +40,6 @@ abstract class Item {
     return darkMode ? backgroundColor?.inverted() : backgroundColor;
   }
 
-}
-
-extension ColorInvertEx on Color {
-  Color inverted() {
-    if((red + green + blue) <= 150 || (red + green + blue) >= 600) {
-      return Color.fromARGB(alpha, 255 - red, 255 - green , 255 - blue );
-    }
-    else {
-      return this;
-    }
-
-  }
 }
 
 extension DarkModeTheme on ThemeData {

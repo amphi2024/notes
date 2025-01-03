@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 class AppView extends StatefulWidget {
 
   final bool canPopPage;
-  final Widget? child;
+  final Widget child;
   final void Function(bool, dynamic)? onPopInvoked;
-  const AppView({super.key, this.canPopPage = true, this.child, this.onPopInvoked});
+  const AppView({super.key, this.canPopPage = true, required this.child, this.onPopInvoked});
 
   @override
   State<AppView> createState() => _AppViewState();

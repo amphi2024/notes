@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:amphi/models/app_theme_core.dart';
+import 'package:amphi/extensions/color_extension.dart';
 import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';

@@ -72,8 +72,8 @@ class AppThemeData {
       shadowColor:
           backgroundColor.green + backgroundColor.blue + backgroundColor.red >
                   381
-              ? Colors.grey.withOpacity(0.5)
-              : Colors.black.withOpacity(0.5),
+              ? Colors.grey.withValues(alpha: 0.5)
+              : Colors.black.withValues(alpha: 0.5),
       iconTheme: IconThemeData(color: accentColor, size: App.isWideScreen(context) ? 25 : 15),
       checkboxTheme: CheckboxThemeData(
         checkColor: WidgetStateProperty.resolveWith((states) {

@@ -10,7 +10,7 @@ class NoteDetailDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(note.filename);
+    //print(note.filename);
     int length = 0;
     for (Content content in note.contents) {
       if (content.type == "text") {

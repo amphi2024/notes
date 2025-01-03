@@ -171,7 +171,6 @@ class _EditNoteViewState extends State<EditNoteView> {
                       child: EditNoteToolbar(
                           noteEditingController: widget.noteEditingController,
                           onNoteStyleChange: (function) {
-                            print("Dfsfsfdskfdskfdsf");
                             setState(function);
                           }),
                     ),
