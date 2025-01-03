@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/utils/path_utils.dart';
-import 'package:amphi/widgets/menu/popup/show_menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';

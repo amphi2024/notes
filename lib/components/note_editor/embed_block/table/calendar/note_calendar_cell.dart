@@ -69,8 +69,8 @@ class _DayWidget extends StatelessWidget {
               return NoteCalenderEventsView(events: events);
             },
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              const begin = Offset(0.0, 1.0);  // 아래에서 시작
-              const end = Offset.zero;         // 최종 위치 (위)
+              const begin = Offset(0.0, 1.0);
+              const end = Offset.zero;
               const curve = Curves.ease;
 
               var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));

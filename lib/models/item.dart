@@ -1,6 +1,8 @@
 
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 abstract class Item {
   String title;
   String filename;
@@ -44,6 +46,18 @@ abstract class Item {
 
 extension ColorInvertEx on Color {
   Color inverted() {
-    return Color.fromARGB(alpha, 255 - red, 255 - green, 255 - blue);
+    if((red + green + blue) <= 150 || (red + green + blue) >= 600) {
+      return Color.fromARGB(alpha, 255 - red, 255 - green , 255 - blue );
+    }
+    else {
+      return this;
+    }
+
+  }
+}
+
+extension DarkModeTheme on ThemeData {
+  bool isDarkMode() {
+    return brightness == Brightness.dark;
   }
 }

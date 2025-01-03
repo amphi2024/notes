@@ -4,6 +4,7 @@ import 'package:notes/components/image_from_storage_rounded.dart';
 import 'package:notes/components/main/list_view/list_view_item.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_storage.dart';
+import 'package:notes/models/item.dart';
 import 'package:notes/models/note.dart';
 
 class NoteGridItem extends ListViewItem {
@@ -21,6 +22,8 @@ class _NoteGridItemState extends State<NoteGridItem> {
 
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
+    var isDarkMode = themeData.isDarkMode();
     return GestureDetector(
       onLongPress: () {
         if (appStorage.selectedNotes == null) {
@@ -34,7 +37,10 @@ class _NoteGridItemState extends State<NoteGridItem> {
       },
       child: Container(
         margin: const EdgeInsets.all(7.5),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Theme.of(context).cardColor),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: widget.note.backgroundColorByTheme(isDarkMode) ?? Theme.of(context).cardColor
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -46,11 +52,13 @@ class _NoteGridItemState extends State<NoteGridItem> {
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)))),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 13.0),
-              child: Text(widget.note.title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),),
+              child: Text(widget.note.title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold, color: widget.note.textColorByTheme(isDarkMode)),),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 13.0),
-              child: Text(widget.note.longSubtitle, maxLines: 10,),
+              child: Text(widget.note.longSubtitle, maxLines: 10, style: TextStyle(
+                color: widget.note.textColorByTheme(isDarkMode)
+              ),),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -62,23 +62,27 @@ class AppStorage extends AppStorageCore {
       for (int i = 0; i < list.length; i++) {
         Map<String, dynamic> map = list[i];
         String filename = map["filename"];
+        DateTime modified = DateTime.fromMillisecondsSinceEpoch(map["modified"]).toLocal();
         File file = File(PathUtils.join(appStorage.notesPath, filename));
 
-        if (!file.existsSync()) {
+
           if (filename.endsWith(".note")) {
-            appWebChannel.downloadNote(
-                filename: filename,
-                onSuccess: (note) {
-                  AppStorage.getNoteList(note.location).add(note);
-                });
+            if (!file.existsSync() || (file.existsSync() && modified.isAfter(file.lastModifiedSync())) ) {
+              appWebChannel.downloadNote(
+                  filename: filename,
+                  onSuccess: (note) {
+                    AppStorage.getNoteList(note.location).add(note);
+                  });
+            }
           } else if (filename.endsWith(".folder")) {
-            appWebChannel.downloadFolder(
-                filename: filename,
-                onSuccess: (folder) {
-                  AppStorage.getNoteList(folder.location).add(folder);
-                });
+            if (!file.existsSync() || (file.existsSync() && modified.isAfter(file.lastModifiedSync())) ) {
+              appWebChannel.downloadFolder(
+                  filename: filename,
+                  onSuccess: (folder) {
+                    AppStorage.getNoteList(folder.location).add(folder);
+                  });
+            }
           }
-        }
       }
     });
     await Future.delayed(const Duration(milliseconds: 1500));

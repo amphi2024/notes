@@ -20,7 +20,7 @@ class _EditNoteToolbarState extends State<EditNoteToolbar> {
     var buttons = noteEditorToolbarButtons(widget.noteEditingController, widget.onNoteStyleChange);
     return Container(
       height: 60,
-      color: Theme.of(context).appBarTheme.backgroundColor,
+      color: widget.noteEditingController.note.backgroundColorByTheme(Theme.of(context).brightness == Brightness.dark) ?? Theme.of(context).appBarTheme.backgroundColor,
       child: PageView(
         children: [
           Row(

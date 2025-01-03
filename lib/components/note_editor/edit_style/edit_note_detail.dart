@@ -3,12 +3,10 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:notes/components/note_editor/edit_style/edit_note_text_size.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/models/app_colors.dart';
 import 'package:notes/models/item.dart';
-import 'package:notes/models/note.dart';
 
 class EditNoteDetail extends StatefulWidget {
   final NoteEditingController noteEditingController;
@@ -59,123 +57,125 @@ class _EditNoteDetailState extends State<EditNoteDetail> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
-
+    var darkMode = themeData.isDarkMode();
     return Container(
       width: 250,
-      height: App.isDesktop() ? 250 : 375,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text(AppLocalizations.of(context).get("@note_background_color")),
-                IconButton(
-                    icon: Icon(Icons.circle, color: widget.noteEditingController.note.backgroundColor ?? themeData.scaffoldBackgroundColor),
-                    onPressed: () {
-                      showAdaptiveColorPicker(
-                          context: context,
-                          color: themeData.scaffoldBackgroundColor,
-                          onAddColor: (color) {
-                            appColors.noteBackgroundColors.add(color);
-                            appColors.save();
-                          },
-                          onColorChanged: (value) {
-                            var color = value;
-                            if(Theme.of(context).brightness == Brightness.dark) {
-                              color = value.inverted();
-                            }
-                            setState(() {
-                              widget.onChange(() {
-                                widget.noteEditingController.note.backgroundColor = color;
+      height: App.isDesktop() ? 200 : 400,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text(AppLocalizations.of(context).get("@note_background_color")),
+                  IconButton(
+                      icon: Icon(Icons.circle, color: widget.noteEditingController.note.backgroundColorByTheme(darkMode) ?? themeData.scaffoldBackgroundColor),
+                      onPressed: () {
+                        showAdaptiveColorPicker(
+                            context: context,
+                            color: widget.noteEditingController.note.backgroundColorByTheme(darkMode) ?? themeData.scaffoldBackgroundColor,
+                            onAddColor: (color) {
+                              appColors.noteBackgroundColors.add(color);
+                              appColors.save();
+                            },
+                            onColorChanged: (value) {
+                              var color = value;
+                              if(Theme.of(context).brightness == Brightness.dark) {
+                                color = value.inverted();
+                              }
+                              setState(() {
+                                widget.onChange(() {
+                                  widget.noteEditingController.note.backgroundColor = color;
+                                });
+                              });
+                            },
+                            colors: appColors.noteTextColors,
+                            onRemoveColor: (color) {
+                              appColors.noteBackgroundColors.remove(color);
+                              appColors.save();
+                            },
+                            defaultColor: themeData.cardColor,
+                            onDefaultColorTap: (value) {
+                              setState(() {
+                                widget.onChange(() {
+                                  widget.noteEditingController.note.backgroundColor = null;
+                                });
                               });
                             });
-                          },
-                          colors: appColors.noteTextColors,
-                          onRemoveColor: (color) {
-                            appColors.noteBackgroundColors.remove(color);
-                            appColors.save();
-                          },
-                          defaultColor: themeData.cardColor,
-                          onDefaultColorTap: (value) {
-                            setState(() {
-                              widget.onChange(() {
-                                widget.noteEditingController.note.backgroundColor = null;
+                      })
+                ],
+              ),
+              Row(
+                children: [
+                  Text(AppLocalizations.of(context).get("@note_text_color")),
+                  IconButton(
+                      icon: Icon(Icons.circle, color: widget.noteEditingController.note.textColorByTheme(darkMode) ?? themeData.textTheme.bodyMedium!.color),
+                      onPressed: () {
+                        showAdaptiveColorPicker(
+                            context: context,
+                            color: widget.noteEditingController.note.textColorByTheme(darkMode) ?? themeData.textTheme.bodyMedium!.color!,
+                            onAddColor: addNoteTextColor,
+                            onColorChanged: (value) {
+                              var color = value;
+                              if(Theme.of(context).brightness == Brightness.dark) {
+                                color = value.inverted();
+                              }
+                              setState(() {
+                                widget.onChange(() {
+                                  widget.noteEditingController.note.textColor = color;
+                                });
                               });
+                            },
+                            colors: appColors.noteTextColors,
+                            onRemoveColor: removeNoteTextColor,
+                            defaultColor: Theme.of(context).textTheme.bodyMedium!.color,
+                            onDefaultColorTap: (color) {
+                              setState(() {
+                                widget.onChange(() {
+                                  widget.noteEditingController.note.textColor = null;
+                                });
+                              });
+                            });
+                      })
+                ],
+              ),
+              Row(
+                children: [
+                  Text(AppLocalizations.of(context).get("@note_text_size")),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: EditNoteTextSize(
+                        value: widget.noteEditingController.note.textSize ?? 15,
+                        noteEditingController: widget.noteEditingController,
+                        onChange: (size) {
+                          setState(() {
+                            widget.onChange(() {
+                              widget.noteEditingController.note.textSize = size;
                             });
                           });
-                    })
-              ],
-            ),
-            Row(
-              children: [
-                Text(AppLocalizations.of(context).get("@note_text_color")),
-                IconButton(
-                    icon: Icon(Icons.circle, color: widget.noteEditingController.note.textColor ?? themeData.textTheme.bodyMedium!.color),
-                    onPressed: () {
-                      showAdaptiveColorPicker(
-                          context: context,
-                          color: widget.noteEditingController.note.textColor ?? themeData.textTheme.bodyMedium!.color!,
-                          onAddColor: addNoteTextColor,
-                          onColorChanged: (value) {
-                            var color = value;
-                            if(Theme.of(context).brightness == Brightness.dark) {
-                              color = value.inverted();
-                            }
-                            setState(() {
-                              widget.onChange(() {
-                                widget.noteEditingController.note.textColor = color;
-                              });
-                            });
-                          },
-                          colors: appColors.noteTextColors,
-                          onRemoveColor: removeNoteTextColor,
-                          defaultColor: Theme.of(context).textTheme.bodyMedium!.color,
-                          onDefaultColorTap: (color) {
-                            setState(() {
-                              widget.onChange(() {
-                                widget.noteEditingController.note.textColor = null;
-                              });
-                            });
-                          });
-                    })
-              ],
-            ),
-            Row(
-              children: [
-                Text(AppLocalizations.of(context).get("@note_text_size")),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: EditNoteTextSize(
-                      value: widget.noteEditingController.note.textSize ?? 15,
-                      noteEditingController: widget.noteEditingController,
-                      onChange: (size) {
-                        setState(() {
-                          widget.onChange(() {
-                            widget.noteEditingController.note.textSize = size;
-                          });
+                        }),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Text(AppLocalizations.of(context).get("@note_line_height")),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: _EditNoteLineHeight(value: widget.noteEditingController.note.lineHeight ?? 1, onChange: (value) {
+                      setState(() {
+                        widget.onChange(() {
+                          widget.noteEditingController.note.lineHeight = value;
                         });
-                      }),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Text(AppLocalizations.of(context).get("@note_line_height")),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: _EditNoteLineHeight(value: widget.noteEditingController.note.lineHeight ?? 1, onChange: (value) {
-                    setState(() {
-                      widget.onChange(() {
-                        widget.noteEditingController.note.lineHeight = value;
                       });
-                    });
 
-                  }),
-                )
-              ],
-            ),
-          ],
+                    }),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

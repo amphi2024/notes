@@ -104,9 +104,8 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isAndroid) {
-      appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
-    }
+    appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
+
     return AppView(
       canPopPage: !buttonRotated && appStorage.selectedNotes == null,
       onPopInvoked: onPopInvoked,
@@ -160,6 +159,7 @@ class _MainViewState extends State<MainView> {
                           appState.noteEditingController.readOnly = true;
                           Navigator.push(context, CupertinoPageRoute(builder: (context) {
                             return EditNoteView(
+                              noteEditingController: appState.noteEditingController,
                                 createNote: false,
                                 onSave: (changed) {
                                   setState(() {
@@ -212,6 +212,7 @@ class _MainViewState extends State<MainView> {
                   appState.noteEditingController.readOnly = false;
                   Navigator.push(context, CupertinoPageRoute(builder: (context) {
                     return EditNoteView(
+                        noteEditingController: appState.noteEditingController,
                         createNote: true,
                         onSave: (note) {
                           setState(() {

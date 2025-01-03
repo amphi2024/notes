@@ -65,15 +65,8 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
   Widget build(BuildContext context) {
     super.build(context);
     if (appSettings.viewMode == "linear") {
-      // return AnimatedList(itemBuilder: (BuildContext context, int index, Animation<double> animation) {
-      //
-      // },
-      //
-      //
-      // );
       return ListView.builder(
-          // primary: true,
-          //  controller: scrollController,
+          controller: scrollController,
           itemCount: widget.noteList.length,
           itemBuilder: (context, index) {
             LinearItemBorder border = LinearItemBorder(index: index, length: widget.noteList.length, context: context);
@@ -98,7 +91,6 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
             }
           });
     } else {
-      //  int axisCount =  (MediaQuery.of(context).size.width / 180).toInt();
       return LayoutBuilder(builder: (context, constraints) {
         double width = constraints.maxWidth;
         int axisCount = (width / 150).toInt();

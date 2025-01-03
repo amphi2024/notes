@@ -23,8 +23,6 @@ import 'package:notes/views/wide_main_view.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
-  // prepareVideoPlayer();
-  // VideoPlayer.prepare();
   runApp(MyApp());
 }
 

@@ -20,7 +20,6 @@ import 'package:notes/components/note_editor/toolbar/note_editor_text_style_butt
 import 'package:notes/components/note_editor/toolbar/note_editor_divider_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_table_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_video_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_view_pager_button.dart';
 import 'package:notes/models/note.dart';
 
 import 'toolbar/note_editor_edit_detail_button.dart';
@@ -72,6 +71,7 @@ class _NoteEditorState extends State<NoteEditor> {
 
   @override
   Widget build(BuildContext context) {
+
     final TextStyle defaultTextStyle = Theme.of(context).textTheme.bodyMedium!;
     var isDarkMode = Theme.of(context).brightness == Brightness.dark;
     Note note = widget.noteEditingController.note;
@@ -79,6 +79,7 @@ class _NoteEditorState extends State<NoteEditor> {
         color: note.textColorByTheme(isDarkMode) ?? defaultTextStyle.color,
         fontSize: note.textSize ?? defaultTextStyle.fontSize,
     fontFamily: note.font);
+
     return QuillEditor(
       controller: widget.noteEditingController,
       configurations: QuillEditorConfigurations(
