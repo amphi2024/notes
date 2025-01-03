@@ -1,7 +1,6 @@
 package com.amphi.notes
 
 import android.os.Build
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowInsetsController
@@ -23,12 +22,13 @@ fun setNavigationBarColor(window: Window, navigationBarColor: Int, iosLikeUi: Bo
                             or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                             or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     )
+            @Suppress("DEPRECATION")
             window.navigationBarColor = android.graphics.Color.TRANSPARENT
+            @Suppress("DEPRECATION")
             window.statusBarColor = android.graphics.Color.TRANSPARENT
         }
     }
     else {
-        Log.d("sex", "TTAKKKKK")
         window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         if(Build.VERSION.SDK_INT >= 30) {
             val controller = window.insetsController
@@ -43,7 +43,9 @@ fun setNavigationBarColor(window: Window, navigationBarColor: Int, iosLikeUi: Bo
         else {
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+            @Suppress("DEPRECATION")
             window.navigationBarColor = navigationBarColor
+            @Suppress("DEPRECATION")
             window.statusBarColor = navigationBarColor
         }
     }
