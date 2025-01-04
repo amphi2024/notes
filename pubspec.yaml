@@ -36,39 +36,28 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.6
-  flex_color_picker: ^3.6.0
-  http: ^1.2.2
-  web_socket_channel: ^3.0.1
-  flutter_staggered_grid_view: ^0.7.0
-
-  flutter_quill: ^10.8.2
-  dart_quill_delta: ^10.8.1
-#  video_player: ^2.9.1
-#  flick_video_player: ^0.8.0
-  flutter_colorpicker: ^1.1.0
-  device_info_plus: ^10.1.0
-  macos_ui: ^2.0.8
-#  flutter_quill_extensions: ^10.0.0
-#  flutter_quill_test: ^10.0.0
-  percent_indicator: ^4.2.2
-  media_kit: ^1.1.11
-#  media_kit_video: ^1.2.5
-#  media_kit_libs_video: ^1.0.5
-  file_picker: ^8.1.2
-  desktop_drop: ^0.5.0
-
-  image_picker_ios: ^0.8.12
-  image_picker_macos: ^0.2.1+1
-
-  fl_chart: ^0.69.0
-  smooth_page_indicator: ^1.0.0+2
-
-#  media_kit_libs_audio: ^1.0.5
+  cupertino_icons:
+  flex_color_picker:
+  http:
+  web_socket_channel:
+  flutter_staggered_grid_view:
+  flutter_quill:
+  dart_quill_delta:
+  flutter_colorpicker:
+  device_info_plus:
+  macos_ui:
+  percent_indicator:
+  media_kit:
+  file_picker:
+  desktop_drop:
+  image_picker_ios:
+  image_picker_macos:
+  fl_chart:
+  smooth_page_indicator:
 
   amphi:
     path: ../amphi
-  pdf: ^3.11.1
+  pdf:
 
 #  editable_table:
 #    path: ../editable_table

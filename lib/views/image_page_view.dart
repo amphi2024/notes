@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:amphi/utils/file_name_utils.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/models/icons.dart';
+import 'package:notes/utils/toast.dart';
 
 class ImagePageView extends StatefulWidget {
   final String path;
@@ -46,80 +49,98 @@ class _ImagePageViewState extends State<ImagePageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MouseRegion(
-        onHover: (e) {
-          toggleToolbarVisible();
-        },
-        child: Stack(
-          children: [
-            Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              right: 0,
-              child: InteractiveViewer(
-                maxScale: 30,
-                transformationController: controller,
-                scaleEnabled: true,
-                panEnabled: true,
-                child: Image.file(
-                  fit: BoxFit.contain,
-                  File(widget.path),
-                ),
-              ),
-            ),
-            Align(
-                alignment: Alignment.topCenter,
-                child: Visibility(
-                  visible: toolbarVisible,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(AppIcons.back)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                              icon: Icon(Icons.zoom_in_map),
-                              onPressed: () {
-                                timer?.cancel();
-                                toolbarVisible = true;
-                                setState(() {
-                                  controller.value = Matrix4.identity()..scale(1.0);
-                                });
-                              }),
-                          IconButton(
-                              icon: Icon(Icons.zoom_out),
-                              onPressed: () {
-                                timer?.cancel();
-                                toolbarVisible = true;
-                                setState(() {
-                                  if(controller.value.getMaxScaleOnAxis() > 1.0) {
-                                    controller.value = Matrix4.identity()..scale(controller.value.getMaxScaleOnAxis() - 0.01);
-                                  }
-                                });
-                              }),
-                          IconButton(
-                              icon: Icon(Icons.zoom_in),
-                              onPressed: () {
-                                timer?.cancel();
-                                toolbarVisible = true;
-                                setState(() {
-                                  controller.value = Matrix4.identity()..scale(controller.value.getMaxScaleOnAxis() + 0.01);
-                                });
-                              })
-                        ],
-                      )
-
-                    ],
+    var themeData = Theme.of(context);
+    return Theme(
+      data: Theme.of(context).copyWith(
+        iconTheme: IconThemeData(
+          color: themeData.iconTheme.color,
+          size: 30
+        )
+      ),
+      child: Scaffold(
+        body: MouseRegion(
+          onHover: (e) {
+            toggleToolbarVisible();
+          },
+          child: GestureDetector(
+            onTap: () {
+              toggleToolbarVisible();
+            },
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  right: 0,
+                  child: InteractiveViewer(
+                    maxScale: 30,
+                    transformationController: controller,
+                    scaleEnabled: true,
+                    panEnabled: true,
+                    minScale: 0.5,
+                    child: Image.file(
+                      fit: BoxFit.contain,
+                      File(widget.path),
+                    ),
                   ),
-                ))
-          ],
+                ),
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(7.5),
+                      child: Visibility(
+                        visible: toolbarVisible,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(AppIcons.back)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                    icon: Icon(Icons.save),
+                                    onPressed: () async {
+                                      var selectedPath = await FilePicker.platform.saveFile(fileName: "image.${FilenameUtils.extensionName(widget.path)}");
+                                      if(selectedPath != null) {
+                                        File originalFile = File(widget.path);
+                                        var file = File(selectedPath);
+                                        file.writeAsBytes(await originalFile.readAsBytes());
+                                        showToast(context, "Complete");
+                                      }
+                                    }),
+                                IconButton(
+                                    icon: Icon(Icons.zoom_out),
+                                    onPressed: () {
+                                      timer?.cancel();
+                                      toolbarVisible = true;
+                                      setState(() {
+                                        controller.value = Matrix4.identity()..scale(controller.value.getMaxScaleOnAxis() - 0.01);
+                                      });
+                                    }),
+                                IconButton(
+                                    icon: Icon(Icons.zoom_in),
+                                    onPressed: () {
+                                      timer?.cancel();
+                                      toolbarVisible = true;
+                                      setState(() {
+                                        controller.value = Matrix4.identity()..scale(controller.value.getMaxScaleOnAxis() + 0.01);
+                                      });
+                                    })
+                              ],
+                            )
+
+                          ],
+                        ),
+                      ),
+                    ))
+              ],
+            ),
+          ),
         ),
       ),
     );

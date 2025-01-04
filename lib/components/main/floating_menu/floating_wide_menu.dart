@@ -239,7 +239,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                                 return SettingsDialog();
                               });
                         },
-                        icon: Icon(AppIcons.setting)),
+                        icon: Icon(Icons.settings)),
                     PopupMenuButton(
                         icon: Icon(Icons.add_circle_outline_outlined),
                         itemBuilder: (context) {

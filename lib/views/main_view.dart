@@ -250,7 +250,7 @@ class _MainViewState extends State<MainView> {
                   }),
               const FloatingMenuDivider(),
               FloatingMenuButton(
-                  icon: AppIcons.setting,
+                  icon: AppIcons.settings,
                   onPressed: () {
                     Navigator.push(context, CupertinoPageRoute(builder: (context) {
                       return SettingsView();

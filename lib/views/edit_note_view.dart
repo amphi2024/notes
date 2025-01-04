@@ -9,6 +9,7 @@ import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_detail_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_export_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_import_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
 import 'package:notes/models/app_settings.dart';
@@ -83,10 +84,6 @@ class _EditNoteViewState extends State<EditNoteView> {
             backgroundColor: noteEditingController.note.backgroundColorByTheme(themeData.isDarkMode()),
               appBar: AppBar(
                 backgroundColor: noteEditingController.note.backgroundColorByTheme(themeData.isDarkMode()),
-                leadingWidth: 50,
-                automaticallyImplyLeading: false,
-                toolbarHeight: 50,
-                titleSpacing: 0.0,
                 leading: IconButton(
                     onPressed: () {
                       if (!widget.noteEditingController.document.isEmpty() && !widget.noteEditingController.readOnly) {
@@ -120,6 +117,9 @@ class _EditNoteViewState extends State<EditNoteView> {
                   Visibility(
                       visible: widget.noteEditingController.readOnly,
                       child: NoteEditorDetailButton(noteEditingController: widget.noteEditingController)),
+                  Visibility(
+                      visible: !widget.noteEditingController.readOnly,
+                      child: NoteEditorImportButton(noteEditingController: widget.noteEditingController)),
                   Visibility(
                       visible: !widget.noteEditingController.readOnly,
                       child: NoteEditorUndoButton(noteEditingController: widget.noteEditingController)),
