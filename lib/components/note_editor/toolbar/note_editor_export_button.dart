@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:amphi/models/app_localizations.dart';
@@ -16,61 +17,44 @@ class NoteEditorExportButton extends StatelessWidget {
 
   void exportToNote(BuildContext context) async {
     Note note = noteEditingController.note;
-    String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.note");
+    var bytes = utf8.encode(note.toFileContentBase64());
+    var selectedPath = await FilePicker.platform.saveFile(
+        fileName: "${note.title}.note",
+      bytes: bytes
+    );
 
-    if (selectedPath != null) {
-
-        File file = File(selectedPath);
-        await file.writeAsString(note.toFileContentBase64());
-
-        showToast(context, "");
-
+    if(selectedPath != null) {
+      var file = File(selectedPath);
+      await file.writeAsBytes(bytes);
+      showToast(context, "");
     }
   }
 
   void exportToHTML(BuildContext context) async {
     Note note = noteEditingController.note;
-    String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.html");
-
-    if (selectedPath != null) {
-        String html = note.toHTML(context);
-        File file = File(selectedPath);
-        await file.writeAsString(html);
-
-        showToast(context, "");
+    var bytes = utf8.encode(note.toHTML(context));
+    var selectedPath = await FilePicker.platform.saveFile(
+        fileName: "${note.title}.html",
+        bytes: bytes
+    );
+    if(selectedPath != null) {
+      var file = File(selectedPath);
+      await file.writeAsBytes(bytes);
+      showToast(context, "");
     }
   }
 
   // void exportAsMarkdown(BuildContext context) async {
-  //   Note note = noteEditingController.note;
-  //   String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.md");
-  //
-  //   if (selectedPath != null) {
-  //     File file = File(selectedPath);
-  //     await file.writeAsString(note.toMarkdown());
-  //     showToast(context, "");
-  //   }
+
   // }
 
   // void exportAsWord(BuildContext context) async {
-  //   Note note = noteEditingController.note;
-  //   String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.html");
-  //
-  //   if (selectedPath != null) {
-  //     showToast(context, "");
-  //   }
+
   // }
 
   // void exportAsPDF() async {
   //   Note note = noteEditingController.note;
-  //   String? selectedPath = await FilePicker.platform.saveFile(fileName: "${note.title}.pdf");
-  //
-  //
-  //   if (selectedPath != null) {
-  //
-  //     File file = File(selectedPath);
-  //     await file.writeAsBytes(await note.toPDF().save());
-  //   }
+
   // }
   @override
   Widget build(BuildContext context) {

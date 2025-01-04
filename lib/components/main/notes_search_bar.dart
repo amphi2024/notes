@@ -20,7 +20,7 @@ class NotesSearchBar extends StatelessWidget {
         prefixIcon: Icon(
           Icons.search,
           size: 15,
-          color: borderColor.withValues(alpha: 0.1),
+          color: borderColor.withValues(alpha: 0.2),
         ),
         contentPadding: EdgeInsets.only(left: 5, right: 5),
         enabledBorder: OutlineInputBorder(

@@ -16,13 +16,32 @@ class NoteCalendarBlock extends NoteTableBlock {
 class _NoteCalendarState extends State<NoteCalendarBlock> {
 
   late PageController pageController = PageController(initialPage: dateTime.month - 1);
-  DateTime dateTime = DateTime.now();
-  DateTime showingMonth = DateTime.now();
+  late DateTime dateTime;
+  late DateTime showingMonth;
 
  @override
   void dispose() {
    pageController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+
+    int dateIndex = widget.pageInfo["dateRowIndex"] ?? 0;
+
+    try {
+      var list = widget.tableData.data[0];
+      DateTime dateOfEvent = DateTime.fromMillisecondsSinceEpoch(list[dateIndex]["date"]).toLocal();
+      dateTime = dateOfEvent;
+      showingMonth = dateOfEvent;
+    }
+    catch(e) {
+      dateTime = DateTime.now();
+      showingMonth = DateTime.now();
+    }
+
+    super.initState();
   }
 
   @override

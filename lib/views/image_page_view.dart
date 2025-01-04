@@ -105,12 +105,16 @@ class _ImagePageViewState extends State<ImagePageView> {
                                 IconButton(
                                     icon: Icon(Icons.save),
                                     onPressed: () async {
-                                      var selectedPath = await FilePicker.platform.saveFile(fileName: "image.${FilenameUtils.extensionName(widget.path)}");
+                                      File originalFile = File(widget.path);
+                                      var bytes = await originalFile.readAsBytes();
+                                      var selectedPath = await FilePicker.platform.saveFile(
+                                          fileName: "image.${FilenameUtils.extensionName(widget.path)}",
+                                        bytes: bytes
+                                      );
                                       if(selectedPath != null) {
-                                        File originalFile = File(widget.path);
                                         var file = File(selectedPath);
-                                        file.writeAsBytes(await originalFile.readAsBytes());
-                                        showToast(context, "Complete");
+                                        await file.writeAsBytes(bytes);
+                                        showToast(context, "");
                                       }
                                     }),
                                 IconButton(

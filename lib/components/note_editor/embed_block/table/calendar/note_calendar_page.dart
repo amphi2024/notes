@@ -53,8 +53,6 @@ class _NoteCalendarPageState extends State<NoteCalendarPage> {
               return Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -82,12 +80,9 @@ class _NoteCalendarPageState extends State<NoteCalendarPage> {
 
 int getMaxDaysInMonth(DateTime dateTime) {
 
-  // Create a DateTime object for the first day of the next month
   DateTime nextMonth = DateTime(dateTime.year, dateTime.month + 1, 1);
 
-  // Subtract one day from the next month's first day to get the last day of the current month
   DateTime lastDayOfCurrentMonth = nextMonth.subtract(Duration(days: 1));
 
-  // Return the day of the last day of the current month
   return lastDayOfCurrentMonth.day;
 }

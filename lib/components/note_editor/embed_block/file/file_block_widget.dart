@@ -16,35 +16,42 @@ class FileBlockWidget extends StatelessWidget {
   const FileBlockWidget({super.key, required this.blockKey});
 
   void downloadFile( BuildContext context,  FileInNote fileInNote) async {
-    var selectedPath = await FilePicker.platform.saveFile(fileName: fileInNote.label);
 
-    if (selectedPath != null) {
-        File file = File(selectedPath);
         appWebChannel.downloadFile(
           noteName: appState.noteEditingController.note.name,
           filename: fileInNote.filename,
           onSuccess: (bytes) async {
-            await file.writeAsBytes(bytes);
-            showToast(context, "");
+           var selectedPath =  await FilePicker.platform.saveFile(
+                fileName: fileInNote.label,
+              bytes: bytes
+            );
+
+           if(selectedPath != null) {
+             var file = File(selectedPath);
+             await file.writeAsBytes(bytes);
+             showToast(context, "Success");
+           }
           },
           onFailed: (statusCode) {
             if(statusCode == HttpStatus.unauthorized) {
-              showToast(context, "");
+              showToast(context, "unauthorized");
             }
             else if(statusCode == HttpStatus.notFound) {
-              showToast(context, "");
+              showToast(context, "notFound");
             }
             else {
-              showToast(context, "");
+              showToast(context, "error");
             }
           }
         );
-    }
+
   }
 
   @override
   Widget build(BuildContext context) {
     var model = noteEmbedBlocks.getFile(blockKey);
+    print(model.label);
+    print(model.filename);
     var themeData = Theme.of(context);
 
     Widget downloadButtonOrSomething =  IconButton(onPressed: () {
@@ -81,7 +88,10 @@ class FileBlockWidget extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(model.label, style: themeData.textTheme.bodyLarge, maxLines: 1,overflow: TextOverflow.ellipsis,),
+                        child: SelectableText(
+                            model.label,
+                          maxLines: 1,
+                        ),
                       ),
                     ),
                     downloadButtonOrSomething

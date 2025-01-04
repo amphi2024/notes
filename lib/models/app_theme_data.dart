@@ -130,8 +130,6 @@ class AppThemeData {
       textTheme: TextTheme(
         bodyMedium: TextStyle(
             color: textColor, fontSize: 15, overflow: TextOverflow.ellipsis),
-        bodyLarge: TextStyle(
-            color: textColor, fontSize: 20, overflow: TextOverflow.ellipsis)
       ),
       dialogTheme: DialogTheme(
           shape: RoundedRectangleBorder(
@@ -163,12 +161,8 @@ extension ThemeDataExtension on ThemeData {
         ? appSettings.appTheme!.lightTheme.noteTextColor
         : appSettings.appTheme!.darkTheme.noteTextColor;
 
-    return ThemeData(
+    return themeData.copyWith(
         scaffoldBackgroundColor: noteBackgroundColor,
-        inputDecorationTheme: Theme.of(context).inputDecorationTheme,
-        dividerColor: themeData.dividerColor,
-        focusColor: themeData.focusColor,
-        highlightColor: themeData.highlightColor,
         textTheme: TextTheme(
             bodyMedium: TextStyle(color: noteTextColor, fontSize: 15)),
         appBarTheme: AppBarTheme(
@@ -181,12 +175,10 @@ extension ThemeDataExtension on ThemeData {
                     ? appSettings.appTheme!.lightTheme.accentColor
                     : appSettings.appTheme!.darkTheme.accentColor,
                 size: 30)),
-        colorScheme: Theme.of(context).colorScheme,
         iconTheme: IconThemeData(
-          color: themeData.iconTheme.color,
-          size: 30
+            color: themeData.iconTheme.color,
+            size: 30
         ),
-        shadowColor: themeData.shadowColor
     );
   }
 }
