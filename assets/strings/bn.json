@@ -14,6 +14,8 @@
   "@theme": "থিম",
   "@title": "শিরোনাম",
   "@trashes": "ফেলাফেলা",
+  "@guest": "অতিথি",
+  "@add_account": "অ্যাকাউন্ট যোগ করুন",
   "@use_my_own_server": "আমার নিজের সার্ভার ব্যবহার করুন",
   "@hint_theme_name": "নাম",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "ফটো",
   "@editor_add_image_from_files": "ফাইল",
 
-  "@editor_export_note_as_html": "HTML হিসেবে রপ্তানি করুন",
+
 
   "@editor_hint_sub_note_title": "শিরোনাম",
 
   "@editor_add_data_page_chart": "চার্ট",
   "@editor_add_data_page_calendar": "ক্যালেন্ডার",
+
+  "@editor_view_pager_height": "উচ্চতা",
 
   "@day_name_sunday": "রবিবার",
   "@day_name_monday": "সোমবার",
@@ -128,8 +132,29 @@
   "@image_action_remove": "অপসারণ করুন",
   "@image_action_resize": "আকার পরিবর্তন করুন",
   "@image_action_share": "শেয়ার করুন",
-  "@image_action_copy": "কপি করুন"
+  "@image_action_copy": "কপি করুন",
 
+  "@editor_chart_rows_to_show": "প্রদর্শন করার সারি",
+  "@editor_chart_ascending": "বৃদ্ধি ক্রম",
+
+  "@note_text_color": "টেক্সট রঙ",
+  "@note_background_color": "ব্যাকগ্রাউন্ড রঙ",
+  "@note_text_size": "টেক্সট সাইজ",
+  "@note_line_height": "লাইন উচ্চতা",
+
+  "@note_export_label_note": "নোট",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "চিত্র লোড করা যাচ্ছে না",
+  "@toast_message_image_export_success": "চিত্র সংরক্ষিত হয়েছে",
+  "@toast_message_file_download_success": "ডাউনলোড সম্পূর্ণ হয়েছে",
+  "@toast_message_file_download_failed_error": "ডাউনলোড ব্যর্থ হয়েছে",
+  "@toast_message_file_download_failed_not_found": "ফাইলটি সার্ভারে পাওয়া যায়নি, ডাউনলোড ব্যর্থ হয়েছে",
+  "@toast_message_file_download_failed_unauthorized": "ডাউনলোড ব্যর্থ হয়েছে, আপনাকে আবার লগইন করতে হবে",
+  "@toast_message_note_export_success": "রপ্তানি সম্পন্ন হয়েছে"
 
 
 }

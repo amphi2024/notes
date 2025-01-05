@@ -14,6 +14,8 @@
   "@theme": "Motyw",
   "@title": "Tytuł",
   "@trashes": "Kosz",
+  "@guest": "Gość",
+  "@add_account": "Dodaj Konto",
   "@use_my_own_server": "Użyj mojego własnego serwera",
   "@hint_theme_name": "Nazwa",
 
@@ -108,12 +110,12 @@
   "@editor_add_image_from_photos": "Zdjęcia",
   "@editor_add_image_from_files": "Pliki",
 
-  "@editor_export_note_as_html": "Eksportuj jako HTML",
-
   "@editor_hint_sub_note_title": "Tytuł",
 
   "@editor_add_data_page_chart": "Wykres",
   "@editor_add_data_page_calendar": "Kalendarz",
+
+  "@editor_view_pager_height": "Wysokość",
 
   "@day_name_sunday": "Niedziela",
   "@day_name_monday": "Poniedziałek",
@@ -128,10 +130,29 @@
   "@image_action_remove": "Usuń",
   "@image_action_resize": "Zmień rozmiar",
   "@image_action_share": "Udostępnij",
-  "@image_action_copy": "Kopiuj"
+  "@image_action_copy": "Kopiuj",
 
+  "@editor_chart_rows_to_show": "Wiersze do wyświetlenia",
+  "@editor_chart_ascending": "Rosnąco",
 
+  "@note_text_color": "Kolor tekstu",
+  "@note_background_color": "Kolor tła",
+  "@note_text_size": "Rozmiar tekstu",
+  "@note_line_height": "Wysokość linii",
 
+  "@note_export_label_note": "Notatka",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Nie można załadować obrazu",
+  "@toast_message_image_export_success": "Obraz zapisany",
+  "@toast_message_file_download_success": "Pobieranie zakończone",
+  "@toast_message_file_download_failed_error": "Pobieranie nie powiodło się",
+  "@toast_message_file_download_failed_not_found": "Pobieranie nie powiodło się, nie znaleziono pliku na serwerze",
+  "@toast_message_file_download_failed_unauthorized": "Pobieranie nie powiodło się, musisz się ponownie zalogować",
+  "@toast_message_note_export_success": "Eksport zakończony"
 
 
 }

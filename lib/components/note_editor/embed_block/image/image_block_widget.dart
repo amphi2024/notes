@@ -1,15 +1,13 @@
 
 import 'package:amphi/models/app_localizations.dart';
-import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/image_from_storage.dart';
-import 'package:notes/models/app_storage.dart';
 import 'package:notes/views/image_page_view.dart';
 
 class ImageBlockWidget extends StatefulWidget {
   final String imageFilename;
-  final String noteFileNameOnly;
-  const ImageBlockWidget({super.key, required this.imageFilename, required this.noteFileNameOnly});
+  final String noteName;
+  const ImageBlockWidget({super.key, required this.imageFilename, required this.noteName});
 
   @override
   State<ImageBlockWidget> createState() => _ImageBlockWidgetState();
@@ -18,7 +16,6 @@ class ImageBlockWidget extends StatefulWidget {
 class _ImageBlockWidgetState extends State<ImageBlockWidget> {
   @override
   Widget build(BuildContext context) {
-    String absolutePath = PathUtils.join(appStorage.notesPath, widget.noteFileNameOnly, "images", widget.imageFilename);
     return Align(
       alignment: Alignment.centerLeft,
       child: MouseRegion(
@@ -30,11 +27,11 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
               context,
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
-                  return ImagePageView(path: absolutePath);
+                  return ImagePageView(noteName: widget.noteName, imageFilename: widget.imageFilename,);
                 },
                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                  const begin = Offset(0.0, 1.0); // 아래에서 시작
-                  const end = Offset.zero; // 최종 위치 (위)
+                  const begin = Offset(0.0, 1.0);
+                  const end = Offset.zero;
                   const curve = Curves.ease;
 
                   var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
@@ -76,7 +73,7 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
             // ]);
           },
           child: ImageFromStorage(
-            noteFileNameOnly: widget.noteFileNameOnly,
+            noteName: widget.noteName,
             imageFilename: widget.imageFilename,
             fit: BoxFit.contain,
           ),

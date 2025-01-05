@@ -14,6 +14,8 @@
   "@theme": "Θέμα",
   "@title": "Τίτλος",
   "@trashes": "Κάδος απορριμμάτων",
+  "@guest": "Επισκέπτης",
+  "@add_account": "Προσθήκη Λογαριασμού",
   "@use_my_own_server": "Χρήση δικού μου διακομιστή",
   "@hint_theme_name": "Όνομα",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "Φωτογραφίες",
   "@editor_add_image_from_files": "Αρχεία",
 
-  "@editor_export_note_as_html": "Εξαγωγή ως HTML",
+
 
   "@editor_hint_sub_note_title": "Τίτλος",
 
   "@editor_add_data_page_chart": "Γράφημα",
   "@editor_add_data_page_calendar": "Ημερολόγιο",
+
+  "@editor_view_pager_height": "Ύψος",
 
   "@day_name_sunday": "Κυριακή",
   "@day_name_monday": "Δευτέρα",
@@ -128,10 +132,28 @@
   "@image_action_remove": "Αφαίρεση",
   "@image_action_resize": "Αλλαγή μεγέθους",
   "@image_action_share": "Κοινοποίηση",
-  "@image_action_copy": "Αντιγραφή"
+  "@image_action_copy": "Αντιγραφή",
 
+  "@editor_chart_rows_to_show": "Γραμμές προς εμφάνιση",
+  "@editor_chart_ascending": "Αύξουσα",
 
+  "@note_text_color": "Χρώμα κειμένου",
+  "@note_background_color": "Χρώμα φόντου",
+  "@note_text_size": "Μέγεθος κειμένου",
+  "@note_line_height": "Ύψος γραμμής",
 
+  "@note_export_label_note": "Σημείωση",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
 
+  "@message_cannot_load_image": "Αποτυχία φόρτωσης εικόνας",
+  "@toast_message_image_export_success": "Η εικόνα αποθηκεύτηκε",
+  "@toast_message_file_download_success": "Η λήψη ολοκληρώθηκε",
+  "@toast_message_file_download_failed_error": "Η λήψη απέτυχε",
+  "@toast_message_file_download_failed_not_found": "Η λήψη απέτυχε, το αρχείο δεν βρέθηκε στον διακομιστή",
+  "@toast_message_file_download_failed_unauthorized": "Η λήψη απέτυχε, πρέπει να συνδεθείτε ξανά",
+  "@toast_message_note_export_success": "Η εξαγωγή ολοκληρώθηκε"
 
 }

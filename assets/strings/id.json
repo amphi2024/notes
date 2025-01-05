@@ -14,6 +14,8 @@
   "@theme": "Tema",
   "@title": "Judul",
   "@trashes": "Sampah",
+  "@guest": "Tamu",
+  "@add_account": "Tambah Akun",
   "@use_my_own_server": "Gunakan server saya sendiri",
   "@hint_theme_name": "Nama",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "Foto",
   "@editor_add_image_from_files": "Berkas",
 
-  "@editor_export_note_as_html": "Ekspor sebagai HTML",
+
 
   "@editor_hint_sub_note_title": "Judul",
 
   "@editor_add_data_page_chart": "Grafik",
   "@editor_add_data_page_calendar": "Kalender",
+
+  "@editor_view_pager_height": "Tinggi",
 
   "@day_name_sunday": "Minggu",
   "@day_name_monday": "Senin",
@@ -128,8 +132,28 @@
   "@image_action_remove": "Hapus",
   "@image_action_resize": "Ubah ukuran",
   "@image_action_share": "Bagikan",
-  "@image_action_copy": "Salin"
+  "@image_action_copy": "Salin",
 
+  "@editor_chart_rows_to_show": "Baris yang Ditampilkan",
+  "@editor_chart_ascending": "Menaik",
 
+  "@note_text_color": "Warna Teks",
+  "@note_background_color": "Warna Latar Belakang",
+  "@note_text_size": "Ukuran Teks",
+  "@note_line_height": "Tinggi Baris",
+
+  "@note_export_label_note": "Catatan",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Gagal memuat gambar",
+  "@toast_message_image_export_success": "Gambar disimpan",
+  "@toast_message_file_download_success": "Unduhan selesai",
+  "@toast_message_file_download_failed_error": "Unduhan gagal",
+  "@toast_message_file_download_failed_not_found": "Unduhan gagal, file tidak ditemukan di server",
+  "@toast_message_file_download_failed_unauthorized": "Unduhan gagal, Anda harus masuk lagi",
+  "@toast_message_note_export_success": "Ekspor selesai"
 
 }

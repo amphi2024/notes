@@ -12,6 +12,7 @@ import 'package:notes/components/note_editor/toolbar/note_editor_export_button.d
 import 'package:notes/components/note_editor/toolbar/note_editor_import_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
+import 'package:notes/main.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_theme_data.dart';
 import 'package:notes/models/icons.dart';
@@ -163,7 +164,7 @@ class _EditNoteViewState extends State<EditNoteView> {
                         noteEditingController: widget.noteEditingController,
                       )),
                   Positioned(
-                    bottom: 10,
+                    bottom: bottomPaddingIfAndroid3Button(context) + 10,
                     left: 0,
                     right: 0,
                     child: Visibility(

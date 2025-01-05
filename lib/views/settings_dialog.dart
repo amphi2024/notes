@@ -75,7 +75,7 @@ class _DesktopSettingsViewState extends State<SettingsDialog> {
                     children: [
                       Visibility(
                           visible: Platform.isAndroid &&
-                              appMethodChannel.systemVersion! >= 29,
+                              appMethodChannel.systemVersion >= 29,
                           child: TitledCheckBox(
                               title: AppLocalizations.of(context).get("@transparent_navigation_bar"),
                               value: appSettings.transparentNavigationBar,

@@ -79,6 +79,7 @@ class _MyAppState extends State<MyApp> {
     appWebChannel.getDeviceInfo();
     if (Platform.isAndroid) {
       appMethodChannel.getSystemVersion();
+      appMethodChannel.configureNeedsBottomPadding();
     }
 
     appState.notifySomethingChanged = (function) {
@@ -119,4 +120,14 @@ class _MyAppState extends State<MyApp> {
       );
     }
   }
+}
+
+double bottomPaddingIfAndroid3Button(BuildContext context) {
+  if(appMethodChannel.needsBottomPadding) {
+    return MediaQuery.of(context).padding.bottom;
+  }
+  else {
+    return 0;
+  }
+
 }

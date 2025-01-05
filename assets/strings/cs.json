@@ -14,6 +14,8 @@
   "@theme": "Téma",
   "@title": "Název",
   "@trashes": "Koš",
+  "@guest": "Host",
+  "@add_account": "Přidat účet",
   "@use_my_own_server": "Použít vlastní server",
   "@hint_theme_name": "Název",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "Fotky",
   "@editor_add_image_from_files": "Soubory",
 
-  "@editor_export_note_as_html": "Exportovat jako HTML",
+
 
   "@editor_hint_sub_note_title": "Název",
 
   "@editor_add_data_page_chart": "Graf",
   "@editor_add_data_page_calendar": "Kalendář",
+
+  "@editor_view_pager_height": "Výška",
 
   "@day_name_sunday": "Neděle",
   "@day_name_monday": "Pondělí",
@@ -128,8 +132,29 @@
   "@image_action_remove": "Odstranit",
   "@image_action_resize": "Změnit velikost",
   "@image_action_share": "Sdílet",
-  "@image_action_copy": "Kopírovat"
+  "@image_action_copy": "Kopírovat",
 
+  "@editor_chart_rows_to_show": "Počet řádků k zobrazení",
+  "@editor_chart_ascending": "Vzestupně",
+
+  "@note_text_color": "Barva textu",
+  "@note_background_color": "Barva pozadí",
+  "@note_text_size": "Velikost textu",
+  "@note_line_height": "Výška řádku",
+
+  "@note_export_label_note": "Poznámka",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Nelze načíst obrázek",
+  "@toast_message_image_export_success": "Obrázek byl uložen",
+  "@toast_message_file_download_success": "Stahování dokončeno",
+  "@toast_message_file_download_failed_error": "Stažení se nezdařilo",
+  "@toast_message_file_download_failed_not_found": "Stažení se nezdařilo, soubor nebyl na serveru nalezen",
+  "@toast_message_file_download_failed_unauthorized": "Stažení se nezdařilo, musíte se přihlásit znovu",
+  "@toast_message_note_export_success": "Export dokončen"
 
 
 

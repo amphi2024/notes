@@ -103,16 +103,13 @@
   "@editor_table_delete_row": "Delete Row",
   "@editor_table_clear_cell": "Clear Cell",
 
-  "@editor_chart_rows_to_show": "Rows to Show",
-  "@editor_chart_ascending": "Ascending",
-
   "@editor_calendar_rows_to_show": "Rows to Show",
   "@editor_calendar_rows_for_date": "Rows for Date",
 
   "@editor_add_image_from_photos": "Photos",
   "@editor_add_image_from_files": "Files",
 
-  "@editor_export_note_as_html": "Export as HTML",
+
 
   "@editor_hint_sub_note_title": "Title",
 
@@ -136,6 +133,9 @@
   "@image_action_share": "Share",
   "@image_action_copy": "Copy",
 
+  "@editor_chart_rows_to_show": "Rows to Show",
+  "@editor_chart_ascending": "Ascending",
+
   "@note_text_color": "Text color",
   "@note_background_color": "Background color",
   "@note_text_size": "Text size",
@@ -145,5 +145,14 @@
   "@note_export_label_html": "HTML",
   "@note_export_label_markdown": "Markdown",
   "@note_export_label_word": "Word",
-  "@note_export_label_pdf": "PDF"
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Cannot load image",
+  "@toast_message_image_export_success": "Image is saved",
+  "@toast_message_file_download_success": "Download completed",
+  "@toast_message_file_download_failed_error": "Failed to download",
+  "@toast_message_file_download_failed_not_found": "Failed to download, cannot find file on the server",
+  "@toast_message_file_download_failed_unauthorized": "Failed to download, you must re-log in",
+  "@toast_message_note_export_success": "Export completed"
+
 }

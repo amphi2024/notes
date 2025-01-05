@@ -14,6 +14,8 @@
   "@theme": "Chủ đề",
   "@title": "Tiêu đề",
   "@trashes": "Thùng rác",
+  "@guest": "Khách",
+  "@add_account": "Thêm Tài Khoản",
   "@use_my_own_server": "Sử dụng máy chủ của tôi",
   "@hint_theme_name": "Tên",
 
@@ -108,12 +110,12 @@
   "@editor_add_image_from_photos": "Ảnh",
   "@editor_add_image_from_files": "Tệp",
 
-  "@editor_export_note_as_html": "Xuất dưới dạng HTML",
-
   "@editor_hint_sub_note_title": "Tiêu đề",
 
   "@editor_add_data_page_chart": "Biểu đồ",
   "@editor_add_data_page_calendar": "Lịch",
+
+  "@editor_view_pager_height": "Chiều cao",
 
   "@day_name_sunday": "Chủ Nhật",
   "@day_name_monday": "Thứ Hai",
@@ -128,10 +130,29 @@
   "@image_action_remove": "Xóa",
   "@image_action_resize": "Thay đổi kích thước",
   "@image_action_share": "Chia sẻ",
-  "@image_action_copy": "Sao chép"
+  "@image_action_copy": "Sao chép",
 
+  "@editor_chart_rows_to_show": "Dòng để hiển thị",
+  "@editor_chart_ascending": "Tăng dần",
 
+  "@note_text_color": "Màu văn bản",
+  "@note_background_color": "Màu nền",
+  "@note_text_size": "Kích thước văn bản",
+  "@note_line_height": "Chiều cao dòng",
 
+  "@note_export_label_note": "Ghi chú",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Không thể tải hình ảnh",
+  "@toast_message_image_export_success": "Hình ảnh đã được lưu",
+  "@toast_message_file_download_success": "Tải xuống hoàn tất",
+  "@toast_message_file_download_failed_error": "Tải xuống không thành công",
+  "@toast_message_file_download_failed_not_found": "Tải xuống không thành công, không tìm thấy tệp trên máy chủ",
+  "@toast_message_file_download_failed_unauthorized": "Tải xuống không thành công, bạn cần đăng nhập lại",
+  "@toast_message_note_export_success": "Xuất khẩu hoàn tất"
 
 
 }

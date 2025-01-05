@@ -26,7 +26,7 @@ class NoteEditorExportButton extends StatelessWidget {
     if(selectedPath != null) {
       var file = File(selectedPath);
       await file.writeAsBytes(bytes);
-      showToast(context, "");
+      showToast(context, AppLocalizations.of(context).get("@toast_message_note_export_success"));
     }
   }
 
@@ -40,7 +40,7 @@ class NoteEditorExportButton extends StatelessWidget {
     if(selectedPath != null) {
       var file = File(selectedPath);
       await file.writeAsBytes(bytes);
-      showToast(context, "");
+      showToast(context, AppLocalizations.of(context).get("@toast_message_note_export_success"));
     }
   }
 

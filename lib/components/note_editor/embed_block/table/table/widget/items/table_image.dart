@@ -30,7 +30,7 @@ class TableImage extends StatelessWidget {
       return Padding(
           padding: EdgeInsets.all(7.5),
           child: ImageBlockWidget(
-            noteFileNameOnly: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
+            noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
             imageFilename: filename,
           ));
     }
@@ -48,7 +48,7 @@ class TableImage extends StatelessWidget {
               removeRow: removeRow,
               clearCell: removeValue),
           ImageBlockWidget(
-            noteFileNameOnly: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
+            noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
             imageFilename: filename,
           )
         ],

@@ -14,6 +14,8 @@
   "@theme": "Téma",
   "@title": "Cím",
   "@trashes": "Kuka",
+  "@guest": "Vendég",
+  "@add_account": "Fiók hozzáadása",
   "@use_my_own_server": "Saját szerver használata",
   "@hint_theme_name": "Név",
 
@@ -108,12 +110,12 @@
   "@editor_add_image_from_photos": "Fényképek",
   "@editor_add_image_from_files": "Fájlok",
 
-  "@editor_export_note_as_html": "Exportálás HTML-ként",
-
   "@editor_hint_sub_note_title": "Cím",
 
   "@editor_add_data_page_chart": "Grafikon",
   "@editor_add_data_page_calendar": "Naptár",
+
+  "@editor_view_pager_height": "Magasság",
 
   "@day_name_sunday": "Vasárnap",
   "@day_name_monday": "Hétfő",
@@ -128,10 +130,28 @@
   "@image_action_remove": "Eltávolítás",
   "@image_action_resize": "Méret módosítása",
   "@image_action_share": "Megosztás",
-  "@image_action_copy": "Másolás"
+  "@image_action_copy": "Másolás",
 
+  "@editor_chart_rows_to_show": "Megjelenítendő sorok",
+  "@editor_chart_ascending": "Növekvő",
 
+  "@note_text_color": "Szöveg színe",
+  "@note_background_color": "Háttérszín",
+  "@note_text_size": "Szövegméret",
+  "@note_line_height": "Sor magasság",
 
+  "@note_export_label_note": "Jegyzet",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
 
+  "@message_cannot_load_image": "Nem lehet betölteni a képet",
+  "@toast_message_image_export_success": "A kép elmentve",
+  "@toast_message_file_download_success": "Letöltés befejeződött",
+  "@toast_message_file_download_failed_error": "A letöltés sikertelen",
+  "@toast_message_file_download_failed_not_found": "A letöltés sikertelen, a fájl nem található a szerveren",
+  "@toast_message_file_download_failed_unauthorized": "A letöltés sikertelen, újra be kell jelentkeznie",
+  "@toast_message_note_export_success": "Exportálás sikeres"
 
 }

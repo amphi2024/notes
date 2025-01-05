@@ -19,6 +19,6 @@ class ImageEmbedBuilder extends EmbedBuilder {
     bool inline,
     TextStyle textStyle,
   ) {
-    return ImageBlockWidget(noteFileNameOnly: FilenameUtils.nameOnly(appState.noteEditingController.note.filename), imageFilename: node.value.data);
+    return ImageBlockWidget(noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename), imageFilename: node.value.data);
   }
 }

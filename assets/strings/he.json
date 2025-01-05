@@ -14,6 +14,8 @@
   "@theme": "ערכת נושא",
   "@title": "כותרת",
   "@trashes": "פח",
+  "@guest": "אורח",
+  "@add_account": "הוסף חשבון",
   "@use_my_own_server": "השתמש בשרת האישי שלי",
   "@hint_theme_name": "שם",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "תמונות",
   "@editor_add_image_from_files": "קבצים",
 
-  "@editor_export_note_as_html": "ייצא כ-HTML",
+
 
   "@editor_hint_sub_note_title": "כותרת",
 
   "@editor_add_data_page_chart": "תרשים",
   "@editor_add_data_page_calendar": "לוח שנה",
+
+  "@editor_view_pager_height": "גובה",
 
   "@day_name_sunday": "ראשון",
   "@day_name_monday": "שני",
@@ -128,10 +132,28 @@
   "@image_action_remove": "הסרה",
   "@image_action_resize": "שנה גודל",
   "@image_action_share": "שתף",
-  "@image_action_copy": "העתק"
+  "@image_action_copy": "העתק",
 
+  "@editor_chart_rows_to_show": "שורות להציג",
+  "@editor_chart_ascending": "עולה",
 
+  "@note_text_color": "צבע טקסט",
+  "@note_background_color": "צבע רקע",
+  "@note_text_size": "גודל טקסט",
+  "@note_line_height": "גובה שורה",
 
+  "@note_export_label_note": "הערה",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
 
+  "@message_cannot_load_image": "לא ניתן לטעון את התמונה",
+  "@toast_message_image_export_success": "התמונה נשמרה",
+  "@toast_message_file_download_success": "ההורדה הושלמה",
+  "@toast_message_file_download_failed_error": "ההורדה נכשלה",
+  "@toast_message_file_download_failed_not_found": "ההורדה נכשלה, לא נמצא קובץ בשרת",
+  "@toast_message_file_download_failed_unauthorized": "ההורדה נכשלה, עליך להיכנס מחדש",
+  "@toast_message_note_export_success": "הייצוא הושלם"
 
 }

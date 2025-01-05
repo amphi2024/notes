@@ -14,6 +14,8 @@
   "@theme": "Temă",
   "@title": "Titlu",
   "@trashes": "Gunoaie",
+  "@guest": "Vizitator",
+  "@add_account": "Adăuga Cont",
   "@use_my_own_server": "Folosește propriul meu server",
   "@hint_theme_name": "Nume",
 
@@ -107,12 +109,12 @@
   "@editor_add_image_from_photos": "Fotografii",
   "@editor_add_image_from_files": "Fișiere",
 
-  "@editor_export_note_as_html": "Exportă ca HTML",
-
   "@editor_hint_sub_note_title": "Titlu",
 
   "@editor_add_data_page_chart": "Grafic",
   "@editor_add_data_page_calendar": "Calendar",
+
+  "@editor_view_pager_height": "Înălțime",
 
   "@day_name_sunday": "Duminică",
   "@day_name_monday": "Luni",
@@ -127,8 +129,29 @@
   "@image_action_remove": "Elimină",
   "@image_action_resize": "Redimensionează",
   "@image_action_share": "Partajează",
-  "@image_action_copy": "Copiază"
+  "@image_action_copy": "Copiază",
 
+  "@editor_chart_rows_to_show": "Linii de afișat",
+  "@editor_chart_ascending": "Ascendent",
+
+  "@note_text_color": "Culoarea textului",
+  "@note_background_color": "Culoarea fundalului",
+  "@note_text_size": "Dimensiunea textului",
+  "@note_line_height": "Înălțimea liniei",
+
+  "@note_export_label_note": "Notă",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Nu se poate încărca imaginea",
+  "@toast_message_image_export_success": "Imagine salvată",
+  "@toast_message_file_download_success": "Descărcare completată",
+  "@toast_message_file_download_failed_error": "Descărcare eșuată",
+  "@toast_message_file_download_failed_not_found": "Descărcare eșuată, fișierul nu a fost găsit pe server",
+  "@toast_message_file_download_failed_unauthorized": "Descărcare eșuată, trebuie să vă reconectați",
+  "@toast_message_note_export_success": "Export completat"
 
 
 

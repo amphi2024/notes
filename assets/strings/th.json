@@ -14,6 +14,8 @@
   "@theme": "ธีม",
   "@title": "ชื่อเรื่อง",
   "@trashes": "ถังขยะ",
+  "@guest": "แขก",
+  "@add_account": "เพิ่มบัญชี",
   "@use_my_own_server": "ใช้เซิร์ฟเวอร์ของฉันเอง",
   "@hint_theme_name": "ชื่อ",
 
@@ -108,12 +110,12 @@
   "@editor_add_image_from_photos": "รูปภาพ",
   "@editor_add_image_from_files": "ไฟล์",
 
-  "@editor_export_note_as_html": "ส่งออกเป็น HTML",
-
   "@editor_hint_sub_note_title": "หัวข้อ",
 
   "@editor_add_data_page_chart": "แผนภูมิ",
   "@editor_add_data_page_calendar": "ปฏิทิน",
+
+  "@editor_view_pager_height": "ความสูง",
 
   "@day_name_sunday": "อาทิตย์",
   "@day_name_monday": "จันทร์",
@@ -128,10 +130,29 @@
   "@image_action_remove": "ลบ",
   "@image_action_resize": "ปรับขนาด",
   "@image_action_share": "แชร์",
-  "@image_action_copy": "คัดลอก"
+  "@image_action_copy": "คัดลอก",
 
+  "@editor_chart_rows_to_show": "แถวที่จะแสดง",
+  "@editor_chart_ascending": "เพิ่มขึ้น",
 
+  "@note_text_color": "สีข้อความ",
+  "@note_background_color": "สีพื้นหลัง",
+  "@note_text_size": "ขนาดข้อความ",
+  "@note_line_height": "ความสูงของบรรทัด",
 
+  "@note_export_label_note": "หมายเหตุ",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "ไม่สามารถโหลดภาพได้",
+  "@toast_message_image_export_success": "ภาพถูกบันทึก",
+  "@toast_message_file_download_success": "ดาวน์โหลดเสร็จสมบูรณ์",
+  "@toast_message_file_download_failed_error": "การดาวน์โหลดล้มเหลว",
+  "@toast_message_file_download_failed_not_found": "การดาวน์โหลดล้มเหลว, ไม่พบไฟล์ในเซิร์ฟเวอร์",
+  "@toast_message_file_download_failed_unauthorized": "การดาวน์โหลดล้มเหลว, คุณต้องเข้าสู่ระบบอีกครั้ง",
+  "@toast_message_note_export_success": "การส่งออกเสร็จสมบูรณ์"
 
 
 }

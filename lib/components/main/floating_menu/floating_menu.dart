@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
+
 class FloatingMenu extends StatelessWidget {
 
   final bool showing;
@@ -12,7 +14,7 @@ class FloatingMenu extends StatelessWidget {
       duration: Duration(milliseconds: showing ? 1000 : 1250),
       curve: Curves.easeOutQuint,
       left: 20,
-      bottom: showing ? 30 : -90,
+      bottom: showing ? ( bottomPaddingIfAndroid3Button(context) + 30) : -( bottomPaddingIfAndroid3Button(context) + 90),
       child: Container(
         width: 200,
         height: 70,

@@ -14,6 +14,8 @@
   "@theme": "Thema",
   "@title": "Titel",
   "@trashes": "Prullenbak",
+  "@guest": "Gast",
+  "@add_account": "Voeg Account Toe",
   "@use_my_own_server": "Gebruik mijn eigen server",
   "@hint_theme_name": "Naam",
 
@@ -108,7 +110,7 @@
   "@editor_add_image_from_photos": "Foto's",
   "@editor_add_image_from_files": "Bestanden",
 
-  "@editor_export_note_as_html": "Exporteren als HTML",
+  "@editor_view_pager_height": "Hoogte",
 
   "@editor_hint_sub_note_title": "Titel",
 
@@ -128,8 +130,29 @@
   "@image_action_remove": "Verwijderen",
   "@image_action_resize": "Grootte wijzigen",
   "@image_action_share": "Delen",
-  "@image_action_copy": "Kopiëren"
+  "@image_action_copy": "Kopiëren",
 
+  "@editor_chart_rows_to_show": "Rijen weergeven",
+  "@editor_chart_ascending": "Oplopend",
+
+  "@note_text_color": "Tekstkleur",
+  "@note_background_color": "Achtergrondkleur",
+  "@note_text_size": "Tekstgrootte",
+  "@note_line_height": "Regelhoogte",
+
+  "@note_export_label_note": "Notitie",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Kan afbeelding niet laden",
+  "@toast_message_image_export_success": "Afbeelding opgeslagen",
+  "@toast_message_file_download_success": "Download voltooid",
+  "@toast_message_file_download_failed_error": "Download mislukt",
+  "@toast_message_file_download_failed_not_found": "Download mislukt, bestand niet gevonden op de server",
+  "@toast_message_file_download_failed_unauthorized": "Download mislukt, je moet opnieuw inloggen",
+  "@toast_message_note_export_success": "Export succesvol"
 
 
 

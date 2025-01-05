@@ -14,6 +14,8 @@
   "@theme": "Thème",
   "@title": "Titre",
   "@trashes": "Corbeille",
+  "@guest": "Invité",
+  "@add_account": "Ajouter un Compte",
   "@use_my_own_server": "Utiliser mon propre serveur",
   "@hint_theme_name": "Nom",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "Photos",
   "@editor_add_image_from_files": "Fichiers",
 
-  "@editor_export_note_as_html": "Exporter en HTML",
+
 
   "@editor_hint_sub_note_title": "Titre",
 
   "@editor_add_data_page_chart": "Graphique",
   "@editor_add_data_page_calendar": "Calendrier",
+
+  "@editor_view_pager_height": "Hauteur",
 
   "@day_name_sunday": "Dimanche",
   "@day_name_monday": "Lundi",
@@ -128,9 +132,30 @@
   "@image_action_remove": "Supprimer",
   "@image_action_resize": "Redimensionner",
   "@image_action_share": "Partager",
-  "@image_action_copy": "Copier"
+  "@image_action_copy": "Copier",
 
 
+  "@editor_chart_rows_to_show": "Lignes à afficher",
+  "@editor_chart_ascending": "Ascendant",
+
+  "@note_text_color": "Couleur du texte",
+  "@note_background_color": "Couleur de fond",
+  "@note_text_size": "Taille du texte",
+  "@note_line_height": "Hauteur de ligne",
+
+  "@note_export_label_note": "Note",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Impossible de charger l'image",
+  "@toast_message_image_export_success": "L'image est enregistrée",
+  "@toast_message_file_download_success": "Téléchargement terminé",
+  "@toast_message_file_download_failed_error": "Échec du téléchargement",
+  "@toast_message_file_download_failed_not_found": "Échec du téléchargement, fichier introuvable sur le serveur",
+  "@toast_message_file_download_failed_unauthorized": "Échec du téléchargement, vous devez vous reconnecter",
+  "@toast_message_note_export_success": "Exportation terminée"
 
 
 

@@ -14,6 +14,8 @@
   "@theme": "थीम",
   "@title": "शीर्षक",
   "@trashes": "कूड़ा",
+  "@guest": "अतिथि",
+  "@add_account": "खाता जोड़ें",
   "@use_my_own_server": "मेरी अपनी सर्वर का उपयोग करें",
   "@hint_theme_name": "नाम",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "फोटो",
   "@editor_add_image_from_files": "फाइलें",
 
-  "@editor_export_note_as_html": "HTML के रूप में निर्यात करें",
+
 
   "@editor_hint_sub_note_title": "शीर्षक",
 
   "@editor_add_data_page_chart": "चार्ट",
   "@editor_add_data_page_calendar": "कैलेंडर",
+
+  "@editor_view_pager_height": "ऊँचाई",
 
   "@day_name_sunday": "रविवार",
   "@day_name_monday": "सोमवार",
@@ -128,10 +132,29 @@
   "@image_action_remove": "हटाएं",
   "@image_action_resize": "आकार बदलें",
   "@image_action_share": "साझा करें",
-  "@image_action_copy": "कॉपी करें"
+  "@image_action_copy": "कॉपी करें",
 
+  "@editor_chart_rows_to_show": "दिखाने के लिए पंक्तियाँ",
+  "@editor_chart_ascending": "चढ़ता हुआ",
 
+  "@note_text_color": "टेक्स्ट का रंग",
+  "@note_background_color": "पृष्ठभूमि रंग",
+  "@note_text_size": "टेक्स्ट आकार",
+  "@note_line_height": "लाइन की ऊंचाई",
 
+  "@note_export_label_note": "नोट",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "चित्र लोड नहीं कर सकते",
+  "@toast_message_image_export_success": "चित्र सहेजा गया",
+  "@toast_message_file_download_success": "डाउनलोड पूरा हुआ",
+  "@toast_message_file_download_failed_error": "डाउनलोड विफल",
+  "@toast_message_file_download_failed_not_found": "डाउनलोड विफल, सर्वर पर फ़ाइल नहीं मिली",
+  "@toast_message_file_download_failed_unauthorized": "डाउनलोड विफल, कृपया फिर से लॉगिन करें",
+  "@toast_message_note_export_success": "निर्यात पूरा हुआ"
 
 
 }

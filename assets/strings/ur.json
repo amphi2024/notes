@@ -14,6 +14,8 @@
   "@theme": "تھیم",
   "@title": "عنوان",
   "@trashes": "کچرا",
+  "@guest": "مہمان",
+  "@add_account": "اکاؤنٹ شامل کریں",
   "@use_my_own_server": "اپنے سرور کا استعمال کریں",
   "@hint_theme_name": "نام",
 
@@ -108,12 +110,12 @@
   "@editor_add_image_from_photos": "تصاویر",
   "@editor_add_image_from_files": "فائلیں",
 
-  "@editor_export_note_as_html": "HTML کے طور پر برآمد کریں",
-
   "@editor_hint_sub_note_title": "عنوان",
 
   "@editor_add_data_page_chart": "چارٹ",
   "@editor_add_data_page_calendar": "کیلنڈر",
+
+  "@editor_view_pager_height": "اونچائی",
 
   "@day_name_sunday": "اتوار",
   "@day_name_monday": "پیر",
@@ -128,10 +130,28 @@
   "@image_action_remove": "ہٹائیں",
   "@image_action_resize": "سائز تبدیل کریں",
   "@image_action_share": "شیئر کریں",
-  "@image_action_copy": "کاپی کریں"
+  "@image_action_copy": "کاپی کریں",
 
+  "@editor_chart_rows_to_show": "دکھانے کے لئے قطاریں",
+  "@editor_chart_ascending": "اوپر کی طرف بڑھنا",
 
+  "@note_text_color": "متن کا رنگ",
+  "@note_background_color": "پس منظر کا رنگ",
+  "@note_text_size": "متن کا سائز",
+  "@note_line_height": "لائین کی اونچائی",
 
+  "@note_export_label_note": "نوٹ",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
 
+  "@message_cannot_load_image": "تصویر لوڈ نہیں کی جا سکتی",
+  "@toast_message_image_export_success": "تصویر محفوظ کر لی گئی",
+  "@toast_message_file_download_success": "ڈاؤن لوڈ مکمل ہو گیا",
+  "@toast_message_file_download_failed_error": "ڈاؤن لوڈ ناکام ہو گیا",
+  "@toast_message_file_download_failed_not_found": "ڈاؤن لوڈ ناکام، سرور پر فائل نہیں ملی",
+  "@toast_message_file_download_failed_unauthorized": "ڈاؤن لوڈ ناکام، آپ کو دوبارہ لاگ ان کرنا ہوگا",
+  "@toast_message_note_export_success": "برآمد مکمل ہو گیا"
 
 }

@@ -114,12 +114,12 @@
   "@editor_add_image_from_photos": "갤러리",
   "@editor_add_image_from_files": "파일",
 
-  "@editor_export_note_as_html": "HTML로 내보내기",
-
   "@editor_hint_sub_note_title": "제목",
 
   "@editor_add_data_page_chart": "도표",
   "@editor_add_data_page_calendar": "달력",
+
+  "@editor_view_pager_height": "높이",
 
   "@day_name_sunday": "일",
   "@day_name_monday": "월",
@@ -145,5 +145,14 @@
   "@note_export_label_html": "HTML",
   "@note_export_label_markdown": "마크다운",
   "@note_export_label_word": "워드",
-  "@note_export_label_pdf": "PDF"
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "이미지를 로드할 수 없습니다",
+  "@toast_message_image_export_success": "이미지가 저장되었습니다",
+  "@toast_message_file_download_success": "다운로드가 완료되었습니다",
+  "@toast_message_file_download_failed_error": "다운로드에 실패했습니다",
+  "@toast_message_file_download_failed_not_found": "서버에서 파일을 찾는 데 실패했습니다",
+  "@toast_message_file_download_failed_unauthorized": "인증에 실패했습니다. 다시 로그인하셔야 합니다",
+  "@toast_message_note_export_success": "내보내기가 완료되었습니다"
+
 }

@@ -14,6 +14,8 @@
   "@theme": "テーマ",
   "@title": "タイトル",
   "@trashes": "ごみ箱",
+  "@guest": "ゲスト",
+  "@add_account": "アカウントを追加",
   "@use_my_own_server": "自分のサーバーを使用する",
   "@hint_theme_name": "名前",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "写真",
   "@editor_add_image_from_files": "ファイル",
 
-  "@editor_export_note_as_html": "HTMLとしてエクスポート",
+
 
   "@editor_hint_sub_note_title": "タイトル",
 
   "@editor_add_data_page_chart": "グラフ",
   "@editor_add_data_page_calendar": "カレンダー",
+
+  "@editor_view_pager_height": "高さ",
 
   "@day_name_sunday": "日曜日",
   "@day_name_monday": "月曜日",
@@ -128,10 +132,29 @@
   "@image_action_remove": "削除",
   "@image_action_resize": "サイズ変更",
   "@image_action_share": "共有",
-  "@image_action_copy": "コピー"
+  "@image_action_copy": "コピー",
 
+  "@editor_chart_rows_to_show": "表示する行",
+  "@editor_chart_ascending": "昇順",
 
+  "@note_text_color": "テキストの色",
+  "@note_background_color": "背景色",
+  "@note_text_size": "テキストサイズ",
+  "@note_line_height": "行の高さ",
 
+  "@note_export_label_note": "ノート",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "画像を読み込めません",
+  "@toast_message_image_export_success": "画像が保存されました",
+  "@toast_message_file_download_success": "ダウンロードが完了しました",
+  "@toast_message_file_download_failed_error": "ダウンロードに失敗しました",
+  "@toast_message_file_download_failed_not_found": "ダウンロードに失敗しました。サーバーにファイルが見つかりません",
+  "@toast_message_file_download_failed_unauthorized": "ダウンロードに失敗しました。再度ログインしてください",
+  "@toast_message_note_export_success": "エクスポートが完了しました"
 
 
 }

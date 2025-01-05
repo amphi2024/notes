@@ -2,6 +2,7 @@ package com.amphi.notes
 
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.WindowManager
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -63,6 +64,11 @@ class MainActivity : FlutterActivity() {
 
                 "get_system_version" -> {
                     result.success(Build.VERSION.SDK_INT)
+                }
+
+                "configure_needs_bottom_padding" -> {
+                    val navigationMode = Settings.Secure.getInt(contentResolver, "navigation_mode")
+                    result.success(Build.VERSION.SDK_INT >= 35 && navigationMode != 2)
                 }
 
                 else -> result.notImplemented()

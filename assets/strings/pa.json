@@ -14,6 +14,8 @@
   "@theme": "ਥੀਮ",
   "@title": "ਸਿਰਲੇਖ",
   "@trashes": "ਰੱਦੀ",
+  "@guest": "ਮਿਹਮਾਨ",
+  "@add_account": "ਖਾਤਾ ਜੋੜੋ",
   "@use_my_own_server": "ਮੇਰਾ ਆਪਣਾ ਸਰਵਰ ਵਰਤੋ",
   "@hint_theme_name": "ਨਾਮ",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "ਫੋਟੋ",
   "@editor_add_image_from_files": "ਫਾਇਲਾਂ",
 
-  "@editor_export_note_as_html": "HTML ਵਜੋਂ ਐਕਸਪੋਰਟ ਕਰੋ",
+
 
   "@editor_hint_sub_note_title": "ਸਿਰਲੇਖ",
 
   "@editor_add_data_page_chart": "ਚਾਰਟ",
   "@editor_add_data_page_calendar": "ਕੈਲੰਡਰ",
+
+  "@editor_view_pager_height": "ਉਚਾਈ",
 
   "@day_name_sunday": "ਐਤਵਾਰ",
   "@day_name_monday": "ਸੋਮਵਾਰ",
@@ -128,10 +132,31 @@
   "@image_action_remove": "ਹਟਾਓ",
   "@image_action_resize": "ਆਕਾਰ ਬਦਲੋ",
   "@image_action_share": "ਸ਼ੇਅਰ ਕਰੋ",
-  "@image_action_copy": "ਕਾਪੀ ਕਰੋ"
+  "@image_action_copy": "ਕਾਪੀ ਕਰੋ",
 
 
 
+  "@editor_chart_rows_to_show": "ਦਿੱਖਾਉਣ ਲਈ ਰੋ",
+  "@editor_chart_ascending": "ਉੱਪਰ ਵਧਣਾ",
+
+  "@note_text_color": "ਟੈਕਸਟ ਦਾ ਰੰਗ",
+  "@note_background_color": "ਪਿੱਛੋਕੜ ਦਾ ਰੰਗ",
+  "@note_text_size": "ਟੈਕਸਟ ਆਕਾਰ",
+  "@note_line_height": "ਲਾਈਨ ਦੀ ਉਚਾਈ",
+
+  "@note_export_label_note": "ਨੋਟ",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "ਚਿੱਤਰ ਲੋਡ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ",
+  "@toast_message_image_export_success": "ਚਿੱਤਰ ਸੰਭਾਲਿਆ ਗਿਆ ਹੈ",
+  "@toast_message_file_download_success": "ਡਾਊਨਲੋਡ ਪੂਰਾ ਹੋ ਗਿਆ ਹੈ",
+  "@toast_message_file_download_failed_error": "ਡਾਊਨਲੋਡ ਫੇਲ੍ਹ ਹੋ ਗਿਆ",
+  "@toast_message_file_download_failed_not_found": "ਡਾਊਨਲੋਡ ਫੇਲ੍ਹ ਹੋ ਗਿਆ, ਸਰਵਰ 'ਤੇ ਫਾਇਲ ਨਹੀਂ ਮਿਲੀ",
+  "@toast_message_file_download_failed_unauthorized": "ਡਾਊਨਲੋਡ ਫੇਲ੍ਹ ਹੋ ਗਿਆ, ਤੁਹਾਨੂੰ ਮੁੜ ਲਾਗਿਨ ਕਰਨਾ ਪਵੇਗਾ",
+  "@toast_message_note_export_success": "ਨਿਰਯਾਤ ਪੂਰਾ ਹੋਇਆ"
 
 
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:amphi/models/app.dart';
+import 'package:amphi/models/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
@@ -29,18 +30,18 @@ class FileBlockWidget extends StatelessWidget {
            if(selectedPath != null) {
              var file = File(selectedPath);
              await file.writeAsBytes(bytes);
-             showToast(context, "Success");
+             showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_success"));
            }
           },
           onFailed: (statusCode) {
             if(statusCode == HttpStatus.unauthorized) {
-              showToast(context, "unauthorized");
+              showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_failed_unauthorized"));
             }
             else if(statusCode == HttpStatus.notFound) {
-              showToast(context, "notFound");
+              showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_failed_not_found"));
             }
             else {
-              showToast(context, "error");
+              showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_failed_error"));
             }
           }
         );

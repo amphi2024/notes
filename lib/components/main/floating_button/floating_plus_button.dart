@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/components/main/floating_button/floating_button.dart';
+import 'package:notes/main.dart';
 import 'package:notes/models/icons.dart';
 
 class FloatingPlusButton extends StatelessWidget {
@@ -16,7 +17,7 @@ class FloatingPlusButton extends StatelessWidget {
       duration: const Duration(milliseconds: 750),
       curve: Curves.easeOutQuint,
       right: showing ? 20 : -120,
-      bottom: 20,
+      bottom: bottomPaddingIfAndroid3Button(context) + 20,
       child: AnimatedRotation(
         duration: const Duration(milliseconds: 1250),
         curve: Curves.easeOutQuint,

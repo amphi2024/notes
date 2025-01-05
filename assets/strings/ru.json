@@ -14,6 +14,8 @@
   "@theme": "Тема",
   "@title": "Заголовок",
   "@trashes": "Мусор",
+  "@guest": "Гость",
+  "@add_account": "Добавить аккаунт",
   "@use_my_own_server": "Использовать мой сервер",
   "@hint_theme_name": "Имя",
 
@@ -108,7 +110,7 @@
   "@editor_add_image_from_photos": "Фотографии",
   "@editor_add_image_from_files": "Файлы",
 
-  "@editor_export_note_as_html": "Экспортировать как HTML",
+
 
   "@editor_hint_sub_note_title": "Заголовок",
 
@@ -128,10 +130,29 @@
   "@image_action_remove": "Удалить",
   "@image_action_resize": "Изменить размер",
   "@image_action_share": "Поделиться",
-  "@image_action_copy": "Копировать"
+  "@image_action_copy": "Копировать",
 
+  "@editor_chart_rows_to_show": "Строки для отображения",
+  "@editor_chart_ascending": "По возрастанию",
 
+  "@note_text_color": "Цвет текста",
+  "@note_background_color": "Цвет фона",
+  "@note_text_size": "Размер текста",
+  "@note_line_height": "Высота строки",
 
+  "@note_export_label_note": "Заметка",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Не удается загрузить изображение",
+  "@toast_message_image_export_success": "Изображение сохранено",
+  "@toast_message_file_download_success": "Загрузка завершена",
+  "@toast_message_file_download_failed_error": "Ошибка загрузки",
+  "@toast_message_file_download_failed_not_found": "Ошибка загрузки, файл не найден на сервере",
+  "@toast_message_file_download_failed_unauthorized": "Ошибка загрузки, необходимо снова войти в систему",
+  "@toast_message_note_export_success": "Экспорт завершен"
 
 
 }

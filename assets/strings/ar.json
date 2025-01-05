@@ -14,6 +14,8 @@
   "@theme": "السمة",
   "@title": "العنوان",
   "@trashes": "سلة المهملات",
+  "@guest": "زائر",
+  "@add_account": "إضافة حساب",
   "@use_my_own_server": "استخدم الخادم الخاص بي",
   "@hint_theme_name": "الاسم",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "الصور",
   "@editor_add_image_from_files": "الملفات",
 
-  "@editor_export_note_as_html": "تصدير كـ HTML",
+
 
   "@editor_hint_sub_note_title": "العنوان",
 
   "@editor_add_data_page_chart": "مخطط",
   "@editor_add_data_page_calendar": "التقويم",
+
+  "@editor_view_pager_height": "الارتفاع",
 
   "@day_name_sunday": "الأحد",
   "@day_name_monday": "الاثنين",
@@ -128,8 +132,29 @@
   "@image_action_remove": "إزالة",
   "@image_action_resize": "تغيير الحجم",
   "@image_action_share": "مشاركة",
-  "@image_action_copy": "نسخ"
+  "@image_action_copy": "نسخ",
 
+  "@editor_chart_rows_to_show": "عدد الصفوف لعرضها",
+  "@editor_chart_ascending": "تصاعدي",
+
+  "@note_text_color": "لون النص",
+  "@note_background_color": "لون الخلفية",
+  "@note_text_size": "حجم النص",
+  "@note_line_height": "ارتفاع السطر",
+
+  "@note_export_label_note": "ملاحظة",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "تعذر تحميل الصورة",
+  "@toast_message_image_export_success": "تم حفظ الصورة",
+  "@toast_message_file_download_success": "تم اكتمال التحميل",
+  "@toast_message_file_download_failed_error": "فشل في التحميل",
+  "@toast_message_file_download_failed_not_found": "فشل في التحميل، لم يتم العثور على الملف على الخادم",
+  "@toast_message_file_download_failed_unauthorized": "فشل في التحميل، يجب عليك تسجيل الدخول مرة أخرى",
+  "@toast_message_note_export_success": "تم التصدير بنجاح"
 
 
 }

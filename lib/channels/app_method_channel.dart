@@ -21,7 +21,8 @@ class AppMethodChannel extends MethodChannel {
 
   List<Function> listeners = [];
 
-  int? systemVersion;
+  int systemVersion = 0;
+  bool needsBottomPadding = false;
 
   void createDirectoryIfNotExists(String path) {
     Directory directory = Directory(path);
@@ -64,4 +65,7 @@ class AppMethodChannel extends MethodChannel {
     systemVersion = await invokeMethod("get_system_version");
   }
 
+  void configureNeedsBottomPadding() async {
+    needsBottomPadding = await invokeMethod("configure_needs_bottom_padding");
+  }
 }

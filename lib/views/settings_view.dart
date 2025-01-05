@@ -99,7 +99,7 @@ class _SettingsViewState extends State<SettingsView> {
           child: Column(
               children: [
                 Visibility(
-                    visible: Platform.isAndroid && appMethodChannel.systemVersion! >= 29,
+                    visible: Platform.isAndroid && appMethodChannel.systemVersion >= 29,
                     child: TitledCheckBox(
                     title: AppLocalizations.of(context).get("@transparent_navigation_bar"),
                     value: appSettings.transparentNavigationBar,

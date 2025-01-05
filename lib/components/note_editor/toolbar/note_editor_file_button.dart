@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/random_string.dart';
 import 'package:file_picker/file_picker.dart';
@@ -77,7 +78,7 @@ class NoteEditorFileButton extends StatelessWidget {
             pickFilesAndInsert([]);
           }
           else {
-            showToast(context, "Failed to Connect");
+            showToast(context, AppLocalizations.of(context).get("@failed_to_connect"));
           }
         });
 

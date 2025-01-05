@@ -1,16 +1,20 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/components/image_from_storage.dart';
+import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/icons.dart';
 import 'package:notes/utils/toast.dart';
 
 class ImagePageView extends StatefulWidget {
-  final String path;
-
-  const ImagePageView({super.key, required this.path});
+  final String imageFilename;
+  final String noteName;
+  const ImagePageView({super.key, required this.imageFilename, required this.noteName});
 
   @override
   State<ImagePageView> createState() => _ImagePageViewState();
@@ -79,16 +83,15 @@ class _ImagePageViewState extends State<ImagePageView> {
                     scaleEnabled: true,
                     panEnabled: true,
                     minScale: 0.5,
-                    child: Image.file(
-                      fit: BoxFit.contain,
-                      File(widget.path),
-                    ),
+                    child: ImageFromStorage(
+                        fit: BoxFit.contain,
+                        imageFilename: widget.imageFilename, noteName: widget.noteName),
                   ),
                 ),
                 Align(
                     alignment: Alignment.topCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(7.5),
+                      padding: EdgeInsets.only(left: 7.5, right: 7.5, top: MediaQuery.of(context).padding.top + 7.5),
                       child: Visibility(
                         visible: toolbarVisible,
                         child: Row(
@@ -105,16 +108,17 @@ class _ImagePageViewState extends State<ImagePageView> {
                                 IconButton(
                                     icon: Icon(Icons.save),
                                     onPressed: () async {
-                                      File originalFile = File(widget.path);
+                                      String filePath = PathUtils.join(appStorage.notesPath, widget.noteName, "images" ,widget.imageFilename);
+                                      File originalFile = File(filePath);
                                       var bytes = await originalFile.readAsBytes();
                                       var selectedPath = await FilePicker.platform.saveFile(
-                                          fileName: "image.${FilenameUtils.extensionName(widget.path)}",
+                                          fileName: "image.${FilenameUtils.extensionName(widget.imageFilename)}",
                                         bytes: bytes
                                       );
                                       if(selectedPath != null) {
                                         var file = File(selectedPath);
                                         await file.writeAsBytes(bytes);
-                                        showToast(context, "");
+                                        showToast(context, AppLocalizations.of(context).get("@toast_message_image_export_success"));
                                       }
                                     }),
                                 IconButton(

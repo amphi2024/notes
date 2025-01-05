@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes/components/main/floating_button/titled_floating_button.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:notes/main.dart';
 import 'package:notes/models/icons.dart';
 
 class FloatingFolderButton extends StatelessWidget {
@@ -15,7 +16,7 @@ class FloatingFolderButton extends StatelessWidget {
       duration: Duration(milliseconds: showing ? 1250 : 1000),
       curve: Curves.easeOutQuint,
       right: showing ? 20 : -160,
-      bottom: 170,
+      bottom: bottomPaddingIfAndroid3Button(context) + 170,
       child: TitledFloatingButton(
         title: AppLocalizations.of(context).get("@folder"),
         icon: AppIcons.folder,

@@ -14,6 +14,8 @@
   "@theme": "主题",
   "@title": "标题",
   "@trashes": "垃圾桶",
+  "@guest": "访客",
+  "@add_account": "添加账户",
   "@use_my_own_server": "使用我自己的服务器",
   "@hint_theme_name": "名称",
 
@@ -108,12 +110,12 @@
   "@editor_add_image_from_photos": "照片",
   "@editor_add_image_from_files": "文件",
 
-  "@editor_export_note_as_html": "导出为HTML",
-
   "@editor_hint_sub_note_title": "标题",
 
   "@editor_add_data_page_chart": "图表",
   "@editor_add_data_page_calendar": "日历",
+
+  "@editor_view_pager_height": "高度",
 
   "@day_name_sunday": "星期天",
   "@day_name_monday": "星期一",
@@ -128,10 +130,28 @@
   "@image_action_remove": "删除",
   "@image_action_resize": "调整大小",
   "@image_action_share": "分享",
-  "@image_action_copy": "复制"
+  "@image_action_copy": "复制",
 
+  "@editor_chart_rows_to_show": "显示的行",
+  "@editor_chart_ascending": "升序",
 
+  "@note_text_color": "文本颜色",
+  "@note_background_color": "背景颜色",
+  "@note_text_size": "文本大小",
+  "@note_line_height": "行高",
 
+  "@note_export_label_note": "笔记",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
 
+  "@message_cannot_load_image": "无法加载图片",
+  "@toast_message_image_export_success": "图片已保存",
+  "@toast_message_file_download_success": "下载完成",
+  "@toast_message_file_download_failed_error": "下载失败",
+  "@toast_message_file_download_failed_not_found": "下载失败，服务器上找不到文件",
+  "@toast_message_file_download_failed_unauthorized": "下载失败，您需要重新登录",
+  "@toast_message_note_export_success": "导出完成"
 
 }

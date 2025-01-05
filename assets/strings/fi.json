@@ -14,6 +14,8 @@
   "@theme": "Teema",
   "@title": "Otsikko",
   "@trashes": "Roskakori",
+  "@guest": "Vieras",
+  "@add_account": "Lisää Tili",
   "@use_my_own_server": "Käytä omaa palvelinta",
   "@hint_theme_name": "Nimi",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "Valokuvat",
   "@editor_add_image_from_files": "Tiedostot",
 
-  "@editor_export_note_as_html": "Viedä HTML-muodossa",
+
 
   "@editor_hint_sub_note_title": "Otsikko",
 
   "@editor_add_data_page_chart": "Kaavio",
   "@editor_add_data_page_calendar": "Kalenteri",
+
+  "@editor_view_pager_height": "Korkeus",
 
   "@day_name_sunday": "Sunnuntai",
   "@day_name_monday": "Maanantai",
@@ -128,10 +132,29 @@
   "@image_action_remove": "Poista",
   "@image_action_resize": "Muuta kokoa",
   "@image_action_share": "Jaa",
-  "@image_action_copy": "Kopioi"
+  "@image_action_copy": "Kopioi",
 
+  "@editor_chart_rows_to_show": "Näytettävät rivit",
+  "@editor_chart_ascending": "Nouseva",
 
+  "@note_text_color": "Tekstin väri",
+  "@note_background_color": "Taustaväri",
+  "@note_text_size": "Tekstin koko",
+  "@note_line_height": "Riviväli",
 
+  "@note_export_label_note": "Muistiinpano",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Kuvan lataaminen epäonnistui",
+  "@toast_message_image_export_success": "Kuva tallennettu",
+  "@toast_message_file_download_success": "Lataus valmis",
+  "@toast_message_file_download_failed_error": "Lataus epäonnistui",
+  "@toast_message_file_download_failed_not_found": "Lataus epäonnistui, tiedostoa ei löydy palvelimelta",
+  "@toast_message_file_download_failed_unauthorized": "Lataus epäonnistui, sinun täytyy kirjautua sisään uudelleen",
+  "@toast_message_note_export_success": "Vie onnistui"
 
 
 }

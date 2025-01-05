@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
+
 class FloatingSearchBar extends StatelessWidget {
 
   final bool showing;
@@ -13,7 +15,7 @@ class FloatingSearchBar extends StatelessWidget {
       duration: Duration(milliseconds: showing ? 1000 : 1250),
       curve: Curves.easeOutQuint,
       left: showing ? 20 : -235,
-      bottom: 140,
+      bottom: bottomPaddingIfAndroid3Button(context) + 120,
       child: Container(
         width: 200,
         height: 50,

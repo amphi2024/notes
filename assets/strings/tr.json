@@ -14,6 +14,8 @@
   "@theme": "Tema",
   "@title": "Başlık",
   "@trashes": "Çöp Kutusu",
+  "@guest": "Ziyaretçi",
+  "@add_account": "Hesap Ekle",
   "@use_my_own_server": "Kendi Sunucumu Kullan",
   "@hint_theme_name": "Ad",
 
@@ -108,12 +110,12 @@
   "@editor_add_image_from_photos": "Fotoğraflar",
   "@editor_add_image_from_files": "Dosyalar",
 
-  "@editor_export_note_as_html": "HTML olarak dışa aktar",
-
   "@editor_hint_sub_note_title": "Başlık",
 
   "@editor_add_data_page_chart": "Grafik",
   "@editor_add_data_page_calendar": "Takvim",
+
+  "@editor_view_pager_height": "Yükseklik",
 
   "@day_name_sunday": "Pazar",
   "@day_name_monday": "Pazartesi",
@@ -128,10 +130,29 @@
   "@image_action_remove": "Kaldır",
   "@image_action_resize": "Boyutu değiştir",
   "@image_action_share": "Paylaş",
-  "@image_action_copy": "Kopyala"
+  "@image_action_copy": "Kopyala",
 
+  "@editor_chart_rows_to_show": "Gösterilecek Satırlar",
+  "@editor_chart_ascending": "Artan",
 
+  "@note_text_color": "Metin Rengi",
+  "@note_background_color": "Arka Plan Rengi",
+  "@note_text_size": "Metin Boyutu",
+  "@note_line_height": "Satır Yüksekliği",
 
+  "@note_export_label_note": "Not",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Resim yüklenemiyor",
+  "@toast_message_image_export_success": "Resim kaydedildi",
+  "@toast_message_file_download_success": "İndirme tamamlandı",
+  "@toast_message_file_download_failed_error": "İndirme başarısız",
+  "@toast_message_file_download_failed_not_found": "İndirme başarısız, dosya sunucuda bulunamadı",
+  "@toast_message_file_download_failed_unauthorized": "İndirme başarısız, tekrar giriş yapmanız gerekiyor",
+  "@toast_message_note_export_success": "Dışa aktarma tamamlandı"
 
 
 }

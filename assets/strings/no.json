@@ -14,6 +14,8 @@
   "@theme": "Tema",
   "@title": "Tittel",
   "@trashes": "Søppel",
+  "@guest": "Gjest",
+  "@add_account": "Legg Til Konto",
   "@use_my_own_server": "Bruk min egen server",
   "@hint_theme_name": "Navn",
 
@@ -108,12 +110,14 @@
   "@editor_add_image_from_photos": "Bilder",
   "@editor_add_image_from_files": "Filer",
 
-  "@editor_export_note_as_html": "Eksporter som HTML",
+
 
   "@editor_hint_sub_note_title": "Tittel",
 
   "@editor_add_data_page_chart": "Diagram",
   "@editor_add_data_page_calendar": "Kalender",
+
+  "@editor_view_pager_height": "Høyde",
 
   "@day_name_sunday": "Søndag",
   "@day_name_monday": "Mandag",
@@ -128,9 +132,30 @@
   "@image_action_remove": "Fjern",
   "@image_action_resize": "Endre størrelse",
   "@image_action_share": "Del",
-  "@image_action_copy": "Kopier"
+  "@image_action_copy": "Kopier",
 
 
+  "@editor_chart_rows_to_show": "Rader som skal vises",
+  "@editor_chart_ascending": "Stigende",
+
+  "@note_text_color": "Tekstfarge",
+  "@note_background_color": "Bakgrunnsfarge",
+  "@note_text_size": "Tekststørrelse",
+  "@note_line_height": "Linjehøyde",
+
+  "@note_export_label_note": "Merknad",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Kan ikke laste bilde",
+  "@toast_message_image_export_success": "Bilde er lagret",
+  "@toast_message_file_download_success": "Nedlasting fullført",
+  "@toast_message_file_download_failed_error": "Nedlasting mislyktes",
+  "@toast_message_file_download_failed_not_found": "Nedlasting mislyktes, filen ble ikke funnet på serveren",
+  "@toast_message_file_download_failed_unauthorized": "Nedlasting mislyktes, du må logge inn på nytt",
+  "@toast_message_note_export_success": "Eksport fullført"
 
 
 

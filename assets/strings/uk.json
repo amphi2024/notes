@@ -14,6 +14,8 @@
   "@theme": "Тема",
   "@title": "Назва",
   "@trashes": "Кошик",
+  "@guest": "Гість",
+  "@add_account": "Додати акаунт",
   "@use_my_own_server": "Використовувати власний сервер",
   "@hint_theme_name": "Назва",
 
@@ -108,12 +110,12 @@
   "@editor_add_image_from_photos": "Фотографії",
   "@editor_add_image_from_files": "Файли",
 
-  "@editor_export_note_as_html": "Експортувати як HTML",
-
   "@editor_hint_sub_note_title": "Заголовок",
 
   "@editor_add_data_page_chart": "Графік",
   "@editor_add_data_page_calendar": "Календар",
+
+  "@editor_view_pager_height": "Висота",
 
   "@day_name_sunday": "Неділя",
   "@day_name_monday": "Понеділок",
@@ -128,10 +130,29 @@
   "@image_action_remove": "Видалити",
   "@image_action_resize": "Змінити розмір",
   "@image_action_share": "Поділитися",
-  "@image_action_copy": "Копіювати"
+  "@image_action_copy": "Копіювати",
 
+  "@editor_chart_rows_to_show": "Рядки для показу",
+  "@editor_chart_ascending": "За зростанням",
 
+  "@note_text_color": "Колір тексту",
+  "@note_background_color": "Колір фону",
+  "@note_text_size": "Розмір тексту",
+  "@note_line_height": "Висота рядка",
 
+  "@note_export_label_note": "Примітка",
+  "@note_export_label_html": "HTML",
+  "@note_export_label_markdown": "Markdown",
+  "@note_export_label_word": "Word",
+  "@note_export_label_pdf": "PDF",
+
+  "@message_cannot_load_image": "Не вдалося завантажити зображення",
+  "@toast_message_image_export_success": "Зображення збережено",
+  "@toast_message_file_download_success": "Завантаження завершено",
+  "@toast_message_file_download_failed_error": "Не вдалося завантажити",
+  "@toast_message_file_download_failed_not_found": "Не вдалося завантажити, файл не знайдено на сервері",
+  "@toast_message_file_download_failed_unauthorized": "Не вдалося завантажити, потрібно увійти знову",
+  "@toast_message_note_export_success": "Експорт завершено"
 
 
 }
