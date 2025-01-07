@@ -1,6 +1,5 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/note_editor/embed_block/divider/divider_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/file/file_embed_builder.dart';
@@ -43,29 +42,6 @@ class _NoteEditorState extends State<NoteEditor> {
     scrollController.dispose();
     super.dispose();
   }
-  // return DropTarget(
-  // onDragDone: (details) async {
-  // if(!widget.noteEditingController.readOnly) {
-  // final files = details.files;
-  // for(DropItem dropItem in files) {
-  // switch(dropItem.path.split(".").last) {
-  // case "jpg":
-  // case "jpeg":
-  // case "png":
-  // case "gif":
-  // File file = await Note.createdImageFile(dropItem.path);
-  // final block = BlockEmbed.custom(ImageBlockEmbed(file.path));
-  // appState.noteEditingController.insertBlock(block);
-  // break;
-  // case "mp4":
-  // File file = await Note.createdVideoFile(dropItem.path);
-  // final block = BlockEmbed.custom(VideoBlockEmbed(file.path));
-  // appState.noteEditingController.insertBlock(block);
-  // break;
-  // }
-  // }
-  // }
-  // },
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +57,8 @@ class _NoteEditorState extends State<NoteEditor> {
     return QuillEditor(
       controller: widget.noteEditingController,
       configurations: QuillEditorConfigurations(
-        //autoFocus: !widget.reading,
         autoFocus: false,
         placeholder: AppLocalizations.of(context).get("@new_note"),
-        // customShortcuts: {
-        // },
         customStyles: DefaultStyles(
           paragraph: DefaultTextBlockStyle(
             textStyle,
@@ -114,9 +87,6 @@ class _NoteEditorState extends State<NoteEditor> {
               NoteEditorCheckboxBuilder()
           )
         ),
-        onImagePaste: (Uint8List bytes) async {
-          return "dsfsfsd";
-        },
         showCursor: !widget.noteEditingController.readOnly,
         embedBuilders: [
           ImageEmbedBuilder(),

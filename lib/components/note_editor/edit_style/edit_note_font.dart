@@ -22,6 +22,7 @@ class _EditNoteFontState extends State<EditNoteFont> {
   Widget build(BuildContext context) {
     if(App.isDesktop()) {
       return DropdownButton<String>(
+          style: Theme.of(context).textTheme.bodyMedium,
           value: widget.noteEditingController.getSelectionStyle().attributes[Attribute.font.key]?.value ?? widget.noteEditingController.note.font ?? "",
           items: fonts.entries.map((entry) => DropdownMenuItem<String>(value: entry.value, child: Text(entry.key)) ).toList(),
           onChanged: (item) {

@@ -159,7 +159,6 @@ class _NoteTableBlockState extends State<NoteTableBlock> {
         children: [
           Table(
             border: TableBorder.all(color: Theme.of(context).textTheme.bodyMedium!.color!, width: 1),
-            //  defaultColumnWidth: MaxColumnWidth(FixedColumnWidth(100), FixedColumnWidth(250)),
             children: rows,
           )
         ],

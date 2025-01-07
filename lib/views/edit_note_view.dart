@@ -80,7 +80,7 @@ class _EditNoteViewState extends State<EditNoteView> {
       canPop: noteEditingController.readOnly || (!File(noteEditingController.note.path).existsSync() && noteEditingController.document.isEmpty()),
       onPopInvokedWithResult: onPopInvoked,
       child: Theme(
-          data: Theme.of(context).noteThemeData(context),
+          data: Theme.of(context).noteThemeData(),
           child: Scaffold(
             backgroundColor: noteEditingController.note.backgroundColorByTheme(themeData.isDarkMode()),
               appBar: AppBar(

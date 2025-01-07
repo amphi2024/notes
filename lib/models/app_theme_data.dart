@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:amphi/models/app.dart';
+import 'package:notes/extensions/note_extension.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_theme.dart';
 
@@ -32,6 +33,7 @@ class AppThemeData {
 
   ThemeData themeData({required Brightness brightness, required BuildContext context}) {
     return ThemeData(
+      brightness: brightness,
       inputDecorationTheme: InputDecorationTheme(
           hintStyle: TextStyle(color: inactiveColor, fontSize: 15),
           focusedBorder: UnderlineInputBorder(
@@ -59,6 +61,11 @@ class AppThemeData {
       //   )
       // ),
       dividerColor: inactiveColor,
+      dropdownMenuTheme: DropdownMenuThemeData(
+        textStyle: TextStyle(
+          color: textColor, fontSize: 15
+        )
+      ),
       popupMenuTheme: PopupMenuThemeData(
         surfaceTintColor: backgroundColor,
         color: backgroundColor,
@@ -152,31 +159,32 @@ class AppThemeData {
 
 extension ThemeDataExtension on ThemeData {
 
-  ThemeData noteThemeData(BuildContext context) {
-    ThemeData themeData = Theme.of(context);
-    Color noteBackgroundColor = Theme.of(context).brightness == Brightness.light
+  ThemeData noteThemeData() {
+    Color noteBackgroundColor = brightness == Brightness.light
         ? appSettings.appTheme!.lightTheme.noteBackgroundColor
         : appSettings.appTheme!.darkTheme.noteBackgroundColor;
-    Color noteTextColor = Theme.of(context).brightness == Brightness.light
+    Color noteTextColor = brightness == Brightness.light
         ? appSettings.appTheme!.lightTheme.noteTextColor
         : appSettings.appTheme!.darkTheme.noteTextColor;
 
-    return themeData.copyWith(
+    return copyWith(
         scaffoldBackgroundColor: noteBackgroundColor,
         textTheme: TextTheme(
-            bodyMedium: TextStyle(color: noteTextColor, fontSize: 15)),
+            bodyMedium: TextStyle(color: noteTextColor, fontSize: 15),
+            bodyLarge: TextStyle(color: noteTextColor, fontSize: 15)
+        ),
         appBarTheme: AppBarTheme(
             backgroundColor: noteBackgroundColor,
             surfaceTintColor: noteBackgroundColor,
             toolbarHeight: 40,
             titleSpacing: 0.0,
             iconTheme: IconThemeData(
-                color: Theme.of(context).brightness == Brightness.light
+                color: brightness == Brightness.light
                     ? appSettings.appTheme!.lightTheme.accentColor
                     : appSettings.appTheme!.darkTheme.accentColor,
                 size: 30)),
         iconTheme: IconThemeData(
-            color: themeData.iconTheme.color,
+            color: iconTheme.color,
             size: 30
         ),
     );

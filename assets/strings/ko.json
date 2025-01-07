@@ -153,6 +153,8 @@
   "@toast_message_file_download_failed_error": "다운로드에 실패했습니다",
   "@toast_message_file_download_failed_not_found": "서버에서 파일을 찾는 데 실패했습니다",
   "@toast_message_file_download_failed_unauthorized": "인증에 실패했습니다. 다시 로그인하셔야 합니다",
-  "@toast_message_note_export_success": "내보내기가 완료되었습니다"
+  "@toast_message_note_export_success": "내보내기가 완료되었습니다",
+
+  "@editor_table_text_done": "완료"
 
 }

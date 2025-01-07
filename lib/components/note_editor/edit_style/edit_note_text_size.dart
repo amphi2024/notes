@@ -23,6 +23,7 @@ class _EditNoteTextSizeState extends State<EditNoteTextSize> {
   Widget build(BuildContext context) {
     if(App.isDesktop()) {
       return DropdownButton<double>(
+        style: Theme.of(context).textTheme.bodyMedium,
           value: widget.value,
           items: list.map((item) => DropdownMenuItem<double>(value: item,  child: Text( widget.noteEditingController.note.textSize == item ? "Default": item.toInt().toString()))).toList(),
           onChanged: (item) {

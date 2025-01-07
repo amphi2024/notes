@@ -1,3 +1,4 @@
+import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class TableTextDialog extends StatefulWidget {
@@ -15,6 +16,7 @@ class _TableTextDialogState extends State<TableTextDialog> {
 
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
     return Dialog(
       child: Container(
         width: MediaQuery.of(context).size.width > 600 ? 400 : null,
@@ -32,12 +34,19 @@ class _TableTextDialogState extends State<TableTextDialog> {
                   controller: textEditingController,
                   maxLines: 5,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder()
+                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: themeData.highlightColor
+                      )
+                    )
                   ),
                 ),
               ),
             ),
-            TextButton(child: Text("Done"), onPressed: () {
+            TextButton(child: Text(AppLocalizations.of(context).get("@editor_table_text_done")), onPressed: () {
               Navigator.pop(context, textEditingController.text);
             })
           ],

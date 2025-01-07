@@ -51,8 +51,6 @@ class FileBlockWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var model = noteEmbedBlocks.getFile(blockKey);
-    print(model.label);
-    print(model.filename);
     var themeData = Theme.of(context);
 
     Widget downloadButtonOrSomething =  IconButton(onPressed: () {

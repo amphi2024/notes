@@ -39,8 +39,8 @@ class ToggleAttributeButton extends StatelessWidget {
             onPressed: onPressed,
             child: Icon(
               icon,
-              color:
-                  activated ? noteBackgroundColor : accentColor,
+              color: activated ? noteBackgroundColor : accentColor,
+              size: 25,
             )),
       ),
     );

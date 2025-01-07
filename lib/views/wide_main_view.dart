@@ -200,7 +200,7 @@ class _WideMainViewState extends State<WideMainView> {
                           }
                         },
                         child: Theme(
-                          data: Theme.of(context).noteThemeData(context),
+                          data: Theme.of(context).noteThemeData(),
                           child: Scaffold(
                             backgroundColor: appState.noteEditingController.note.backgroundColorByTheme(Theme.of(context).brightness == Brightness.dark) ?? themeData.cardColor,
                             body: NoteEditor(
