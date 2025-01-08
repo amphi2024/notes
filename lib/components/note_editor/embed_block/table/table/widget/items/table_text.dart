@@ -46,10 +46,12 @@ class TableText extends TableItem {
           padding: const EdgeInsets.all(7.5),
           child: Row(
             children: [
-              Text(
-                text,
-                softWrap: true,
-                maxLines: 5,
+              Expanded(
+                child: Text(
+                  text,
+                  softWrap: true,
+                  maxLines: 5,
+                ),
               ),
               TableEditButton(
                   addColumnAfter: addColumnAfter,

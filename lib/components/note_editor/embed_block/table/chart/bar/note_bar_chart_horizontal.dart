@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/note_table_block.dart';
 
 class NoteBarChartHorizontal extends NoteTableBlock {
-
-  const NoteBarChartHorizontal({super.key, required super.readOnly, required super.tableData, required super.pageInfo});
+  const NoteBarChartHorizontal(
+      {super.key,
+      required super.readOnly,
+      required super.tableData,
+      required super.pageInfo});
 
   @override
   State<NoteBarChartHorizontal> createState() => _NoteBarChartState();
 }
 
-
 class _NoteBarChartState extends State<NoteBarChartHorizontal> {
-
   ScrollController scrollController = ScrollController();
 
   @override
@@ -24,62 +25,103 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
 
   @override
   Widget build(BuildContext context) {
-
     List<BarChartGroupData> barGroups = [];
 
     Map<String, dynamic> map = widget.tableData.toChartDataMap(widget.pageInfo);
     double width = map.keys.length * 100;
+    double bottomLabelSize = 30;
 
-    for(int i = 0 ; i < map.keys.length; i++) {
+    for (int i = 0; i < map.keys.length; i++) {
       String title = map.keys.elementAt(i);
+      if(title.length > 5) {
+        bottomLabelSize = 60;
+      }
+      if(title.length > 10) {
+        bottomLabelSize = 90;
+      }
+      if(title.length > 15) {
+        bottomLabelSize = 120;
+      }
+      if(title.length > 20) {
+        bottomLabelSize = 150;
+      }
+
       BarChartGroupData barChartGroupData = BarChartGroupData(x: i, barRods: [
-        BarChartRodData(toY: map[title]!, color: Theme.of(context).highlightColor),
-      ], showingTooltipIndicators: [0]);
+        BarChartRodData(
+          toY: map[title]!,
+          color: Theme.of(context).highlightColor,
+          width: 8,
+          borderRadius: BorderRadius.zero,
+          backDrawRodData: BackgroundBarChartRodData(
+            show: true,
+          ),
+        ),
+      ], showingTooltipIndicators: [
+        0
+      ]);
 
       barGroups.add(barChartGroupData);
     }
 
     FlTitlesData titlesData = FlTitlesData(
-      show: true,
-      bottomTitles: AxisTitles(
-        sideTitles: SideTitles(
-          showTitles: true,
-          getTitlesWidget: (double value, TitleMeta meta) {
-            String text = map.keys.elementAt(value.toInt());
-            return SideTitleWidget(child: Text(text), axisSide: meta.axisSide);
-          },
-          reservedSize: 30,
+        show: true,
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            getTitlesWidget: (double value, TitleMeta meta) {
+              String text = map.keys.elementAt(value.toInt());
+              return SideTitleWidget(
+                  child: SizedBox(
+                      width: 100,
+                      height: bottomLabelSize,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          text,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 5,
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
+                  axisSide: meta.axisSide);
+            },
+            reservedSize: bottomLabelSize,
+          ),
         ),
-      ),
-      leftTitles: AxisTitles(
-        sideTitles: SideTitles(showTitles: true, reservedSize: 30),
-      ),
-      topTitles: AxisTitles(
-        sideTitles: SideTitles(
-          showTitles: false
-        )
-      )
-    );
+        leftTitles: AxisTitles(
+          sideTitles: SideTitles(showTitles: true, reservedSize: 30),
+        ),
+        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)));
+    var themeData = Theme.of(context);
 
-
-      return Scrollbar(
+    return Scrollbar(
+      controller: scrollController,
+      child: SingleChildScrollView(
         controller: scrollController,
-        child: SingleChildScrollView(
-          controller: scrollController,
-          scrollDirection: Axis.horizontal,
-          child: SizedBox(
-              width: width,
-              height: App.isWideScreen(context) ? 500 : 300,
-              child: barGroups.isNotEmpty ? Padding(
-                padding: const EdgeInsets.only(top: 80),
-                child: BarChart(
-                    BarChartData(
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+            width: width,
+            height: App.isWideScreen(context) ? 500 : 300,
+            child: barGroups.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 80),
+                    child: BarChart(BarChartData(
+                        barTouchData: BarTouchData(
+                            touchTooltipData: BarTouchTooltipData(
+                                getTooltipColor: (group) =>
+                                    Colors.transparent)),
+                        borderData: FlBorderData(
+                            border: Border(
+                                left: BorderSide(color: themeData.dividerColor),
+                                bottom:
+                                    BorderSide(color: themeData.dividerColor))),
+                        gridData: FlGridData(show: false),
                         barGroups: barGroups,
-                        titlesData: titlesData
-                    )),
-              ) : Icon(Icons.question_mark)),
-        ),
-      );
-
+                        titlesData: titlesData)),
+                  )
+                : Icon(Icons.question_mark)),
+      ),
+    );
   }
 }

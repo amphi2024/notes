@@ -29,14 +29,31 @@ class _DesktopSettingsViewState extends State<SettingsDialog> {
   late List<AppTheme> themeList = allThemes();
   late List<DropdownMenuItem<Locale?>> languageDropdownItems = Language.dropdownItems(context);
 
+  void appThemeUpdateListener(AppTheme appTheme) {
+    setState(() {
+      var exists = false;
+      for(int i = 0; i < themeList.length ; i++) {
+        if(themeList[i].filename == appTheme.filename) {
+          exists = true;
+          themeList[i] = appTheme;
+        }
+      }
+      if(!exists) {
+        themeList.add(appTheme);
+      }
+    });
+  }
+
   @override
   void dispose() {
+    appWebChannel.appThemeUpdateListeners.remove(appThemeUpdateListener);
     serverAddressController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
+    appWebChannel.appThemeUpdateListeners.add(appThemeUpdateListener);
     serverAddressController.text = appWebChannel.serverAddress;
     super.initState();
   }

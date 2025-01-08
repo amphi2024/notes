@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:amphi/models/app.dart';
-import 'package:notes/extensions/note_extension.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_theme.dart';
 

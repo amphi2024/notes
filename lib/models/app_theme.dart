@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:amphi/extensions/color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_upload.dart';
@@ -103,27 +102,27 @@ class AppTheme extends AppThemeCore {
       "created": created.toUtc().millisecondsSinceEpoch,
       "modified": modified.toUtc().millisecondsSinceEpoch,
 
-      "lightBackgroundColor": lightTheme.backgroundColor.toHex(),
-      "lightTextColor":  lightTheme.textColor.toHex(),
-      "lightAccentColor":  lightTheme.accentColor.toHex(),
-      "lightInactiveColor":  lightTheme.inactiveColor.toHex(),
-      "lightNoteBackgroundColor":  lightTheme.noteBackgroundColor.toHex(),
-      "lightNoteTextColor":  lightTheme.noteTextColor.toHex(),
-      "lightFloatingButtonBackground":  lightTheme.floatingButtonBackground.toHex(),
-      "lightFloatingButtonIconColor":  lightTheme.floatingButtonIconColor.toHex(),
-      "lightCheckBoxColor":  lightTheme.checkBoxColor.toHex(),
-      "lightCheckBoxCheckColor":  lightTheme.checkBoxCheckColor.toHex(),
+      "lightBackgroundColor": lightTheme.backgroundColor.value,
+      "lightTextColor":  lightTheme.textColor.value,
+      "lightAccentColor":  lightTheme.accentColor.value,
+      "lightInactiveColor":  lightTheme.inactiveColor.value,
+      "lightNoteBackgroundColor":  lightTheme.noteBackgroundColor.value,
+      "lightNoteTextColor":  lightTheme.noteTextColor.value,
+      "lightFloatingButtonBackground":  lightTheme.floatingButtonBackground.value,
+      "lightFloatingButtonIconColor":  lightTheme.floatingButtonIconColor.value,
+      "lightCheckBoxColor":  lightTheme.checkBoxColor.value,
+      "lightCheckBoxCheckColor":  lightTheme.checkBoxCheckColor.value,
 
-      "darkBackgroundColor": darkTheme.backgroundColor.toHex(),
-      "darkTextColor":  darkTheme.textColor.toHex(),
-      "darkAccentColor":  darkTheme.accentColor.toHex(),
-      "darkInactiveColor":  darkTheme.inactiveColor.toHex(),
-      "darkNoteBackgroundColor":  darkTheme.noteBackgroundColor.toHex(),
-      "darkNoteTextColor":  darkTheme.noteTextColor.toHex(),
-      "darkFloatingButtonBackground":  darkTheme.floatingButtonBackground.toHex(),
-      "darkFloatingButtonIconColor":  darkTheme.floatingButtonIconColor.toHex(),
-      "darkCheckBoxColor":  darkTheme.checkBoxColor.toHex(),
-      "darkCheckBoxCheckColor":  darkTheme.checkBoxCheckColor.toHex(),
+      "darkBackgroundColor": darkTheme.backgroundColor.value,
+      "darkTextColor":  darkTheme.textColor.value,
+      "darkAccentColor":  darkTheme.accentColor.value,
+      "darkInactiveColor":  darkTheme.inactiveColor.value,
+      "darkNoteBackgroundColor":  darkTheme.noteBackgroundColor.value,
+      "darkNoteTextColor":  darkTheme.noteTextColor.value,
+      "darkFloatingButtonBackground":  darkTheme.floatingButtonBackground.value,
+      "darkFloatingButtonIconColor":  darkTheme.floatingButtonIconColor.value,
+      "darkCheckBoxColor":  darkTheme.checkBoxColor.value,
+      "darkCheckBoxCheckColor":  darkTheme.checkBoxCheckColor.value,
     };
   }
 

@@ -28,10 +28,12 @@ class TableDate extends TableItem {
           padding: const EdgeInsets.all(7.5),
           child: Row(
             children: [
-              Text(
-                DateFormat.yMMMEd(Localizations.localeOf(context).languageCode.toString()).format(dateTime),
-                softWrap: true,
-                maxLines: 5,
+              Expanded(
+                child: Text(
+                  DateFormat.yMMMEd(Localizations.localeOf(context).languageCode.toString()).format(dateTime),
+                  softWrap: true,
+                  maxLines: 5,
+                ),
               ),
               TableEditButton(
                   addColumnAfter: addColumnAfter,

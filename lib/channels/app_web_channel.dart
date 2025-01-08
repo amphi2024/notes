@@ -12,6 +12,8 @@ import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
 import 'package:web_socket_channel/io.dart';
 
+import '../models/app_theme.dart';
+
 final appWebChannel = AppWebChannel.getInstance();
 
 class AppWebChannel extends AppWebChannelCore {
@@ -24,6 +26,7 @@ class AppWebChannel extends AppWebChannelCore {
   List<void Function(Note note)> noteUpdateListeners = [];
   List<void Function(Folder folder)> folderUpdateListeners = [];
   List<void Function(String)> userNameUpdateListeners = [];
+  List<void Function(AppTheme)> appThemeUpdateListeners = [];
   
   get token => appStorage.selectedUser.token;
 
@@ -60,7 +63,11 @@ class AppWebChannel extends AppWebChannelCore {
           }
           break;
         case UpdateEvent.uploadTheme:
-          appWebChannel.downloadTheme(filename: updateEvent.value);
+          appWebChannel.downloadTheme(filename: updateEvent.value, onSuccess: (appTheme) {
+            for(var function in appThemeUpdateListeners) {
+              function(appTheme);
+            }
+          });
           break;
         case UpdateEvent.renameUser:
           appStorage.selectedUser.name = updateEvent.value;

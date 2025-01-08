@@ -24,8 +24,29 @@ class _AppThemePageViewState extends State<AppThemePageView> {
   late List<AppTheme> themeList = widget.themeList;
   late PageController pageController;
 
+  void appThemeUpdateListener(AppTheme appTheme) {
+    setState(() {
+      var exists = false;
+      for(int i = 0; i < themeList.length ; i++) {
+        if(themeList[i].filename == appTheme.filename) {
+          exists = true;
+          themeList[i] = appTheme;
+        }
+      }
+      if(!exists) {
+        themeList.add(appTheme);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    appWebChannel.appThemeUpdateListeners.remove(appThemeUpdateListener);
+    super.dispose();
+  }
   @override
   void initState() {
+    appWebChannel.appThemeUpdateListeners.add(appThemeUpdateListener);
     if (appSettings.appTheme!.filename != "!DEFAULT") {
       for (int i = 0; i < widget.themeList.length; i++) {
         if (widget.themeList[i].filename == appSettings.appTheme!.filename) {

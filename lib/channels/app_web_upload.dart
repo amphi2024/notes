@@ -31,7 +31,7 @@ extension AppWebUpload on AppWebChannel {
   }
 
   void uploadTheme({required String themeFileContent, required String themeFilename, void Function()? onSuccess, void Function(int?)? onFailed}) async {
-    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadTheme, value: themeFileContent, timestamp: DateTime.now().toUtc());
+    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadTheme, value: themeFilename, timestamp: DateTime.now().toUtc());
     uploadJson(url: "$serverAddress/notes/themes/${themeFilename}", jsonBody: themeFileContent, updateEvent: updateEvent, onSuccess: onSuccess, onFailed: onFailed);
   }
 
