@@ -155,7 +155,8 @@
   "@toast_message_file_download_failed_error": "Download mislykkedes",
   "@toast_message_file_download_failed_not_found": "Download mislykkedes, filen kunne ikke findes på serveren",
   "@toast_message_file_download_failed_unauthorized": "Download mislykkedes, du skal logge ind igen",
-  "@toast_message_note_export_success": "Eksport færdig"
+  "@toast_message_note_export_success": "Eksport færdig",
 
+  "@editor_table_text_done": "Færdig"
 
 }

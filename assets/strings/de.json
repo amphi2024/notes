@@ -154,6 +154,8 @@
   "@toast_message_file_download_failed_error": "Download fehlgeschlagen",
   "@toast_message_file_download_failed_not_found": "Download fehlgeschlagen, Datei auf dem Server nicht gefunden",
   "@toast_message_file_download_failed_unauthorized": "Download fehlgeschlagen, bitte melden Sie sich erneut an",
-  "@toast_message_note_export_success": "Export abgeschlossen"
+  "@toast_message_note_export_success": "Export abgeschlossen",
+
+  "@editor_table_text_done": "Fertig"
 
 }

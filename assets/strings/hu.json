@@ -152,6 +152,8 @@
   "@toast_message_file_download_failed_error": "A letöltés sikertelen",
   "@toast_message_file_download_failed_not_found": "A letöltés sikertelen, a fájl nem található a szerveren",
   "@toast_message_file_download_failed_unauthorized": "A letöltés sikertelen, újra be kell jelentkeznie",
-  "@toast_message_note_export_success": "Exportálás sikeres"
+  "@toast_message_note_export_success": "Exportálás sikeres",
+
+  "@editor_table_text_done": "Kész"
 
 }

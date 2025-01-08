@@ -156,7 +156,8 @@
   "@toast_message_file_download_failed_error": "ਡਾਊਨਲੋਡ ਫੇਲ੍ਹ ਹੋ ਗਿਆ",
   "@toast_message_file_download_failed_not_found": "ਡਾਊਨਲੋਡ ਫੇਲ੍ਹ ਹੋ ਗਿਆ, ਸਰਵਰ 'ਤੇ ਫਾਇਲ ਨਹੀਂ ਮਿਲੀ",
   "@toast_message_file_download_failed_unauthorized": "ਡਾਊਨਲੋਡ ਫੇਲ੍ਹ ਹੋ ਗਿਆ, ਤੁਹਾਨੂੰ ਮੁੜ ਲਾਗਿਨ ਕਰਨਾ ਪਵੇਗਾ",
-  "@toast_message_note_export_success": "ਨਿਰਯਾਤ ਪੂਰਾ ਹੋਇਆ"
+  "@toast_message_note_export_success": "ਨਿਰਯਾਤ ਪੂਰਾ ਹੋਇਆ",
 
+  "@editor_table_text_done": "ਹੋ ਗਿਆ"
 
 }

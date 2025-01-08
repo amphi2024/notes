@@ -154,6 +154,8 @@
   "@toast_message_file_download_failed_error": "ההורדה נכשלה",
   "@toast_message_file_download_failed_not_found": "ההורדה נכשלה, לא נמצא קובץ בשרת",
   "@toast_message_file_download_failed_unauthorized": "ההורדה נכשלה, עליך להיכנס מחדש",
-  "@toast_message_note_export_success": "הייצוא הושלם"
+  "@toast_message_note_export_success": "הייצוא הושלם",
+
+  "@editor_table_text_done": "בוצע"
 
 }

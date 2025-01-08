@@ -154,7 +154,8 @@
   "@toast_message_file_download_failed_error": "डाउनलोड विफल",
   "@toast_message_file_download_failed_not_found": "डाउनलोड विफल, सर्वर पर फ़ाइल नहीं मिली",
   "@toast_message_file_download_failed_unauthorized": "डाउनलोड विफल, कृपया फिर से लॉगिन करें",
-  "@toast_message_note_export_success": "निर्यात पूरा हुआ"
+  "@toast_message_note_export_success": "निर्यात पूरा हुआ",
 
+  "@editor_table_text_done": "किया गया"
 
 }

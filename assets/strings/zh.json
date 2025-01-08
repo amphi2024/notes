@@ -152,6 +152,8 @@
   "@toast_message_file_download_failed_error": "下载失败",
   "@toast_message_file_download_failed_not_found": "下载失败，服务器上找不到文件",
   "@toast_message_file_download_failed_unauthorized": "下载失败，您需要重新登录",
-  "@toast_message_note_export_success": "导出完成"
+  "@toast_message_note_export_success": "导出完成",
+
+  "@editor_table_text_done": "完成"
 
 }

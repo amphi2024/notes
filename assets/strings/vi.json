@@ -152,7 +152,8 @@
   "@toast_message_file_download_failed_error": "Tải xuống không thành công",
   "@toast_message_file_download_failed_not_found": "Tải xuống không thành công, không tìm thấy tệp trên máy chủ",
   "@toast_message_file_download_failed_unauthorized": "Tải xuống không thành công, bạn cần đăng nhập lại",
-  "@toast_message_note_export_success": "Xuất khẩu hoàn tất"
+  "@toast_message_note_export_success": "Xuất khẩu hoàn tất",
 
+  "@editor_table_text_done": "Hoàn thành"
 
 }

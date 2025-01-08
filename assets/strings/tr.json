@@ -152,7 +152,8 @@
   "@toast_message_file_download_failed_error": "İndirme başarısız",
   "@toast_message_file_download_failed_not_found": "İndirme başarısız, dosya sunucuda bulunamadı",
   "@toast_message_file_download_failed_unauthorized": "İndirme başarısız, tekrar giriş yapmanız gerekiyor",
-  "@toast_message_note_export_success": "Dışa aktarma tamamlandı"
+  "@toast_message_note_export_success": "Dışa aktarma tamamlandı",
 
+  "@editor_table_text_done": "Tamamlandı"
 
 }

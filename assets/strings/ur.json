@@ -152,6 +152,8 @@
   "@toast_message_file_download_failed_error": "ڈاؤن لوڈ ناکام ہو گیا",
   "@toast_message_file_download_failed_not_found": "ڈاؤن لوڈ ناکام، سرور پر فائل نہیں ملی",
   "@toast_message_file_download_failed_unauthorized": "ڈاؤن لوڈ ناکام، آپ کو دوبارہ لاگ ان کرنا ہوگا",
-  "@toast_message_note_export_success": "برآمد مکمل ہو گیا"
+  "@toast_message_note_export_success": "برآمد مکمل ہو گیا",
+
+  "@editor_table_text_done": "مکمل"
 
 }

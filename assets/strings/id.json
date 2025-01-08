@@ -154,6 +154,9 @@
   "@toast_message_file_download_failed_error": "Unduhan gagal",
   "@toast_message_file_download_failed_not_found": "Unduhan gagal, file tidak ditemukan di server",
   "@toast_message_file_download_failed_unauthorized": "Unduhan gagal, Anda harus masuk lagi",
-  "@toast_message_note_export_success": "Ekspor selesai"
+  "@toast_message_note_export_success": "Ekspor selesai",
+
+  "@editor_table_text_done": "Selesai"
+
 
 }

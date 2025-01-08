@@ -151,7 +151,8 @@
   "@toast_message_file_download_failed_error": "Muat turun gagal",
   "@toast_message_file_download_failed_not_found": "Muat turun gagal, fail tidak ditemui di pelayan",
   "@toast_message_file_download_failed_unauthorized": "Muat turun gagal, anda perlu log masuk semula",
-  "@toast_message_note_export_success": "Eksport berjaya"
+  "@toast_message_note_export_success": "Eksport berjaya",
 
+  "@editor_table_text_done": "Selesai"
 
 }

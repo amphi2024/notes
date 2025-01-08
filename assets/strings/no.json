@@ -155,8 +155,9 @@
   "@toast_message_file_download_failed_error": "Nedlasting mislyktes",
   "@toast_message_file_download_failed_not_found": "Nedlasting mislyktes, filen ble ikke funnet på serveren",
   "@toast_message_file_download_failed_unauthorized": "Nedlasting mislyktes, du må logge inn på nytt",
-  "@toast_message_note_export_success": "Eksport fullført"
+  "@toast_message_note_export_success": "Eksport fullført",
 
 
+  "@editor_table_text_done": "Ferdig"
 
 }

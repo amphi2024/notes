@@ -154,6 +154,8 @@
   "@toast_message_file_download_failed_error": "Η λήψη απέτυχε",
   "@toast_message_file_download_failed_not_found": "Η λήψη απέτυχε, το αρχείο δεν βρέθηκε στον διακομιστή",
   "@toast_message_file_download_failed_unauthorized": "Η λήψη απέτυχε, πρέπει να συνδεθείτε ξανά",
-  "@toast_message_note_export_success": "Η εξαγωγή ολοκληρώθηκε"
+  "@toast_message_note_export_success": "Η εξαγωγή ολοκληρώθηκε",
+
+  "@editor_table_text_done": "Έγινε"
 
 }

@@ -152,7 +152,8 @@
   "@toast_message_file_download_failed_error": "Pobieranie nie powiodło się",
   "@toast_message_file_download_failed_not_found": "Pobieranie nie powiodło się, nie znaleziono pliku na serwerze",
   "@toast_message_file_download_failed_unauthorized": "Pobieranie nie powiodło się, musisz się ponownie zalogować",
-  "@toast_message_note_export_success": "Eksport zakończony"
+  "@toast_message_note_export_success": "Eksport zakończony",
 
+  "@editor_table_text_done": "Zrobione"
 
 }

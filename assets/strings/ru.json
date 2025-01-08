@@ -152,7 +152,8 @@
   "@toast_message_file_download_failed_error": "Ошибка загрузки",
   "@toast_message_file_download_failed_not_found": "Ошибка загрузки, файл не найден на сервере",
   "@toast_message_file_download_failed_unauthorized": "Ошибка загрузки, необходимо снова войти в систему",
-  "@toast_message_note_export_success": "Экспорт завершен"
+  "@toast_message_note_export_success": "Экспорт завершен",
 
+  "@editor_table_text_done": "Готово"
 
 }

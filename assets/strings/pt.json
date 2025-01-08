@@ -155,8 +155,9 @@
   "@toast_message_file_download_failed_error": "Falha no download",
   "@toast_message_file_download_failed_not_found": "Falha no download, arquivo não encontrado no servidor",
   "@toast_message_file_download_failed_unauthorized": "Falha no download, é necessário fazer login novamente",
-  "@toast_message_note_export_success": "Exportação concluída"
+  "@toast_message_note_export_success": "Exportação concluída",
 
 
+  "@editor_table_text_done": "Feito"
 
 }

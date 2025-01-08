@@ -153,6 +153,8 @@
   "@toast_message_file_download_failed_error": "Error en la descarga",
   "@toast_message_file_download_failed_not_found": "No se pudo encontrar el archivo en el servidor",
   "@toast_message_file_download_failed_unauthorized": "Error en la descarga, debe volver a iniciar sesión",
-  "@toast_message_note_export_success": "Exportación completada"
+  "@toast_message_note_export_success": "Exportación completada",
+
+  "@editor_table_text_done": "Hecho"
 
 }

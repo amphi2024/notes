@@ -154,8 +154,8 @@
   "@toast_message_file_download_failed_error": "Stažení se nezdařilo",
   "@toast_message_file_download_failed_not_found": "Stažení se nezdařilo, soubor nebyl na serveru nalezen",
   "@toast_message_file_download_failed_unauthorized": "Stažení se nezdařilo, musíte se přihlásit znovu",
-  "@toast_message_note_export_success": "Export dokončen"
+  "@toast_message_note_export_success": "Export dokončen",
 
-
+  "@editor_table_text_done": "Hotovo"
 
 }

@@ -155,8 +155,8 @@
   "@toast_message_file_download_failed_error": "Échec du téléchargement",
   "@toast_message_file_download_failed_not_found": "Échec du téléchargement, fichier introuvable sur le serveur",
   "@toast_message_file_download_failed_unauthorized": "Échec du téléchargement, vous devez vous reconnecter",
-  "@toast_message_note_export_success": "Exportation terminée"
+  "@toast_message_note_export_success": "Exportation terminée",
 
-
+  "@editor_table_text_done": "Terminé"
 
 }

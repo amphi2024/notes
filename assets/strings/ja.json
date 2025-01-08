@@ -154,7 +154,8 @@
   "@toast_message_file_download_failed_error": "ダウンロードに失敗しました",
   "@toast_message_file_download_failed_not_found": "ダウンロードに失敗しました。サーバーにファイルが見つかりません",
   "@toast_message_file_download_failed_unauthorized": "ダウンロードに失敗しました。再度ログインしてください",
-  "@toast_message_note_export_success": "エクスポートが完了しました"
+  "@toast_message_note_export_success": "エクスポートが完了しました",
 
+  "@editor_table_text_done": "完了"
 
 }

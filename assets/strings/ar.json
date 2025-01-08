@@ -154,7 +154,8 @@
   "@toast_message_file_download_failed_error": "فشل في التحميل",
   "@toast_message_file_download_failed_not_found": "فشل في التحميل، لم يتم العثور على الملف على الخادم",
   "@toast_message_file_download_failed_unauthorized": "فشل في التحميل، يجب عليك تسجيل الدخول مرة أخرى",
-  "@toast_message_note_export_success": "تم التصدير بنجاح"
+  "@toast_message_note_export_success": "تم التصدير بنجاح",
 
+  "@editor_table_text_done": "تم"
 
 }

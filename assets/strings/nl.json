@@ -152,9 +152,10 @@
   "@toast_message_file_download_failed_error": "Download mislukt",
   "@toast_message_file_download_failed_not_found": "Download mislukt, bestand niet gevonden op de server",
   "@toast_message_file_download_failed_unauthorized": "Download mislukt, je moet opnieuw inloggen",
-  "@toast_message_note_export_success": "Export succesvol"
+  "@toast_message_note_export_success": "Export succesvol",
 
 
+  "@editor_table_text_done": "Klaar"
 
 
 }

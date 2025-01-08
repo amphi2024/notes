@@ -154,7 +154,8 @@
   "@toast_message_file_download_failed_error": "ডাউনলোড ব্যর্থ হয়েছে",
   "@toast_message_file_download_failed_not_found": "ফাইলটি সার্ভারে পাওয়া যায়নি, ডাউনলোড ব্যর্থ হয়েছে",
   "@toast_message_file_download_failed_unauthorized": "ডাউনলোড ব্যর্থ হয়েছে, আপনাকে আবার লগইন করতে হবে",
-  "@toast_message_note_export_success": "রপ্তানি সম্পন্ন হয়েছে"
+  "@toast_message_note_export_success": "রপ্তানি সম্পন্ন হয়েছে",
 
+  "@editor_table_text_done": "সম্পন্ন"
 
 }

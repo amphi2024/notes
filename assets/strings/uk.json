@@ -152,7 +152,8 @@
   "@toast_message_file_download_failed_error": "Не вдалося завантажити",
   "@toast_message_file_download_failed_not_found": "Не вдалося завантажити, файл не знайдено на сервері",
   "@toast_message_file_download_failed_unauthorized": "Не вдалося завантажити, потрібно увійти знову",
-  "@toast_message_note_export_success": "Експорт завершено"
+  "@toast_message_note_export_success": "Експорт завершено",
 
+  "@editor_table_text_done": "Зроблено"
 
 }

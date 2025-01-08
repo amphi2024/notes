@@ -151,8 +151,9 @@
   "@toast_message_file_download_failed_error": "Descărcare eșuată",
   "@toast_message_file_download_failed_not_found": "Descărcare eșuată, fișierul nu a fost găsit pe server",
   "@toast_message_file_download_failed_unauthorized": "Descărcare eșuată, trebuie să vă reconectați",
-  "@toast_message_note_export_success": "Export completat"
+  "@toast_message_note_export_success": "Export completat",
 
+  "@editor_table_text_done": "Gata"
 
 
 

@@ -154,7 +154,8 @@
   "@toast_message_file_download_failed_error": "Lataus epäonnistui",
   "@toast_message_file_download_failed_not_found": "Lataus epäonnistui, tiedostoa ei löydy palvelimelta",
   "@toast_message_file_download_failed_unauthorized": "Lataus epäonnistui, sinun täytyy kirjautua sisään uudelleen",
-  "@toast_message_note_export_success": "Vie onnistui"
+  "@toast_message_note_export_success": "Vie onnistui",
 
+  "@editor_table_text_done": "Valmis"
 
 }
