@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.amphi" "\0"
-            VALUE "FileDescription", "notes" "\0"
+            VALUE "CompanyName", "Amphi" "\0"
+            VALUE "FileDescription", "Amphi Notes" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "notes" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.amphi. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024-2025 Amphi. All rights reserved." "\0"
             VALUE "OriginalFilename", "notes.exe" "\0"
-            VALUE "ProductName", "notes" "\0"
+            VALUE "ProductName", "Notes" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

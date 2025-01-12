@@ -29,13 +29,10 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
 
     Map<String, dynamic> map = widget.tableData.toChartDataMap(widget.pageInfo);
     double width = map.keys.length * 100;
-    double bottomLabelSize = 30;
+    double bottomLabelSize = 50;
 
     for (int i = 0; i < map.keys.length; i++) {
       String title = map.keys.elementAt(i);
-      if(title.length > 5) {
-        bottomLabelSize = 60;
-      }
       if(title.length > 10) {
         bottomLabelSize = 90;
       }
