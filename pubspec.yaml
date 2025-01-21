@@ -54,6 +54,7 @@ dependencies:
   image_picker_macos:
   fl_chart:
   smooth_page_indicator:
+  bitsdojo_window:
 
   amphi:
     path: ../amphi

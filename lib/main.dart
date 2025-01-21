@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/translations.dart';
@@ -23,7 +24,19 @@ import 'package:notes/views/wide_main_view.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
+
+  appWindow.size = const Size(600, 450);
   runApp(MyApp());
+  appWindow.show();
+  doWhenWindowReady(() {
+    final win = appWindow;
+    const initialSize = Size(600, 450);
+    win.minSize = initialSize;
+    win.size = initialSize;
+    win.alignment = Alignment.center;
+    win.title = "Custom window with Flutter";
+    win.show();
+  });
 }
 
 class MyApp extends StatefulWidget {

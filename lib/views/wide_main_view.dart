@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
@@ -57,7 +58,11 @@ class _WideMainViewState extends State<WideMainView> {
    });
     super.initState();
   }
-
+  void maximizeOrRestore() {
+    setState(() {
+      appWindow.maximizeOrRestore();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     String location = appState.history.last?.filename ?? "";
@@ -157,30 +162,48 @@ class _WideMainViewState extends State<WideMainView> {
                   Positioned(
                     right: 5,
                     top: 5,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: appState.noteEditingController.readOnly ? [
-                        NoteEditorExportButton(noteEditingController: appState.noteEditingController),
-                        NoteEditorDetailButton(noteEditingController: appState.noteEditingController),
-                        IconButton(icon: Icon(Icons.edit), onPressed: () {
-                          setState(() {
-                            appState.noteEditingController.readOnly = false;
-                          });
-                        })
-                      ] : [
-                        NoteEditorImportButton(noteEditingController: appState.noteEditingController),
-                        NoteEditorUndoButton(noteEditingController: appState.noteEditingController),
-                        NoteEditorRedoButton(noteEditingController: appState.noteEditingController),
-                        IconButton(icon: Icon(Icons.check_circle_outline), onPressed: () {
-                          setState(() {
-                              Note note = appState.noteEditingController.getNote();
-                              note.save();
-                              AppStorage.notifyNote(note);
-                              appState.noteEditingController.readOnly = true;
-                          });
-                        }),
-                      ],
+                    child: GestureDetector(
+                      onPanUpdate: (d) {
+                        // setState(() {
+                        //   appWindow.position = d.localPosition;
+                        // });
+                        // print("SDfdsfds");
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: appState.noteEditingController.readOnly ? [
+                          NoteEditorExportButton(noteEditingController: appState.noteEditingController),
+                          NoteEditorDetailButton(noteEditingController: appState.noteEditingController),
+                          IconButton(icon: Icon(Icons.edit), onPressed: () {
+                            setState(() {
+                              appState.noteEditingController.readOnly = false;
+                            });
+                          }),
+                          WindowTitleBarBox(child: MoveWindow(),),
+                          MinimizeWindowButton(),
+                          appWindow.isMaximized
+                              ? RestoreWindowButton(
+                            onPressed: maximizeOrRestore,
+                          )
+                              : MaximizeWindowButton(
+                            onPressed: maximizeOrRestore,
+                          ),
+                          CloseWindowButton(),
+                        ] : [
+                          NoteEditorImportButton(noteEditingController: appState.noteEditingController),
+                          NoteEditorUndoButton(noteEditingController: appState.noteEditingController),
+                          NoteEditorRedoButton(noteEditingController: appState.noteEditingController),
+                          IconButton(icon: Icon(Icons.check_circle_outline), onPressed: () {
+                            setState(() {
+                                Note note = appState.noteEditingController.getNote();
+                                note.save();
+                                AppStorage.notifyNote(note);
+                                appState.noteEditingController.readOnly = true;
+                            });
+                          }),
+                        ],
+                      ),
                     ),
                   ),
                   Positioned(
@@ -188,24 +211,12 @@ class _WideMainViewState extends State<WideMainView> {
                       top: 65,
                       bottom: 15,
                       right: 15,
-                      child: GestureDetector(
-                        onTap: () {
-                          if(!appSettings.dockedFloatingMenu) {
-                            setState(() {
-                              if(focusNode.hasFocus) {
-                                focusNode.unfocus();
-                              }
-                              appSettings.floatingMenuShowing = false;
-                            });
-                          }
-                        },
-                        child: Theme(
-                          data: Theme.of(context).noteThemeData(),
-                          child: Scaffold(
-                            backgroundColor: appState.noteEditingController.note.backgroundColorByTheme(Theme.of(context).brightness == Brightness.dark) ?? themeData.cardColor,
-                            body: NoteEditor(
-                              noteEditingController: appState.noteEditingController,
-                            ),
+                      child: Theme(
+                        data: Theme.of(context).noteThemeData(),
+                        child: Scaffold(
+                          backgroundColor: appState.noteEditingController.note.backgroundColorByTheme(Theme.of(context).brightness == Brightness.dark) ?? themeData.cardColor,
+                          body: NoteEditor(
+                            noteEditingController: appState.noteEditingController,
                           ),
                         ),
                       )),
