@@ -2,6 +2,8 @@ name: Build DEB
 
 on:
   push:
+    tags:
+      - 'v*.*.*'
     branches:
       - main
   workflow_dispatch:
