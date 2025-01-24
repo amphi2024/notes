@@ -57,7 +57,9 @@ dependencies:
   bitsdojo_window:
 
   amphi:
-    path: ../amphi
+    git:
+      url: https://github.com/amphi2024/amphi.git
+      ref: main
   pdf:
 
 #  editable_table:
