@@ -21,7 +21,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version:  ${{ env.FLUTTER_VERSION }}
-          channel:  ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
 
       - name: Enable Linux Desktop
         run: flutter config --enable-linux-desktop
@@ -41,7 +41,6 @@ jobs:
           mkdir -p deb_package/usr/local/bin
           cp -r build/linux/x64/release/bundle/* deb_package/usr/local/bin/
           
-          # DEB 패키지 설정 파일 생성
           cat <<EOL > deb_package/DEBIAN/control
           Package: Notes
           Version: 1.0.0
