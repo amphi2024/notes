@@ -65,7 +65,7 @@ jobs:
           path: notes.deb
 
       - name: Release DEB on GitHub
-        if: github.ref == 'refs/heads/main'
+#        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           files: notes.deb
