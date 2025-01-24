@@ -160,16 +160,16 @@ class _WideMainViewState extends State<WideMainView> {
                     ),
                   ),
                   Positioned(
-                    left: 5,
+                     left: 5,
                     right: 5,
                     top: 5,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: appState.noteEditingController.readOnly ? [
-                        Expanded(
-                          child: WindowTitleBarBox(child: MoveWindow(),),
-                        ),
+                        // Expanded(
+                        //   child: WindowTitleBarBox(child: MoveWindow(),),
+                        // ),
                         NoteEditorExportButton(noteEditingController: appState.noteEditingController),
                         NoteEditorDetailButton(noteEditingController: appState.noteEditingController),
                         IconButton(icon: Icon(Icons.edit), onPressed: () {
@@ -177,19 +177,19 @@ class _WideMainViewState extends State<WideMainView> {
                             appState.noteEditingController.readOnly = false;
                           });
                         }),
-                        MinimizeWindowButton(),
-                        appWindow.isMaximized
-                            ? RestoreWindowButton(
-                          onPressed: maximizeOrRestore,
-                        )
-                            : MaximizeWindowButton(
-                          onPressed: maximizeOrRestore,
-                        ),
-                        CloseWindowButton(),
+                        // MinimizeWindowButton(),
+                        // appWindow.isMaximized
+                        //     ? RestoreWindowButton(
+                        //   onPressed: maximizeOrRestore,
+                        // )
+                        //     : MaximizeWindowButton(
+                        //   onPressed: maximizeOrRestore,
+                        // ),
+                        // CloseWindowButton(),
                       ] : [
-                        Expanded(
-                          child: WindowTitleBarBox(child: MoveWindow(),),
-                        ),
+                        // Expanded(
+                        //   child: WindowTitleBarBox(child: MoveWindow(),),
+                        // ),
                         NoteEditorImportButton(noteEditingController: appState.noteEditingController),
                         NoteEditorUndoButton(noteEditingController: appState.noteEditingController),
                         NoteEditorRedoButton(noteEditingController: appState.noteEditingController),
@@ -201,15 +201,15 @@ class _WideMainViewState extends State<WideMainView> {
                               appState.noteEditingController.readOnly = true;
                           });
                         }),
-                        MinimizeWindowButton(),
-                        appWindow.isMaximized
-                            ? RestoreWindowButton(
-                          onPressed: maximizeOrRestore,
-                        )
-                            : MaximizeWindowButton(
-                          onPressed: maximizeOrRestore,
-                        ),
-                        CloseWindowButton(),
+                        // MinimizeWindowButton(),
+                        // appWindow.isMaximized
+                        //     ? RestoreWindowButton(
+                        //   onPressed: maximizeOrRestore,
+                        // )
+                        //     : MaximizeWindowButton(
+                        //   onPressed: maximizeOrRestore,
+                        // ),
+                        // CloseWindowButton(),
                       ],
                     ),
                   ),

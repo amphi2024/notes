@@ -25,18 +25,18 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
 
-  appWindow.size = const Size(600, 450);
+ // appWindow.size = const Size(600, 450);
   runApp(MyApp());
-  appWindow.show();
-  doWhenWindowReady(() {
-    final win = appWindow;
-    const initialSize = Size(600, 450);
-    win.minSize = initialSize;
-    win.size = initialSize;
-    win.alignment = Alignment.center;
-    win.title = "Custom window with Flutter";
-    win.show();
-  });
+  // appWindow.show();
+  // doWhenWindowReady(() {
+  //   final win = appWindow;
+  //   const initialSize = Size(600, 450);
+  //   win.minSize = initialSize;
+  //   win.size = initialSize;
+  //   win.alignment = Alignment.center;
+  //   win.title = "Custom window with Flutter";
+  //   win.show();
+  // });
 }
 
 class MyApp extends StatefulWidget {

@@ -1,0 +1,64 @@
+name: Build DEB
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build_deb:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+          channel: 'stable'
+
+      - name: Enable Linux Desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Linux App
+        run: flutter build linux --release
+
+      - name: Install Packaging Tools
+        run: sudo apt-get update && sudo apt-get install -y dpkg fakeroot
+
+      - name: Create DEB Package
+        run: |
+          mkdir -p deb_package/DEBIAN
+          mkdir -p deb_package/usr/local/bin
+          cp -r build/linux/x64/release/bundle/* deb_package/usr/local/bin/
+          
+          # DEB 패키지 설정 파일 생성
+          cat <<EOL > deb_package/DEBIAN/control
+          Package: Notes
+          Version: 1.0.0
+          Architecture: amd64
+          Maintainer: Amphi
+          Description: Amphi Notes
+          EOL
+          
+          dpkg-deb --build deb_package notes.deb
+
+      - name: Upload DEB as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-deb-package
+          path: notes.deb
+
+      - name: Release DEB on GitHub
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: notes.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
