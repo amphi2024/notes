@@ -30,7 +30,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Linux App
-        run: flutter build linux --release
+        run: flutter build linux
 
       - name: Install Packaging Tools
         run: sudo apt-get update && sudo apt-get install -y dpkg fakeroot
