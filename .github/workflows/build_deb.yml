@@ -43,8 +43,20 @@ jobs:
       - name: Create DEB Package
         run: |
           mkdir -p deb_package/DEBIAN
-          mkdir -p deb_package/usr/local/bin
-          cp -r build/linux/x64/release/bundle/* deb_package/usr/local/bin/
+          mkdir -p deb_package/usr/share/icons/hicolor/128x128/apps/amphi/
+          mkdir -p deb_package/usr/share/icons/hicolor/256x256/apps/amphi/
+          cp -r build/linux/x64/release/bundle/* deb_package/usr/share/amphi/notes/
+          cp assets/logo/icon_128x128.png deb_package/usr/share/icons/hicolor/128x128/apps/amphi/notes.png
+          cp assets/logo/icon_256x256.png deb_package/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+          
+          cat <<EOL > deb_package/usr/share/applications/amphi-notes.desktop
+          [Desktop Entry]
+          Name=Notes
+          Exec=/usr/share/amphi/notes/notes.png
+          Icon=/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+          Type=Application
+          Categories=Utility;TextEditor;
+          EOL
           
           cat <<EOL > deb_package/DEBIAN/control
           Package: Notes
