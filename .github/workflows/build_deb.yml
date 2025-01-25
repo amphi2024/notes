@@ -46,6 +46,7 @@ jobs:
           mkdir -p deb_package/usr/share/icons/hicolor/128x128/apps/amphi/
           mkdir -p deb_package/usr/share/icons/hicolor/256x256/apps/amphi/
           mkdir -p deb_package/usr/share/amphi/notes/
+          mkdir -p deb_package/usr/share/applications/
           cp -r build/linux/x64/release/bundle/* deb_package/usr/share/amphi/notes/
           cp assets/logo/icon_128x128.png deb_package/usr/share/icons/hicolor/128x128/apps/amphi/notes.png
           cp assets/logo/icon_256x256.png deb_package/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
