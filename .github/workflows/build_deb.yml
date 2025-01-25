@@ -54,7 +54,7 @@ jobs:
           cat <<EOL > deb_package/usr/share/applications/amphi-notes.desktop
           [Desktop Entry]
           Name=Notes
-          Exec=/usr/share/amphi/notes/notes.png
+          Exec=/usr/share/amphi/notes/notes
           Icon=/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
           Type=Application
           Categories=Utility;TextEditor;
