@@ -50,18 +50,15 @@ jobs:
           mkdir -p AppDir/usr/share/amphi/notes/
           mkdir -p AppDir/usr/share/applications/
 
-          # Copy the built files into AppDir
           cp -r build/linux/x64/release/bundle/* AppDir/usr/share/amphi/notes/
 
-          # Copy the icons
           cp assets/logo/icon_128x128.png AppDir/usr/share/icons/hicolor/128x128/apps/amphi/notes.png
           cp assets/logo/icon_256x256.png AppDir/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
 
-          # Create .desktop file
           cat <<EOL > AppDir/usr/share/applications/amphi-notes.desktop
           [Desktop Entry]
           Name=Notes
-          Exec=amphi-notes
+          Exec=/usr/share/amphi/notes/notes
           Icon=/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
           Type=Application
           Categories=Utility;TextEditor;
