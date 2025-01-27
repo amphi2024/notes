@@ -55,7 +55,7 @@ jobs:
           cp assets/logo/icon_128x128.png AppDir/usr/share/icons/hicolor/128x128/apps/amphi/notes.png
           cp assets/logo/icon_256x256.png AppDir/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
 
-          cat <<EOL > AppDir/usr/share/applications/amphi-notes.desktop
+          cat <<EOL > AppDir/amphi-notes.desktop
           [Desktop Entry]
           Name=Notes
           Exec=/usr/share/amphi/notes/notes
