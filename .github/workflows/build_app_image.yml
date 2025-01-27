@@ -1,0 +1,78 @@
+name: Build AppImage
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.27.1"
+
+jobs:
+  build_appimage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev libfuse2 libmpv-dev mpv libmimalloc-dev libmimalloc2.0
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Enable Linux Desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Linux App
+        run: flutter build linux
+
+      - name: Install AppImage Tools
+        run: |
+          sudo apt-get install -y wget fuse
+          wget https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage
+          chmod +x appimagetool-x86_64.AppImage
+
+      - name: Prepare AppImage
+        run: |
+          mkdir -p AppDir/usr/share/icons/hicolor/128x128/apps/amphi/
+          mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps/amphi/
+          mkdir -p AppDir/usr/share/amphi/notes/
+          mkdir -p AppDir/usr/share/applications/
+
+          # Copy the built files into AppDir
+          cp -r build/linux/x64/release/bundle/* AppDir/usr/share/amphi/notes/
+
+          # Copy the icons
+          cp assets/logo/icon_128x128.png AppDir/usr/share/icons/hicolor/128x128/apps/amphi/notes.png
+          cp assets/logo/icon_256x256.png AppDir/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+
+          # Create .desktop file
+          cat <<EOL > AppDir/usr/share/applications/amphi-notes.desktop
+          [Desktop Entry]
+          Name=Notes
+          Exec=amphi-notes
+          Icon=/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+          Type=Application
+          Categories=Utility;TextEditor;
+          EOL
+
+      - name: Create AppImage
+        run: |
+          ./appimagetool-x86_64.AppImage AppDir
+
+      - name: Upload AppImage as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-appimage-package
+          path: amphi-notes-x86_64.AppImage
