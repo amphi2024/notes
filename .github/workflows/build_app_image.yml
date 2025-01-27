@@ -59,7 +59,7 @@ jobs:
           [Desktop Entry]
           Name=Notes
           Exec=/usr/share/amphi/notes/notes
-          Icon=/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+          Icon=notes
           Type=Application
           Categories=Utility;TextEditor;
           EOL
