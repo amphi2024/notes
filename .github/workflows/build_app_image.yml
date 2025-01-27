@@ -72,7 +72,7 @@ jobs:
 
       - name: Create AppImage
         run: |
-          ./appimagetool-x86_64.AppImage AppDir
+          ./appimagetool-x86_64.AppImage AppDir amphi-notes-x86_64.AppImage
 
       - name: Upload AppImage as Artifact
         uses: actions/upload-artifact@v4
