@@ -59,6 +59,10 @@ jobs:
           mkdir -p AppDir/usr/lib
           cp /usr/lib/x86_64-linux-gnu/libgtk-3.so.0 AppDir/usr/lib/
           cp /usr/lib/x86_64-linux-gnu/libfuse.so.2 AppDir/usr/lib/
+          cp /usr/lib/x86_64-linux-gnu/libgtk-3.so.0 AppDir/usr/share/amphi/notes/
+          cp /usr/lib/x86_64-linux-gnu/libfuse.so.2 AppDir/usr/share/amphi/notes/
+          
+          ls AppDir/usr/lib
          
 
           cat <<EOL > AppDir/amphi-notes.desktop
