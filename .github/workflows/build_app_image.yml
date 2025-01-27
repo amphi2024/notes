@@ -55,11 +55,11 @@ jobs:
           cp assets/logo/icon_128x128.png AppDir/usr/share/icons/hicolor/128x128/apps/amphi/notes.png
           cp assets/logo/icon_256x256.png AppDir/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
           
-          ls -l AppDir/usr/share/icons/hicolor/128x128/apps/amphi/notes.png
-
-          ls -l AppDir/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
-
-          ls -R AppDir/usr/share/icons/hicolor/
+          
+          mkdir -p AppDir/usr/lib
+          cp /usr/lib/x86_64-linux-gnu/libgtk-3.so.0 AppDir/usr/lib/
+          cp /usr/lib/x86_64-linux-gnu/libfuse.so.2 AppDir/usr/lib/
+         
 
           cat <<EOL > AppDir/amphi-notes.desktop
           [Desktop Entry]
