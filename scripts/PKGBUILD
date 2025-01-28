@@ -1,0 +1,29 @@
+pkgname=amphi-notes
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='A note-taking app created by Amphi'
+url=https://www.amphi.site
+arch=('x86_64' 'aarch64')
+license=(APACHE)
+depends=(fuse2 )
+conflicts=('amphi-notes')
+provides=('amphi-notes')
+options=(!debug)
+source_x86_64=("${url}/releases/download/v${pkgver}/LocalSend-${pkgver}-linux-x86-64.deb")
+source_aarch64=("${url}/releases/download/v${pkgver}/LocalSend-${pkgver}-linux-arm-64.deb")
+sha256sums_x86_64=('')
+sha256sums_aarch64=('')
+_pkgdesktop="amphi-notes.desktop"
+
+
+prepare() {
+	tar -xf data.tar.xz
+}
+
+build() {
+
+}
+
+package() {
+
+}
