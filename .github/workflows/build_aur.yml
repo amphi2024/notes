@@ -19,11 +19,11 @@ jobs:
 
       - name: Download file from URL
         run: |
-          wget https://amphi.site/releases/notes/linux/x86/tar/notes-linux-x86-1.0.0.tar -O notes.tar.gz
+          wget https://amphi.site/releases/notes/linux/x86/tar/notes-linux-x86-1.0.0.tar -O notes.tar
       - name: Get CheckSum
         run: |
           sha256sum notes.tar.gz
-          checksum=$(sha256sum yourfile.tar.gz)
+          checksum=$(sha256sum notes.tar)
       - name: Write PKGBUILD
         run: |
           cat <<EOL > PKGBUILD
