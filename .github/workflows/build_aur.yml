@@ -57,3 +57,8 @@ jobs:
           
           }
           EOL
+      - name: Upload on Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PKGBUILD
+          path: PKGBUILD
