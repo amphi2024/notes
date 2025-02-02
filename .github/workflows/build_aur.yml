@@ -22,7 +22,7 @@ jobs:
           wget https://amphi.site/releases/notes/linux/x86/tar/notes-linux-x86-1.0.0.tar -O notes.tar
       - name: Get CheckSum
         run: |
-          sha256sum notes.tar.gz
+          sha256sum notes.tar
           checksum=$(sha256sum notes.tar)
       - name: Write PKGBUILD
         run: |
