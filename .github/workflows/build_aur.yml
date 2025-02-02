@@ -1,0 +1,59 @@
+name: Build AUR
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.27.1"
+
+jobs:
+  build_deb:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download file from URL
+        run: |
+          wget https://amphi.site/releases/notes/linux/x86/tar/notes-linux-x86-1.0.0.tar -O notes.tar.gz
+      - name: Get CheckSum
+        run: |
+          sha256sum notes.tar.gz
+          checksum=$(sha256sum yourfile.tar.gz)
+      - name: Write PKGBUILD
+        run: |
+          cat <<EOL > PKGBUILD
+          pkgname=amphi-notes
+          pkgver=1.0.0
+          pkgrel=1
+          pkgdesc='A note-taking app created by Amphi'
+          url=https://www.amphi.site
+          arch=('x86_64' 'aarch64')
+          license=(APACHE)
+          depends=(fuse2 )
+          conflicts=('amphi-notes')
+          provides=('amphi-notes')
+          options=(!debug)
+          source_x86_64=("${url}/releases")
+          source_aarch64=("${url}/releases")
+          sha256sums_x86_64=($checksum)
+          sha256sums_aarch64=($checksum)
+          _pkgdesktop="amphi-notes.desktop"
+          
+          
+          prepare() {
+          tar -xf data.tar.xz
+          }
+            
+            build() {
+          
+          }
+            
+            package() {
+          
+          }
+          EOL
