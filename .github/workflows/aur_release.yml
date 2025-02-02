@@ -1,4 +1,4 @@
-name: Build AUR
+name: AUR Release
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
           url=https://www.amphi.site
           arch=('x86_64' 'aarch64')
           license=(APACHE)
-          depends=(fuse2 mpv libmimalloc-dev libmimalloc2.0)
+          depends=(fuse2 mpv mimalloc)
           conflicts=('amphi-notes')
           provides=('amphi-notes')
           options=(!debug)
@@ -46,7 +46,7 @@ jobs:
           
           
           prepare() {
-          tar -xf notes.tar
+          tar -xf data.tar.xz
           }
           
           build() {
