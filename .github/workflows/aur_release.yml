@@ -1,0 +1,87 @@
+name: Build AUR
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.27.1"
+
+jobs:
+  build_deb:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download DEB
+        run: |
+          wget https://amphi.site/releases/notes/linux/x86/deb/notes-linux-x86-1.0.0.deb -O notes.deb
+      - name: Get CheckSum
+        run: |
+          sha256sum notes.deb
+          checksum=$(sha256sum notes.deb)
+      - name: Write PKGBUILD
+        run: |
+          cat <<EOL > PKGBUILD
+          pkgname=amphi-notes
+          pkgver=1.0.0
+          pkgrel=1
+          pkgdesc='A note-taking app created by Amphi'
+          url=https://www.amphi.site
+          arch=('x86_64' 'aarch64')
+          license=(APACHE)
+          depends=(fuse2 mpv libmimalloc-dev libmimalloc2.0)
+          conflicts=('amphi-notes')
+          provides=('amphi-notes')
+          options=(!debug)
+          source_x86_64=("${url}/releases/notes/linux/x86/deb/notes-linux-x86-1.0.0.deb")
+          source_aarch64=("${url}/releases/notes/linux/arm/deb/notes-linux-arm-1.0.0.deb")
+          sha256sums_x86_64=("")
+          sha256sums_aarch64=("")
+          _pkgdesktop="amphi-notes.desktop"
+          
+          
+          prepare() {
+          tar -xf notes.tar
+          }
+          
+          build() {
+            sed -i -E \
+            "s|Exec=notes|Exec=notes|" \
+            "${srcdir}/usr/share/applications/${_pkgdesktop}"
+            
+            # Adjust .desktop to have it point to the correct icon
+            sed -i -E 's/^Icon=.+/Icon=notes/' "${srcdir}/usr/share/applications/${_pkgdesktop}"
+          }
+            
+          package() {
+            install -Dm644 "${srcdir}/usr/share/applications/${_pkgdesktop}" "${pkgdir}/usr/share/applications/${pkgname%-*}.desktop"
+            
+            
+            install -dm644 "${pkgdir}/usr/share/icons/"
+            cp -a "${srcdir}/usr/share/icons" "${pkgdir}/usr/share"
+            for res in "128x128" "256x256"; do
+            mv "${pkgdir}/usr/share/icons/hicolor/${res}/apps/notes.png" "${pkgdir}/usr/share/icons/hicolor/${res}/apps/notes.png"
+            done
+            
+
+            install -dm755 "${pkgdir}/opt/${pkgname%-*}/"
+            cp -a "${srcdir}/usr/share/notes/." "${pkgdir}/opt/${pkgname%-*}"
+            mv "${pkgdir}/opt/${pkgname%-*}/notes" "${pkgdir}/opt/${pkgname%-*}/notes"
+
+
+            install -dm755 "${pkgdir}/usr/bin"
+            ln -s \
+            "/opt/${pkgname%-*}/${pkgname%-*}" \
+            "${pkgdir}/usr/bin/${pkgname%-*}"
+          }
+          EOL
+      - name: Upload on Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PKGBUILD
+          path: PKGBUILD
