@@ -54,7 +54,6 @@ jobs:
             "s|Exec=notes|Exec=notes|" \
             "${srcdir}/usr/share/applications/${_pkgdesktop}"
             
-            # Adjust .desktop to have it point to the correct icon
             sed -i -E 's/^Icon=.+/Icon=notes/' "${srcdir}/usr/share/applications/${_pkgdesktop}"
           }
             
