@@ -58,7 +58,10 @@ jobs:
             install -Dm644 "\${srcdir}/usr/share/applications/\${_pkgdesktop}" "\${pkgdir}/usr/share/applications/\${_pkgdesktop}"
             install -Dm644 "\${srcdir}/usr/share/icons/hicolor/256x256/apps/amphi/notes.png" "\${pkgdir}/usr/share/icons/hicolor/256x256/apps/amphi/notes.png"
             install -Dm644 "\${srcdir}/usr/share/icons/hicolor/128x128/apps/amphi/notes.png" "\${pkgdir}/usr/share/icons/hicolor/128x128/apps/amphi/notes.png"
-            cp -rp "\${srcdir}/usr/share/amphi/notes" "\${pkgdir}/usr/share/amphi/"
+          
+            mkdir -p "${pkgdir}/usr/bin/amphi/notes"
+          
+            cp -rp "\${srcdir}/usr/share/amphi/notes" "\${pkgdir}/usr/share/amphi/notes/"
             find "\${pkgdir}/usr/share/amphi/notes" -type f -exec chmod 644 {} +
             find "\${pkgdir}/usr/share/amphi/notes" -type d -exec chmod 755 {} +
             chmod 755 "\${pkgdir}/usr/share/amphi/notes/notes"
