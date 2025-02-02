@@ -36,8 +36,8 @@ jobs:
           license=(APACHE)
           depends=(fuse2 mpv mimalloc)
           options=(!debug)
-          source_x86_64=("${url}/releases/notes/linux/x86/deb/notes-linux-x86-1.0.0.deb")
-          source_aarch64=("${url}/releases/notes/linux/arm/deb/notes-linux-arm-1.0.0.deb")
+          source_x86_64=("\${url}/releases/notes/linux/x86/deb/notes-linux-x86-1.0.0.deb")
+          source_aarch64=("\${url}/releases/notes/linux/arm/deb/notes-linux-arm-1.0.0.deb")
           sha256sums_x86_64=("f3b22a7e785d706e041118e4029d0ba43cf143e39a773b97bf41c0ef2a40a601")
           sha256sums_aarch64=("f3b22a7e785d706e041118e4029d0ba43cf143e39a773b97bf41c0ef2a40a601")
           _pkgdesktop="amphi-notes.desktop"
@@ -55,25 +55,13 @@ jobs:
           }
             
           package() {
-            install -Dm644 "${srcdir}/usr/share/applications/${_pkgdesktop}" "${pkgdir}/usr/share/applications/${_pkgdesktop}"
-            
-            
-            install -dm644 "${pkgdir}/usr/share/icons/"
-            cp -a "${srcdir}/usr/share/icons" "${pkgdir}/usr/share"
-            for res in "128x128" "256x256"; do
-            mv "${pkgdir}/usr/share/icons/hicolor/${res}/apps/amphi/notes.png" "${pkgdir}/usr/share/icons/hicolor/${res}/apps/amphi/notes.png"
-            done
-            
-
-            install -dm755 "${pkgdir}/opt/${pkgname%-*}/"
-            cp -a "${srcdir}/usr/share/notes/." "${pkgdir}/opt/${pkgname%-*}"
-            mv "${pkgdir}/opt/${pkgname%-*}/notes" "${pkgdir}/opt/${pkgname%-*}/notes"
-
-
-            install -dm755 "${pkgdir}/usr/bin"
-            ln -s \
-            "/opt/${pkgname%-*}/${pkgname%-*}" \
-            "${pkgdir}/usr/bin/${pkgname%-*}"
+            install -Dm644 "\${srcdir}/usr/share/applications/\${_pkgdesktop}" "\${pkgdir}/usr/share/applications/\${_pkgdesktop}"
+            install -Dm644 "\${srcdir}/usr/share/icons/hicolor/256x256/apps/amphi/notes.png" "\${pkgdir}/usr/share/icons/hicolor/256x256/apps/amphi/notes.png"
+            install -Dm644 "\${srcdir}/usr/share/icons/hicolor/128x128/apps/amphi/notes.png" "\${pkgdir}/usr/share/icons/hicolor/128x128/apps/amphi/notes.png"
+            cp -rp "\${srcdir}/usr/share/amphi/notes" "\${pkgdir}/usr/share/amphi/"
+            find "\${pkgdir}/usr/share/amphi/notes" -type f -exec chmod 644 {} +
+            find "\${pkgdir}/usr/share/amphi/notes" -type d -exec chmod 755 {} +
+            chmod 755 "\${pkgdir}/usr/share/amphi/notes/notes"
           }
           EOL
       - name: Upload on Artifact
