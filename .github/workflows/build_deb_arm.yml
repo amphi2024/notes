@@ -10,7 +10,7 @@ env:
   FLUTTER_VERSION: "3.27.1"
 
 jobs:
-  build_deb:
+  build_deb_arm:
     runs-on: ubuntu-latest
 
     steps:
