@@ -1,0 +1,96 @@
+name: Build RPM on ARM
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.27.1"
+
+jobs:
+  build_rpm_arm:
+    runs-on: [self-hosted, linux, arm64]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev libfuse2 libmpv-dev mpv libmimalloc-dev libmimalloc2.0 rpm
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version:  ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Enable Linux Desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Linux App
+        run: flutter build linux
+
+      - name: Create RPM Package
+        run: |
+          mkdir -p rpm_build/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+          mkdir -p rpm_build/BUILDROOT/amphi-notes-1.0.0-1.x86_64/usr/share/amphi/notes/
+          mkdir -p rpm_build/BUILDROOT/amphi-notes-1.0.0-1.x86_64/usr/share/icons/hicolor/128x128/apps/amphi/
+          mkdir -p rpm_build/BUILDROOT/amphi-notes-1.0.0-1.x86_64/usr/share/icons/hicolor/256x256/apps/amphi/
+          mkdir -p rpm_build/BUILDROOT/amphi-notes-1.0.0-1.x86_64/usr/share/applications/
+
+          # Copy application files
+          cp -r build/linux/x64/release/bundle/* rpm_build/BUILDROOT/amphi-notes-1.0.0-1.x86_64/usr/share/amphi/notes/
+          cp assets/logo/icon_128x128.png rpm_build/BUILDROOT/amphi-notes-1.0.0-1.x86_64/usr/share/icons/hicolor/128x128/apps/amphi/notes.png
+          cp assets/logo/icon_256x256.png rpm_build/BUILDROOT/amphi-notes-1.0.0-1.x86_64/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+
+          # Create desktop entry
+          cat <<EOL > rpm_build/BUILDROOT/amphi-notes-1.0.0-1.x86_64/usr/share/applications/amphi-notes.desktop
+          [Desktop Entry]
+          Name=Notes
+          Exec=/usr/share/amphi/notes/notes
+          Icon=/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+          Type=Application
+          Categories=Utility;TextEditor;
+          EOL
+
+          # Create SPEC file
+          cat <<EOL > rpm_build/SPECS/amphi-notes.spec
+          Name: amphi-notes
+          Version: 1.0.0
+          Release: 1%{?dist}
+          Summary: Amphi Notes
+          License: MIT
+          Group: Applications/Text
+          BuildArch: x86_64
+
+          %description
+          Amphi Notes is a desktop application built with Flutter for taking notes.
+
+          %files
+          /usr/share/amphi/notes/
+          /usr/share/icons/hicolor/128x128/apps/amphi/notes.png
+          /usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+          /usr/share/applications/amphi-notes.desktop
+
+          %post
+          echo "Amphi Notes installed."
+
+          %preun
+          echo "Amphi Notes removed."
+          EOL
+
+          # Build RPM
+          rpmbuild --define "_topdir $(pwd)/rpm_build" -bb rpm_build/SPECS/amphi-notes.spec
+
+      - name: Upload RPM as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-rpm-package
+          path: rpm_build/RPMS/x86_64/amphi-notes-1.0.0-1.x86_64.rpm
