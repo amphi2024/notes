@@ -10,7 +10,7 @@ env:
   FLUTTER_VERSION: "3.27.1"
 
 jobs:
-  build_tar:
+  build_for_windows_arm:
     runs-on: windows-2022
     strategy:
       matrix:
