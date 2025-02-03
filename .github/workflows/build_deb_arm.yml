@@ -12,10 +12,7 @@ env:
 
 jobs:
   build_deb:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: [ arm64 ]
+    runs-on: [self-hosted, linux, arm64]
 
     steps:
       - name: Checkout repository

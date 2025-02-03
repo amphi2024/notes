@@ -4,9 +4,11 @@ packages:
   amphi:
     dependency: "direct main"
     description:
-      path: "../amphi"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: b1f2e0d4fcd90704e452e6e1cc0f3ec24bb930f4
+      url: "https://github.com/amphi2024/amphi.git"
+    source: git
     version: "0.0.1"
   appkit_ui_element_colors:
     dependency: transitive

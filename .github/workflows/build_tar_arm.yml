@@ -12,10 +12,7 @@ env:
 
 jobs:
   build_tar_arm:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: [arm64]
+    runs-on: [self-hosted, linux, arm64]
 
     steps:
       - name: Checkout repository
