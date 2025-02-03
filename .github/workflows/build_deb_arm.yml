@@ -1,4 +1,4 @@
-name: Build DEB on arm
+name: Build DEB
 
 on:
   push:
@@ -8,10 +8,14 @@ on:
 
 env:
   FLUTTER_VERSION: "3.27.1"
+  TARGET_ARCH: "arm64"
 
 jobs:
-  build_deb_arm:
+  build_deb:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [ arm64 ]
 
     steps:
       - name: Checkout repository
@@ -36,3 +40,50 @@ jobs:
 
       - name: Build Linux App
         run: flutter build linux
+
+      - name: Install Packaging Tools
+        run: sudo apt-get update && sudo apt-get install -y dpkg fakeroot
+
+      - name: Create DEB Package
+        run: |
+          mkdir -p deb_package/DEBIAN
+          mkdir -p deb_package/usr/share/icons/hicolor/128x128/apps/amphi/
+          mkdir -p deb_package/usr/share/icons/hicolor/256x256/apps/amphi/
+          mkdir -p deb_package/usr/share/amphi/notes/
+          mkdir -p deb_package/usr/share/applications/
+          cp -r build/linux/x64/release/bundle/* deb_package/usr/share/amphi/notes/
+          cp assets/logo/icon_128x128.png deb_package/usr/share/icons/hicolor/128x128/apps/amphi/notes.png
+          cp assets/logo/icon_256x256.png deb_package/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+          
+          cat <<EOL > deb_package/usr/share/applications/amphi-notes.desktop
+          [Desktop Entry]
+          Name=Notes
+          Exec=/usr/share/amphi/notes/notes
+          Icon=/usr/share/icons/hicolor/256x256/apps/amphi/notes.png
+          Type=Application
+          Categories=Utility;TextEditor;
+          EOL
+          
+          cat <<EOL > deb_package/DEBIAN/control
+          Package: Notes
+          Version: 1.0.0
+          Architecture: amd64
+          Maintainer: Amphi
+          Description: Amphi Notes
+          EOL
+          
+          dpkg-deb --build deb_package notes.deb
+
+      - name: Upload DEB as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-deb-package
+          path: notes.deb
+
+      - name: Release DEB on GitHub
+        #        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: notes.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
