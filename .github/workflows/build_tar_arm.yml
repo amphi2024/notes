@@ -30,7 +30,7 @@ jobs:
 
       - name: Build ARM Linux App
         run: |
-          flutter build linux --target-platform=linux-arm64
+          flutter build linux
 
       - name: Upload TAR as Artifact
         uses: actions/upload-artifact@v4
