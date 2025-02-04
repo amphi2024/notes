@@ -37,9 +37,7 @@ jobs:
           depends=(fuse2 mpv mimalloc)
           options=(!debug)
           source_x86_64=("\${url}/releases/notes/linux/x86/deb/notes-linux-x86-1.0.0.deb")
-          source_aarch64=("\${url}/releases/notes/linux/arm/deb/notes-linux-arm-1.0.0.deb")
           sha256sums_x86_64=("f3b22a7e785d706e041118e4029d0ba43cf143e39a773b97bf41c0ef2a40a601")
-          sha256sums_aarch64=("f3b22a7e785d706e041118e4029d0ba43cf143e39a773b97bf41c0ef2a40a601")
           _pkgdesktop="amphi-notes.desktop"
           
           
