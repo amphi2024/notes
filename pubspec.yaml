@@ -58,7 +58,7 @@ dependencies:
 
   amphi:
     git:
-      url: https://github.com/amphi2024/amphi.git
+      url: https://github.com/amphi2024/flutter-shared
       ref: main
   pdf:
 
