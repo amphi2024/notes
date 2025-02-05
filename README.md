@@ -1,16 +1,18 @@
-# Notes
+# Amphi Notes
 
-This Notes apps is a free, open source, that allows you sync your notes using your self-hosted server
+Minimal design, maximum functionality
 
-- [About](#about)
-- [Contributing](#contributing)
+https://amphi.site
 
-## About
+## Screenshots
 
-## Contributing
+![screenshot.jpg](screenshot.png)
 
-You can contribute a code or more accurate translation to this app
+## What makes this app special?
 
-### How to contribute?
-
-
+- Data synchronization via a self-hosted server
+- Table-based statistics and calendar
+- Customizable themes
+- Export to HTML
+- Video insertion
+- Beautiful design ♡
