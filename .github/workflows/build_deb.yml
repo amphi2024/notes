@@ -75,11 +75,3 @@ jobs:
         with:
           name: flutter-deb-package
           path: notes.deb
-
-      - name: Release DEB on GitHub
-#        if: github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: notes.deb
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
