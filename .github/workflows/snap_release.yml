@@ -46,12 +46,14 @@ jobs:
           version: '1.0.0'
           summary: Notes Application
           description: |
-            Amphi Notes is a cross-platform note-taking app built with Flutter.
+            A note-taking app created by Amphi
           grade: stable
           confinement: strict
+          architectures:
+            - amd64
           apps:
             amphi-notes:
-              command: bin/notes
+              command: usr/share/amphi/notes/notes
               plugs:
                 - network
                 - x11
