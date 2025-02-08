@@ -1,0 +1,31 @@
+name: amphi-notes
+version: '1.0.0'
+summary: Notes Application
+description: |
+  A note-taking app created by Amphi
+base: core22
+confinement: strict
+grade: stable
+
+apps:
+  amphi-notes:
+    command: amphi-notes
+    extensions: [ gnome ]
+    plugs:
+      - network
+      - x11
+      - desktop
+      - desktop-legacy
+
+parts:
+  notes:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart
+
+    build-packages:
+      - curl
+
+architectures:
+  - build-on: [ amd64 ]
+  - build-on: [ arm64 ]

@@ -8,7 +8,7 @@ env:
 
 jobs:
   build_snap:
-    runs-on: [self-hosted, linux, x64]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -20,6 +20,8 @@ jobs:
           sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev libfuse2 libmpv-dev mpv libmimalloc-dev libmimalloc2.0
           sudo snap install snapcraft --classic
           sudo snap install lxd
+          sudo usermod -aG lxd $USER
+          newgrp lxd
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -36,37 +38,10 @@ jobs:
       - name: Build Linux App
         run: flutter build linux
 
-      - name: Create Snapcraft.yaml
-        run: |
-          mkdir -p snap
-          cat <<EOL > snap/snapcraft.yaml
-          name: amphi-notes
-          version: '1.0.0'
-          summary: Notes Application
-          description: |
-            A note-taking app created by Amphi
-          grade: stable
-          confinement: strict
-          architectures:
-            - amd64
-          apps:
-            amphi-notes:
-              command: usr/share/amphi/notes/notes
-              plugs:
-                - network
-                - x11
-                - desktop
-                - desktop-legacy
-          EOL
-
       - name: Build Snap Package
         run: |
           cd snap
           snapcraft
-
-      - name: View Logs
-        run: |
-          cat /home/runner/.local/state/snapcraft/log/*
 
       - name: Upload Snap as Artifact
         uses: actions/upload-artifact@v4
