@@ -35,10 +35,10 @@ jobs:
       - name: Build Linux App
         run: flutter build linux
 
-      - uses: snapcore/action-build@v4
+      - uses: snapcore/action-build@v1
         id: build
 
-      - uses: diddlesnaps/snapcraft-review-action@v4
+      - uses: diddlesnaps/snapcraft-review-action@v1
         with:
           snap: ${{ steps.build.outputs.snap }}
           isClassic: 'true'
