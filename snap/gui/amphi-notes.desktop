@@ -2,7 +2,7 @@
 Name=Notes
 Comment=A note-taking app created by Amphi
 Icon=${SNAP}/meta/gui/icon.png
-Exec=notes %U
+Exec=/snap/amphi-notes/current/notes
 Terminal=false
 Type=Application
 Categories=Utility;
