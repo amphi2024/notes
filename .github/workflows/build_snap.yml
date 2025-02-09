@@ -19,7 +19,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev libfuse2 libmpv-dev mpv libmimalloc-dev libmimalloc2.0
           sudo snap install snapcraft --classic
-          sudo snap install lxd --classic
+#          sudo snap install lxd --classic
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -38,7 +38,7 @@ jobs:
 
       - name: Build Snap Package
         run: |
-          sudo lxd init --auto
+          snapcraft --use-lxd=false
           snapcraft
 
       - name: Upload Snap as Artifact
