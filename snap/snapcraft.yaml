@@ -4,13 +4,12 @@ summary: Notes Application
 description: |
   A note-taking app created by Amphi
 base: core22
-confinement: strict
+confinement: classic
 grade: stable
 
 apps:
   notes:
     command: notes
-    extensions: [ gnome ]
     plugs:
       - network
       - x11
