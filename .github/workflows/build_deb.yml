@@ -38,7 +38,6 @@ jobs:
         run: dart pub global activate flutter_distributor
 
       - name: Build DEB
-        working-directory: app
         run: PATH="$PATH:$HOME/.pub-cache/bin" flutter_distributor package --platform linux --targets deb
 
       - name: Upload deb file
