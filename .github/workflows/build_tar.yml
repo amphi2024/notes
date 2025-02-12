@@ -1,9 +1,6 @@
 name: Build TAR
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
   workflow_dispatch:
 
 env:
@@ -37,8 +34,12 @@ jobs:
       - name: Build Linux App
         run: flutter build linux
 
+      - name: Create TAR Archive with Zstandard
+        run: |
+          tar -cf - build/linux/x64/release/bundle | zstd -o notes-linux.tar.zst
+
       - name: Upload TAR as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: notes-linux-tar
-          path: build/linux/x64/release/bundle/*
+          path: notes-linux.tar.zst
