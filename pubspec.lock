@@ -6,8 +6,8 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: b1f2e0d4fcd90704e452e6e1cc0f3ec24bb930f4
-      url: "https://github.com/amphi2024/amphi.git"
+      resolved-ref: "5b5528f151a5a93094fbf69983955dd3fd9a35a1"
+      url: "https://github.com/amphi2024/flutter-shared"
     source: git
     version: "0.0.1"
   appkit_ui_element_colors:

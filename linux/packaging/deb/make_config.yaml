@@ -1,0 +1,36 @@
+display_name: Notes
+package_name: amphi-notes
+maintainer:
+  name: Amphi
+  email: amphiprioninae2024@gmail.com
+priority: optional
+section: x11
+installed_size: 45000
+essential: false
+icon: assets/logo/icon_512x512.png
+
+pre_dependencies:
+  - libc6 (>= 2.31)
+
+dependencies:
+  - libfuse2
+  - libmpv-dev
+  - mpv
+  - libmimalloc-dev
+  - libmimalloc2.0
+
+postinstall_scripts:
+  - echo "Installed Amphi Notes successfully"
+postuninstall_scripts:
+  - echo "Uninstalled Amphi Notes successfully"
+
+keywords:
+  - Notes
+
+generic_name: Note Taking Application
+
+categories:
+  - Utility
+  - Productivity
+
+startup_notify: false
