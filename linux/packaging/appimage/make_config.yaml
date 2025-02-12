@@ -42,5 +42,5 @@ startup_notify: false
 #
 # include:
 #   - libcurl.so.4
-include:
-  - libmpv.so.2
+include: []
+#  - libmpv.so.2
