@@ -1,0 +1,28 @@
+display_name: Notes
+packager: Amphi
+packagerEmail: amphiprioninae2024@gmail.com
+url: https://amphi.site
+buildArch: x86_64
+license: APACHE
+
+icon: assets/logo/icon_512x512.png
+
+requires:
+  - libfuse2
+  - libmpv-dev
+  - mpv
+  - libmimalloc-dev
+  - libmimalloc2.0
+
+keywords:
+  - Notes
+
+generic_name: Note Taking Application
+summary: Note Taking Application
+group: Applications/Utilities
+
+categories:
+  - Utility
+  - Productivity
+
+startup_notify: false
