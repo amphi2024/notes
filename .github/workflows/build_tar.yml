@@ -34,9 +34,9 @@ jobs:
       - name: Build Linux App
         run: flutter build linux
 
-      - name: Create TAR Archive with Zstandard
+      - name: Create TAR
         run: |
-          tar -C build/linux/x64/release -cf - bundle/* | zstd -o notes-linux.tar.zst
+          tar --use-compress-program=zstd -cvf notes-linux.tar.zst build/linux/x64/release/bundle/*
 
       - name: Upload TAR as Artifact
         uses: actions/upload-artifact@v4
