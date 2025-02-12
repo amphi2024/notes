@@ -41,5 +41,5 @@ jobs:
       - name: Upload TAR as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: result
+          name: result-tar
           path: notes-linux.tar.zst
