@@ -40,7 +40,7 @@ jobs:
       - name: Build DEB
         run: PATH="$PATH:$HOME/.pub-cache/bin" flutter_distributor package --platform linux --targets deb
 
-      - name: Upload deb file
+      - name: Upload DEB
         uses: actions/upload-artifact@v4
         with:
           name: result
