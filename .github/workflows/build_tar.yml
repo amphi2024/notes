@@ -36,7 +36,8 @@ jobs:
 
       - name: Create TAR
         run: |
-          tar --use-compress-program=zstd -cvf notes-linux.tar.zst build/linux/x64/release/bundle/*
+          cd build/linux/x64/release/bundle
+          tar --use-compress-program=zstd -cvf ../../../../notes-linux.tar.zst *
 
       - name: Upload TAR as Artifact
         uses: actions/upload-artifact@v4
