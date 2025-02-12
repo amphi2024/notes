@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>amphi-notes</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>APACHE</project_license>
+    <name>Notes</name>
+    <summary>A note-taking app created by Amphi</summary>
+    <description>
+        <p>A note-taking app created by Amphi</p>
+    </description>
+    <launchable type="desktop-id">amphi-notes.desktop</launchable>
+    <url type="homepage">https://amphi.site</url>
+    <releases>
+        <release version="1.0.0" date="2025-02-12"/>
+    </releases>
+    <provides>
+        <id>amphi-notes.desktop</id>
+    </provides>
+    <content_rating type="oars-1.0" />
+<!--    <developer id="io.github.lijy91">-->
+<!--        <name>lijy91</name>-->
+<!--    </developer>-->
+    <update_contact>lijy91@foxmail.com</update_contact>
+</component>
