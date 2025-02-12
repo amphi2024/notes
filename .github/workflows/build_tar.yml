@@ -36,10 +36,10 @@ jobs:
 
       - name: Create TAR Archive with Zstandard
         run: |
-          tar -cf - build/linux/x64/release/bundle | zstd -o notes-linux.tar.zst
+          tar -cf - build/linux/x64/release/bundle/* | zstd -o notes-linux.tar.zst
 
       - name: Upload TAR as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: notes-linux-tar
+          name: result
           path: notes-linux.tar.zst
