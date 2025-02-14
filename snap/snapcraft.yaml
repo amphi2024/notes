@@ -1,33 +1,35 @@
 name: amphi-notes
-version: '1.0.0'
+version: 1.0.0
+license: Apache-2.0
 summary: Notes Application
 description: |
   A note-taking app created by Amphi
+
 base: core22
 confinement: classic
 grade: stable
 
 apps:
   notes:
-    command: notes
+    command: ./notes
+    desktop: ./amphi-notes.desktop
     plugs:
       - network
       - x11
       - desktop
       - desktop-legacy
+
 parts:
   notes:
     plugin: dump
     source: ./build/linux/x64/release/bundle
-    stage-packages:
-      - libmpv-dev
-      - mpv
-      - libmimalloc-dev
-      - libmimalloc2.0
-
     stage:
       - data/*
       - lib/*
       - notes
+      - amphi-notes.desktop
+      - icon.png
+
 architectures:
   - build-on: [ amd64 ]
+#  - build-on: [ arm64 ]
