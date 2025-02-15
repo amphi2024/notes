@@ -2,7 +2,6 @@ display_name: Notes
 packager: Amphi
 packagerEmail: amphiprioninae2024@gmail.com
 url: https://amphi.site
-buildArch: arm64
 license: APACHE
 
 icon: assets/logo/icon_512x512.png
