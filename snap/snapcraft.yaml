@@ -22,7 +22,9 @@ apps:
 parts:
   notes:
     plugin: dump
-    source: ./build/linux/x64/release/bundle
+    source:
+      - on amd64: ./pre-built/x64
+      - on arm64: ./pre-built/arm64
     stage:
       - data/*
       - lib/*
@@ -32,4 +34,4 @@ parts:
 
 architectures:
   - build-on: [ amd64 ]
-#  - build-on: [ arm64 ]
+  - build-on: [ arm64 ]
