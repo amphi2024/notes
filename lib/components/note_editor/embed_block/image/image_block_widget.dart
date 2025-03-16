@@ -72,10 +72,15 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
             //   menuItem(context, "@image_action_remove", Icons.delete, () {}),
             // ]);
           },
-          child: ImageFromStorage(
-            noteName: widget.noteName,
-            imageFilename: widget.imageFilename,
-            fit: BoxFit.contain,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: 250
+            ),
+            child: ImageFromStorage(
+              noteName: widget.noteName,
+              imageFilename: widget.imageFilename,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ),

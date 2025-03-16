@@ -6,6 +6,7 @@ import 'package:notes/channels/app_method_channel.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/main/floating_menu/floating_wide_menu.dart';
+import 'package:notes/components/main/wide_main_view_toolbar.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_detail_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_export_button.dart';
@@ -58,11 +59,13 @@ class _WideMainViewState extends State<WideMainView> {
    });
     super.initState();
   }
+
   void maximizeOrRestore() {
     setState(() {
       appWindow.maximizeOrRestore();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     String location = appState.history.last?.filename ?? "";
@@ -115,107 +118,63 @@ class _WideMainViewState extends State<WideMainView> {
               curve: Curves.easeOutQuint,
               child: Stack(
                 children: [
-                   Positioned(
-                    left: 50,
-                    right: 125,
-                    top: 5,
-                    child: Visibility(
-                      visible: !appState.noteEditingController.readOnly,
-                      // child: MediaQuery.of(context).size.width > 1000 ? editorToolBar : SingleChildScrollView(
-                      //   scrollDirection: Axis.horizontal,
-                      //   child: editorToolBar,
-                      // ),
-                      child: editorToolBar,
-                    ),
-                  ),
-                  AnimatedPositioned(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeOutQuint,
-                    left: appSettings.dockedFloatingMenu &&
-                      appSettings.floatingMenuShowing
-                      ? 5
-                      : 50,
-                    top: 5,
-                    child: Visibility(
-                      visible: !appState.noteEditingController.readOnly,
-                      child: IconButton(icon: Icon(Icons.cancel_outlined), onPressed: () {
-                        showConfirmationDialog("@dialog_title_not_save_note", () {
-                          setState(() {
-                            appState.noteEditingController.readOnly = true;
-                            Note editingNote = appState.noteEditingController.note;
-                            File file = File(editingNote.path);
-                            if(!file.existsSync()) {
-                              AppStorage.getNoteList(location).remove(editingNote);
-                            }
-                            else {
-                              File file = File(appState.noteEditingController.note.path);
-                              Note originalNote = Note.fromFile(file);
-                              appState.noteEditingController.setNote(originalNote);
-                              originalNote.initTitles();
-                              AppStorage.replaceNote(originalNote);
-                            }
-                          });
-                        });
-                      }),
-                    ),
-                  ),
-                  Positioned(
-                     left: 5,
-                    right: 5,
-                    top: 5,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: appState.noteEditingController.readOnly ? [
-                        // Expanded(
-                        //   child: WindowTitleBarBox(child: MoveWindow(),),
-                        // ),
-                        NoteEditorExportButton(noteEditingController: appState.noteEditingController),
-                        NoteEditorDetailButton(noteEditingController: appState.noteEditingController),
-                        IconButton(icon: Icon(Icons.edit), onPressed: () {
-                          setState(() {
-                            appState.noteEditingController.readOnly = false;
-                          });
-                        }),
-                        // MinimizeWindowButton(),
-                        // appWindow.isMaximized
-                        //     ? RestoreWindowButton(
-                        //   onPressed: maximizeOrRestore,
-                        // )
-                        //     : MaximizeWindowButton(
-                        //   onPressed: maximizeOrRestore,
-                        // ),
-                        // CloseWindowButton(),
-                      ] : [
-                        // Expanded(
-                        //   child: WindowTitleBarBox(child: MoveWindow(),),
-                        // ),
-                        NoteEditorImportButton(noteEditingController: appState.noteEditingController),
-                        NoteEditorUndoButton(noteEditingController: appState.noteEditingController),
-                        NoteEditorRedoButton(noteEditingController: appState.noteEditingController),
-                        IconButton(icon: Icon(Icons.check_circle_outline), onPressed: () {
-                          setState(() {
-                              Note note = appState.noteEditingController.getNote();
-                              note.save();
-                              AppStorage.notifyNote(note);
-                              appState.noteEditingController.readOnly = true;
-                          });
-                        }),
-                        // MinimizeWindowButton(),
-                        // appWindow.isMaximized
-                        //     ? RestoreWindowButton(
-                        //   onPressed: maximizeOrRestore,
-                        // )
-                        //     : MaximizeWindowButton(
-                        //   onPressed: maximizeOrRestore,
-                        // ),
-                        // CloseWindowButton(),
-                      ],
-                    ),
-                  ),
+                  //  Positioned(
+                  //   left: 50,
+                  //   right: 125,
+                  //   top: 5,
+                  //   child: Visibility(
+                  //     visible: !appState.noteEditingController.readOnly,
+                  //     // child: MediaQuery.of(context).size.width > 1000 ? editorToolBar : SingleChildScrollView(
+                  //     //   scrollDirection: Axis.horizontal,
+                  //     //   child: editorToolBar,
+                  //     // ),
+                  //     child: editorToolBar,
+                  //   ),
+                  // ),
+                  // AnimatedPositioned(
+                  //   duration: Duration(milliseconds: 500),
+                  //   curve: Curves.easeOutQuint,
+                  //   left: appSettings.dockedFloatingMenu &&
+                  //     appSettings.floatingMenuShowing
+                  //     ? 5
+                  //     : 50,
+                  //   top: 5,
+                  //   child: Visibility(
+                  //     visible: !appState.noteEditingController.readOnly,
+                  //     child: IconButton(icon: Icon(Icons.cancel_outlined), onPressed: () {
+                  //       showConfirmationDialog("@dialog_title_not_save_note", () {
+                  //         setState(() {
+                  //           appState.noteEditingController.readOnly = true;
+                  //           Note editingNote = appState.noteEditingController.note;
+                  //           File file = File(editingNote.path);
+                  //           if(!file.existsSync()) {
+                  //             AppStorage.getNoteList(location).remove(editingNote);
+                  //           }
+                  //           else {
+                  //             File file = File(appState.noteEditingController.note.path);
+                  //             Note originalNote = Note.fromFile(file);
+                  //             appState.noteEditingController.setNote(originalNote);
+                  //             originalNote.initTitles();
+                  //             AppStorage.replaceNote(originalNote);
+                  //           }
+                  //         });
+                  //       });
+                  //     }),
+                  //   ),
+                  // ),
+                  // Positioned(
+                  //    left: 0,
+                  //   right: 0,
+                  //   top: 0,
+                  //   child: WideMainViewToolbar(
+                  //     maximizeOrRestore: maximizeOrRestore,
+                  //     setState: setState,
+                  //   ),
+                  // ),
+                  WideMainViewToolbar(setState: setState, maximizeOrRestore: maximizeOrRestore),
                   Positioned(
                       left: 15,
-                      top: 65,
+                      top: 50,
                       bottom: 15,
                       right: 15,
                       child: Theme(

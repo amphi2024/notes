@@ -1,5 +1,7 @@
+import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/main/app_bar/main_view_title.dart';
 import 'package:notes/components/main/buttons/account_button.dart';
@@ -83,6 +85,26 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
   Widget build(BuildContext context) {
     String location = appState.history.last?.filename ?? "";
     double normalPosition = appSettings.dockedFloatingMenu ? 0 : 15;
+    List<Widget> children = [
+      IconButton(
+          icon: Icon(Icons.arrow_back, color: location == "" ? Theme.of(context).dividerColor : null),
+          onPressed: () {
+            if (appState.history.length > 1) {
+              appState.history.removeLast();
+              appState.notifySomethingChanged(() {});
+            }
+          }),
+      IconButton(
+          icon: Icon(Icons.refresh),
+          onPressed: () {
+            refresh();
+          })
+    ];
+
+    if(App.isDesktop()) {
+      children.insert(0, Expanded(child: MoveWindow()));
+    }
+
     return PopScope(
       canPop: appStorage.selectedNotes == null && appState.history.length <= 1,
       onPopInvokedWithResult: (value, result) {
@@ -125,25 +147,11 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 52.5,
+                  height: 50,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      IconButton(
-                          icon: Icon(Icons.arrow_back, color: location == "" ? Theme.of(context).dividerColor : null),
-                          onPressed: () {
-                            if (appState.history.length > 1) {
-                              appState.history.removeLast();
-                              appState.notifySomethingChanged(() {});
-                            }
-                          }),
-                      IconButton(
-                          icon: Icon(Icons.refresh),
-                          onPressed: () {
-                            refresh();
-                          }),
-                    ],
+                    children: children,
                   ),
                 ),
                 Row(
@@ -239,7 +247,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                                 return SettingsDialog();
                               });
                         },
-                        icon: Icon(AppIcons.settings, size: Theme.of(context).iconTheme.size! - 2.5,)),
+                        icon: Icon(AppIcons.settings, size: Theme.of(context).iconTheme.size ?? 15 - 2.5,)),
                     PopupMenuButton(
                         icon: Icon(Icons.add_circle_outline_outlined),
                         itemBuilder: (context) {

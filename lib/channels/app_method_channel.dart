@@ -31,18 +31,6 @@ class AppMethodChannel extends MethodChannel {
     }
   }
 
-  void selectImage() async {
-    await invokeMethod("select_image");
-  }
-
-  void selectImageFromFiles() async {
-    await invokeMethod("select_image_from_files");
-  }
-
-  void selectVideo() async {
-    await invokeMethod("select_video");
-  }
-
   void rotateScreen() {
     invokeMethod("rotate_screen");
   }

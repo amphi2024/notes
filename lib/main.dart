@@ -25,18 +25,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
 
- // appWindow.size = const Size(600, 450);
   runApp(MyApp());
-  // appWindow.show();
-  // doWhenWindowReady(() {
-  //   final win = appWindow;
-  //   const initialSize = Size(600, 450);
-  //   win.minSize = initialSize;
-  //   win.size = initialSize;
-  //   win.alignment = Alignment.center;
-  //   win.title = "Custom window with Flutter";
-  //   win.show();
-  // });
 }
 
 class MyApp extends StatefulWidget {
@@ -83,10 +72,22 @@ class _MyAppState extends State<MyApp> {
           });
         });
       }
-
       setState(() {
 
       });
+
+      if(App.isDesktop()) {
+        appWindow.size = const Size(800, 450);
+        appWindow.show();
+        doWhenWindowReady(() {
+          final win = appWindow;
+          const initialSize = Size(800, 450);
+          win.minSize = Size(600, 350);
+          win.size = initialSize;
+          win.alignment = Alignment.center;
+          win.show();
+        });
+      }
     });
 
     appWebChannel.getDeviceInfo();
@@ -123,7 +124,7 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
             FlutterQuillLocalizations.delegate
           ],
-          home: !App.isWideScreen(context) ? MainView() : WideMainView());
+          home: !App.isWideScreen(context) && !App.isDesktop() ? MainView() : WideMainView());
     } else {
       return MaterialApp(
         debugShowCheckedModeBanner: false,

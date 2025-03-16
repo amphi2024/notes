@@ -14,7 +14,9 @@ import 'package:notes/models/note_embed_blocks.dart';
 
 class NoteEditingController extends QuillController {
   Future<List<File>> selectedImageFiles() async {
-    final result = await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: true);
+    final result = await FilePicker.platform.pickFiles(type: FileType.custom, allowMultiple: true, allowedExtensions: [ "webp", "jpg", "jpeg", "png", "gif", "bmp", "tiff", "tif", "svg",
+      "ico", "heic", "heif", "jfif", "pjpeg", "pjp", "avif",
+      "raw", "dng", "cr2", "nef", "arw", "rw2", "orf", "sr2", "raf", "pef"]);
     List<File> list = [];
     if (result?.files.isNotEmpty ?? false) {
       for(var file in result!.files) {

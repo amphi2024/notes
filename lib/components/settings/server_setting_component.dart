@@ -69,12 +69,12 @@ class _ServerSettingComponentState extends State<ServerSettingComponent> {
                         lineWidth: 13.0,
                         animation: true,
                         percent: connectionSuccess()
-                            ? usableSpace! / totalSpace!
+                            ? (totalSpace! - usableSpace!) / totalSpace!
                             : 0.3,
                         center: pending
                             ? CircularProgressIndicator() : Text(
                           connectionSuccess()
-                              ? "${formatBytes(usableSpace!)} /\n${formatBytes(totalSpace!)}"
+                              ? "${formatBytes((totalSpace! - usableSpace!))} /\n${formatBytes(totalSpace!)}"
                               : "",
                           style: TextStyle(fontWeight: FontWeight.bold),
                           softWrap: true,

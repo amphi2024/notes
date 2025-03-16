@@ -10,6 +10,7 @@ import 'package:notes/components/note_editor/edit_style/toggle_attribute_button.
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/models/app_colors.dart';
 import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/icons.dart';
 
 class EditNoteTextStyle extends StatefulWidget {
   final NoteEditingController noteEditingController;
@@ -107,7 +108,6 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
     return Container(
       height: App.isDesktop() ? 250 : 400,
       width: double.infinity,
-      //width: 300,
       decoration: BoxDecoration(color: themeData.colorScheme.surface, borderRadius: BorderRadius.circular(15)),
       child: Column(
         children: [
@@ -116,6 +116,44 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
             child: const Padding(
               padding: EdgeInsets.only(left: 8.0, right: 8.0),
               child: BottomSheetDragHandle(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ToggleAttributeButton(
+                  activated: attributeApplied(Attribute.h1),
+                  icon: AppIcons.h1,
+                  onPressed: () => toggleAttribute(Attribute.h1),
+                ),
+                ToggleAttributeButton(
+                  activated: attributeApplied(Attribute.h2),
+                  icon: AppIcons.h2,
+                  onPressed: () => toggleAttribute(Attribute.h2),
+                ),
+                ToggleAttributeButton(
+                  activated: attributeApplied(Attribute.h3),
+                  icon: AppIcons.h3,
+                  onPressed: () => toggleAttribute(Attribute.h3),
+                ),
+                ToggleAttributeButton(
+                  activated: attributeApplied(Attribute.h4),
+                  icon: AppIcons.h4,
+                  onPressed: () => toggleAttribute(Attribute.h4),
+                ),
+                ToggleAttributeButton(
+                  activated: attributeApplied(Attribute.h5),
+                  icon: AppIcons.h5,
+                  onPressed: () => toggleAttribute(Attribute.h5),
+                ),
+                ToggleAttributeButton(
+                  activated: attributeApplied(Attribute.h6),
+                  icon: AppIcons.h6,
+                  onPressed: () => toggleAttribute(Attribute.h6),
+                ),
+              ],
             ),
           ),
           Padding(
