@@ -39,15 +39,6 @@ class AppDelegate: FlutterAppDelegate {
             case "get_storage_path":
                 result(self.getAppSupportDirectory())
                 break
-//            case "select_image":
-//                self.requestPhotoLibraryAccess()
-//                break
-//            case "select_image_from_files":
-//                self.showFileDialog()
-//                break
-//            case "select_video":
-//                break
-                
             default:
                 break
             }

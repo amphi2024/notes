@@ -6,6 +6,7 @@ import 'package:notes/channels/app_method_channel.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/main/floating_menu/floating_wide_menu.dart';
+import 'package:notes/components/main/side_bar_toggle_button.dart';
 import 'package:notes/components/main/wide_main_view_toolbar.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_detail_button.dart';
@@ -162,36 +163,7 @@ class _WideMainViewState extends State<WideMainView> {
                     appState.noteEditingController.setNote(note);
                   });
             }),
-            AnimatedPositioned(
-                left: !appSettings.dockedFloatingMenu &&
-                        appSettings.floatingMenuShowing
-                    ? 20
-                    : 5,
-                top: !appSettings.dockedFloatingMenu &&
-                        appSettings.floatingMenuShowing
-                    ? 20
-                    : 5,
-                duration: Duration(milliseconds: 500),
-                curve: Curves.easeOutQuint,
-                child: GestureDetector(
-                  onLongPress: () {
-                    if (appSettings.floatingMenuShowing) {
-                      setState(() {
-                        appSettings.dockedFloatingMenu =
-                            !appSettings.dockedFloatingMenu;
-                      });
-                      appSettings.save();
-                    }
-                  },
-                  child: IconButton(
-                      icon: Icon(AppIcons.sidebar),
-                      onPressed: () {
-                        setState(() {
-                          appSettings.floatingMenuShowing = !appSettings.floatingMenuShowing;
-                        });
-                        appSettings.save();
-                      }),
-                )),
+            SideBarToggleButton(setState: setState),
           ],
         ),
       ),
