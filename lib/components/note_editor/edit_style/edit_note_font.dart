@@ -15,7 +15,7 @@ class EditNoteFont extends StatefulWidget {
 }
 
 class _EditNoteFontState extends State<EditNoteFont> {
-  late Map<String, String> fonts = getAllFontsSex(context);
+  late Map<String, String> fonts = getAllFontsByMap(context);
   late List<Font> fontList = getAllFonts(context);
 
   @override

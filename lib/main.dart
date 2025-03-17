@@ -35,9 +35,41 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      AppStorage.deleteObsoleteNotes();
+      if (appSettings.useOwnServer) {
+        appWebChannel.connectWebSocket();
+
+        appWebChannel.syncDataFromEvents();
+        appWebChannel.noteUpdateListeners.add((note) {
+          setState(() {
+            AppStorage.notifyNote(note);
+          });
+        });
+
+        appWebChannel.folderUpdateListeners.add((folder) {
+          setState(() {
+            AppStorage.notifyFolder(folder);
+          });
+        });
+      }
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     appStorage.initialize(() {
       appSettings.getData();
       appColors.getData();
@@ -77,11 +109,11 @@ class _MyAppState extends State<MyApp> {
       });
 
       if(App.isDesktop()) {
-        appWindow.size = const Size(800, 450);
+        appWindow.size = const Size(800, 600);
         appWindow.show();
         doWhenWindowReady(() {
           final win = appWindow;
-          const initialSize = Size(800, 450);
+          const initialSize = Size(800, 600);
           win.minSize = Size(600, 350);
           win.size = initialSize;
           win.alignment = Alignment.center;

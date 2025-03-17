@@ -47,7 +47,7 @@ List<Font> getAllFonts(BuildContext context) {
 
 }
 
-Map<String, String> getAllFontsSex(BuildContext context) {
+Map<String, String> getAllFontsByMap(BuildContext context) {
   if(Localizations.localeOf(context).languageCode == "ko") {
     return {
       AppLocalizations.of(context).get("@default_font") : "",

@@ -111,17 +111,13 @@ class NoteEditingController extends QuillController {
   }
 
   int getFontSizeIndex(List<double> fontSizeList) {
-    if (getSelectionStyle().containsKey(Attribute.size.key)) {
       int i = 0;
       for (i; i < fontSizeList.length; i++) {
-        if (fontSizeList[i].toString() == getSelectionStyle().attributes[Attribute.size.key]?.value) {
+        if (fontSizeList[i].toString() == (getSelectionStyle().attributes[Attribute.size.key]?.value ?? "15.0")) {
           break;
         }
       }
       return i;
-    } else {
-      return 3;
-    }
   }
 
   void insertBlock(BlockEmbed blockEmbed) {

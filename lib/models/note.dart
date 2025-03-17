@@ -105,6 +105,64 @@ class Note extends Item {
 
   Future<File> createdVideoFileWithBase64(String base64, String fileExtension) async => createdFileWithBase64(base64, fileExtension , "videos");
 
+  Future<void> deleteObsoleteMediaFiles() async {
+
+    List<Content> imageOnlyContents = [];
+    List<Content> videoOnlyContents = [];
+    for(var content in contents) {
+      switch(content.type) {
+        case "img":
+          imageOnlyContents.add(content);
+          break;
+        case "video":
+          videoOnlyContents.add(content);
+          break;
+      }
+    }
+
+    var imagesDirectory = Directory(PathUtils.join(appStorage.notesPath, name , "images"));
+    var videosDirectory = Directory(PathUtils.join(appStorage.notesPath, name , "videos"));
+    if(await imagesDirectory.exists()) {
+      var imageFiles = await imagesDirectory.list().toList();
+       for(int i = 0; i < await imageFiles.length; i++) {
+         bool exists = false;
+         for(int j = 0; j < imageOnlyContents.length; j++) {
+           var filename = PathUtils.basename(imageFiles[i].path);
+           if(filename == imageOnlyContents[j].value) {
+             exists = true;
+             imageOnlyContents.removeAt(j);
+             break;
+           }
+         }
+         if(!exists) {
+           imageFiles[i].delete();
+           imageFiles.removeAt(i);
+           i--;
+         }
+       }
+    }
+    if(await videosDirectory.exists()) {
+      var videoFiles = await videosDirectory.list().toList();
+      for(int i = 0; i < await videoFiles.length; i++) {
+        bool exists = false;
+        for(int j = 0; j < videoOnlyContents.length; j++) {
+          var filename = PathUtils.basename(videoFiles[i].path);
+          if(filename == videoOnlyContents[j].value) {
+            exists = true;
+            videoOnlyContents.removeAt(j);
+            break;
+          }
+        }
+        if(!exists) {
+          videoFiles[i].delete();
+          videoFiles.removeAt(i);
+          i--;
+        }
+      }
+    }
+
+  }
+
   static Note subNote(Note parent) {
     return Note(
         filename: parent.filename,

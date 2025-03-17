@@ -239,21 +239,24 @@ class AppStorage extends AppStorageCore {
     notes = {};
     List<dynamic> allNotes = getAllNotes();
 
-    // for(dynamic item in allNotes) {
-    //   if(item is Note && item.filename == "ibIWJ.note") {
-    //    // File file = File(item.path);
-    //    // file.writeAsString(item.toFileContent());
-    //   }
-    //   else if(item is Folder) {
-    //     //File file = File(item.path);
-    //     //file.writeAsString(item.toFileContent());
-    //   }
-    // }
+    for (dynamic item in allNotes) {
+      if (item is Folder) {
+        notes[item.filename] = getNotes(noteList: allNotes, home: item.filename);
+        notes[item.filename]!.sortByOption();
+      }
+      else if(item is Note) {
+        item.deleteObsoleteMediaFiles();
+      }
+    }
 
-    for (dynamic folder in allNotes) {
-      if (folder is Folder) {
-        notes[folder.filename] = getNotes(noteList: allNotes, home: folder.filename);
-        notes[folder.filename]!.sortByOption();
+    for(var item in allNotes) {
+      if(item is Folder && item.location != "") {
+        if(!notes.containsKey(item.location)) {
+
+        }
+      }
+      if(item is Note) {
+
       }
     }
 

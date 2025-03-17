@@ -118,59 +118,6 @@ class _WideMainViewState extends State<WideMainView> {
               curve: Curves.easeOutQuint,
               child: Stack(
                 children: [
-                  //  Positioned(
-                  //   left: 50,
-                  //   right: 125,
-                  //   top: 5,
-                  //   child: Visibility(
-                  //     visible: !appState.noteEditingController.readOnly,
-                  //     // child: MediaQuery.of(context).size.width > 1000 ? editorToolBar : SingleChildScrollView(
-                  //     //   scrollDirection: Axis.horizontal,
-                  //     //   child: editorToolBar,
-                  //     // ),
-                  //     child: editorToolBar,
-                  //   ),
-                  // ),
-                  // AnimatedPositioned(
-                  //   duration: Duration(milliseconds: 500),
-                  //   curve: Curves.easeOutQuint,
-                  //   left: appSettings.dockedFloatingMenu &&
-                  //     appSettings.floatingMenuShowing
-                  //     ? 5
-                  //     : 50,
-                  //   top: 5,
-                  //   child: Visibility(
-                  //     visible: !appState.noteEditingController.readOnly,
-                  //     child: IconButton(icon: Icon(Icons.cancel_outlined), onPressed: () {
-                  //       showConfirmationDialog("@dialog_title_not_save_note", () {
-                  //         setState(() {
-                  //           appState.noteEditingController.readOnly = true;
-                  //           Note editingNote = appState.noteEditingController.note;
-                  //           File file = File(editingNote.path);
-                  //           if(!file.existsSync()) {
-                  //             AppStorage.getNoteList(location).remove(editingNote);
-                  //           }
-                  //           else {
-                  //             File file = File(appState.noteEditingController.note.path);
-                  //             Note originalNote = Note.fromFile(file);
-                  //             appState.noteEditingController.setNote(originalNote);
-                  //             originalNote.initTitles();
-                  //             AppStorage.replaceNote(originalNote);
-                  //           }
-                  //         });
-                  //       });
-                  //     }),
-                  //   ),
-                  // ),
-                  // Positioned(
-                  //    left: 0,
-                  //   right: 0,
-                  //   top: 0,
-                  //   child: WideMainViewToolbar(
-                  //     maximizeOrRestore: maximizeOrRestore,
-                  //     setState: setState,
-                  //   ),
-                  // ),
                   WideMainViewToolbar(setState: setState, maximizeOrRestore: maximizeOrRestore),
                   Positioned(
                       left: 15,

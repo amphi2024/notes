@@ -48,10 +48,6 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
     }
   }
 
-  // bool headerAttributeApplied(Attribute headerAttribute) {
-  //   return widget.noteEditingController.getSelectionStyle().attributes["header"]?.value == headerAttribute.value;
-  // }
-
   bool attributeApplied(Attribute attribute) => widget.noteEditingController.getSelectionStyle().containsKey(attribute.key);
 
   bool listAttributeApplied(Attribute attribute) => widget.noteEditingController.getSelectionStyle().attributes["list"]?.value == attribute.value;
@@ -69,16 +65,20 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
     });
   }
 
-  // void toggleHeaderAttribute(Attribute attribute) {
-  //   setState(() {
-  //     widget.noteEditingController.skipRequestKeyboard = attribute.isInline;
-  //     if (headerAttributeApplied(attribute)) {
-  //       widget.noteEditingController.formatSelection(Attribute.clone(attribute, null));
-  //     } else {
-  //       widget.noteEditingController.formatSelection(attribute);
-  //     }
-  //   });
-  // }
+  bool headerAttributeApplied(Attribute headerAttribute) {
+    return widget.noteEditingController.getSelectionStyle().attributes["header"]?.value == headerAttribute.value;
+  }
+
+  void toggleHeaderAttribute(Attribute attribute) {
+    setState(() {
+      widget.noteEditingController.skipRequestKeyboard = attribute.isInline;
+      if (headerAttributeApplied(attribute)) {
+        widget.noteEditingController.formatSelection(Attribute.clone(attribute, null));
+      } else {
+        widget.noteEditingController.formatSelection(attribute);
+      }
+    });
+  }
 
   void toggleListAttribute(Attribute attribute) {
     setState(() {
@@ -124,34 +124,34 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 ToggleAttributeButton(
-                  activated: attributeApplied(Attribute.h1),
+                  activated: headerAttributeApplied(Attribute.h1),
                   icon: AppIcons.h1,
-                  onPressed: () => toggleAttribute(Attribute.h1),
+                  onPressed: () => toggleHeaderAttribute(Attribute.h1),
                 ),
                 ToggleAttributeButton(
-                  activated: attributeApplied(Attribute.h2),
+                  activated: headerAttributeApplied(Attribute.h2),
                   icon: AppIcons.h2,
-                  onPressed: () => toggleAttribute(Attribute.h2),
+                  onPressed: () => toggleHeaderAttribute(Attribute.h2),
                 ),
                 ToggleAttributeButton(
-                  activated: attributeApplied(Attribute.h3),
+                  activated: headerAttributeApplied(Attribute.h3),
                   icon: AppIcons.h3,
-                  onPressed: () => toggleAttribute(Attribute.h3),
+                  onPressed: () => toggleHeaderAttribute(Attribute.h3),
                 ),
                 ToggleAttributeButton(
-                  activated: attributeApplied(Attribute.h4),
+                  activated: headerAttributeApplied(Attribute.h4),
                   icon: AppIcons.h4,
-                  onPressed: () => toggleAttribute(Attribute.h4),
+                  onPressed: () => toggleHeaderAttribute(Attribute.h4),
                 ),
                 ToggleAttributeButton(
-                  activated: attributeApplied(Attribute.h5),
+                  activated: headerAttributeApplied(Attribute.h5),
                   icon: AppIcons.h5,
-                  onPressed: () => toggleAttribute(Attribute.h5),
+                  onPressed: () => toggleHeaderAttribute(Attribute.h5),
                 ),
                 ToggleAttributeButton(
-                  activated: attributeApplied(Attribute.h6),
+                  activated: headerAttributeApplied(Attribute.h6),
                   icon: AppIcons.h6,
-                  onPressed: () => toggleAttribute(Attribute.h6),
+                  onPressed: () => toggleHeaderAttribute(Attribute.h6),
                 ),
               ],
             ),
@@ -299,6 +299,42 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              ToggleAttributeButton(
+                activated: false,
+                icon: Icons.format_indent_decrease,
+                onPressed: () {
+                  setState(() {
+                    widget.noteEditingController.skipRequestKeyboard = IndentAttribute().isInline;
+                    int? value = widget.noteEditingController.getSelectionStyle().attributes["indent"]?.value;
+                    if(value != null) {
+                      value--;
+                      if(value == 0) {
+                        widget.noteEditingController.formatSelection(Attribute.clone(IndentAttribute(), null));
+                      }
+                      else {
+                        widget.noteEditingController.formatSelection(IndentAttribute(level: value));
+                      }
+                    }
+                  });
+                },
+              ),
+              ToggleAttributeButton(
+                activated: false,
+                icon: Icons.format_indent_increase,
+                onPressed: () {
+                  setState(() {
+                    widget.noteEditingController.skipRequestKeyboard = IndentAttribute().isInline;
+                    int? value = widget.noteEditingController.getSelectionStyle().attributes["indent"]?.value;
+                    if(value != null) {
+                      value++;
+                      widget.noteEditingController.formatSelection(IndentAttribute(level: value));
+                    }
+                    else {
+                      widget.noteEditingController.formatSelection(IndentAttribute(level: 1));
+                    }
+                  });
+                },
+              ),
               ToggleAttributeButton(
                 activated: !attributeApplied(AlignAttribute(null)),
                 icon: Icons.format_align_left,
