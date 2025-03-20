@@ -36,6 +36,16 @@ class Folder extends Item {
         originalModified: DateTime.now());
   }
 
+  Future<void> bringToFrontIfOrphan() async {
+    if(location != "" && location != "!Trashes") {
+      var folderFile = File(PathUtils.join(appStorage.notesPath, location));
+      if(! await folderFile.exists()) {
+        location = "";
+        save(upload: false, changeModified: false);
+      }
+    }
+  }
+
   static Folder fromFile(File file) {
     try {
       String fileContent = file.readAsStringSync();

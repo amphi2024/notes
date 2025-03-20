@@ -12,7 +12,8 @@ class NoteTableBlock extends StatefulWidget{
   final TableData tableData;
   final bool readOnly;
   final Map<String, dynamic> pageInfo;
-  const NoteTableBlock({super.key, required this.tableData, required this.readOnly, required this.pageInfo});
+  final void Function()? removePage;
+  const NoteTableBlock({super.key, required this.tableData, required this.readOnly, required this.pageInfo, this.removePage});
 
   @override
   State<NoteTableBlock> createState() => _NoteTableBlockState();

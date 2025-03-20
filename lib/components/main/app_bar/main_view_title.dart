@@ -1,6 +1,8 @@
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/icons.dart';

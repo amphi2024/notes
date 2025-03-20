@@ -3,15 +3,20 @@ import 'dart:ui';
 
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:amphi/utils/path_utils.dart';
+import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_quill/translations.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:macos_ui/macos_ui.dart';
+import 'package:macos_window_utils/toolbars/toolbars.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_sync.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/app_colors.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
@@ -39,7 +44,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.resumed && !App.isDesktop()) {
+
       AppStorage.deleteObsoleteNotes();
       if (appSettings.useOwnServer) {
         appWebChannel.connectWebSocket();
@@ -70,6 +76,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+    appCacheData.getData();
     appStorage.initialize(() {
       appSettings.getData();
       appColors.getData();
@@ -109,15 +116,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       });
 
       if(App.isDesktop()) {
-        appWindow.size = const Size(800, 600);
-        appWindow.show();
         doWhenWindowReady(() {
-          final win = appWindow;
-          const initialSize = Size(800, 600);
-          win.minSize = Size(600, 350);
-          win.size = initialSize;
-          win.alignment = Alignment.center;
-          win.show();
+          appWindow.minSize = Size(600, 350);
+          appWindow.size = Size(appCacheData.windowWidth, appCacheData.windowHeight);
+          appWindow.alignment = Alignment.center;
+          appWindow.show();
         });
       }
     });

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/models/user.dart';
+import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:amphi/widgets/profile_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,12 +15,13 @@ import 'package:notes/channels/app_web_sync.dart';
 import 'package:notes/components/main/account_info/account_item.dart';
 import 'package:notes/components/main/account_info/change_password_dialog.dart';
 import 'package:notes/components/main/list_view/linear_item_border.dart';
+import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/views/login_view.dart';
-import 'package:notes/views/login_view_dialog.dart';
+import 'package:notes/dialogs/login_view_dialog.dart';
 
 class AccountInfo extends StatefulWidget {
   const AccountInfo({super.key});
@@ -182,7 +185,10 @@ class _AccountInfoState extends State<AccountInfo> {
                         (Route<dynamic> route) => route.isFirst,
                       );
                       appStorage.removeUser(() {
-                        appStorage.saveSelectedUser(unselectedUsers[0]);
+                        appStorage.selectedUser = unselectedUsers[0];
+                        appCacheData.selectedDirectory = PathUtils.basename(unselectedUsers[0].storagePath);
+                        appCacheData.save();
+
                         appStorage.users.remove(appStorage.selectedUser);
                         appStorage.selectedUser = unselectedUsers[0];
 
@@ -222,8 +228,9 @@ class _AccountInfoState extends State<AccountInfo> {
                                 context,
                                 (Route<dynamic> route) => route.isFirst,
                               );
-                              await appStorage.saveSelectedUser(unselectedUsers[index]);
                               appStorage.selectedUser = unselectedUsers[index];
+                              appCacheData.selectedDirectory = PathUtils.basename( unselectedUsers[index].storagePath);
+                              appCacheData.save();
                               appStorage.initPaths();
                               appSettings.getData();
                               appWebChannel.disconnectWebSocket();
@@ -247,8 +254,9 @@ class _AccountInfoState extends State<AccountInfo> {
                                     context,
                                     (Route<dynamic> route) => route.isFirst,
                                   );
-                                  await appStorage.saveSelectedUser(user);
                                   appStorage.selectedUser = user;
+                                  appCacheData.selectedDirectory = PathUtils.basename( user.storagePath);
+                                  appCacheData.save();
                                   appStorage.users.add(user);
                                   appStorage.initPaths();
                                   appSettings.getData();

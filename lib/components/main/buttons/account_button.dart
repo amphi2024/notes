@@ -18,7 +18,7 @@ class AccountButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double iconSize = 30;
     double profileIconSize = 20;
-    if (App.isWideScreen(context)) {
+    if (App.isWideScreen(context) || App.isDesktop()) {
       iconSize = 20;
       profileIconSize = 15;
     }

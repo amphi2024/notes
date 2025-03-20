@@ -7,14 +7,7 @@ class ViewPagerEmbedBuilder extends EmbedBuilder {
   String get key => 'view-pager';
 
   @override
-  Widget build(
-      BuildContext context,
-      QuillController controller,
-      Embed node,
-      bool readOnly,
-      bool inline,
-      TextStyle textStyle,
-      ) {
-    return ViewPagerBlockWidget(viewPagerKey: node.value.data, readOnly: readOnly);
+  Widget build(BuildContext context, EmbedContext embedContext) {
+    return ViewPagerBlockWidget(viewPagerKey: embedContext.node.value.data, readOnly: embedContext.readOnly);
   }
 }

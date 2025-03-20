@@ -10,6 +10,7 @@ import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_upload.dart';
 import 'package:notes/components/note_editor/embed_block/file/file_block_embed.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/file_in_note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/utils/toast.dart';
@@ -22,7 +23,7 @@ class NoteEditorFileButton extends StatelessWidget {
   const NoteEditorFileButton({super.key, required this.noteEditingController});
 
   String generatedFileNameCompareToList(String fileType, List<Map<String, dynamic>> list) {
-    String name = randomString(10) + fileType;
+    String name = randomString(15, 8) + fileType;
     bool exists = false;
     for(var map in list) {
       if(map["filename"] == name) {
@@ -71,19 +72,21 @@ class NoteEditorFileButton extends StatelessWidget {
       icon: Icon(Icons.attach_file),
       onPressed: () async {
         var noteName = appState.noteEditingController.note.name;
-        appWebChannel.getFiles(noteName: noteName, onSuccess: (list) async {
-          pickFilesAndInsert(list);
-        }, onFailed: (statusCode) {
-          if(statusCode == HttpStatus.notFound) {
-            pickFilesAndInsert([]);
-          }
-          else {
-            showToast(context, AppLocalizations.of(context).get("@failed_to_connect"));
-          }
-        });
-
-
-
+        if(appSettings.useOwnServer) {
+          appWebChannel.getFiles(noteName: noteName, onSuccess: (list) async {
+            pickFilesAndInsert(list);
+          }, onFailed: (statusCode) {
+            if(statusCode == HttpStatus.notFound) {
+              pickFilesAndInsert([]);
+            }
+            else {
+              showToast(context, AppLocalizations.of(context).get("@failed_to_connect"));
+            }
+          });
+        }
+        else {
+          showToast(context, AppLocalizations.of(context).get("@please_set_server_address"));
+        }
 
       },
     );

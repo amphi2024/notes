@@ -36,7 +36,6 @@ class Content {
       case "file":
         return Content(value: map["value"] , type: "file");
       default:
-       // return Content(value: map["value"], type: "text", style: styleFromData(map));
          return Content(value: map["value"], type: "text", style: map["style"]);
     }
   }

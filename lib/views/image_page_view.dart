@@ -7,6 +7,7 @@ import 'package:amphi/utils/path_utils.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/components/image_from_storage.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/icons.dart';
@@ -27,14 +28,24 @@ class _ImagePageViewState extends State<ImagePageView> {
   Timer? timer;
 
   var controller = TransformationController();
+  bool isFullscreen = false;
+
+  void fullscreenListener(bool fullscreen) {
+    setState(() {
+      isFullscreen = fullscreen;
+    });
+  }
 
   @override
   void dispose() {
+    timer?.cancel();
+    appMethodChannel.fullScreenListeners.remove(fullscreenListener);
     super.dispose();
   }
 
   @override
   void initState() {
+    appMethodChannel.fullScreenListeners.add(fullscreenListener);
     super.initState();
   }
   void maximizeOrRestore() {
@@ -158,7 +169,7 @@ class _ImagePageViewState extends State<ImagePageView> {
                 Align(
                     alignment: Alignment.topCenter,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 7.5, right: 7.5, top: MediaQuery.of(context).padding.top + 7.5),
+                      padding: EdgeInsets.only(left: isFullscreen ? 7.5 : 77.5, right: 7.5, top: MediaQuery.of(context).padding.top + 7.5),
                       child: Visibility(
                         visible: toolbarVisible,
                         child: Row(

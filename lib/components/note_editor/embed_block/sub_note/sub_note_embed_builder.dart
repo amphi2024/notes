@@ -11,16 +11,9 @@ class SubNoteEmbedBuilder extends EmbedBuilder {
   String get key => 'note';
 
   @override
-  Widget build(
-      BuildContext context,
-      QuillController controller,
-      Embed node,
-      bool readOnly,
-      bool inline,
-      TextStyle textStyle,
-      ) {
+  Widget build(BuildContext context, EmbedContext embedContext) {
     return SubNoteBlockWidget(
-        noteKey: node.value.data,
+        noteKey: embedContext.node.value.data,
       readOnly: appState.noteEditingController.readOnly,
     );
   }

@@ -10,7 +10,7 @@ import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/views/register_view.dart';
-import 'package:notes/views/register_view_dialog.dart';
+import 'package:notes/dialogs/register_view_dialog.dart';
 
 class LoginForm extends StatefulWidget {
 

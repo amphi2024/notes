@@ -2,31 +2,60 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:macos_window_utils/macos/ns_window_toolbar_style.dart';
+import 'package:macos_window_utils/window_manipulator.dart';
 
+import '../../channels/app_method_channel.dart';
 import '../../models/app_settings.dart';
 import '../../models/icons.dart';
 
-class SideBarToggleButton extends StatelessWidget {
+class SideBarToggleButton extends StatefulWidget {
 
   final void Function(void Function()) setState;
   const SideBarToggleButton({super.key, required this.setState});
 
   @override
+  State<SideBarToggleButton> createState() => _SideBarToggleButtonState();
+}
+
+class _SideBarToggleButtonState extends State<SideBarToggleButton> {
+
+  bool isFullscreen = false;
+
+  @override
+  void dispose() {
+    appMethodChannel.fullScreenListeners.remove(fullScreenListener);
+    super.dispose();
+  }
+
+  void fullScreenListener(bool fullScreen) {
+    print("Side $fullScreen");
+    setState(() {
+      isFullscreen = fullScreen;
+    });
+  }
+
+  @override
+  void initState() {
+    appMethodChannel.fullScreenListeners.add(fullScreenListener);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double left = 5;
-    double top = 10;
+    double top = 7.5;
 
-    if(Platform.isMacOS && !appWindow.isMaximized) {
-      left = 60;
-      //top = 20;
+    if(Platform.isMacOS) {
+      left = isFullscreen ? 5 : 80;
     }
 
     if(!appSettings.dockedFloatingMenu && appSettings.floatingMenuShowing) {
       left = 20;
-      if(Platform.isMacOS && !appWindow.isMaximized) {
-        left = 70;
-      }
       top = 20;
+      if(Platform.isMacOS && !isFullscreen) {
+        top = 30;
+      }
     }
 
     return AnimatedPositioned(
@@ -37,7 +66,7 @@ class SideBarToggleButton extends StatelessWidget {
         child: GestureDetector(
           onLongPress: () {
             if (appSettings.floatingMenuShowing) {
-              setState(() {
+              widget.setState(() {
                 appSettings.dockedFloatingMenu =
                 !appSettings.dockedFloatingMenu;
               });
@@ -47,7 +76,9 @@ class SideBarToggleButton extends StatelessWidget {
           child: IconButton(
               icon: Icon(AppIcons.sidebar),
               onPressed: () {
-                setState(() {
+                WindowManipulator.addToolbar();
+                WindowManipulator.setToolbarStyle(toolbarStyle: NSWindowToolbarStyle.unified);
+                widget.setState(() {
                   appSettings.floatingMenuShowing = !appSettings.floatingMenuShowing;
                 });
                 appSettings.save();

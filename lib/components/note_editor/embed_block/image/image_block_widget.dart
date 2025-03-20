@@ -44,43 +44,11 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
                 },
               ),
             );
-
-            // showMenuByRelative(context: context, items: [
-            //   menuItem(context, "@image_action_resize", Icons.settings, () {}),
-            //   menuItem(context, "@image_action_share", Icons.share, () {}),
-            //   menuItem(context, "@image_action_copy", Icons.copy, () {}),
-            //   menuItem(context, "@image_action_save", Icons.save, () async {
-            //     var bytes = await File(absolutePath).readAsBytes();
-            //     String? selectedPath = await FilePicker.platform
-            //         .saveFile(fileName: "image.${FilenameUtils.extensionName(widget.imageFilename)}", type: FileType.image, bytes: bytes);
-            //
-            //     if (selectedPath != null) {
-            //       if (App.isDesktop()) {
-            //         File file = File(selectedPath);
-            //         file.writeAsBytes(bytes);
-            //       }
-            //     }
-            //   }),
-            //   menuItem(context, "@image_action_zoom", Icons.zoom_in, () {
-            //
-            //     // Navigator.push(context, Route(builder: (context) {
-            //     //   return Center(
-            //     //
-            //     //   );
-            //     // }));
-            //   }),
-            //   menuItem(context, "@image_action_remove", Icons.delete, () {}),
-            // ]);
           },
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: 250
-            ),
-            child: ImageFromStorage(
-              noteName: widget.noteName,
-              imageFilename: widget.imageFilename,
-              fit: BoxFit.contain,
-            ),
+          child: ImageFromStorage(
+            noteName: widget.noteName,
+            imageFilename: widget.imageFilename,
+            fit: BoxFit.contain,
           ),
         ),
       ),

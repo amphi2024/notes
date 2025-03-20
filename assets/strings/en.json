@@ -155,6 +155,8 @@
   "@toast_message_file_download_failed_unauthorized": "Failed to download, you must re-log in",
   "@toast_message_note_export_success": "Export completed",
 
-  "@editor_table_text_done": "Done"
+  "@editor_table_text_done": "Done",
+
+  "@draft_exists_message": "Do you want to load the draft?"
 
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/models/app_storage_core.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';
@@ -13,6 +14,7 @@ final appStorage = AppStorage.getInstance();
 
 class AppStorage extends AppStorageCore {
   static final AppStorage _instance = AppStorage._internal();
+
   AppStorage._internal();
 
   static AppStorage getInstance() => _instance;
@@ -66,23 +68,23 @@ class AppStorage extends AppStorageCore {
         File file = File(PathUtils.join(appStorage.notesPath, filename));
 
 
-          if (filename.endsWith(".note")) {
-            if (!file.existsSync() || (file.existsSync() && modified.isAfter(file.lastModifiedSync())) ) {
-              appWebChannel.downloadNote(
-                  filename: filename,
-                  onSuccess: (note) {
-                    AppStorage.getNoteList(note.location).add(note);
-                  });
-            }
-          } else if (filename.endsWith(".folder")) {
-            if (!file.existsSync() || (file.existsSync() && modified.isAfter(file.lastModifiedSync())) ) {
-              appWebChannel.downloadFolder(
-                  filename: filename,
-                  onSuccess: (folder) {
-                    AppStorage.getNoteList(folder.location).add(folder);
-                  });
-            }
+        if (filename.endsWith(".note")) {
+          if (!file.existsSync() || (file.existsSync() && modified.isAfter(file.lastModifiedSync()))) {
+            appWebChannel.downloadNote(
+                filename: filename,
+                onSuccess: (note) {
+                  AppStorage.getNoteList(note.location).add(note);
+                });
           }
+        } else if (filename.endsWith(".folder")) {
+          if (!file.existsSync() || (file.existsSync() && modified.isAfter(file.lastModifiedSync()))) {
+            appWebChannel.downloadFolder(
+                filename: filename,
+                onSuccess: (folder) {
+                  AppStorage.getNoteList(folder.location).add(folder);
+                });
+          }
+        }
       }
     });
     await Future.delayed(const Duration(milliseconds: 1500));
@@ -244,19 +246,17 @@ class AppStorage extends AppStorageCore {
         notes[item.filename] = getNotes(noteList: allNotes, home: item.filename);
         notes[item.filename]!.sortByOption();
       }
-      else if(item is Note) {
+      else if (item is Note) {
         item.deleteObsoleteMediaFiles();
       }
     }
 
-    for(var item in allNotes) {
-      if(item is Folder && item.location != "") {
-        if(!notes.containsKey(item.location)) {
-
-        }
+    for (var item in allNotes) {
+      if (item is Folder) {
+        item.bringToFrontIfOrphan();
       }
-      if(item is Note) {
-
+      if (item is Note) {
+        item.bringToFrontIfOrphan();
       }
     }
 
@@ -273,12 +273,36 @@ class AppStorage extends AppStorageCore {
 
     List<FileSystemEntity> fileList = directory.listSync();
 
-    for (FileSystemEntity file in fileList) {
+    for (int i = 0; i < fileList.length; i++) {
+      FileSystemEntity file = fileList[i];
       if (file is File) {
         if (file.path.endsWith(".note")) {
           notes.add(Note.fromFile(file));
         } else if (file.path.endsWith(".folder")) {
           notes.add(Folder.fromFile(file));
+        }
+      }
+      else if (file is Directory) {
+        var dirName = PathUtils.basename(file.path);
+        var noteFile = File(PathUtils.join(appStorage.notesPath, "${dirName}.note"));
+        var draftFile = File(PathUtils.join(file.path, "draft.note"));
+        if (!noteFile.existsSync()) {
+          if (draftFile.existsSync()) {
+            var draftNote = Note.fromFile(draftFile);
+            var note = Note(filename: "${dirName}.note",
+                path: noteFile.path,
+                location: "",
+                contents: draftNote.contents,
+                created: DateTime.now(),
+                originalCreated: DateTime.now(),
+                modified: DateTime.now(),
+                originalModified: DateTime.now());
+            note.initTitles();
+            notes.add(note);
+          }
+          else {
+            file.delete();
+          }
         }
       }
     }

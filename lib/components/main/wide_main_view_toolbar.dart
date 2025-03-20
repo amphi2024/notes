@@ -4,6 +4,9 @@ import 'package:amphi/models/app.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
+import 'package:notes/dialogs/draft_dialog.dart';
+import '../../channels/app_method_channel.dart';
+import '../../models/app_cache_data.dart';
 import '../../models/app_settings.dart';
 import '../../models/app_state.dart';
 import '../../models/app_storage.dart';
@@ -26,6 +29,27 @@ class WideMainViewToolbar extends StatefulWidget {
 }
 
 class _WideMainViewToolbarState extends State<WideMainViewToolbar> {
+
+  bool isFullscreen = false;
+
+  @override
+  void dispose() {
+    appMethodChannel.fullScreenListeners.remove(fullScreenListener);
+    super.dispose();
+  }
+
+  void fullScreenListener(bool fullScreen) {
+    setState(() {
+      isFullscreen = fullScreen;
+    });
+  }
+
+  @override
+  void initState() {
+    appMethodChannel.fullScreenListeners.add(fullScreenListener);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     String location = appState.history.last?.filename ?? "";
@@ -33,9 +57,37 @@ class _WideMainViewToolbarState extends State<WideMainViewToolbar> {
       NoteEditorExportButton(noteEditingController: appState.noteEditingController),
       NoteEditorDetailButton(noteEditingController: appState.noteEditingController),
       IconButton(icon: Icon(Icons.edit), onPressed: () {
-        widget.setState(() {
-          appState.noteEditingController.readOnly = false;
+        appState.noteEditingController.note.getDraft((draftNote) {
+          appState.startDraftSave();
+          if(draftNote != null) {
+            showDialog(context: context, builder: (context) {
+              return DraftDialog(
+                onCanceled: () {
+                  widget.setState(() {
+                    appState.noteEditingController.readOnly = false;
+                  });
+                },
+                onConfirmed: () {
+                  appState.noteEditingController.note.contents = draftNote.contents;
+                  appState.noteEditingController.setNote(appState.noteEditingController.note);
+                  widget.setState(() {
+                    appState.noteEditingController.readOnly = false;
+                  });
+                },
+              );
+            });
+          }
+          else {
+            widget.setState(() {
+              appState.noteEditingController.readOnly = false;
+            });
+          }
         });
+        if(App.isDesktop()) {
+          appCacheData.windowWidth = appWindow.size.width;
+          appCacheData.windowHeight = appWindow.size.height;
+          appCacheData.save();
+        }
       }),
 
     ];
@@ -56,9 +108,10 @@ class _WideMainViewToolbarState extends State<WideMainViewToolbar> {
       children = [
         IconButton(icon: Icon(Icons.cancel_outlined), onPressed: () {
           showConfirmationDialog("@dialog_title_not_save_note", () {
+            Note editingNote = appState.noteEditingController.note;
+            appState.deleteDraft(editingNote);
             widget.setState(() {
               appState.noteEditingController.readOnly = true;
-              Note editingNote = appState.noteEditingController.note;
               File file = File(editingNote.path);
               if(!file.existsSync()) {
                 AppStorage.getNoteList(location).remove(editingNote);
@@ -84,12 +137,19 @@ class _WideMainViewToolbarState extends State<WideMainViewToolbar> {
         NoteEditorUndoButton(noteEditingController: appState.noteEditingController),
         NoteEditorRedoButton(noteEditingController: appState.noteEditingController),
         IconButton(icon: Icon(Icons.check_circle_outline), onPressed: () {
+          appState.draftSaveTimer?.cancel();
           widget.setState(() {
             Note note = appState.noteEditingController.getNote();
             note.save();
             AppStorage.notifyNote(note);
             appState.noteEditingController.readOnly = true;
           });
+
+          if(App.isDesktop()) {
+            appCacheData.windowWidth = appWindow.size.width;
+            appCacheData.windowHeight = appWindow.size.height;
+            appCacheData.save();
+          }
         }),
       ];
     }
@@ -118,14 +178,29 @@ class _WideMainViewToolbarState extends State<WideMainViewToolbar> {
       children.add(CloseWindowButton());
     }
 
+    double left = 50;
+    double top = 5;
+
+    if(Platform.isMacOS) {
+      if (!isFullscreen) {
+        left = 115;
+        top = 1;
+      }
+      else {
+        top = 1;
+      }
+    }
+
+    if(appSettings.dockedFloatingMenu &&
+        appSettings.floatingMenuShowing) {
+      left = 5;
+    }
+
     return AnimatedPositioned(
       duration: Duration(milliseconds: 500),
       curve: Curves.easeOutQuint,
-      left: appSettings.dockedFloatingMenu &&
-          appSettings.floatingMenuShowing
-          ? 5
-          : 50,
-      top: 5,
+      left: left,
+      top: top,
       right: 5,
       child: Row(
         children: children,

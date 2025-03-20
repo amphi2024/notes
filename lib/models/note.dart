@@ -22,6 +22,7 @@ import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_b
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/extensions/note_extension.dart';
+import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/content.dart';
 import 'package:notes/models/file_in_note.dart';
@@ -36,6 +37,7 @@ class Note extends Item {
   double? lineHeight;
   String? font;
   String get name => FilenameUtils.nameOnly(filename);
+  String get draftPath => PathUtils.join(appStorage.notesPath, name, "draft.note");
 
   List<Content> contents;
 
@@ -63,6 +65,16 @@ class Note extends Item {
       if (!videosDir.existsSync()) {
         videosDir.create(recursive: true);
       }
+    }
+  }
+
+  void getDraft(void Function(Note?) onExists) async {
+    var draftFile = File(draftPath);
+    if(await draftFile.exists()) {
+      onExists(Note.fromFile(draftFile));
+    }
+    else {
+      onExists(null);
     }
   }
 
@@ -316,7 +328,6 @@ class Note extends Item {
 
 
       if (map["deleted"] != null) {
-        // deleted = parsedDateTime(map["deleted"]);
         deleted = DateTime.fromMillisecondsSinceEpoch(map["deleted"]).toLocal();
       }
       location = map["location"] ?? "";
@@ -363,7 +374,18 @@ class Note extends Item {
           originalCreated: DateTime.now(),
           originalModified: originalModified,
           deleted: deleted);
+      note.initTitles();
       return note;
+    }
+  }
+
+  Future<void> bringToFrontIfOrphan() async {
+    if(location != "" && location != "!Trashes") {
+      var folderFile = File(PathUtils.join(appStorage.notesPath, location));
+      if(! await folderFile.exists()) {
+        location = "";
+        save(upload: false, changeModified: false);
+      }
     }
   }
 
@@ -456,7 +478,7 @@ class Note extends Item {
     }
     return result;
   }
-
+  
   String toFileContentBase64() {
     Map<String, dynamic> jsonData = {
       "location": location,
@@ -520,6 +542,16 @@ class Note extends Item {
     if (upload) {
       appWebChannel.uploadNote(note: this, fileContent: fileContent);
     }
+    appState.deleteDraft(this);
+  }
+
+  Future<void> saveDraft() async {
+    var directory = Directory(PathUtils.join(appStorage.notesPath, name));
+    if(! await directory.exists()) {
+      await directory.create();
+    }
+    var file = File(PathUtils.join(directory.path, "draft.note"));
+    file.writeAsString(toFileContent());
   }
 
   void initTitles() {

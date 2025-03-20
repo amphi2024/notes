@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:notes/models/app_state.dart';
 
 final appMethodChannel = AppMethodChannel.getInstance();
 
@@ -8,18 +9,25 @@ class AppMethodChannel extends MethodChannel {
   AppMethodChannel._internal(super.name) {
     setMethodCallHandler((call) async {
       switch (call.method) {
+        case "on_enter_fullscreen":
+          for(var function in fullScreenListeners) {
+            function(true);
+          }
+          break;
+        case "on_exit_fullscreen":
+          for(var function in fullScreenListeners) {
+            function(false);
+          }
+          break;
         default:
           break;
-      }
-      for(Function function in listeners) {
-        function(call);
       }
     });
   }
 
   static AppMethodChannel getInstance() => _instance;
 
-  List<Function> listeners = [];
+  List<void Function(bool)> fullScreenListeners = [];
 
   int systemVersion = 0;
   bool needsBottomPadding = false;
@@ -55,5 +63,17 @@ class AppMethodChannel extends MethodChannel {
 
   void configureNeedsBottomPadding() async {
     needsBottomPadding = await invokeMethod("configure_needs_bottom_padding");
+  }
+
+  void removeMacOsToolbar() async {
+    if(Platform.isMacOS) {
+      await invokeMethod("remove_mac_os_toolbar");
+    }
+  }
+
+  void setMacOsToolbar() async {
+    if(Platform.isMacOS) {
+      await invokeMethod("set_mac_os_toolbar");
+    }
   }
 }

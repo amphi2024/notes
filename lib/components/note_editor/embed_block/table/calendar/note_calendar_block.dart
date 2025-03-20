@@ -7,7 +7,7 @@ import 'package:notes/components/note_editor/embed_block/table/calendar/note_cal
 import 'package:notes/components/note_editor/embed_block/table/table/note_table_block.dart';
 
 class NoteCalendarBlock extends NoteTableBlock {
-  const NoteCalendarBlock({super.key, required super.tableData, required super.readOnly, required super.pageInfo});
+  const NoteCalendarBlock({super.key, required super.tableData, required super.readOnly, required super.pageInfo, super.removePage});
 
   @override
   State<NoteCalendarBlock> createState() => _NoteCalendarState();
@@ -60,28 +60,37 @@ class _NoteCalendarState extends State<NoteCalendarBlock> {
           visible: !widget.readOnly,
             child: Align(
               alignment: Alignment.topRight,
-              child: IconButton(icon: Icon(Icons.more_horiz), onPressed: () {
-                if(App.isWideScreen(context)) {
-                  final RenderBox button = context.findRenderObject() as RenderBox;
-                  final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
-                  final Offset position = button.localToGlobal(Offset.zero, ancestor: overlay);
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(icon: Icon(Icons.more_horiz), onPressed: () {
+                    if(App.isWideScreen(context)) {
+                      final RenderBox button = context.findRenderObject() as RenderBox;
+                      final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+                      final Offset position = button.localToGlobal(Offset.zero, ancestor: overlay);
 
-                  RelativeRect relativeRect = RelativeRect.fromLTRB(
-                    1,
-                    position.dy + 50,
-                    0,
-                    0,
-                  );
-                  showCustomPopupMenuByPosition(context,relativeRect ,editCalendarStyle);
-                }
-                else {
-                  showDialog(context: context, builder: (context) {
-                    return Dialog(
-                      child: editCalendarStyle,
-                    );
-                  });
-                }
-              }),
+                      RelativeRect relativeRect = RelativeRect.fromLTRB(
+                        1,
+                        position.dy + 50,
+                        0,
+                        0,
+                      );
+                      showCustomPopupMenuByPosition(context,relativeRect ,editCalendarStyle);
+                    }
+                    else {
+                      showDialog(context: context, builder: (context) {
+                        return Dialog(
+                          child: editCalendarStyle,
+                        );
+                      });
+                    }
+                  }),
+                  IconButton(onPressed: () {
+                    widget.removePage!();
+
+                  }, icon: Icon(Icons.remove))
+                ],
+              ),
             )),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

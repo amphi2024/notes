@@ -8,7 +8,7 @@ class NoteCalendarPage extends NoteTableBlock {
 
   final DateTime dateTime;
   final double cellHeight;
-  const NoteCalendarPage({super.key, required super.tableData, required super.readOnly, required this.dateTime, required this.cellHeight, required super.pageInfo});
+  const NoteCalendarPage({super.key, required super.tableData, required super.readOnly, required this.dateTime, required this.cellHeight, required super.pageInfo, super.removePage});
 
   @override
   State<NoteCalendarPage> createState() => _NoteCalendarPageState();

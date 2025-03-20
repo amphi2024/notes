@@ -14,11 +14,14 @@ import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dar
 import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
 import 'package:notes/main.dart';
 import 'package:notes/models/app_settings.dart';
+import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_theme_data.dart';
 import 'package:notes/models/icons.dart';
 import 'package:notes/models/item.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
+
+import '../dialogs/draft_dialog.dart';
 
 class EditNoteView extends StatefulWidget {
   final NoteEditingController noteEditingController;
@@ -37,6 +40,7 @@ class _EditNoteViewState extends State<EditNoteView> {
   @override
   void dispose() {
     noteEmbedBlocks.clear();
+    appState.draftSaveTimer?.cancel();
     super.dispose();
   }
 
@@ -94,6 +98,7 @@ class _EditNoteViewState extends State<EditNoteView> {
                               return ConfirmationDialog(
                                   title: AppLocalizations.of(context).get("@dialog_title_not_save_note"),
                                   onConfirmed: () {
+                                    appState.deleteDraft(widget.noteEditingController.note);
                                     if (!widget.createNote && widget.noteEditingController.readOnly == false) {
                                       setState(() {
                                         widget.noteEditingController.setNote(originalNote!);
@@ -130,8 +135,31 @@ class _EditNoteViewState extends State<EditNoteView> {
                   IconButton(
                       onPressed: () {
                         if (noteEditingController.readOnly) {
-                          setState(() {
-                            noteEditingController.readOnly = false;
+                          appState.noteEditingController.note.getDraft((draftNote) {
+                            appState.startDraftSave();
+                            if(draftNote != null) {
+                              showDialog(context: context, builder: (context) {
+                                return DraftDialog(
+                                  onCanceled: () {
+                                    setState(() {
+                                      noteEditingController.readOnly = false;
+                                    });
+                                  },
+                                  onConfirmed: () {
+                                    noteEditingController.note.contents = draftNote.contents;
+                                    noteEditingController.setNote(noteEditingController.note);
+                                    setState(() {
+                                      noteEditingController.readOnly = false;
+                                    });
+                                  },
+                                );
+                              });
+                            }
+                            else {
+                              setState(() {
+                                noteEditingController.readOnly = false;
+                              });
+                            }
                           });
                         } else {
                           if (!widget.createNote) {

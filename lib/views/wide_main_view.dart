@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:amphi/models/app.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:macos_ui/macos_ui.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/channels/app_web_channel.dart';
@@ -13,6 +16,7 @@ import 'package:notes/components/note_editor/toolbar/note_editor_detail_button.d
 import 'package:notes/components/note_editor/toolbar/note_editor_export_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
+import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
@@ -75,12 +79,6 @@ class _WideMainViewState extends State<WideMainView> {
           Theme.of(context).scaffoldBackgroundColor,
           appSettings.transparentNavigationBar);
     }
-
-    final editorToolBar =  Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: noteEditorToolbarButtons(appState.noteEditingController, (function) => setState(function)),
-    );
 
     var themeData = Theme.of(context);
     var isDarkMode = themeData.brightness == Brightness.dark;
@@ -156,8 +154,15 @@ class _WideMainViewState extends State<WideMainView> {
                     appState.noteEditingController.readOnly = true;
                     appState.noteEditingController.setNote(note);
                   }
+
+                  if(App.isDesktop()) {
+                    appCacheData.windowWidth = appWindow.size.width;
+                    appCacheData.windowHeight = appWindow.size.height;
+                    appCacheData.save();
+                  }
                 },
             toCreateNote: (note) {
+              appState.startDraftSave();
                   setState(() {
                     appState.noteEditingController.readOnly = false;
                     appState.noteEditingController.setNote(note);

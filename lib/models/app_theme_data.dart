@@ -80,7 +80,7 @@ class AppThemeData {
                   381
               ? Colors.grey.withValues(alpha: 0.5)
               : Colors.black.withValues(alpha: 0.5),
-      iconTheme: IconThemeData(color: accentColor, size: App.isWideScreen(context) ? 25 : 15),
+      iconTheme: IconThemeData(color: accentColor, size: App.isWideScreen(context) || App.isDesktop() ? 25 : 15),
       checkboxTheme: CheckboxThemeData(
         checkColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {

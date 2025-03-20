@@ -8,7 +8,7 @@ class NoteBarChartHorizontal extends NoteTableBlock {
       {super.key,
       required super.readOnly,
       required super.tableData,
-      required super.pageInfo});
+      required super.pageInfo, required super.removePage});
 
   @override
   State<NoteBarChartHorizontal> createState() => _NoteBarChartState();
@@ -28,8 +28,12 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
     List<BarChartGroupData> barGroups = [];
 
     Map<String, dynamic> map = widget.tableData.toChartDataMap(widget.pageInfo);
-    double width = map.keys.length * 100;
+    double width = map.length * 100;
     double bottomLabelSize = 50;
+
+    if(map.length < 5) {
+      width = map.length * 200;
+    }
 
     for (int i = 0; i < map.keys.length; i++) {
       String title = map.keys.elementAt(i);
@@ -42,8 +46,13 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
       if(title.length > 20) {
         bottomLabelSize = 150;
       }
+      if(title.length > 25) {
+        bottomLabelSize = 200;
+      }
 
-      BarChartGroupData barChartGroupData = BarChartGroupData(x: i, barRods: [
+
+      BarChartGroupData barChartGroupData = BarChartGroupData(x: i,
+          barRods: [
         BarChartRodData(
           toY: map[title]!,
           color: Theme.of(context).highlightColor,
@@ -59,6 +68,8 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
 
       barGroups.add(barChartGroupData);
     }
+
+
 
     FlTitlesData titlesData = FlTitlesData(
         show: true,
@@ -80,16 +91,18 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
                           textAlign: TextAlign.center,
                         ),
                       )),
-                  axisSide: meta.axisSide);
+                meta: meta,
+              );
             },
             reservedSize: bottomLabelSize,
           ),
         ),
         leftTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: true, reservedSize: 30),
+          sideTitles: SideTitles(showTitles: true, reservedSize: 30, interval: 1),
         ),
-        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)));
+        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false, interval: 1)),
+        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false, interval: 1)));
+
     var themeData = Theme.of(context);
 
     return Scrollbar(
@@ -103,17 +116,26 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
             child: barGroups.isNotEmpty
                 ? Padding(
                     padding: const EdgeInsets.only(top: 80),
-                    child: BarChart(BarChartData(
+                    child: BarChart(
+                        BarChartData(
                         barTouchData: BarTouchData(
+                          enabled: false,
                             touchTooltipData: BarTouchTooltipData(
+                              getTooltipItem: (group, groupIndex, rod, rodIndex) => BarTooltipItem(rod.toY.toStringAsFixed(0), TextStyle(
+                                color: Theme.of(context).highlightColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold
+                              )),
                                 getTooltipColor: (group) =>
-                                    Colors.transparent)),
+                                    Colors.transparent),
+
+                        ),
                         borderData: FlBorderData(
                             border: Border(
                                 left: BorderSide(color: themeData.dividerColor),
                                 bottom:
                                     BorderSide(color: themeData.dividerColor))),
-                        gridData: FlGridData(show: false),
+                        gridData: FlGridData(show: false, verticalInterval: 1),
                         barGroups: barGroups,
                         titlesData: titlesData)),
                   )

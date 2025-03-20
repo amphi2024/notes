@@ -24,19 +24,32 @@ class _NoteTableWidgetState extends State<NoteTableWidget> {
     List<Widget> children = [];
 
     bool tableExist = false;
-    for(Map<String, dynamic> page in tableData.pages) {
+    for(int i = 0 ; i < tableData.pages.length; i++) {
+      var page = tableData.pages[i];
       switch(page["type"]) {
         case "calendar":
           children.add(NoteCalendarBlock(
             tableData: tableData,
             readOnly: widget.readOnly,
             pageInfo: page,
+            removePage: () {
+              setState(() {
+                tableData.pages.removeAt(i);
+                i--;
+              });
+            },
           ));
         case "chart":
           children.add(NoteChartBlock(
             tableData: tableData,
             readOnly: widget.readOnly,
             pageInfo: page,
+            removePage: () {
+              setState(() {
+                tableData.pages.removeAt(i);
+                i--;
+              });
+            },
           ));
           break;
         case "table":
@@ -45,6 +58,12 @@ class _NoteTableWidgetState extends State<NoteTableWidget> {
             tableData: tableData,
             readOnly: widget.readOnly,
             pageInfo: page,
+            removePage: () {
+              setState(() {
+                tableData.pages.removeAt(i);
+                i--;
+              });
+            },
           ));
           break;
       }

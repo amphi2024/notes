@@ -155,6 +155,7 @@ class _MainViewState extends State<MainView> {
                         if (appStorage.selectedNotes == null) {
                           appState.noteEditingController.setNote(note);
                           appState.noteEditingController.readOnly = true;
+                          appState.startDraftSave();
                           Navigator.push(context, CupertinoPageRoute(builder: (context) {
                             return EditNoteView(
                               noteEditingController: appState.noteEditingController,
@@ -208,6 +209,7 @@ class _MainViewState extends State<MainView> {
                 onPressed: () {
                   appState.noteEditingController.setNote(Note.createdNote(widget.location));
                   appState.noteEditingController.readOnly = false;
+                  appState.startDraftSave();
                   Navigator.push(context, CupertinoPageRoute(builder: (context) {
                     return EditNoteView(
                         noteEditingController: appState.noteEditingController,
