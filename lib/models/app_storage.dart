@@ -301,7 +301,7 @@ class AppStorage extends AppStorageCore {
             notes.add(note);
           }
           else {
-            file.delete();
+            file.delete(recursive: true);
           }
         }
       }

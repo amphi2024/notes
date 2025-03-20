@@ -3,14 +3,11 @@ import 'dart:ui';
 
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
-import 'package:amphi/utils/path_utils.dart';
-import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:macos_ui/macos_ui.dart';
-import 'package:macos_window_utils/toolbars/toolbars.dart';
+import 'package:flutter_quill/translations.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';

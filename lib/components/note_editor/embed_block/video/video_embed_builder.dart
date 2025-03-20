@@ -14,11 +14,19 @@ class VideoEmbedBuilder extends EmbedBuilder {
   @override
   String get key => 'video';
 
-  @override
-  Widget build(BuildContext context, EmbedContext embedContext) {
-   return VideoPlayerWidget(
-     noteFileNameOnly: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
-     videoFilename: embedContext.node.value.data
-   );
+  // @override
+  // Widget build(BuildContext context, EmbedContext embedContext) {
+  //  return VideoPlayerWidget(
+  //    noteFileNameOnly: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
+  //    videoFilename: embedContext.node.value.data
+  //  );
+  // }
+
+    @override
+  Widget build(BuildContext context, QuillController controller, Embed node, bool readOnly, bool inline, TextStyle textStyle) {
+      return VideoPlayerWidget(
+          noteFileNameOnly: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
+          videoFilename: node.value.data
+      );
   }
 }

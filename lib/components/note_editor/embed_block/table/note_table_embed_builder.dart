@@ -9,9 +9,14 @@ class NoteTableEmbedBuilder extends EmbedBuilder {
   @override
   String get key => 'table';
 
-  @override
-  Widget build(BuildContext context, EmbedContext embedContext) {
-    return NoteTableWidget(tableKey: embedContext.node.value.data, readOnly: embedContext.readOnly);
+  // @override
+  // Widget build(BuildContext context, EmbedContext embedContext) {
+  //   return NoteTableWidget(tableKey: embedContext.node.value.data, readOnly: embedContext.readOnly);
+  // }
+
+     @override
+  Widget build(BuildContext context, QuillController controller, Embed node, bool readOnly, bool inline, TextStyle textStyle) {
+       return NoteTableWidget(tableKey: node.value.data, readOnly: readOnly);
   }
 }
 

@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ import 'package:notes/components/note_editor/toolbar/note_editor_text_style_butt
 import 'package:notes/components/note_editor/toolbar/note_editor_divider_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_table_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_video_button.dart';
-import 'package:notes/models/app_state.dart';
 import 'package:notes/models/note.dart';
 
 import 'toolbar/note_editor_edit_detail_button.dart';
@@ -59,7 +57,7 @@ class _NoteEditorState extends State<NoteEditor> {
 
     return QuillEditor(
       controller: widget.noteEditingController,
-      config: QuillEditorConfig(
+      configurations: QuillEditorConfigurations(
         autoFocus: false,
         placeholder: AppLocalizations.of(context).get("@new_note"),
         customStyles: DefaultStyles(
@@ -87,7 +85,7 @@ class _NoteEditorState extends State<NoteEditor> {
                   1,  1
               ),
             BoxDecoration(),
-              NoteEditorCheckboxBuilder()
+              NoteEditorCheckboxBuilder(),
           )
         ),
         showCursor: !widget.noteEditingController.readOnly,

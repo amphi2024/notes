@@ -171,7 +171,7 @@ packages:
     source: hosted
     version: "1.0.8"
   dart_quill_delta:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: dart_quill_delta
       sha256: bddb0b2948bd5b5a328f1651764486d162c59a8ccffd4c63e8b2c5e44be1dac4
@@ -392,10 +392,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: cdc3802700bf6718b8286ec6c999094f45abb885b5b3b65380f25d1b4369032d
+      sha256: "6274834823e61291c0cedee9dd7f73fc7836ea07a12596de8f5fa08598b5eb74"
       url: "https://pub.dev"
     source: hosted
-    version: "11.1.1"
+    version: "10.8.5"
   flutter_quill_delta_from_html:
     dependency: transitive
     description:
@@ -786,10 +786,10 @@ packages:
     dependency: transitive
     description:
       name: quill_native_bridge
-      sha256: bda0f0ad9bc160dcdd4bd2b378a7ae8bdb55c3d4b7301bf739d5e3b065ee5e82
+      sha256: "0b3200c57bb4f1f12d6c764648d42482891f20f12024c75fe3479cafc1e132c9"
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.0"
+    version: "10.7.11"
   quill_native_bridge_android:
     dependency: transitive
     description:

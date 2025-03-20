@@ -29,7 +29,9 @@ class AppState {
 
   Future<void> deleteDraft(Note note) async {
     File file = File(PathUtils.join(appStorage.selectedUser.storagePath, "draft.note"));
-    await file.delete();
+    if(await file.exists()) {
+      await file.delete();
+    }
   }
 
   void startDraftSave() {

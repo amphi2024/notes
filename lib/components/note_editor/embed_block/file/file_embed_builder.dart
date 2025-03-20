@@ -8,8 +8,13 @@ class FileEmbedBuilder extends EmbedBuilder {
   @override
   String get key => 'file';
 
-  @override
-  Widget build(BuildContext context, EmbedContext embedContext) {
-    return FileBlockWidget(blockKey: embedContext.node.value.data);
+  // @override
+  // Widget build(BuildContext context, EmbedContext embedContext) {
+  //   return FileBlockWidget(blockKey: embedContext.node.value.data);
+  // }
+
+@override
+  Widget build(BuildContext context, QuillController controller, Embed node, bool readOnly, bool inline, TextStyle textStyle) {
+  return FileBlockWidget(blockKey: node.value.data);
   }
 }

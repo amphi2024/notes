@@ -41,8 +41,7 @@ dependencies:
   http:
   web_socket_channel:
   flutter_staggered_grid_view:
-  flutter_quill:
-  dart_quill_delta:
+  flutter_quill: ^10.0.0
   flutter_colorpicker:
   device_info_plus:
   macos_ui:

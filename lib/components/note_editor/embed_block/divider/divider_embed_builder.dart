@@ -9,8 +9,14 @@ class DividerEmbedBuilder extends EmbedBuilder {
   @override
   String get key => 'divider';
 
-  @override
-  Widget build(BuildContext context, EmbedContext embedContext) {
-    return DividerBlockWidget(dividerKey: embedContext.node.value.data, readOnly: embedContext.readOnly);
+  // @override
+  // Widget build(BuildContext context, EmbedContext embedContext) {
+  //   return DividerBlockWidget(dividerKey: embedContext.node.value.data, readOnly: embedContext.readOnly);
+  // }
+
+
+   @override
+  Widget build(BuildContext context, QuillController controller, Embed node, bool readOnly, bool inline, TextStyle textStyle) {
+     return DividerBlockWidget(dividerKey: node.value.data, readOnly: readOnly);
   }
 }

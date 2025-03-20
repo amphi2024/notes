@@ -42,7 +42,7 @@ extension AppWebDownload on AppWebChannel {
       );
       if (response.statusCode == 200) {
         File file = File(PathUtils.join(appStorage.notesPath, filename));
-        await file.writeAsBytes(response.bodyBytes);
+        await file.writeAsBytes(response.bodyBytes, flush: true);
         if (onSuccess != null) {
           onSuccess(Note.fromFile(file));
         }
@@ -62,7 +62,7 @@ extension AppWebDownload on AppWebChannel {
       );
       if (response.statusCode == 200) {
         File file = File(PathUtils.join(appStorage.notesPath, filename));
-        await file.writeAsBytes(response.bodyBytes);
+        await file.writeAsBytes(response.bodyBytes, flush: true);
         if (onSuccess != null) {
           onSuccess(Folder.fromFile(file));
         }
