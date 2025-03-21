@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/models/folder.dart';
 
-import 'app_storage.dart';
 import 'note.dart';
 
 final appState = AppState.getInstance();
@@ -28,7 +26,7 @@ class AppState {
   Timer? draftSaveTimer;
 
   Future<void> deleteDraft(Note note) async {
-    File file = File(PathUtils.join(appStorage.selectedUser.storagePath, "draft.note"));
+    File file = File(note.draftPath);
     if(await file.exists()) {
       await file.delete();
     }

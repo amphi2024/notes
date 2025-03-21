@@ -6,7 +6,6 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:notes/channels/app_method_channel.dart';

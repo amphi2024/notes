@@ -179,15 +179,12 @@ class _WideMainViewToolbarState extends State<WideMainViewToolbar> {
     }
 
     double left = 50;
-    double top = 5;
+    double top = 6.5;
 
     if(Platform.isMacOS) {
+      top = 1;
       if (!isFullscreen) {
         left = 115;
-        top = 1;
-      }
-      else {
-        top = 1;
       }
     }
 

@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:amphi/models/app.dart';
-import 'package:amphi/utils/path_utils.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:macos_ui/macos_ui.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/channels/app_web_channel.dart';
@@ -12,19 +10,13 @@ import 'package:notes/components/main/floating_menu/floating_wide_menu.dart';
 import 'package:notes/components/main/side_bar_toggle_button.dart';
 import 'package:notes/components/main/wide_main_view_toolbar.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_detail_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_export_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
 import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/app_theme_data.dart';
-import 'package:notes/models/icons.dart';
 import 'package:notes/models/note.dart';
 
-import '../components/note_editor/toolbar/note_editor_import_button.dart';
 
 class WideMainView extends StatefulWidget {
   final String? title;

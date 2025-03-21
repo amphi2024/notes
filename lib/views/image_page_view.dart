@@ -169,7 +169,7 @@ class _ImagePageViewState extends State<ImagePageView> {
                 Align(
                     alignment: Alignment.topCenter,
                     child: Padding(
-                      padding: EdgeInsets.only(left: isFullscreen ? 7.5 : 77.5, right: 7.5, top: MediaQuery.of(context).padding.top + 7.5),
+                      padding: EdgeInsets.only(left: isFullscreen || !Platform.isMacOS ? 7.5 : 77.5, right: 7.5, top: MediaQuery.of(context).padding.top + 7.5),
                       child: Visibility(
                         visible: toolbarVisible,
                         child: Row(
@@ -179,7 +179,7 @@ class _ImagePageViewState extends State<ImagePageView> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                icon: Icon(AppIcons.back)),
+                                icon: Icon(AppIcons.times)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: children,

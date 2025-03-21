@@ -127,14 +127,14 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
               curve: Curves.easeOutQuint,
               top: 0.0,
               bottom: 0.0,
-              right: appStorage.selectedNotes != null ? 10.0 : 0.0,
+              right: appStorage.selectedNotes != null && widget.folder.location != "!Trashes" ? 10.0 : 0.0,
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 1000),
                 curve: Curves.easeOutQuint,
-                opacity: appStorage.selectedNotes != null ? 1.0 : 0,
+                opacity: appStorage.selectedNotes != null && widget.folder.location != "!Trashes" ? 1.0 : 0,
                 child: IconButton(
                   icon: const Icon(
-                    Icons.build_circle_outlined,
+                    Icons.edit,
                     size: 20,
                   ),
                   onPressed: () {

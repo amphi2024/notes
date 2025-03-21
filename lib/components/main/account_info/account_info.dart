@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/models/user.dart';
-import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:amphi/widgets/profile_image.dart';

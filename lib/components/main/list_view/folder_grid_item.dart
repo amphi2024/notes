@@ -108,7 +108,7 @@ class _FolderItemGridState extends State<FolderGridItem> {
                                     }),
                               ),
                               IconButton(
-                                  icon: Icon(Icons.build_circle_outlined, size: 20),
+                                  icon: Icon(Icons.edit, size: 20),
                                   onPressed: () {
                                     widget.toUpdateFolder();
                                   })

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/models/app_storage_core.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';

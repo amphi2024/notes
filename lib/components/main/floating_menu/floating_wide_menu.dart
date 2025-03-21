@@ -1,12 +1,9 @@
-import 'dart:io';
 
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
-import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/components/main/app_bar/main_view_title.dart';
 import 'package:notes/components/main/buttons/account_button.dart';
 import 'package:notes/components/main/buttons/main_view_popupmenu_button.dart';

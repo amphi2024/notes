@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
-import 'package:notes/models/app_state.dart';
 
 final appMethodChannel = AppMethodChannel.getInstance();
 

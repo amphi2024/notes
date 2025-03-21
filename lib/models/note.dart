@@ -119,60 +119,64 @@ class Note extends Item {
 
   Future<void> deleteObsoleteMediaFiles() async {
 
-    List<Content> imageOnlyContents = [];
-    List<Content> videoOnlyContents = [];
-    for(var content in contents) {
-      switch(content.type) {
-        case "img":
-          imageOnlyContents.add(content);
-          break;
-        case "video":
-          videoOnlyContents.add(content);
-          break;
-      }
-    }
-
-    var imagesDirectory = Directory(PathUtils.join(appStorage.notesPath, name , "images"));
-    var videosDirectory = Directory(PathUtils.join(appStorage.notesPath, name , "videos"));
-    if(await imagesDirectory.exists()) {
-      var imageFiles = await imagesDirectory.list().toList();
-       for(int i = 0; i < await imageFiles.length; i++) {
-         bool exists = false;
-         for(int j = 0; j < imageOnlyContents.length; j++) {
-           var filename = PathUtils.basename(imageFiles[i].path);
-           if(filename == imageOnlyContents[j].value) {
-             exists = true;
-             imageOnlyContents.removeAt(j);
-             break;
-           }
-         }
-         if(!exists) {
-           imageFiles[i].delete();
-           imageFiles.removeAt(i);
-           i--;
-         }
-       }
-    }
-    if(await videosDirectory.exists()) {
-      var videoFiles = await videosDirectory.list().toList();
-      for(int i = 0; i < await videoFiles.length; i++) {
-        bool exists = false;
-        for(int j = 0; j < videoOnlyContents.length; j++) {
-          var filename = PathUtils.basename(videoFiles[i].path);
-          if(filename == videoOnlyContents[j].value) {
-            exists = true;
-            videoOnlyContents.removeAt(j);
+    try {
+      List<Content> imageOnlyContents = [];
+      List<Content> videoOnlyContents = [];
+      for(var content in contents) {
+        switch(content.type) {
+          case "img":
+            imageOnlyContents.add(content);
             break;
+          case "video":
+            videoOnlyContents.add(content);
+            break;
+        }
+      }
+
+      var imagesDirectory = Directory(PathUtils.join(appStorage.notesPath, name , "images"));
+      var videosDirectory = Directory(PathUtils.join(appStorage.notesPath, name , "videos"));
+      if(await imagesDirectory.exists()) {
+        var imageFiles = await imagesDirectory.list().toList();
+        for(int i = 0; i < await imageFiles.length; i++) {
+          bool exists = false;
+          for(int j = 0; j < imageOnlyContents.length; j++) {
+            var filename = PathUtils.basename(imageFiles[i].path);
+            if(filename == imageOnlyContents[j].value) {
+              exists = true;
+              imageOnlyContents.removeAt(j);
+              break;
+            }
+          }
+          if(!exists) {
+            imageFiles[i].delete();
+            imageFiles.removeAt(i);
+            i--;
           }
         }
-        if(!exists) {
-          videoFiles[i].delete();
-          videoFiles.removeAt(i);
-          i--;
+      }
+      if(await videosDirectory.exists()) {
+        var videoFiles = await videosDirectory.list().toList();
+        for(int i = 0; i < await videoFiles.length; i++) {
+          bool exists = false;
+          for(int j = 0; j < videoOnlyContents.length; j++) {
+            var filename = PathUtils.basename(videoFiles[i].path);
+            if(filename == videoOnlyContents[j].value) {
+              exists = true;
+              videoOnlyContents.removeAt(j);
+              break;
+            }
+          }
+          if(!exists) {
+            videoFiles[i].delete();
+            videoFiles.removeAt(i);
+            i--;
+          }
         }
       }
     }
+    catch(e) {
 
+    }
   }
 
   static Note subNote(Note parent) {
@@ -292,15 +296,20 @@ class Note extends Item {
     File file = File(path);
     await file.delete();
 
-    for (Content content in contents) {
-      if (content.type == "img") {
-        File imageFile = File(content.value);
-        await imageFile.delete();
-      } else if (content.type == "video") {
-        File videoFile = File(content.value);
-        await videoFile.delete();
-      }
+    var images = Directory(PathUtils.join(appStorage.notesPath, name, "images"));
+    var videos = Directory(PathUtils.join(appStorage.notesPath, name, "videos"));
+    var audio = Directory(PathUtils.join(appStorage.notesPath, name, "audio"));
+    if(await images.exists()) {
+      images.delete(recursive: true);
     }
+    if(await videos.exists()) {
+      videos.delete(recursive: true);
+    }
+
+    if(await audio.exists()) {
+      audio.delete(recursive: true);
+    }
+
 
     if (upload) {
       appWebChannel.deleteNote(note: this);
@@ -381,6 +390,8 @@ class Note extends Item {
 
   Future<void> bringToFrontIfOrphan() async {
     if(location != "" && location != "!Trashes") {
+      initTitles();
+      print("TTAKKKK!!!!!! ${title}");
       var folderFile = File(PathUtils.join(appStorage.notesPath, location));
       if(! await folderFile.exists()) {
         location = "";

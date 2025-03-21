@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_window_utils/macos/ns_window_toolbar_style.dart';
 import 'package:macos_window_utils/window_manipulator.dart';
@@ -29,7 +28,6 @@ class _SideBarToggleButtonState extends State<SideBarToggleButton> {
   }
 
   void fullScreenListener(bool fullScreen) {
-    print("Side $fullScreen");
     setState(() {
       isFullscreen = fullScreen;
     });

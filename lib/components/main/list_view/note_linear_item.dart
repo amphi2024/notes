@@ -76,45 +76,45 @@ class _NoteLinearItemState extends State<NoteLinearItem> {
                 duration: const Duration(milliseconds: 1000),
                 curve: Curves.easeOutQuint,
                 top: 0,
-                right: widget.note.thumbnailImageFilename != null ? 70 : 10,
+                right: 10,
                 bottom: 0,
                 left: appStorage.selectedNotes != null ? 50 : 10,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.note.title,
-                      style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            widget.note.title,
+                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+                            maxLines: 1,
+                          ),
+                          Text(
+                            widget.note.subtitle.isEmpty
+                                ? widget.note.modified.toLocalizedShortString(context)
+                                : "${widget.note.modified.toLocalizedShortString(context)}   ${widget.note.subtitle}",
+                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface, overflow: TextOverflow.ellipsis),
+                            maxLines: 1,
+                          )
+                        ],
+                      ),
                     ),
-                    Text(
-                      widget.note.subtitle.isEmpty
-                          ? widget.note.modified.toLocalizedShortString(context)
-                          : "${widget.note.modified.toLocalizedShortString(context)}   ${widget.note.subtitle}",
-                      style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-                    )
+                    Visibility(
+                        visible: widget.note.thumbnailImageFilename != null,
+                        child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: widget.note.thumbnailImageFilename != null ?  ImageFromStorageRounded(
+                          noteName: FilenameUtils.nameOnly(widget.note.filename),
+                          filename: widget.note.thumbnailImageFilename ?? "",
+                          borderRadius: BorderRadius.circular(10)): Placeholder(),
+                    ))
                   ],
                 ),
               ),
-              Positioned(
-                  top: 5,
-                  bottom: 5,
-                  right: 10,
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 1000),
-                    curve: Curves.easeOutQuint,
-                    opacity: widget.note.thumbnailImageFilename == null ? 0.0 : 1.0,
-                    child: widget.note.thumbnailImageFilename == null
-                        ? Container()
-                        : SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: ImageFromStorageRounded(
-                                noteName: FilenameUtils.nameOnly(widget.note.filename),
-                                filename: widget.note.thumbnailImageFilename ?? "",
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                  ))
             ],
           )),
     );
