@@ -56,6 +56,10 @@ class _SideBarToggleButtonState extends State<SideBarToggleButton> {
       }
     }
 
+    if(Platform.isAndroid) {
+      top += MediaQuery.of(context).padding.top;
+    }
+
     return AnimatedPositioned(
         left: left,
         top: top,

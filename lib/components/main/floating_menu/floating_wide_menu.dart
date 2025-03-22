@@ -1,9 +1,12 @@
 
+import 'dart:io';
+
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:notes/components/main/app_bar/main_view_title.dart';
 import 'package:notes/components/main/buttons/account_button.dart';
 import 'package:notes/components/main/buttons/main_view_popupmenu_button.dart';
@@ -86,6 +89,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
   Widget build(BuildContext context) {
     String location = appState.history.last?.filename ?? "";
     double normalPosition = appSettings.dockedFloatingMenu ? 0 : 15;
+
     List<Widget> children = [
       IconButton(
           icon: Icon(Icons.arrow_back, color: location == "" ? Theme.of(context).dividerColor : null),
@@ -104,6 +108,15 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
 
     if(App.isDesktop()) {
       children.insert(0, Expanded(child: MoveWindow()));
+    }
+
+    var titleButtonsHeight = 47.5;
+    if(Platform.isIOS) {
+      titleButtonsHeight = 52.5;
+    }
+    if(Platform.isAndroid) {
+      normalPosition = appSettings.dockedFloatingMenu ? 0 : 15 + MediaQuery.of(context).padding.top;
+      titleButtonsHeight = 52.5 + MediaQuery.of(context).padding.top;
     }
 
     return PopScope(
@@ -148,7 +161,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 47.5,
+                  height: titleButtonsHeight,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,

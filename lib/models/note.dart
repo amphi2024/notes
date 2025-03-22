@@ -391,7 +391,6 @@ class Note extends Item {
   Future<void> bringToFrontIfOrphan() async {
     if(location != "" && location != "!Trashes") {
       initTitles();
-      print("TTAKKKK!!!!!! ${title}");
       var folderFile = File(PathUtils.join(appStorage.notesPath, location));
       if(! await folderFile.exists()) {
         location = "";

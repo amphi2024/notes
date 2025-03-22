@@ -112,7 +112,7 @@ class _WideMainViewState extends State<WideMainView> {
                   WideMainViewToolbar(setState: setState, maximizeOrRestore: maximizeOrRestore),
                   Positioned(
                       left: 15,
-                      top: 50,
+                      top: Platform.isAndroid ? 50 + MediaQuery.of(context).padding.top : 50,
                       bottom: 15,
                       right: 15,
                       child: Theme(

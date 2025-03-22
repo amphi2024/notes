@@ -187,6 +187,12 @@ class _WideMainViewToolbarState extends State<WideMainViewToolbar> {
         left = 115;
       }
     }
+    if(Platform.isIOS) {
+      top = 5;
+    }
+    if(Platform.isAndroid) {
+      top = 5 + MediaQuery.of(context).padding.top;
+    }
 
     if(appSettings.dockedFloatingMenu &&
         appSettings.floatingMenuShowing) {
@@ -200,6 +206,7 @@ class _WideMainViewToolbarState extends State<WideMainViewToolbar> {
       top: top,
       right: 5,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: children,
       ),
     );

@@ -46,9 +46,6 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
       if(title.length > 20) {
         bottomLabelSize = 150;
       }
-      if(title.length > 25) {
-        bottomLabelSize = 200;
-      }
 
 
       BarChartGroupData barChartGroupData = BarChartGroupData(x: i,
@@ -98,10 +95,10 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
           ),
         ),
         leftTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: true, reservedSize: 30, interval: 1),
+          sideTitles: SideTitles(showTitles: true, reservedSize: 30),
         ),
-        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false, interval: 1)),
-        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false, interval: 1)));
+        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)));
 
     var themeData = Theme.of(context);
 
@@ -135,7 +132,7 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
                                 left: BorderSide(color: themeData.dividerColor),
                                 bottom:
                                     BorderSide(color: themeData.dividerColor))),
-                        gridData: FlGridData(show: false, verticalInterval: 1),
+                        gridData: FlGridData(show: false),
                         barGroups: barGroups,
                         titlesData: titlesData)),
                   )
