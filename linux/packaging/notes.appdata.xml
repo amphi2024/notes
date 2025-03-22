@@ -4,9 +4,9 @@
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>APACHE</project_license>
     <name>Notes</name>
-    <summary>A note-taking app created by Amphi</summary>
+    <summary>Cross-platform note-taking app that enables users to sync their data with a self-hosted server</summary>
     <description>
-        <p>A note-taking app created by Amphi</p>
+        <p>Cross-platform note-taking app that enables users to sync their data with a self-hosted server</p>
     </description>
     <launchable type="desktop-id">amphi-notes.desktop</launchable>
     <url type="homepage">https://amphi.site</url>

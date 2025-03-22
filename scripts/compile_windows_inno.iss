@@ -2,9 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Notes"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "Amphi"
-#define MyAppURL "https://www.amphi.site/"
+#define MyAppURL "https://amphi.site/"
 #define MyAppExeName "notes.exe"
 #define MyAppAssocName MyAppName + " File"
 #define MyAppAssocExt ".myp"
