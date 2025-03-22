@@ -40,24 +40,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed && !App.isDesktop()) {
+    if (state == AppLifecycleState.resumed) {
 
-      AppStorage.deleteObsoleteNotes();
       if (appSettings.useOwnServer) {
-        appWebChannel.connectWebSocket();
-
+        if(!appWebChannel.connected) {
+          appWebChannel.connectWebSocket();
+        }
         appWebChannel.syncDataFromEvents();
-        appWebChannel.noteUpdateListeners.add((note) {
-          setState(() {
-            AppStorage.notifyNote(note);
-          });
-        });
-
-        appWebChannel.folderUpdateListeners.add((folder) {
-          setState(() {
-            AppStorage.notifyFolder(folder);
-          });
-        });
       }
     }
     super.didChangeAppLifecycleState(state);
