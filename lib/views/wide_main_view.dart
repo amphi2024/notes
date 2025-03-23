@@ -46,6 +46,7 @@ class _WideMainViewState extends State<WideMainView> {
 
   @override
   void initState() {
+    appState.setMainViewState = setState;
    appState.noteEditingController.addListener(noteEditingListener);
    appWebChannel.noteUpdateListeners.add((note) {
      if(note.filename == appState.noteEditingController.note.filename) {

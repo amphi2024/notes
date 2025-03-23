@@ -116,7 +116,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
     }
     if(Platform.isAndroid) {
       top = appSettings.dockedFloatingMenu ? 0 : 15 + MediaQuery.of(context).padding.top;
-      titleButtonsHeight = 52.5 + MediaQuery.of(context).padding.top;
+      titleButtonsHeight = appSettings.dockedFloatingMenu ? 52.5 + MediaQuery.of(context).padding.top : 50;
     }
 
     return PopScope(

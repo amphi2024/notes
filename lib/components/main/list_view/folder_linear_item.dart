@@ -34,9 +34,7 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
   @override
   Widget build(BuildContext context) {
     if (appStorage.selectedNotes == null) {
-      setState(() {
-        selected = false;
-      });
+      selected = false;
     }
 
     return GestureDetector(

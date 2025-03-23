@@ -17,6 +17,7 @@ class AppState {
   static AppState getInstance() => _instance;
 
   late void Function( void Function() ) notifySomethingChanged;
+  late void Function( void Function() ) setMainViewState;
   List<Folder?> history = [null];
 
   late NoteEditingController noteEditingController;

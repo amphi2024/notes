@@ -18,7 +18,7 @@ class FloatingSearchBar extends StatelessWidget {
       bottom: bottomPaddingIfAndroid3Button(context) + 120,
       child: Container(
         width: 200,
-        height: 50,
+        height: 45,
         decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -31,18 +31,20 @@ class FloatingSearchBar extends StatelessWidget {
             color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
             borderRadius: BorderRadius.circular(15)
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(right: 10.0),
-          child: TextField(
-            focusNode: focusNode,
-            controller: textEditingController,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Theme.of(context).colorScheme.primary,
-                )
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: TextField(
+              focusNode: focusNode,
+              controller: textEditingController,
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+              ),
             ),
           ),
         ),

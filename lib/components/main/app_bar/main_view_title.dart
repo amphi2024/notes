@@ -86,7 +86,7 @@ class _MainViewTitleState extends State<MainViewTitle> {
       return Align(
         alignment: Alignment.topLeft,
         child: IconButton(
-          icon: Icon(AppIcons.check),
+          icon: Icon(Icons.check_circle_outline),
           onPressed: () {
             appState.notifySomethingChanged(() {
               appStorage.selectedNotes = null;

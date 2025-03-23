@@ -23,9 +23,7 @@ class _NoteLinearItemState extends State<NoteLinearItem> {
   @override
   Widget build(BuildContext context) {
     if (appStorage.selectedNotes == null) {
-      setState(() {
-        selected = false;
-      });
+      selected = false;
     }
     return GestureDetector(
       onLongPress: widget.onLongPress,
@@ -76,9 +74,9 @@ class _NoteLinearItemState extends State<NoteLinearItem> {
                 duration: const Duration(milliseconds: 1000),
                 curve: Curves.easeOutQuint,
                 top: 0,
-                right: 10,
+                right: 8,
                 bottom: 0,
-                left: appStorage.selectedNotes != null ? 50 : 10,
+                left: appStorage.selectedNotes != null ? 50 : 8,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -105,8 +103,8 @@ class _NoteLinearItemState extends State<NoteLinearItem> {
                     Visibility(
                         visible: widget.note.thumbnailImageFilename != null,
                         child: SizedBox(
-                      width: 50,
-                      height: 50,
+                      width: 42,
+                      height: 42,
                       child: widget.note.thumbnailImageFilename != null ?  ImageFromStorageRounded(
                           noteName: FilenameUtils.nameOnly(widget.note.filename),
                           filename: widget.note.thumbnailImageFilename ?? "",
