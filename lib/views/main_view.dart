@@ -16,7 +16,6 @@ import 'package:notes/components/main/floating_menu/floating_menu_divider.dart';
 import 'package:notes/components/main/floating_search_bar.dart';
 import 'package:notes/components/main/list_view/note_list_view.dart';
 import 'package:notes/extensions/sort_extension.dart';
-import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/folder.dart';
@@ -102,7 +101,7 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
+    appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor);
 
     return AppView(
       canPopPage: !buttonRotated && appStorage.selectedNotes == null,

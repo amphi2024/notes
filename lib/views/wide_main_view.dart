@@ -67,9 +67,7 @@ class _WideMainViewState extends State<WideMainView> {
   Widget build(BuildContext context) {
     String location = appState.history.last?.filename ?? "";
     if (Platform.isAndroid) {
-      appMethodChannel.setNavigationBarColor(
-          Theme.of(context).scaffoldBackgroundColor,
-          appSettings.transparentNavigationBar);
+      appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor);
     }
 
     var themeData = Theme.of(context);

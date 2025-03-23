@@ -64,7 +64,7 @@ class _AccountInfoState extends State<AccountInfo> {
       canPop: true,
       onPopInvokedWithResult: (value, data) {
         if (Platform.isAndroid) {
-          appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
+          appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor);
         }
       },
       child: ConstrainedBox(

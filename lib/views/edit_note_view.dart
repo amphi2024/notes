@@ -13,7 +13,6 @@ import 'package:notes/components/note_editor/toolbar/note_editor_import_button.d
 import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
 import 'package:notes/main.dart';
-import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_theme_data.dart';
 import 'package:notes/models/icons.dart';
@@ -64,7 +63,7 @@ class _EditNoteViewState extends State<EditNoteView> {
                 });
           });
     }
-    appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
+    appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor);
   }
 
   @override
@@ -79,7 +78,7 @@ class _EditNoteViewState extends State<EditNoteView> {
   Widget build(BuildContext context) {
     NoteEditingController noteEditingController = widget.noteEditingController;
     var themeData = Theme.of(context);
-    appMethodChannel.setNavigationBarColor(noteEditingController.note.backgroundColorByTheme(themeData.isDarkMode()) ?? Theme.of(context).colorScheme.surface, appSettings.transparentNavigationBar);
+    appMethodChannel.setNavigationBarColor(noteEditingController.note.backgroundColorByTheme(themeData.isDarkMode()) ?? Theme.of(context).colorScheme.surface);
     return PopScope(
       canPop: noteEditingController.readOnly || (!File(noteEditingController.note.path).existsSync() && noteEditingController.document.isEmpty()),
       onPopInvokedWithResult: onPopInvoked,
@@ -113,7 +112,7 @@ class _EditNoteViewState extends State<EditNoteView> {
                       } else {
                         Navigator.pop(context);
                       }
-                      appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor, appSettings.transparentNavigationBar);
+                      appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor);
                     },
                     icon: const Icon(AppIcons.back)),
                 actions: [

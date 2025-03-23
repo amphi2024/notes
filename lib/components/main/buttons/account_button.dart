@@ -7,7 +7,6 @@ import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/main/account_info/account_bottom_sheet.dart';
 import 'package:notes/components/main/account_info/account_info.dart';
-import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/icons.dart';
 
@@ -51,7 +50,7 @@ class AccountButton extends StatelessWidget {
                 });
           } else {
             if (Platform.isAndroid) {
-              appMethodChannel.setNavigationBarColor(Theme.of(context).cardColor, appSettings.transparentNavigationBar);
+              appMethodChannel.setNavigationBarColor(Theme.of(context).cardColor);
             }
             showModalBottomSheet(
               context: context,

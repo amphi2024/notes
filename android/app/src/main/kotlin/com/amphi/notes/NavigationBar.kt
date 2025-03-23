@@ -7,9 +7,9 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 
 @Suppress("DEPRECATION")
-fun setNavigationBarColor(window: Window, navigationBarColor: Int, iosLikeUi: Boolean) {
+fun setNavigationBarColor(window: Window, navigationBarColor: Int, transparentNavigationBar: Boolean) {
 
-    if(iosLikeUi) {
+    if(transparentNavigationBar) {
        if(Build.VERSION.SDK_INT >= 30) {
             val controller = window.insetsController
             controller?.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS)

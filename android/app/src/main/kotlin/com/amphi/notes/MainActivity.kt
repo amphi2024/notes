@@ -16,7 +16,7 @@ class MainActivity : FlutterActivity() {
         setNavigationBarColor(
             window = window,
             navigationBarColor = navigationBarColor,
-            iosLikeUi = iosLikeUi
+            transparentNavigationBar = transparentNavigationBar
         )
     }
 
@@ -34,7 +34,7 @@ class MainActivity : FlutterActivity() {
     private var methodChannel: MethodChannel? = null
     private var storagePath: String? = null
     private var navigationBarColor: Int = 0
-    private var iosLikeUi: Boolean = false
+    private var transparentNavigationBar: Boolean = false
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
 
@@ -46,16 +46,16 @@ class MainActivity : FlutterActivity() {
             when (call.method) {
                 "set_navigation_bar_color" -> {
                     val color = call.argument<Long>("color")
-                    val iosUi = call.argument<Boolean>("ios_like_ui")
+                    val transparentNav = call.argument<Boolean>("transparent_navigationBar")
 
-                    if (color != null && iosUi != null) {
-                        iosLikeUi = iosUi
+                    if (color != null && transparentNav != null) {
+                        this.transparentNavigationBar = transparentNav
                         navigationBarColor = color.toInt()
 
                         setNavigationBarColor(
                             window = window,
                             navigationBarColor = navigationBarColor,
-                            iosLikeUi = iosLikeUi
+                            transparentNavigationBar = this.transparentNavigationBar
                         )
 
                     }

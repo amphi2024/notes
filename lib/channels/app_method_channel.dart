@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:notes/models/app_settings.dart';
 
 final appMethodChannel = AppMethodChannel.getInstance();
 
@@ -50,9 +51,9 @@ class AppMethodChannel extends MethodChannel {
     invokeMethod("set_portrait");
   }
 
-  void setNavigationBarColor(Color color, bool iosLikeUi) {
+  void setNavigationBarColor(Color color) {
     if(Platform.isAndroid) {
-      invokeMethod("set_navigation_bar_color", {"color": color.value, "ios_like_ui": iosLikeUi});
+      invokeMethod("set_navigation_bar_color", {"color": color.value, "transparent_navigationBar": appSettings.transparentNavigationBar});
     }
   }
 

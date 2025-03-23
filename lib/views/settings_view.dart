@@ -107,8 +107,7 @@ class _SettingsViewState extends State<SettingsView> {
                       setState(() {
                         appSettings.transparentNavigationBar = value!;
                         appMethodChannel.setNavigationBarColor(
-                          Theme.of(context).scaffoldBackgroundColor,
-                          value
+                          Theme.of(context).scaffoldBackgroundColor
                         );
                       });
                     })),

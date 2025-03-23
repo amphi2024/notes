@@ -6,7 +6,6 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:notes/components/main/app_bar/main_view_title.dart';
 import 'package:notes/components/main/buttons/account_button.dart';
 import 'package:notes/components/main/buttons/main_view_popupmenu_button.dart';
@@ -89,6 +88,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
   Widget build(BuildContext context) {
     String location = appState.history.last?.filename ?? "";
     double normalPosition = appSettings.dockedFloatingMenu ? 0 : 15;
+    double top = appSettings.dockedFloatingMenu ? 0 : 15;
 
     List<Widget> children = [
       IconButton(
@@ -115,7 +115,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
       titleButtonsHeight = 52.5;
     }
     if(Platform.isAndroid) {
-      normalPosition = appSettings.dockedFloatingMenu ? 0 : 15 + MediaQuery.of(context).padding.top;
+      top = appSettings.dockedFloatingMenu ? 0 : 15 + MediaQuery.of(context).padding.top;
       titleButtonsHeight = 52.5 + MediaQuery.of(context).padding.top;
     }
 
@@ -134,7 +134,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
       },
       child: AnimatedPositioned(
           left: widget.showing ? normalPosition : -300,
-          top: normalPosition,
+          top: top,
           bottom: normalPosition,
           duration: Duration(milliseconds: 500),
           curve: Curves.easeOutQuint,
