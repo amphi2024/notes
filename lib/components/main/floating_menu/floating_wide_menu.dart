@@ -74,16 +74,6 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
     super.initState();
   }
 
-  Future<void> refresh() async {
-    String location = appState.history.last?.filename ?? "";
-    AppStorage.refreshNoteList((allNotes) {
-      setState(() {
-        appStorage.notes[location] = AppStorage.getNotes(noteList: allNotes, home: location);
-        appStorage.notes[location]!.sortByOption();
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     String location = appState.history.last?.filename ?? "";
@@ -98,11 +88,6 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
               appState.history.removeLast();
               appState.notifySomethingChanged(() {});
             }
-          }),
-      IconButton(
-          icon: Icon(Icons.refresh),
-          onPressed: () {
-            refresh();
           })
     ];
 
@@ -177,6 +162,15 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                       child: MainViewTitle(
                           notesCount: AppStorage.getNoteList(location).length,
                           title: appState.history.last?.title,
+                          refreshNotes: () {
+                            String location = appState.history.last?.filename ?? "";
+                            AppStorage.refreshNoteList((allNotes) {
+                              setState(() {
+                                appStorage.notes[location] = AppStorage.getNotes(noteList: allNotes, home: location);
+                                appStorage.notes[location]!.sortByOption();
+                              });
+                            });
+                          },
                           onEditNotes: () {
                             setState(() {
                               appStorage.selectedNotes = [];
