@@ -255,7 +255,7 @@ class AppStorage extends AppStorageCore {
         item.bringToFrontIfOrphan();
       }
       if (item is Note) {
-        item.bringToFrontIfOrphan();
+        item.moveToTrashIfOrphan();
       }
     }
 

@@ -388,12 +388,13 @@ class Note extends Item {
     }
   }
 
-  Future<void> bringToFrontIfOrphan() async {
+  Future<void> moveToTrashIfOrphan() async {
     if(location != "" && location != "!Trashes") {
       initTitles();
       var folderFile = File(PathUtils.join(appStorage.notesPath, location));
       if(! await folderFile.exists()) {
-        location = "";
+        location = "!Trashes";
+        deleted = DateTime.now();
         save(upload: false, changeModified: false);
       }
     }
