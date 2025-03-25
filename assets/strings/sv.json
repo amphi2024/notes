@@ -152,7 +152,11 @@
   "@toast_message_file_download_failed_error": "Misslyckades med nedladdning",
   "@toast_message_file_download_failed_not_found": "Misslyckades med nedladdning, filen hittades inte på servern",
   "@toast_message_file_download_failed_unauthorized": "Misslyckades med nedladdning, du måste logga in igen",
-  "@toast_message_note_export_success": "Export slutförd"
+  "@toast_message_note_export_success": "Export slutförd",
+
+  "@dialog_title_draft_exists": "Vill du ladda upp utkastet?",
+
+  "@deleted_date": "Raderingsdatum"
 
 
 }

@@ -62,6 +62,16 @@ class _MainViewState extends State<MainView> {
     }
   }
 
+  Future<void> refresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    AppStorage.refreshNoteList((allNotes) {
+      setState(() {
+        appStorage.notes[widget.location] = AppStorage.getNotes(noteList: allNotes, home: widget.location);
+        appStorage.notes[widget.location]!.sortByOption();
+      });
+    });
+  }
+
   @override
   void dispose() {
     searchBarController.removeListener(searchListener);
@@ -101,14 +111,7 @@ class _MainViewState extends State<MainView> {
         appBar: AppBar(
           leadingWidth: 310,
           automaticallyImplyLeading: false,
-          leading: MainViewTitle(title: widget.title, notesCount: (AppStorage.getNoteList(widget.location)).length, refreshNotes: () {
-            AppStorage.refreshNoteList((allNotes) {
-              setState(() {
-                appStorage.notes[widget.location] = AppStorage.getNotes(noteList: allNotes, home: widget.location);
-                appStorage.notes[widget.location]!.sortByOption();
-              });
-            });
-          },),
+          leading: MainViewTitle(title: widget.title, notesCount: (AppStorage.getNoteList(widget.location)).length),
           actions: isNotSelectingNotes
               ? [MainViewPopupMenuButton()]
               : <Widget>[
@@ -137,48 +140,51 @@ class _MainViewState extends State<MainView> {
                 top: 0,
                 bottom: 0,
                 right: 7.5,
-                child: NoteListView(
-                  noteList: AppStorage.getNoteList(widget.location),
-                  onLongPress: () {
-                    setState(() {
-                      appStorage.selectedNotes = [];
-                    });
-                  },
-                  onNotePressed: (Note note) {
-                    if (isNotSelectingNotes) {
-                      appState.noteEditingController.setNote(note);
-                      appState.noteEditingController.readOnly = true;
-                      appState.startDraftSave();
-                      Navigator.push(context, CupertinoPageRoute(builder: (context) {
-                        return EditNoteView(
-                            noteEditingController: appState.noteEditingController,
-                            createNote: false,
-                            onSave: (changed) {
-                              setState(() {
-                                note = changed;
-                                AppStorage.getNoteList(widget.location).sortByOption();
-                              });
-                              changed.save();
-                            });
-                      }));
-                    }
-                  },
-                  toUpdateFolder: (folder) {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return EditFolderDialog(
-                              folder: folder,
+                child: RefreshIndicator(
+                  onRefresh: refresh,
+                  child: NoteListView(
+                    noteList: AppStorage.getNoteList(widget.location),
+                    onLongPress: () {
+                      setState(() {
+                        appStorage.selectedNotes = [];
+                      });
+                    },
+                    onNotePressed: (Note note) {
+                      if (isNotSelectingNotes) {
+                        appState.noteEditingController.setNote(note);
+                        appState.noteEditingController.readOnly = true;
+                        appState.startDraftSave();
+                        Navigator.push(context, CupertinoPageRoute(builder: (context) {
+                          return EditNoteView(
+                              noteEditingController: appState.noteEditingController,
+                              createNote: false,
                               onSave: (changed) {
                                 setState(() {
-                                  appStorage.selectedNotes = null;
-                                  folder = changed;
+                                  note = changed;
                                   AppStorage.getNoteList(widget.location).sortByOption();
                                 });
                                 changed.save();
                               });
-                        });
-                  },
+                        }));
+                      }
+                    },
+                    toUpdateFolder: (folder) {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return EditFolderDialog(
+                                folder: folder,
+                                onSave: (changed) {
+                                  setState(() {
+                                    appStorage.selectedNotes = null;
+                                    folder = changed;
+                                    AppStorage.getNoteList(widget.location).sortByOption();
+                                  });
+                                  changed.save();
+                                });
+                          });
+                    },
+                  ),
                 )),
             FloatingFolderButton(
                 showing: isNotSelectingNotes && buttonRotated,

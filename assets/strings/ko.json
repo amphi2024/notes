@@ -155,6 +155,10 @@
   "@toast_message_file_download_failed_unauthorized": "인증에 실패했습니다. 다시 로그인하셔야 합니다",
   "@toast_message_note_export_success": "내보내기가 완료되었습니다",
 
-  "@editor_table_text_done": "완료"
+  "@editor_table_text_done": "완료",
+
+  "@dialog_title_draft_exists": "임시저장을 불러오시겠습니까?",
+
+  "@deleted_date": "삭제된 날짜"
 
 }

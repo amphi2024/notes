@@ -158,6 +158,12 @@
   "@toast_message_note_export_success": "Eksport fullført",
 
 
-  "@editor_table_text_done": "Ferdig"
+  "@editor_table_text_done": "Ferdig",
+
+  "@dialog_title_draft_exists": "Vil du laste inn utkastet?",
+
+  "@deleted_date": "Slettedato"
+
+
 
 }

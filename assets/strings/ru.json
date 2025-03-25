@@ -154,6 +154,12 @@
   "@toast_message_file_download_failed_unauthorized": "Ошибка загрузки, необходимо снова войти в систему",
   "@toast_message_note_export_success": "Экспорт завершен",
 
-  "@editor_table_text_done": "Готово"
+  "@editor_table_text_done": "Готово",
+
+  "@dialog_title_draft_exists": "Вы хотите загрузить черновик?",
+
+  "@deleted_date": "Дата удаления"
+
+
 
 }

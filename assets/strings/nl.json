@@ -155,7 +155,10 @@
   "@toast_message_note_export_success": "Export succesvol",
 
 
-  "@editor_table_text_done": "Klaar"
+  "@editor_table_text_done": "Klaar",
+  "@dialog_title_draft_exists": "Wilt u het concept laden?",
+
+  "@deleted_date": "Verwijderingsdatum"
 
 
 }

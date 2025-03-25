@@ -154,6 +154,10 @@
   "@toast_message_file_download_failed_unauthorized": "ڈاؤن لوڈ ناکام، آپ کو دوبارہ لاگ ان کرنا ہوگا",
   "@toast_message_note_export_success": "برآمد مکمل ہو گیا",
 
-  "@editor_table_text_done": "مکمل"
+  "@editor_table_text_done": "مکمل",
+
+  "@dialog_title_draft_exists": "کیا آپ مسودہ لوڈ کرنا چاہتے ہیں؟",
+
+  "@deleted_date": "حذف کی تاریخ"
 
 }

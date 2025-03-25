@@ -155,6 +155,10 @@
   "@toast_message_file_download_failed_unauthorized": "Error en la descarga, debe volver a iniciar sesión",
   "@toast_message_note_export_success": "Exportación completada",
 
-  "@editor_table_text_done": "Hecho"
+  "@editor_table_text_done": "Hecho",
+
+  "@dialog_title_draft_exists": "¿Quieres cargar el borrador?",
+
+  "@deleted_date": "Fecha de eliminación"
 
 }

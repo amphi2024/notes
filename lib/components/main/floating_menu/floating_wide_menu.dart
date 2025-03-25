@@ -60,6 +60,16 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
     }
   }
 
+  Future<void> refresh() async {
+    String location = appState.history.last?.filename ?? "";
+    AppStorage.refreshNoteList((allNotes) {
+      setState(() {
+        appStorage.notes[location] = AppStorage.getNotes(noteList: allNotes, home: location);
+        appStorage.notes[location]!.sortByOption();
+      });
+    });
+  }
+
   @override
   void dispose() {
     searchBarController.removeListener(searchListener);
@@ -162,20 +172,7 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
                       child: MainViewTitle(
                           notesCount: AppStorage.getNoteList(location).length,
                           title: appState.history.last?.title,
-                          refreshNotes: () {
-                            String location = appState.history.last?.filename ?? "";
-                            AppStorage.refreshNoteList((allNotes) {
-                              setState(() {
-                                appStorage.notes[location] = AppStorage.getNotes(noteList: allNotes, home: location);
-                                appStorage.notes[location]!.sortByOption();
-                              });
-                            });
-                          },
-                          onEditNotes: () {
-                            setState(() {
-                              appStorage.selectedNotes = [];
-                            });
-                          }),
+                      ),
                     ),
                     appStorage.selectedNotes == null
                         ? MainViewPopupMenuButton()

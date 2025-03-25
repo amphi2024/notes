@@ -156,6 +156,12 @@
   "@toast_message_file_download_failed_unauthorized": "ההורדה נכשלה, עליך להיכנס מחדש",
   "@toast_message_note_export_success": "הייצוא הושלם",
 
-  "@editor_table_text_done": "בוצע"
+  "@editor_table_text_done": "בוצע",
+
+  "@dialog_title_draft_exists": "האם אתה רוצה לטעון את הטיוטה?",
+
+  "@deleted_date": "תאריך מחיקה"
+
+
 
 }

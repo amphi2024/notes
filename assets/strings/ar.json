@@ -156,6 +156,10 @@
   "@toast_message_file_download_failed_unauthorized": "فشل في التحميل، يجب عليك تسجيل الدخول مرة أخرى",
   "@toast_message_note_export_success": "تم التصدير بنجاح",
 
-  "@editor_table_text_done": "تم"
+  "@editor_table_text_done": "تم",
+
+  "@dialog_title_draft_exists": "هل تريد تحميل المسودة؟",
+
+  "@deleted_date": "تاريخ الحذف"
 
 }

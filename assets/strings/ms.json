@@ -153,6 +153,10 @@
   "@toast_message_file_download_failed_unauthorized": "Muat turun gagal, anda perlu log masuk semula",
   "@toast_message_note_export_success": "Eksport berjaya",
 
-  "@editor_table_text_done": "Selesai"
+  "@editor_table_text_done": "Selesai",
+
+  "@dialog_title_draft_exists": "Adakah anda ingin memuatkan draf?",
+
+  "@deleted_date": "Tarikh dipadam"
 
 }

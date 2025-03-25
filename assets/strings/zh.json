@@ -154,6 +154,12 @@
   "@toast_message_file_download_failed_unauthorized": "下载失败，您需要重新登录",
   "@toast_message_note_export_success": "导出完成",
 
-  "@editor_table_text_done": "完成"
+  "@editor_table_text_done": "完成",
+
+  "@dialog_title_draft_exists": "您想加载草稿吗？",
+
+  "@deleted_date": "删除日期"
+
+
 
 }

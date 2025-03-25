@@ -154,6 +154,10 @@
   "@toast_message_file_download_failed_unauthorized": "การดาวน์โหลดล้มเหลว, คุณต้องเข้าสู่ระบบอีกครั้ง",
   "@toast_message_note_export_success": "การส่งออกเสร็จสมบูรณ์",
 
-  "@editor_table_text_done": "เสร็จแล้ว"
+  "@editor_table_text_done": "เสร็จแล้ว",
+
+  "@dialog_title_draft_exists": "คุณต้องการโหลดร่างหรือไม่?",
+
+  "@deleted_date": "วันที่ลบ"
 
 }

@@ -156,6 +156,10 @@
   "@toast_message_file_download_failed_unauthorized": "Lataus epäonnistui, sinun täytyy kirjautua sisään uudelleen",
   "@toast_message_note_export_success": "Vie onnistui",
 
-  "@editor_table_text_done": "Valmis"
+  "@editor_table_text_done": "Valmis",
+
+  "@dialog_title_draft_exists": "Haluatko ladata luonnoksen?",
+
+  "@deleted_date": "Poistettu päivämäärä"
 
 }

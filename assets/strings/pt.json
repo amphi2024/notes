@@ -158,6 +158,12 @@
   "@toast_message_note_export_success": "Exportação concluída",
 
 
-  "@editor_table_text_done": "Feito"
+  "@editor_table_text_done": "Feito",
+
+  "@dialog_title_draft_exists": "Você deseja carregar o rascunho?"
+
+  "@deleted_date": "Data de exclusão"
+
+
 
 }

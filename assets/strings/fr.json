@@ -157,6 +157,12 @@
   "@toast_message_file_download_failed_unauthorized": "Échec du téléchargement, vous devez vous reconnecter",
   "@toast_message_note_export_success": "Exportation terminée",
 
-  "@editor_table_text_done": "Terminé"
+  "@editor_table_text_done": "Terminé",
+
+  "@dialog_title_draft_exists": "Voulez-vous charger le brouillon ?",
+
+  "@deleted_date": "Date de suppression"
+
+
 
 }

@@ -157,6 +157,12 @@
   "@toast_message_file_download_failed_unauthorized": "Download mislykkedes, du skal logge ind igen",
   "@toast_message_note_export_success": "Eksport færdig",
 
-  "@editor_table_text_done": "Færdig"
+  "@editor_table_text_done": "Færdig",
+
+  "@dialog_title_draft_exists": "Vil du indlæse udkastet?",
+
+  "@deleted_date": "Slettet dato"
+
+
 
 }

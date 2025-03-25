@@ -154,6 +154,10 @@
   "@toast_message_file_download_failed_unauthorized": "Не вдалося завантажити, потрібно увійти знову",
   "@toast_message_note_export_success": "Експорт завершено",
 
-  "@editor_table_text_done": "Зроблено"
+  "@editor_table_text_done": "Зроблено",
+
+  "@dialog_title_draft_exists": "Бажаєте завантажити чернетку?",
+
+  "@deleted_date": "Дата видалення"
 
 }

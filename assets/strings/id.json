@@ -156,7 +156,11 @@
   "@toast_message_file_download_failed_unauthorized": "Unduhan gagal, Anda harus masuk lagi",
   "@toast_message_note_export_success": "Ekspor selesai",
 
-  "@editor_table_text_done": "Selesai"
+  "@editor_table_text_done": "Selesai",
+
+  "@dialog_title_draft_exists": "Apakah Anda ingin memuat draf?",
+
+  "@deleted_date": "Tanggal dihapus"
 
 
 }

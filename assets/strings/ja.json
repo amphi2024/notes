@@ -156,6 +156,10 @@
   "@toast_message_file_download_failed_unauthorized": "ダウンロードに失敗しました。再度ログインしてください",
   "@toast_message_note_export_success": "エクスポートが完了しました",
 
-  "@editor_table_text_done": "完了"
+  "@editor_table_text_done": "完了",
+
+  "@dialog_title_draft_exists": "ドラフトを読み込みますか？",
+
+  "@deleted_date": "削除日"
 
 }

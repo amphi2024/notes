@@ -1,16 +1,12 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_storage.dart';
-import 'package:notes/models/icons.dart';
 
 class MainViewTitle extends StatefulWidget {
   final String? title;
   final int notesCount;
-  final void Function()? onEditNotes;
-  final void Function() refreshNotes;
-  const MainViewTitle({super.key, this.title, required this.notesCount, this.onEditNotes, required this.refreshNotes});
+  const MainViewTitle({super.key, this.title, required this.notesCount});
 
   @override
   State<MainViewTitle> createState() => _MainViewTitleState();
@@ -51,38 +47,15 @@ class _MainViewTitleState extends State<MainViewTitle> {
                     duration: const Duration(milliseconds: 750),
                     opacity: fileCountVisibility ? 1.0 : 0.0,
                     curve: Curves.easeOutQuint,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Text(
-                            "${widget.notesCount}",
-                            style: TextStyle(
-                              color: Theme.of(context).disabledColor,
-                              fontSize: 14,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Text(
+                        "${widget.notesCount}",
+                        style: TextStyle(
+                          color: Theme.of(context).disabledColor,
+                          fontSize: 14,
                         ),
-                        IconButton(onPressed: () {
-                          widget.refreshNotes();
-                        }, icon: Icon(Icons.refresh))
-                      ],
-                    ),
-                  ),
-                  Visibility(
-                    visible: App.isWideScreen(context) && fileCountVisibility,
-                    child: AnimatedOpacity(
-                      duration: const Duration(milliseconds: 750),
-                      opacity: fileCountVisibility ? 1.0 : 0.0,
-                      curve: Curves.easeOutQuint,
-                      child: IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () {
-                          if (widget.onEditNotes != null && App.isWideScreen(context)) {
-                            widget.onEditNotes!();
-                          }
-                        },
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),

@@ -66,6 +66,7 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
     super.build(context);
     if (appSettings.viewMode == "linear") {
       return ListView.builder(
+          physics: AlwaysScrollableScrollPhysics(),
           controller: scrollController,
           itemCount: widget.noteList.length,
           itemBuilder: (context, index) {

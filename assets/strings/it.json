@@ -156,7 +156,11 @@
   "@toast_message_file_download_failed_unauthorized": "Download fallito, devi accedere di nuovo",
   "@toast_message_note_export_success": "Esportazione completata",
 
-  "@editor_table_text_done": "Fatto"
+  "@editor_table_text_done": "Fatto",
+
+  "@dialog_title_draft_exists": "Vuoi caricare la bozza?",
+
+  "@deleted_date": "Data di eliminazione"
 
 
 }

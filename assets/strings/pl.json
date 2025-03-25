@@ -154,6 +154,12 @@
   "@toast_message_file_download_failed_unauthorized": "Pobieranie nie powiodło się, musisz się ponownie zalogować",
   "@toast_message_note_export_success": "Eksport zakończony",
 
-  "@editor_table_text_done": "Zrobione"
+  "@editor_table_text_done": "Zrobione",
+
+  "@dialog_title_draft_exists": "Czy chcesz załadować szkic?"
+
+  "@deleted_date": "Data usunięcia"
+
+
 
 }

@@ -156,6 +156,10 @@
   "@toast_message_file_download_failed_unauthorized": "डाउनलोड विफल, कृपया फिर से लॉगिन करें",
   "@toast_message_note_export_success": "निर्यात पूरा हुआ",
 
-  "@editor_table_text_done": "किया गया"
+  "@editor_table_text_done": "किया गया",
+
+  "@dialog_title_draft_exists": "क्या आप ड्राफ्ट लोड करना चाहते हैं?",
+
+  "@deleted_date": "हटाने की तिथि"
 
 }

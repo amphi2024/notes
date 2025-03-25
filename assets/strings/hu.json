@@ -154,6 +154,10 @@
   "@toast_message_file_download_failed_unauthorized": "A letöltés sikertelen, újra be kell jelentkeznie",
   "@toast_message_note_export_success": "Exportálás sikeres",
 
-  "@editor_table_text_done": "Kész"
+  "@editor_table_text_done": "Kész",
+
+  "@dialog_title_draft_exists": "Szeretné betölteni a vázlatot?",
+
+  "@deleted_date": "Törlés dátuma"
 
 }

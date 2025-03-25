@@ -154,6 +154,12 @@
   "@toast_message_file_download_failed_unauthorized": "Tải xuống không thành công, bạn cần đăng nhập lại",
   "@toast_message_note_export_success": "Xuất khẩu hoàn tất",
 
-  "@editor_table_text_done": "Hoàn thành"
+  "@editor_table_text_done": "Hoàn thành",
+
+  "@dialog_title_draft_exists": "Bạn có muốn tải bản nháp không?",
+
+  "@deleted_date": "Ngày xóa"
+
+
 
 }

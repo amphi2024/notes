@@ -156,6 +156,10 @@
   "@toast_message_file_download_failed_unauthorized": "Stažení se nezdařilo, musíte se přihlásit znovu",
   "@toast_message_note_export_success": "Export dokončen",
 
-  "@editor_table_text_done": "Hotovo"
+  "@editor_table_text_done": "Hotovo",
+
+  "@dialog_title_draft_exists": "Chcete načíst návrh?",
+
+  "@deleted_date": "Datum smazání"
 
 }

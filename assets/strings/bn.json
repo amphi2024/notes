@@ -156,6 +156,9 @@
   "@toast_message_file_download_failed_unauthorized": "ডাউনলোড ব্যর্থ হয়েছে, আপনাকে আবার লগইন করতে হবে",
   "@toast_message_note_export_success": "রপ্তানি সম্পন্ন হয়েছে",
 
-  "@editor_table_text_done": "সম্পন্ন"
+  "@editor_table_text_done": "সম্পন্ন",
+  "@dialog_title_draft_exists": "আপনি কি ড্রাফটটি লোড করতে চান?",
+
+  "@deleted_date": "মুছে ফেলার তারিখ"
 
 }

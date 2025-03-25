@@ -10,8 +10,8 @@ class DraftDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title:  Text(
-        "Draft exists",
+      title: Text(
+        AppLocalizations.of(context).get("@dialog_title_draft_exists"),
         style: Theme.of(context).dialogTheme.titleTextStyle,
       ),
       actions: [

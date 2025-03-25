@@ -156,6 +156,10 @@
   "@toast_message_file_download_failed_unauthorized": "Η λήψη απέτυχε, πρέπει να συνδεθείτε ξανά",
   "@toast_message_note_export_success": "Η εξαγωγή ολοκληρώθηκε",
 
-  "@editor_table_text_done": "Έγινε"
+  "@editor_table_text_done": "Έγινε",
+
+  "@dialog_title_draft_exists": "Θέλεις να φορτώσεις το προσχέδιο;"
+
+  "@deleted_date": "Η ημερομηνία διαγραφής"
 
 }

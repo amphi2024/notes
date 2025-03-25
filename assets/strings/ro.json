@@ -153,8 +153,10 @@
   "@toast_message_file_download_failed_unauthorized": "Descărcare eșuată, trebuie să vă reconectați",
   "@toast_message_note_export_success": "Export completat",
 
-  "@editor_table_text_done": "Gata"
+  "@editor_table_text_done": "Gata",
 
+  "@dialog_title_draft_exists": "Vrei să încarci schița?",
 
+  "@deleted_date": "Data ștergerii"
 
 }

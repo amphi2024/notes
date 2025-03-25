@@ -156,6 +156,10 @@
   "@toast_message_file_download_failed_unauthorized": "Download fehlgeschlagen, bitte melden Sie sich erneut an",
   "@toast_message_note_export_success": "Export abgeschlossen",
 
-  "@editor_table_text_done": "Fertig"
+  "@editor_table_text_done": "Fertig",
+
+  "@dialog_title_draft_exists": "Möchten Sie den Entwurf laden?",
+
+  "@deleted_date": "Gelöschtes Datum"
 
 }

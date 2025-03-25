@@ -44,6 +44,21 @@ class _NoteEditorState extends State<NoteEditor> {
     super.dispose();
   }
 
+  Color codeBlockTextColor() {
+    int red = 13;
+    int green = 71;
+    int blue = 161;
+
+    var backgroundColor = Theme.of(context).scaffoldBackgroundColor;
+    if(backgroundColor.red + backgroundColor.blue + backgroundColor.green < 375) {
+       red = 93;
+       green = 151;
+       blue = 241;
+    }
+
+    return Color.fromARGB(240, red, green, blue);
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -55,12 +70,33 @@ class _NoteEditorState extends State<NoteEditor> {
         fontSize: note.textSize ?? defaultTextStyle.fontSize,
     fontFamily: note.font);
 
+    print("${Colors.blue.shade900.blue}, ${Colors.blue.shade900.red}, ${Colors.blue.shade900.green}, ");
+
     return QuillEditor(
       controller: widget.noteEditingController,
       configurations: QuillEditorConfigurations(
         autoFocus: false,
         placeholder: AppLocalizations.of(context).get("@new_note"),
         customStyles: DefaultStyles(
+          code: DefaultTextBlockStyle(TextStyle(
+              color: codeBlockTextColor(),
+              fontSize: 13,
+            height: 1.15,
+          ),
+            HorizontalSpacing(
+                1, 1
+            ),
+            VerticalSpacing(
+                note.lineHeight ?? 1, note.lineHeight ?? 1
+            ),
+            VerticalSpacing(
+                1,  1
+            ),
+            BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor.toCodeBlockBackground(),
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
           paragraph: DefaultTextBlockStyle(
             textStyle,
             HorizontalSpacing(
@@ -117,9 +153,19 @@ List<Widget> noteEditorToolbarButtons(NoteEditingController noteEditingControlle
     NoteEditorDividerButton(noteEditingController: noteEditingController),
     NoteEditorEditDetailButton(noteEditingController: noteEditingController, onChange: onNoteDetailChanged),
     //NoteEditorViewPagerButton(noteEditingController: noteEditingController),
-    //  NoteEditorFileButton(noteEditingController: appState.noteEditingController),
-    // NoteEditorChartButton(noteEditingController: appState.noteEditingController),
     // NoteEditorMindMapButton(noteEditingController: appState.noteEditingController),
     // NoteEditorAudioButton(noteEditingController: appState.noteEditingController),
   ];
+}
+
+extension CodeStyleExtension on Color {
+
+  Color toCodeBlockBackground() {
+    if(red + blue + green > 375) {
+      return Color.fromARGB(alpha, red - 5, green - 5, blue - 5);
+    }
+    else {
+      return Color.fromARGB(alpha, red + 5, green + 5, blue + 5);
+    }
+  }
 }
