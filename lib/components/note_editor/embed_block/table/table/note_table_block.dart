@@ -74,7 +74,9 @@ class _NoteTableBlockState extends State<NoteTableBlock> {
                   addRowBefore: () => addRow(j),
                   removeColumn: () => removeColumn(i),
                   removeRow: () => removeRow(j),
-                  removeValue: () => removeValue(j, i))));
+                  removeValue: () => removeValue(j, i),
+                  readOnly: widget.readOnly,
+              )));
         } else if (data["video"] != null) {
           tableCells.add(TableCell(
               child: TableVideo(

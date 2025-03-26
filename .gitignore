@@ -47,3 +47,4 @@ app.*.map.json
 .vscode
 scripts/Output
 dist
+Notes.dmg

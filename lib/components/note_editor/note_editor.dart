@@ -70,8 +70,6 @@ class _NoteEditorState extends State<NoteEditor> {
         fontSize: note.textSize ?? defaultTextStyle.fontSize,
     fontFamily: note.font);
 
-    print("${Colors.blue.shade900.blue}, ${Colors.blue.shade900.red}, ${Colors.blue.shade900.green}, ");
-
     return QuillEditor(
       controller: widget.noteEditingController,
       configurations: QuillEditorConfigurations(

@@ -31,7 +31,9 @@ class NoteEditingController extends QuillController {
   Future<File?> selectedVideoFile() async {
     final result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: [
       "mp4", "mov", "avi", "wmv", "mkv", "flv", "webm", "mpeg", "mpg", "m4v", "3gp", "3g2", "f4v", "swf", "vob", "ts"
-    ]);
+    ],
+    allowMultiple: false
+    );
 
     if (result?.files.isNotEmpty ?? false) {
       final selectedFile = result!.files.first;

@@ -52,7 +52,6 @@ class AppThemeData {
                   color: accentColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold))),
-      dialogBackgroundColor: backgroundColor,
       // scrollbarTheme: ScrollbarThemeData(
       //   trackColor: WidgetStateColor.transparent,
       //   thumbColor: WidgetStatePropertyAll(

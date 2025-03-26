@@ -5,7 +5,6 @@ import 'package:amphi/widgets/menu/popup/show_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:image_picker_ios/image_picker_ios.dart';
-import 'package:image_picker_macos/image_picker_macos.dart';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 import 'package:notes/components/note_editor/embed_block/video/video_block_embed.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
@@ -19,7 +18,7 @@ class NoteEditorVideoButton extends StatelessWidget {
     return IconButton(
         icon: Icon(Icons.video_camera_back_outlined),
         onPressed: () async {
-          if (Platform.isIOS || Platform.isMacOS) {
+          if (Platform.isIOS) {
             showMenuByRelative(context: context, items: [
               PopupMenuItem(
                   child: Row(
@@ -35,8 +34,6 @@ class NoteEditorVideoButton extends StatelessWidget {
                     XFile? videoFile;
                     if (Platform.isIOS) {
                       videoFile = await ImagePickerIOS().getVideo(source: ImageSource.gallery);
-                    } else {
-                      videoFile = await ImagePickerMacOS().getVideo(source: ImageSource.gallery);
                     }
                     if (videoFile != null) {
                       File file = await noteEditingController.note.createdVideoFile(videoFile.path);

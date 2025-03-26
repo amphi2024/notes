@@ -13,6 +13,7 @@ class TableImage extends StatelessWidget {
   final void Function() removeColumn;
   final void Function() removeRow;
   final void Function() removeValue;
+  final bool readOnly;
   const TableImage(
       {super.key,
       required this.filename,
@@ -22,7 +23,7 @@ class TableImage extends StatelessWidget {
       required this.addRowAfter,
       required this.removeColumn,
       required this.removeRow,
-      required this.removeValue});
+      required this.removeValue, required this.readOnly});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,7 @@ class TableImage extends StatelessWidget {
           child: ImageBlockWidget(
             noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
             imageFilename: filename,
+            readOnly: readOnly,
           ));
     }
 
@@ -50,6 +52,7 @@ class TableImage extends StatelessWidget {
           ImageBlockWidget(
             noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
             imageFilename: filename,
+            readOnly: readOnly,
           )
         ],
       ),

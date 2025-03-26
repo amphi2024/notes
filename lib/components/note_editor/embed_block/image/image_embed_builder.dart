@@ -17,6 +17,7 @@ class ImageEmbedBuilder extends EmbedBuilder {
 
    @override
   Widget build(BuildContext context, QuillController controller, Embed node, bool readOnly, bool inline, TextStyle textStyle) {
-     return ImageBlockWidget(noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename), imageFilename: node.value.data);
+     return ImageBlockWidget(noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename), imageFilename: node.value.data,
+     readOnly: readOnly,);
   }
 }
