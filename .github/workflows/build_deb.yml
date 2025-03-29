@@ -1,4 +1,4 @@
- name: Build DEB
+name: Build DEB
 
 on:
   workflow_dispatch:
