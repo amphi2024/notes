@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:macos_window_utils/macos/ns_window_toolbar_style.dart';
-import 'package:macos_window_utils/window_manipulator.dart';
 
 import '../../channels/app_method_channel.dart';
 import '../../models/app_settings.dart';
@@ -78,8 +76,6 @@ class _SideBarToggleButtonState extends State<SideBarToggleButton> {
           child: IconButton(
               icon: Icon(AppIcons.sidebar),
               onPressed: () {
-                WindowManipulator.addToolbar();
-                WindowManipulator.setToolbarStyle(toolbarStyle: NSWindowToolbarStyle.unified);
                 widget.setState(() {
                   appSettings.floatingMenuShowing = !appSettings.floatingMenuShowing;
                 });

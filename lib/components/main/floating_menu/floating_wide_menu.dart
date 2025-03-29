@@ -98,6 +98,11 @@ class _FloatingWideMenuState extends State<FloatingWideMenu> {
               appState.history.removeLast();
               appState.notifySomethingChanged(() {});
             }
+          }),
+      IconButton(
+          icon: Icon(Icons.refresh),
+          onPressed: () {
+            refresh();
           })
     ];
 
