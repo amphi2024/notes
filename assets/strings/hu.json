@@ -13,7 +13,7 @@
   "@sync_state": "Szinkron állapot",
   "@theme": "Téma",
   "@title": "Cím",
-  "@trashes": "Kuka",
+  "@trash": "Kuka",
   "@guest": "Vendég",
   "@add_account": "Fiók hozzáadása",
   "@use_my_own_server": "Saját szerver használata",

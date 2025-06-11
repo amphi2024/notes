@@ -13,7 +13,7 @@
   "@sync_state": "Estado de sincronización",
   "@theme": "Tema",
   "@title": "Título",
-  "@trashes": "Papelera",
+  "@trash": "Papelera",
   "@guest": "Invitado",
   "@add_account": "Agregar Cuenta",
   "@use_my_own_server": "Usar mi propio servidor",

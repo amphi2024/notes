@@ -13,7 +13,7 @@
   "@sync_state": "Stato di sincronizzazione",
   "@theme": "Tema",
   "@title": "Titolo",
-  "@trashes": "Cestino",
+  "@trash": "Cestino",
   "@guest": "Ospite",
   "@add_account": "Aggiungi Account",
   "@use_my_own_server": "Usa il mio server",

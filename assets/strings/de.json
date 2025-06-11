@@ -13,7 +13,7 @@
   "@sync_state": "Sync-Zustand",
   "@theme": "Thema",
   "@title": "Titel",
-  "@trashes": "Papierkorb",
+  "@trash": "Papierkorb",
   "@guest": "Gast",
   "@add_account": "Konto hinzufügen",
   "@use_my_own_server": "Eigenen Server verwenden",

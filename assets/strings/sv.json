@@ -13,7 +13,7 @@
   "@sync_state": "Synkroniseringsstatus",
   "@theme": "Tema",
   "@title": "Titel",
-  "@trashes": "Papperskorgar",
+  "@trash": "Papperskorgar",
   "@guest": "Gäst",
   "@add_account": "Lägg till konto",
   "@use_my_own_server": "Använd min egen server",

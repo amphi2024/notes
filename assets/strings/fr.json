@@ -13,7 +13,7 @@
   "@sync_state": "État de synchronisation",
   "@theme": "Thème",
   "@title": "Titre",
-  "@trashes": "Corbeille",
+  "@trash": "Corbeille",
   "@guest": "Invité",
   "@add_account": "Ajouter un Compte",
   "@use_my_own_server": "Utiliser mon propre serveur",

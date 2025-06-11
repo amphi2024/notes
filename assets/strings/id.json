@@ -13,7 +13,7 @@
   "@sync_state": "Status sinkronisasi",
   "@theme": "Tema",
   "@title": "Judul",
-  "@trashes": "Sampah",
+  "@trash": "Sampah",
   "@guest": "Tamu",
   "@add_account": "Tambah Akun",
   "@use_my_own_server": "Gunakan server saya sendiri",

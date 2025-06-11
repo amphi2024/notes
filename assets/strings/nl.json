@@ -13,7 +13,7 @@
   "@sync_state": "Synchronisatiestatus",
   "@theme": "Thema",
   "@title": "Titel",
-  "@trashes": "Prullenbak",
+  "@trash": "Prullenbak",
   "@guest": "Gast",
   "@add_account": "Voeg Account Toe",
   "@use_my_own_server": "Gebruik mijn eigen server",

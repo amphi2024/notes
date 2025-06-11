@@ -13,7 +13,7 @@
   "@sync_state": "상태 동기화",
   "@theme": "테마",
   "@title": "제목",
-  "@trashes": "휴지통",
+  "@trash": "휴지통",
   "@guest": "게스트",
   "@add_account": "계정 추가",
   "@use_my_own_server": "내 서버 사용",

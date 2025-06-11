@@ -53,7 +53,7 @@ class _TrashViewState extends State<TrashView> {
                               size: 25,
                             ),
                             Text(
-                              AppLocalizations.of(context).get("@trashes"),
+                              AppLocalizations.of(context).get("@trash"),
                               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                             )
                           ],

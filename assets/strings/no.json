@@ -13,7 +13,7 @@
   "@sync_state": "Synkroniseringstilstand",
   "@theme": "Tema",
   "@title": "Tittel",
-  "@trashes": "Søppel",
+  "@trash": "Søppel",
   "@guest": "Gjest",
   "@add_account": "Legg Til Konto",
   "@use_my_own_server": "Bruk min egen server",

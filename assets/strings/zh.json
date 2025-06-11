@@ -13,7 +13,7 @@
   "@sync_state": "同步状态",
   "@theme": "主题",
   "@title": "标题",
-  "@trashes": "垃圾桶",
+  "@trash": "垃圾桶",
   "@guest": "访客",
   "@add_account": "添加账户",
   "@use_my_own_server": "使用我自己的服务器",

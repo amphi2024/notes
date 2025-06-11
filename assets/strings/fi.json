@@ -13,7 +13,7 @@
   "@sync_state": "Synkronointitila",
   "@theme": "Teema",
   "@title": "Otsikko",
-  "@trashes": "Roskakori",
+  "@trash": "Roskakori",
   "@guest": "Vieras",
   "@add_account": "Lisää Tili",
   "@use_my_own_server": "Käytä omaa palvelinta",

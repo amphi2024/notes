@@ -13,7 +13,7 @@
   "@sync_state": "Senkronizasyon Durumu",
   "@theme": "Tema",
   "@title": "Başlık",
-  "@trashes": "Çöp Kutusu",
+  "@trash": "Çöp Kutusu",
   "@guest": "Ziyaretçi",
   "@add_account": "Hesap Ekle",
   "@use_my_own_server": "Kendi Sunucumu Kullan",

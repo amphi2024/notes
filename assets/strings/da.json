@@ -13,7 +13,7 @@
   "@sync_state": "Synkroniseringsstatus",
   "@theme": "Tema",
   "@title": "Titel",
-  "@trashes": "Papirkurv",
+  "@trash": "Papirkurv",
   "@guest": "Gæst",
   "@add_account": "Tilføj konto",
   "@use_my_own_server": "Brug min egen server",

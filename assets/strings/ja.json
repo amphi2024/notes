@@ -13,7 +13,7 @@
   "@sync_state": "同期状態",
   "@theme": "テーマ",
   "@title": "タイトル",
-  "@trashes": "ごみ箱",
+  "@trash": "ごみ箱",
   "@guest": "ゲスト",
   "@add_account": "アカウントを追加",
   "@use_my_own_server": "自分のサーバーを使用する",
