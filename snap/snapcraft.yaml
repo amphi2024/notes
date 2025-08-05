@@ -1,0 +1,173 @@
+name: amphi-notes
+version: 1.1.0
+license: Apache-2.0
+summary: Notes Application
+source-code: https://github.com/amphi2024/notes
+issues: https://github.com/amphi2024/notes/issues
+icon: ./icon.png
+description: |
+  Cross-platform note-taking app that enables users to sync their data with a self-hosted server
+
+base: core24
+confinement: strict
+grade: stable
+
+platforms:
+  amd64:
+  arm64:
+
+apps:
+  notes:
+    command: ./notes
+    desktop: ./amphi-notes.desktop
+    extensions: [gnome]
+    plugs:
+      - home
+      - network
+      - wayland
+      - x11
+      - desktop
+      - opengl
+      - pulseaudio
+    environment:
+      LD_LIBRARY_PATH: "$SNAP/lib:$SNAP/usr/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET"
+
+parts:
+  ffmpeg:
+    plugin: autotools
+    source: https://ffmpeg.org/releases/ffmpeg-6.1.2.tar.gz
+    autotools-configure-parameters:
+      - --prefix=/usr
+      - --libdir=/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
+      - --disable-debug
+      - --disable-doc
+      - --disable-static
+      - --enable-gpl
+      - --enable-shared
+      - --disable-ffplay
+      - --disable-devices
+      - --enable-gnutls
+      - --enable-libmp3lame
+      - --enable-libvorbis
+      - --enable-libdav1d
+      - --enable-libopus
+      - --enable-libx264
+      - --enable-libx265
+      - --enable-libvpx
+      - --enable-libass
+      - --enable-libaom
+      - --enable-libfdk-aac
+      - --enable-nonfree
+      #- --enable-cuda-nvcc , https://codeberg.org/sameersharma2006/celluloid-snap/issues/6
+      #- --enable-libnpp , https://codeberg.org/sameersharma2006/celluloid-snap/issues/6
+    build-packages:
+      - nasm
+      - libmp3lame-dev
+      - libvorbis-dev
+      - libopus-dev
+      - libx264-dev
+      - libx265-dev
+      - libnuma-dev
+      - libvpx-dev
+      - libdav1d-dev
+      - libass-dev
+      - libaom-dev
+      - libfdk-aac-dev
+      #- libffmpeg-nvenc-dev , https://codeberg.org/sameersharma2006/celluloid-snap/issues/6
+      #- nvidia-cuda-toolkit-gcc , https://codeberg.org/sameersharma2006/celluloid-snap/issues/6
+    prime:
+      - -usr/share/doc
+      - -usr/share/man
+      - -usr/share/ffmpeg/examples
+      - -usr/include
+      - -usr/lib/*/pkgconfig
+
+  mpv:
+    source: https://github.com/mpv-player/mpv.git
+    source-tag: 'v0.40.0'
+    after: [ ffmpeg ]
+    plugin: meson
+    meson-parameters:
+      - -Dprefix=/usr
+      - -Dbuildtype=release
+      - -Dx11=enabled
+      - -Dwayland=enabled
+      - -Dpipewire=disabled
+      - -Dalsa=disabled
+      - -Djack=disabled
+      - -Dsndio=disabled
+      - -Ddrm=enabled
+      - -Dsdl2-audio=disabled
+      - -Dmanpage-build=disabled
+      - -Dshaderc=disabled
+      - -Dbuild-date=false
+    build-packages:
+      - cmake
+      - libjpeg-turbo8-dev
+      - libxss-dev
+      - libxpresent-dev
+      - liblua5.2-dev
+      - libplacebo-dev
+      - libvdpau-dev
+      - libxv-dev
+      - ffmpeg
+      - libdisplay-info-dev
+    prime:
+      - -usr/share/help
+      - -usr/share/icons
+      - -usr/share/applications
+      - -usr/share/doc
+      - -usr/share/metainfo
+      - -usr/share/bash-completion
+      - -usr/share/zsh
+      - -usr/bin
+      - -usr/include
+      - -usr/lib/*/pkgconfig
+  notes:
+    plugin: dump
+    stage:
+      - ./icon.png
+      - ./amphi-notes.desktop
+      - ./notes
+      - ./lib
+      - ./data
+    source: ./files
+    after: [ mpv ]
+
+  deps:
+    plugin: nil
+    after: [notes]
+    stage-packages:
+      - libass9
+      - libxpresent1
+      - libxss1
+      - liblua5.2-0
+      - libdav1d7
+      - libnuma1
+      - libx264-164
+      - libx265-199
+      - libfdk-aac2
+      - libplacebo338
+      - libunibreak5
+      - libxv1
+      - libpciaccess0
+      - libdisplay-info1
+      - zenity
+      - libxmu6
+    prime:
+      - usr/lib/*/libass*
+      - usr/lib/*/libXss*
+      - usr/lib/*/libXpresent*
+      - usr/lib/*/liblua5.2.so*
+      - usr/lib/*/libdav1d*
+      - usr/lib/*/libnuma*
+      - usr/lib/*/libx264*
+      - usr/lib/*/libx265*
+      - usr/lib/*/libfdk*
+      - usr/lib/*/libplacebo*
+      - usr/lib/*/libunibreak*
+      - usr/lib/*/libXv*
+      - usr/lib/*/libpciaccess*
+      - usr/lib/*/libdisplay-info*
+      - usr/bin/zenity*
+      - usr/lib/*/libxmu*
