@@ -1,0 +1,38 @@
+name: Build DEB on ARM
+
+on:
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.29.2"
+
+jobs:
+  build_deb:
+    runs-on: [self-hosted, linux, arm64]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev libfuse2 libmpv-dev mpv libmimalloc-dev libmimalloc2.0
+
+      - name: Enable Linux Desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Enable flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Build DEB
+        run: PATH="$PATH:$HOME/.pub-cache/bin" flutter_distributor package --platform linux --targets deb
+
+      - name: Upload DEB
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-deb-arm
+          path: dist/*
