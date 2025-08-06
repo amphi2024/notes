@@ -33,11 +33,11 @@ jobs:
       - name: Create TAR
         run: |
           cd build/linux/arm64/release/bundle
-          tar --use-compress-program=zstd -cvf ../../../../../notes-linux.tar.zst *
+          tar -czvf../../../../../notes-linux.tar.gz *
           cd ../../../../..
 
       - name: Upload TAR as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: result-tar
-          path: notes-linux.tar.zst
+          path: notes-linux.tar.gz
