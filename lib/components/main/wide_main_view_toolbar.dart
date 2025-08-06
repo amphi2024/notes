@@ -154,7 +154,7 @@ class _WideMainViewToolbarState extends State<WideMainViewToolbar> {
       ];
     }
 
-    if(Platform.isWindows || Platform.isLinux ) {
+    if(Platform.isWindows) {
       var colors = WindowButtonColors(
         iconMouseOver: Theme.of(context).textTheme.bodyMedium?.color,
         mouseOver: Color.fromRGBO(125, 125, 125, 0.1),
