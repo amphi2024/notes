@@ -5,26 +5,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
+import 'package:notes/components/draggable_page.dart';
 import 'package:notes/components/settings/app_theme_page_view.dart';
 import 'package:notes/components/settings/server_setting_component.dart';
 import 'package:notes/components/settings/titled_check_box.dart';
 import 'package:notes/utils/get_themes.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/models/icons.dart';
 import 'package:amphi/widgets/settings/language.dart';
-import 'package:notes/views/app_view.dart';
-class SettingsView extends StatefulWidget {
 
-  const SettingsView({super.key});
+class SettingsPage extends StatefulWidget {
+
+  const SettingsPage({super.key});
 
   @override
-  State<SettingsView> createState() => _SettingsViewState();
+  State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsViewState extends State<SettingsView> {
+class _SettingsPageState extends State<SettingsPage> {
 
   TextEditingController serverAddressController = TextEditingController();
 
@@ -60,7 +60,7 @@ class _SettingsViewState extends State<SettingsView> {
   }
   @override
   Widget build(BuildContext context) {
-    return AppView(
+    return DraggablePage(
       canPopPage: true,
       onPopInvoked: (value, result) {
           appSettings.serverAddress = serverAddressController.text;
@@ -132,9 +132,9 @@ class _SettingsViewState extends State<SettingsView> {
                         // setState(() {
                         //   selectedTheme = theme;
                         // });
-                        appState.notifySomethingChanged(() {
-                          appSettings.appTheme = theme;
-                        });
+                        // appState.notifySomethingChanged(() {
+                        //   appSettings.appTheme = theme;
+                        // });
                       },
                     ),
                   ],
@@ -150,10 +150,10 @@ class _SettingsViewState extends State<SettingsView> {
                           scrollController: languageScrollController,
                           itemExtent: 30,
                           onSelectedItemChanged: (i) {
-
-                            appState.notifySomethingChanged(() {
-                              appSettings.locale = languages[i].locale;
-                            });
+                            //
+                            // appState.notifySomethingChanged(() {
+                            //   appSettings.locale = languages[i].locale;
+                            // });
                           }, children: languages)
 
                     ),

@@ -7,44 +7,44 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:notes/channels/app_method_channel.dart';
-import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_sync.dart';
-import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/models/app_cache_data.dart';
-import 'package:notes/models/app_colors.dart';
-import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_state.dart';
-import 'package:notes/models/app_storage.dart';
-import 'package:notes/models/app_theme.dart';
-import 'package:notes/models/note.dart';
-import 'package:notes/views/main_view.dart';
-import 'package:notes/views/wide_main_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/pages/main_page.dart';
+import 'package:notes/providers/notes_provider.dart';
+
+import 'channels/app_method_channel.dart';
+import 'channels/app_web_channel.dart';
+import 'models/app_cache_data.dart';
+import 'models/app_colors.dart';
+import 'models/app_settings.dart';
+import 'models/app_storage.dart';
+import 'models/app_theme.dart';
+import 'models/note.dart';
+import 'pages/wide_main_page.dart';
+import 'utils/data_sync.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-
       if (appSettings.useOwnServer) {
-        if(!appWebChannel.connected) {
+        if (!appWebChannel.connected) {
           appWebChannel.connectWebSocket();
         }
-        appWebChannel.syncDataFromEvents();
+        ref.read(notesProvider.notifier).syncDataFromEvents();
       }
     }
     super.didChangeAppLifecycleState(state);
@@ -64,41 +64,32 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       appSettings.getData();
       appColors.getData();
 
-      appStorage.initNotes();
-      AppStorage.deleteObsoleteNotes();
+      // appStorage.initNotes();
+      // AppStorage.deleteObsoleteNotes();
       bool found = false;
-      for (dynamic item in AppStorage.getNoteList("")) {
-        if (item is Note) {
-          found = true;
-          appState.noteEditingController = NoteEditingController(note: item, readOnly: true);
-          break;
-        }
-      }
+      // for (dynamic item in AppStorage.getNoteList("")) {
+      //   if (item is Note) {
+      //     found = true;
+      //     // appState.noteEditingController = NoteEditingController(note: item, readOnly: true);
+      //     break;
+      //   }
+      // }
       if (!found) {
-        appState.noteEditingController = NoteEditingController(note: Note.createdNote(""), readOnly: false);
+        // appState.noteEditingController = NoteEditingController(note: Note.createdNote(""), readOnly: false);
       }
 
       if (appSettings.useOwnServer) {
         appWebChannel.connectWebSocket();
-
-        appWebChannel.syncDataFromEvents();
-        appWebChannel.noteUpdateListeners.add((note) {
-          setState(() {
-            AppStorage.notifyNote(note);
-          });
-        });
-
-        appWebChannel.folderUpdateListeners.add((folder) {
-          setState(() {
-            AppStorage.notifyFolder(folder);
-          });
-        });
       }
+
+      appWebChannel.onWebSocketEvent = (updateEvent) {
+        applyUpdateEvent(updateEvent, ref);
+      };
       setState(() {
 
       });
 
-      if(App.isDesktop()) {
+      if (App.isDesktop()) {
         doWhenWindowReady(() {
           appWindow.minSize = Size(600, 350);
           appWindow.size = Size(appCacheData.windowWidth, appCacheData.windowHeight);
@@ -114,10 +105,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       appMethodChannel.configureNeedsBottomPadding();
     }
 
-    appState.notifySomethingChanged = (function) {
-      setState(function);
-    };
-
     super.initState();
   }
 
@@ -130,7 +117,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
     if (appTheme != null) {
       return MaterialApp(
-           debugShowCheckedModeBanner: false,
+          debugShowCheckedModeBanner: false,
           theme: appTheme.lightTheme.toThemeData(context),
           darkTheme: appTheme.darkTheme.toThemeData(context),
           locale: locale,
@@ -142,7 +129,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             GlobalCupertinoLocalizations.delegate,
             FlutterQuillLocalizations.delegate
           ],
-          home: !App.isWideScreen(context) && !App.isDesktop() ? MainView() : WideMainView());
+          home: !App.isWideScreen(context) && !App.isDesktop() ? MainPage(folder: Note(id: "")) : const WideMainPage());
     } else {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -155,11 +142,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 }
 
 double bottomPaddingIfAndroid3Button(BuildContext context) {
-  if(appMethodChannel.needsBottomPadding) {
-    return MediaQuery.of(context).padding.bottom;
+  if (appMethodChannel.needsBottomPadding) {
+    return MediaQuery
+        .of(context)
+        .padding
+        .bottom;
   }
   else {
     return 0;
   }
-
 }

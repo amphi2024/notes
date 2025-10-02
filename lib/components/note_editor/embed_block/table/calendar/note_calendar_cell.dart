@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/embed_block/table/calendar/note_calendar_page.dart';
-import 'package:notes/views/note_calender_events_view.dart';
 
 TableCell noteCalendarCell({required NoteCalendarPage widget, required DateTime dateTime, required int startingIndex, required double height}) {
 
@@ -64,24 +63,24 @@ class _DayWidget extends StatelessWidget {
     else {
       return GestureDetector(
         onTap: () {
-          Navigator.push(context,    PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) {
-              return NoteCalenderEventsView(events: events);
-            },
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              const begin = Offset(0.0, 1.0);
-              const end = Offset.zero;
-              const curve = Curves.ease;
-
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-              var offsetAnimation = animation.drive(tween);
-
-              return SlideTransition(
-                position: offsetAnimation,
-                child: child,
-              );
-            },
-          ),);
+          // Navigator.push(context,    PageRouteBuilder(
+          //   pageBuilder: (context, animation, secondaryAnimation) {
+          //     return NoteCalenderEventsView(events: events);
+          //   },
+          //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          //     const begin = Offset(0.0, 1.0);
+          //     const end = Offset.zero;
+          //     const curve = Curves.ease;
+          //
+          //     var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          //     var offsetAnimation = animation.drive(tween);
+          //
+          //     return SlideTransition(
+          //       position: offsetAnimation,
+          //       child: child,
+          //     );
+          //   },
+          // ),);
         },
         child: Padding(
           padding: const EdgeInsets.all(7.5),

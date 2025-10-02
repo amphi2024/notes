@@ -18,12 +18,9 @@ class FileInNote {
   }
 
   Content toContent() {
-    return Content(
-      value: {
-        "label": label,
-        "filename": filename
-      },
-      type: "file"
-    );
+    return Content({
+      "value": {"label": label, "filename": filename},
+      "type": "file"
+    });
   }
 }

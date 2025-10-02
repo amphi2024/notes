@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_upload.dart';
 import 'package:notes/models/dark_theme.dart';
 import 'package:notes/models/light_theme.dart';
 import 'package:amphi/models/app_theme_core.dart';
@@ -87,7 +86,7 @@ class AppTheme extends AppThemeCore {
   Future<void> save({bool upload = true}) async {
     await saveFile((fileContent) {
       if(upload) {
-        appWebChannel.uploadTheme(themeFileContent: fileContent, themeFilename: filename);
+        // appWebChannel.uploadTheme(themeFileContent: fileContent, themeFilename: filename);
       }
     });
   }

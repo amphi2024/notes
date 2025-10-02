@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/widget/dialogs/table_text_dialog.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/widget/items/table_edit_button.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/widget/items/table_item.dart';
-import 'package:notes/models/app_state.dart';
 
 class TableText extends TableItem {
 
@@ -21,12 +20,12 @@ class TableText extends TableItem {
 
   @override
   Widget build(BuildContext context) {
-    if (appState.noteEditingController.readOnly) {
-      return Padding(
-        padding: const EdgeInsets.all(7.5),
-        child: SelectableText(text),
-      );
-    }
+    // if (appState.noteEditingController.readOnly) {
+    //   return Padding(
+    //     padding: const EdgeInsets.all(7.5),
+    //     child: SelectableText(text),
+    //   );
+    // }
     return GestureDetector(
         onTap: () async {
           String? result = await showDialog(

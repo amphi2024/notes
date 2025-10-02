@@ -4,7 +4,6 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/widget/dialogs/table_text_dialog.dart';
-import 'package:notes/models/app_state.dart';
 
 class TableAddButton extends StatelessWidget {
   final void Function(Map<String, dynamic>) onEdit;
@@ -46,18 +45,18 @@ class TableAddButton extends StatelessWidget {
             PopupMenuItem(
                 child: Text(AppLocalizations.of(context).get("@editor_table_insert_image")),
                 onTap: () async {
-                  var files = await appState.noteEditingController.selectedImageFiles();
-                  for(var file in files) {
-                    onEdit({"img": PathUtils.basename(file.path)});
-                  }
+                  // var files = await appState.noteEditingController.selectedImageFiles();
+                  // for(var file in files) {
+                  //   onEdit({"img": PathUtils.basename(file.path)});
+                  // }
                 }),
             PopupMenuItem(
                 child: Text(AppLocalizations.of(context).get("@editor_table_insert_video")),
                 onTap: () async {
-                  File? file = await appState.noteEditingController.selectedVideoFile();
-                  if (file != null) {
-                    onEdit({"video": PathUtils.basename(file.path)});
-                  }
+                  // File? file = await appState.noteEditingController.selectedVideoFile();
+                  // if (file != null) {
+                  //   onEdit({"video": PathUtils.basename(file.path)});
+                  // }
                 }),
             PopupMenuItem(
                 child: Text(AppLocalizations.of(context).get("@editor_table_insert_date")),

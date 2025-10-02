@@ -1,11 +1,11 @@
-import 'package:amphi/utils/file_name_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/image_from_storage_rounded.dart';
 import 'package:notes/components/main/list_view/list_view_item.dart';
 import 'package:notes/extensions/date_extension.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/item.dart';
 import 'package:notes/models/note.dart';
+
 
 class NoteGridItem extends ListViewItem {
   final Note note;
@@ -26,14 +26,14 @@ class _NoteGridItemState extends State<NoteGridItem> {
     var isDarkMode = themeData.isDarkMode();
     return GestureDetector(
       onLongPress: () {
-        if (appStorage.selectedNotes == null) {
-          widget.onLongPress();
-        }
+        // if (appStorage.selectedNotes == null) {
+        //   widget.onLongPress();
+        // }
       },
       onTap: () {
-        if (appStorage.selectedNotes == null) {
-          widget.onPressed();
-        }
+        // if (appStorage.selectedNotes == null) {
+        //   widget.onPressed();
+        // }
       },
       child: Container(
         margin: const EdgeInsets.all(7.5),
@@ -47,7 +47,8 @@ class _NoteGridItemState extends State<NoteGridItem> {
             Visibility(
                 visible: widget.note.thumbnailImageFilename != null,
                 child: ImageFromStorageRounded(
-                    noteName: FilenameUtils.nameOnly(widget.note.filename),
+                    // noteName: FilenameUtils.nameOnly(widget.note.filename),
+                  noteName: "",
                     filename: widget.note.thumbnailImageFilename ?? "",
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)))),
             Padding(
@@ -63,25 +64,25 @@ class _NoteGridItemState extends State<NoteGridItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AnimatedOpacity(
-                  duration: const Duration(milliseconds: 1000),
-                  curve: Curves.easeOutQuint,
-                  opacity: appStorage.selectedNotes != null ? 1.0 : 0,
-                  child: Checkbox(
-                      value: selected,
-                      onChanged: (bool? value) {
-                        if (appStorage.selectedNotes != null) {
-                          setState(() {
-                            selected = value!;
-                          });
-                          if (selected) {
-                            appStorage.selectedNotes!.add(widget.note);
-                          } else {
-                            appStorage.selectedNotes!.remove(widget.note);
-                          }
-                        }
-                      }),
-                ),
+                // AnimatedOpacity(
+                //   duration: const Duration(milliseconds: 1000),
+                //   curve: Curves.easeOutQuint,
+                //   opacity: appStorage.selectedNotes != null ? 1.0 : 0,
+                //   child: Checkbox(
+                //       value: selected,
+                //       onChanged: (bool? value) {
+                //         if (appStorage.selectedNotes != null) {
+                //           setState(() {
+                //             selected = value!;
+                //           });
+                //           if (selected) {
+                //             appStorage.selectedNotes!.add(widget.note);
+                //           } else {
+                //             appStorage.selectedNotes!.remove(widget.note);
+                //           }
+                //         }
+                //       }),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
                   child: Text(

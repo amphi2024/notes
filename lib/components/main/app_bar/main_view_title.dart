@@ -1,7 +1,6 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/models/app_state.dart';
-import 'package:notes/models/app_storage.dart';
+
 
 class MainViewTitle extends StatefulWidget {
   final String? title;
@@ -17,7 +16,8 @@ class _MainViewTitleState extends State<MainViewTitle> {
 
   @override
   Widget build(BuildContext context) {
-    if (appStorage.selectedNotes == null) {
+    // if (appStorage.selectedNotes == null) {
+    if (true) {
       return Builder(builder: (context) {
         return GestureDetector(
             onTap: () {
@@ -69,9 +69,9 @@ class _MainViewTitleState extends State<MainViewTitle> {
         child: IconButton(
           icon: Icon(Icons.check_circle_outline),
           onPressed: () {
-            appState.notifySomethingChanged(() {
-              appStorage.selectedNotes = null;
-            });
+            // appState.notifySomethingChanged(() {
+            //   appStorage.selectedNotes = null;
+            // });
           },
         ),
       );

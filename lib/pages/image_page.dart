@@ -1,28 +1,24 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:amphi/models/app_localizations.dart';
-import 'package:amphi/utils/file_name_utils.dart';
-import 'package:amphi/utils/path_utils.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/components/image_from_storage.dart';
-import 'package:notes/models/app_storage.dart';
-import 'package:notes/models/icons.dart';
-import 'package:notes/utils/toast.dart';
 
-class ImagePageView extends StatefulWidget {
+import 'package:notes/models/icons.dart';
+
+
+class ImagePage extends StatefulWidget {
   final String imageFilename;
   final String noteName;
-  const ImagePageView({super.key, required this.imageFilename, required this.noteName});
+  const ImagePage({super.key, required this.imageFilename, required this.noteName});
 
   @override
-  State<ImagePageView> createState() => _ImagePageViewState();
+  State<ImagePage> createState() => _ImagePageState();
 }
 
-class _ImagePageViewState extends State<ImagePageView> {
+class _ImagePageState extends State<ImagePage> {
   late var imageHeight = MediaQuery.of(context).size.height;
   var toolbarVisible = false;
   Timer? timer;
@@ -75,18 +71,18 @@ class _ImagePageViewState extends State<ImagePageView> {
       IconButton(
           icon: Icon(Icons.save),
           onPressed: () async {
-            String filePath = PathUtils.join(appStorage.notesPath, widget.noteName, "images" ,widget.imageFilename);
-            File originalFile = File(filePath);
-            var bytes = await originalFile.readAsBytes();
-            var selectedPath = await FilePicker.platform.saveFile(
-                fileName: "image.${FilenameUtils.extensionName(widget.imageFilename)}",
-                bytes: bytes
-            );
-            if(selectedPath != null) {
-              var file = File(selectedPath);
-              await file.writeAsBytes(bytes);
-              showToast(context, AppLocalizations.of(context).get("@toast_message_image_export_success"));
-            }
+            // String filePath = PathUtils.join(appStorage.notesPath, widget.noteName, "images" ,widget.imageFilename);
+            // File originalFile = File(filePath);
+            // var bytes = await originalFile.readAsBytes();
+            // var selectedPath = await FilePicker.platform.saveFile(
+            //     fileName: "image.${FilenameUtils.extensionName(widget.imageFilename)}",
+            //     bytes: bytes
+            // );
+            // if(selectedPath != null) {
+            //   var file = File(selectedPath);
+            //   await file.writeAsBytes(bytes);
+            //   showToast(context, AppLocalizations.of(context).get("@toast_message_image_export_success"));
+            // }
           }),
       IconButton(
           icon: Icon(Icons.zoom_out),

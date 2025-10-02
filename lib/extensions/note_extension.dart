@@ -6,13 +6,15 @@ import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/models/content.dart';
 import 'package:notes/models/dark_theme.dart';
 import 'package:notes/models/light_theme.dart';
 import 'package:notes/models/note.dart';
 import 'package:pdf/widgets.dart' as PDF;
+
+import '../models/app_storage.dart';
 extension NoteExtension on Note {
   String toHTML(BuildContext context) {
     AppTheme appTheme = appSettings.appTheme!;
@@ -63,7 +65,7 @@ font-size: ${textSize ?? 15}px;
     <body>
     """;
 
-    html += toHtmlContents(context, contents);
+    // html += toHtmlContents(context, content);
 
     html += """
     </body>
@@ -132,7 +134,7 @@ font-size: ${textSize ?? 15}px;
           Map<String, dynamic> map = content.value;
           List<Content> subNoteContents = [];
           for (Map<String, dynamic> contentMap in map["contents"]) {
-            subNoteContents.add(Content.fromMap(contentMap));
+            subNoteContents.add(Content(contentMap));
           }
           html += """
           <details>
@@ -146,7 +148,7 @@ font-size: ${textSize ?? 15}px;
           for(Map<String, dynamic> data in content.value) {
             List<Content> viewPagerContents = [];
             for(Map<String, dynamic> contentData in data["contents"]) {
-              viewPagerContents.add(Content.fromMap(contentData));
+              viewPagerContents.add(Content(contentData));
             }
             html+= toHtmlContents(context, viewPagerContents);
           }
@@ -168,15 +170,15 @@ font-size: ${textSize ?? 15}px;
   String toMarkdown() {
     String markdown = "";
 
-    for(var content in contents) {
-      switch(content.type) {
-        case "text":
-          markdown += content.textToHTML();
-        default:
-          markdown += "\n";
-          break;
-      }
-    }
+    // for(var content in content) {
+    //   switch(content.type) {
+    //     case "text":
+    //       markdown += content.textToHTML();
+    //     default:
+    //       markdown += "\n";
+    //       break;
+    //   }
+    // }
 
     return markdown;
   }
@@ -184,23 +186,23 @@ font-size: ${textSize ?? 15}px;
   PDF.Document toPDF() {
     final pdf = PDF.Document();
     List<PDF.Widget> list = [];
-    for (Content content in contents) {
-      switch (content.type) {
-        case "text":
-          list.add(
-              PDF.Text(content.value,
-            style: content.style?.toPDFTextStyle(),
-          ));
-          break;
-        case "img":
-
-          break;
-
-        case "video":
-
-          break;
-      }
-    }
+    // for (Content content in content) {
+    //   switch (content.type) {
+    //     case "text":
+    //       list.add(
+    //           PDF.Text(content.value,
+    //         style: content.style?.toPDFTextStyle(),
+    //       ));
+    //       break;
+    //     case "img":
+    //
+    //       break;
+    //
+    //     case "video":
+    //
+    //       break;
+    //   }
+    // }
 
     var page = PDF.Page(
       build: (context) => PDF.Column(
@@ -218,7 +220,7 @@ font-size: ${textSize ?? 15}px;
   }
 
   String base64FromSomething(String value, String directoryName) {
-    var file = File(PathUtils.join(appStorage.notesPath, name, directoryName, value));
+    var file = File(PathUtils.join(appStorage.notesPath, id[0], id[1], directoryName, value));
     return base64Encode( file.readAsBytesSync());
   }
 }

@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/main/list_view/linear_item_border.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/extensions/sort_extension.dart';
-import 'package:notes/models/app_state.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/icons.dart';
 import 'package:notes/models/note.dart';
+
+import '../../models/app_storage.dart';
 
 class ChooseFolderDialog extends StatefulWidget {
   const ChooseFolderDialog({super.key});
@@ -29,27 +30,27 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
 
   void getFolders() {
     Directory directory = Directory(appStorage.notesPath);
-    for (FileSystemEntity file in directory.listSync()) {
-      if (file.path.endsWith(".folder") && file is File) {
-        bool exists = false;
-        for (dynamic item in appStorage.selectedNotes!) {
-          if (item is Folder && item.path == file.path) {
-            exists = true;
-          }
-        }
-        if (!exists) {
-          Folder folder = Folder.fromFile(file);
-          if (folderList[folder.location] == null) {
-            folderList[folder.location] = [];
-          }
-          if (folderList[folder.filename] == null) {
-            folderList[folder.filename] = [];
-          }
-
-          folderList[folder.location]!.add(folder);
-        }
-      }
-    }
+    // for (FileSystemEntity file in directory.listSync()) {
+    //   if (file.path.endsWith(".folder") && file is File) {
+    //     bool exists = false;
+    //     for (dynamic item in appStorage.selectedNotes!) {
+    //       if (item is Folder && item.path == file.path) {
+    //         exists = true;
+    //       }
+    //     }
+    //     if (!exists) {
+    //       Folder folder = Folder.fromFile(file);
+    //       if (folderList[folder.location] == null) {
+    //         folderList[folder.location] = [];
+    //       }
+    //       if (folderList[folder.filename] == null) {
+    //         folderList[folder.filename] = [];
+    //       }
+    //
+    //       folderList[folder.location]!.add(folder);
+    //     }
+    //   }
+    // }
   }
 
   @override
@@ -73,24 +74,24 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                 IconButton(onPressed: () {}, icon: const Icon(AppIcons.times)),
                 IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
-                      for (dynamic item in appStorage.selectedNotes!) {
-                        if (item is Note) {
-                          AppStorage.getNoteList(item.location).remove(item);
-                          item.location = history.last;
-                          item.save(changeModified: false);
-                          AppStorage.getNoteList(history.last).add(item);
-                        } else if (item is Folder) {
-                          AppStorage.getNoteList(item.location).remove(item);
-                          item.location = history.last;
-                          item.save(changeModified: false);
-                          AppStorage.getNoteList(history.last).add(item);
-                        }
-                      }
-                      AppStorage.getNoteList(history.last).sortByOption();
-                      appState.notifySomethingChanged(() {
-                        appStorage.selectedNotes = null;
-                      });
+                      // Navigator.pop(context);
+                      // for (dynamic item in appStorage.selectedNotes!) {
+                      //   if (item is Note) {
+                      //     AppStorage.getNoteList(item.location).remove(item);
+                      //     item.location = history.last;
+                      //     item.save(changeModified: false);
+                      //     AppStorage.getNoteList(history.last).add(item);
+                      //   } else if (item is Folder) {
+                      //     AppStorage.getNoteList(item.location).remove(item);
+                      //     item.location = history.last;
+                      //     item.save(changeModified: false);
+                      //     AppStorage.getNoteList(history.last).add(item);
+                      //   }
+                      // }
+                      // AppStorage.getNoteList(history.last).sortByOption();
+                      // appState.notifySomethingChanged(() {
+                      //   appStorage.selectedNotes = null;
+                      // });
                     },
                     icon: const Icon(AppIcons.check, size: 20))
               ],
@@ -185,10 +186,10 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                                             style:
                                                 TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15, fontWeight: FontWeight.bold),
                                           ),
-                                          Text(
-                                            "${folder.modified.toLocalizedShortString(context)}   ${AppStorage.getNoteList(folder.filename).length}",
-                                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15),
-                                          )
+                                          // Text(
+                                          //   "${folder.modified.toLocalizedShortString(context)}   ${AppStorage.getNoteList(folder.filename).length}",
+                                          //   style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15),
+                                          // )
                                         ],
                                       ),
                                     )

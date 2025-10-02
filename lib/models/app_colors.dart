@@ -5,8 +5,9 @@ import 'package:amphi/models/app_colors_core.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_upload.dart';
-import 'package:notes/models/app_storage.dart';
+
+import 'app_storage.dart';
+
 
 final appColors = AppColors.getInstance();
 
@@ -39,7 +40,7 @@ class AppColors extends AppColorsCore {
     File file = File(PathUtils.join(appStorage.selectedUser.storagePath, "colors.json"));
     String fileContent = jsonEncode(toMap());
     file.writeAsString(fileContent);
-    appWebChannel.uploadColors(colorsFileContent: fileContent);
+    // appWebChannel.uploadColors(colorsFileContent: fileContent);
   }
 
   @override

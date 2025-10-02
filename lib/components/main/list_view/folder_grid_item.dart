@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:notes/components/main/list_view/list_view_item.dart';
 import 'package:notes/extensions/date_extension.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/folder.dart';
+
+import '../../../models/app_storage.dart';
 
 class FolderGridItem extends ListViewItem {
   final Folder folder;
@@ -24,16 +26,16 @@ class _FolderItemGridState extends State<FolderGridItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () {
-        if (appStorage.selectedNotes == null) {
-          widget.onLongPress();
-        }
-      },
-      onTap: () {
-        if (appStorage.selectedNotes == null) {
-          widget.onPressed();
-        }
-      },
+      // onLongPress: () {
+      //   if (appStorage.selectedNotes == null) {
+      //     widget.onLongPress();
+      //   }
+      // },
+      // onTap: () {
+      //   if (appStorage.selectedNotes == null) {
+      //     widget.onPressed();
+      //   }
+      // },
       child: Container(
         margin: const EdgeInsets.all(7.5),
         child: Column(
@@ -73,20 +75,21 @@ class _FolderItemGridState extends State<FolderGridItem> {
                         ),
                       ),
                     ),
-                    Positioned(
-                        bottom: 25,
-                        right: 10.0,
-                        child: Text(
-                          "${AppStorage.getNoteList(widget.folder.filename).length}",
-                          style: TextStyle(fontSize: 10, color: Theme.of(context).disabledColor),
-                        )),
+                    // Positioned(
+                    //     bottom: 25,
+                    //     right: 10.0,
+                    //     child: Text(
+                    //       "${AppStorage.getNoteList(widget.folder.filename).length}",
+                    //       style: TextStyle(fontSize: 10, color: Theme.of(context).disabledColor),
+                    //     )),
                     Positioned(
                         left: 10,
                         bottom: 0,
                         child: AnimatedOpacity(
                           duration: const Duration(milliseconds: 1000),
                           curve: Curves.easeOutQuint,
-                          opacity: appStorage.selectedNotes != null ? 1.0 : 0,
+                          opacity: 0,
+                          // opacity: appStorage.selectedNotes != null ? 1.0 : 0,
                           child: Row(
                             children: [
                               SizedBox(
@@ -95,16 +98,16 @@ class _FolderItemGridState extends State<FolderGridItem> {
                                 child: Checkbox(
                                     value: selected,
                                     onChanged: (bool? value) {
-                                      if (appStorage.selectedNotes != null) {
-                                        setState(() {
-                                          selected = value!;
-                                        });
-                                        if (selected) {
-                                          appStorage.selectedNotes!.add(widget.folder);
-                                        } else {
-                                          appStorage.selectedNotes!.remove(widget.folder);
-                                        }
-                                      }
+                                      // if (appStorage.selectedNotes != null) {
+                                      //   setState(() {
+                                      //     selected = value!;
+                                      //   });
+                                      //   if (selected) {
+                                      //     appStorage.selectedNotes!.add(widget.folder);
+                                      //   } else {
+                                      //     appStorage.selectedNotes!.remove(widget.folder);
+                                      //   }
+                                      // }
                                     }),
                               ),
                               IconButton(

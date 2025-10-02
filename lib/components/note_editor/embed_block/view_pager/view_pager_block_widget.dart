@@ -6,8 +6,6 @@ import 'package:notes/components/note_editor/embed_block/view_pager/edit_view_pa
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_data.dart';
 import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_page.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/models/app_state.dart';
-import 'package:notes/models/note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -42,9 +40,9 @@ class _ViewPagerBlockWidgetState extends State<ViewPagerBlockWidget> {
         child: IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              setState(() {
-                noteEmbedBlocks.getViewPager(widget.viewPagerKey).pages.add(NoteEditingController(note: Note.subNote(appState.noteEditingController.note)));
-              });
+              // setState(() {
+              //   noteEmbedBlocks.getViewPager(widget.viewPagerKey).pages.add(NoteEditingController(note: Note.subNote(appState.noteEditingController.note)));
+              // });
             }),
       ));
     }

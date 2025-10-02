@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/main/popup_menu_item.dart';
 import 'package:notes/extensions/sort_extension.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_state.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/icons.dart';
 
 class MainViewPopupMenuButton extends StatelessWidget {
@@ -26,9 +25,9 @@ class MainViewPopupMenuButton extends StatelessWidget {
                 icon: AppIcons.grid,
                 color: appSettings.viewMode == "linear" ? textColor : accentColor,
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.viewMode = "grid";
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.viewMode = "grid";
+                  // });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.withIcon(
@@ -36,9 +35,9 @@ class MainViewPopupMenuButton extends StatelessWidget {
                 icon: AppIcons.linear,
                 color: appSettings.viewMode == "grid" ? textColor : accentColor,
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.viewMode = "linear";
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.viewMode = "linear";
+                  // });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.title(label: AppLocalizations.of(context).get("@popup_menu_leading_sort_by"), color: accentColor),
@@ -48,13 +47,13 @@ class MainViewPopupMenuButton extends StatelessWidget {
                 icon: appSettings.descending ? Icons.arrow_downward : Icons.arrow_upward,
                 iconEnabled: appSettings.sortBy == "title",
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.setSortOption("title");
-                    appStorage.notes.updateAll((home, list) {
-                      list.sortByOption();
-                      return list;
-                    });
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.setSortOption("title");
+                  //   appStorage.notes.updateAll((home, list) {
+                  //     list.sortByOption();
+                  //     return list;
+                  //   });
+                  // });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.text(
@@ -63,13 +62,13 @@ class MainViewPopupMenuButton extends StatelessWidget {
                 icon: appSettings.descending ? Icons.arrow_upward : Icons.arrow_upward,
                 iconEnabled: appSettings.sortBy == "created",
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.setSortOption("created");
-                    appStorage.notes.updateAll((home, list) {
-                      list.sortByOption();
-                      return list;
-                    });
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.setSortOption("created");
+                  //   appStorage.notes.updateAll((home, list) {
+                  //     list.sortByOption();
+                  //     return list;
+                  //   });
+                  // });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.text(
@@ -78,13 +77,13 @@ class MainViewPopupMenuButton extends StatelessWidget {
                 icon: appSettings.descending ? Icons.arrow_downward : Icons.arrow_upward,
                 iconEnabled: appSettings.sortBy == "modified",
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.setSortOption("modified");
-                    appStorage.notes.updateAll((home, list) {
-                      list.sortByOption();
-                      return list;
-                    });
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.setSortOption("modified");
+                  //   appStorage.notes.updateAll((home, list) {
+                  //     list.sortByOption();
+                  //     return list;
+                  //   });
+                  // });
                   appSettings.save();
                 }),
           ];

@@ -1,12 +1,8 @@
-import 'dart:io';
 
-import 'package:amphi/utils/path_utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/models/content.dart';
 import 'package:notes/models/icons.dart';
-import 'package:notes/models/note.dart';
 
 class NoteEditorImportButton extends StatelessWidget {
 
@@ -15,67 +11,67 @@ class NoteEditorImportButton extends StatelessWidget {
 
   void importFromNote() async {
     var selectedFiles = await FilePicker.platform.pickFiles();
-    if(selectedFiles != null) {
-      for(var file in selectedFiles.files) {
-        String fileContent = await file.xFile.readAsString();
-        Note note = Note.fromFileContent(fileContent: fileContent, originalModified: DateTime.now(), filePath: file.path ?? "");
-        var directory = Directory(file.xFile.path.split(".").first);
-          for(Content content in note.contents) {
-            if(content.type == "img") {
-              try {
-                String value = content.value;
-                if(value.startsWith("!BASE64")) {
-                  var split = value.split(";");
-                  String imageExtension = split[1];
-                  String base64 = split[2];
-                  var file = await noteEditingController.note.createdImageFileWithBase64(base64, imageExtension);
-                  var image = Content(
-                      value: PathUtils.basename(file.path),
-                      type: "img"
-                  );
-                  noteEditingController.note.contents.add(image);
-                }
-                else {
-                  var file = await noteEditingController.note.createdImageFile(PathUtils.join(directory.path, value));
-                  var image = Content(
-                      value: PathUtils.basename(file.path),
-                      type: "img"
-                  );
-                  noteEditingController.note.contents.add(image);
-                }
-              }
-              catch(e) {
-                noteEditingController.note.contents.add(Content(
-                  value: "{IMAGE}\n",
-                  type: "text"
-                ));
-              }
-
-            }
-            else if(content.type == "video") {
-              try {
-              var file = await noteEditingController.note.createdVideoFile(PathUtils.join(directory.path, content.value));
-              var video = Content(
-                  value: PathUtils.basename(file.path),
-                  type: "video"
-              );
-              noteEditingController.note.contents.add(video);
-              }
-              catch(e) {
-                noteEditingController.note.contents.add(Content(
-                    value: "{VIDEO}\n",
-                    type: "text"
-                ));
-              }
-            }
-            else {
-              noteEditingController.note.contents.add(content);
-            }
-          }
-        }
-        noteEditingController.document = noteEditingController.note.toDocument();
-
-    }
+    // if(selectedFiles != null) {
+    //   for(var file in selectedFiles.files) {
+    //     String fileContent = await file.xFile.readAsString();
+    //     Note note = Note.fromFileContent(fileContent: fileContent, originalModified: DateTime.now(), filePath: file.path ?? "");
+    //     var directory = Directory(file.xFile.path.split(".").first);
+    //       for(Content content in note.contents) {
+    //         if(content.type == "img") {
+    //           try {
+    //             String value = content.value;
+    //             if(value.startsWith("!BASE64")) {
+    //               var split = value.split(";");
+    //               String imageExtension = split[1];
+    //               String base64 = split[2];
+    //               var file = await noteEditingController.note.createdImageFileWithBase64(base64, imageExtension);
+    //               var image = Content(
+    //                   value: PathUtils.basename(file.path),
+    //                   type: "img"
+    //               );
+    //               noteEditingController.note.contents.add(image);
+    //             }
+    //             else {
+    //               var file = await noteEditingController.note.createdImageFile(PathUtils.join(directory.path, value));
+    //               var image = Content(
+    //                   value: PathUtils.basename(file.path),
+    //                   type: "img"
+    //               );
+    //               noteEditingController.note.contents.add(image);
+    //             }
+    //           }
+    //           catch(e) {
+    //             noteEditingController.note.contents.add(Content(
+    //               value: "{IMAGE}\n",
+    //               type: "text"
+    //             ));
+    //           }
+    //
+    //         }
+    //         else if(content.type == "video") {
+    //           try {
+    //           var file = await noteEditingController.note.createdVideoFile(PathUtils.join(directory.path, content.value));
+    //           var video = Content(
+    //               value: PathUtils.basename(file.path),
+    //               type: "video"
+    //           );
+    //           noteEditingController.note.contents.add(video);
+    //           }
+    //           catch(e) {
+    //             noteEditingController.note.contents.add(Content(
+    //                 value: "{VIDEO}\n",
+    //                 type: "text"
+    //             ));
+    //           }
+    //         }
+    //         else {
+    //           noteEditingController.note.contents.add(content);
+    //         }
+    //       }
+    //     }
+    //     noteEditingController.document = noteEditingController.note.toDocument();
+    //
+    // }
 
   }
 

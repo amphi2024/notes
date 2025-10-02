@@ -3,8 +3,10 @@ import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/settings/edit_theme_dialog.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/app_theme.dart';
+
+import '../../models/app_storage.dart';
 
 class NewThemeItem extends StatelessWidget {
   final void Function(AppTheme) onSave;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/widget/items/table_item.dart';
-import 'package:notes/models/app_state.dart';
 import 'table_edit_button.dart';
 
 class TableDate extends TableItem {
@@ -11,12 +10,12 @@ class TableDate extends TableItem {
   @override
   Widget build(BuildContext context) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(date).toLocal();
-    if (appState.noteEditingController.readOnly) {
-      return Padding(
-        padding: const EdgeInsets.all(7.5),
-        child: SelectableText(   DateFormat.yMMMEd(Localizations.localeOf(context).languageCode.toString()).format(dateTime),),
-      );
-    }
+    // if (appState.noteEditingController.readOnly) {
+    //   return Padding(
+    //     padding: const EdgeInsets.all(7.5),
+    //     child: SelectableText(   DateFormat.yMMMEd(Localizations.localeOf(context).languageCode.toString()).format(dateTime),),
+    //   );
+    // }
     return GestureDetector(
         onTap: () async {
           DateTime? result = await showDatePicker(context: context, firstDate: DateTime(1950), lastDate: DateTime.now());

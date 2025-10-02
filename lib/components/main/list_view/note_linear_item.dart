@@ -4,8 +4,10 @@ import 'package:notes/components/image_from_storage_rounded.dart';
 import 'package:notes/components/main/list_view/linear_item_border.dart';
 import 'package:notes/components/main/list_view/list_view_item.dart';
 import 'package:notes/extensions/date_extension.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/note.dart';
+
+import '../../../models/app_storage.dart';
 
 class NoteLinearItem extends ListViewItem {
   final Note note;
@@ -100,16 +102,16 @@ class _NoteLinearItemState extends State<NoteLinearItem> {
                         ],
                       ),
                     ),
-                    Visibility(
-                        visible: widget.note.thumbnailImageFilename != null,
-                        child: SizedBox(
-                      width: 42,
-                      height: 42,
-                      child: widget.note.thumbnailImageFilename != null ?  ImageFromStorageRounded(
-                          noteName: FilenameUtils.nameOnly(widget.note.filename),
-                          filename: widget.note.thumbnailImageFilename ?? "",
-                          borderRadius: BorderRadius.circular(10)): Placeholder(),
-                    ))
+                    // Visibility(
+                    //     visible: widget.note.thumbnailImageFilename != null,
+                    //     child: SizedBox(
+                    //   width: 42,
+                    //   height: 42,
+                    //   child: widget.note.thumbnailImageFilename != null ?  ImageFromStorageRounded(
+                    //       noteName: FilenameUtils.nameOnly(widget.note.filename),
+                    //       filename: widget.note.thumbnailImageFilename ?? "",
+                    //       borderRadius: BorderRadius.circular(10)): Placeholder(),
+                    // ))
                   ],
                 ),
               ),

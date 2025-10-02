@@ -5,8 +5,6 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_download.dart';
-import 'package:notes/models/app_state.dart';
 import 'package:notes/models/file_in_note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/utils/toast.dart';
@@ -18,33 +16,33 @@ class FileBlockWidget extends StatelessWidget {
 
   void downloadFile( BuildContext context,  FileInNote fileInNote) async {
 
-        appWebChannel.downloadFileInNote(
-          noteName: appState.noteEditingController.note.name,
-          filename: fileInNote.filename,
-          onSuccess: (bytes) async {
-           var selectedPath =  await FilePicker.platform.saveFile(
-                fileName: fileInNote.label,
-              bytes: bytes
-            );
-
-           if(selectedPath != null) {
-             var file = File(selectedPath);
-             await file.writeAsBytes(bytes);
-             showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_success"));
-           }
-          },
-          onFailed: (statusCode) {
-            if(statusCode == HttpStatus.unauthorized) {
-              showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_failed_unauthorized"));
-            }
-            else if(statusCode == HttpStatus.notFound) {
-              showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_failed_not_found"));
-            }
-            else {
-              showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_failed_error"));
-            }
-          }
-        );
+        // appWebChannel.downloadFile(
+        //   noteName: appState.noteEditingController.note.name,
+        //   filename: fileInNote.filename,
+        //   onSuccess: (bytes) async {
+        //    var selectedPath =  await FilePicker.platform.saveFile(
+        //         fileName: fileInNote.label,
+        //       bytes: bytes
+        //     );
+        //
+        //    if(selectedPath != null) {
+        //      var file = File(selectedPath);
+        //      await file.writeAsBytes(bytes);
+        //      showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_success"));
+        //    }
+        //   },
+        //   onFailed: (statusCode) {
+        //     if(statusCode == HttpStatus.unauthorized) {
+        //       showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_failed_unauthorized"));
+        //     }
+        //     else if(statusCode == HttpStatus.notFound) {
+        //       showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_failed_not_found"));
+        //     }
+        //     else {
+        //       showToast(context, AppLocalizations.of(context).get("@toast_message_file_download_failed_error"));
+        //     }
+        //   }
+        // );
 
   }
 

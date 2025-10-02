@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/main/list_view/linear_item_border.dart';
 import 'package:notes/components/main/list_view/list_view_item.dart';
 import 'package:notes/extensions/date_extension.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/icons.dart';
+
+import '../../../models/app_storage.dart';
 
 class FolderLinearItem extends ListViewItem {
   final Folder folder;
@@ -33,9 +35,9 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
 
   @override
   Widget build(BuildContext context) {
-    if (appStorage.selectedNotes == null) {
-      selected = false;
-    }
+    // if (appStorage.selectedNotes == null) {
+    //   selected = false;
+    // }
 
     return GestureDetector(
       onLongPress: widget.onLongPress,
@@ -108,10 +110,10 @@ class _FolderLinearItemState extends State<FolderLinearItem> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(
-                              "${widget.folder.modified.toLocalizedShortString(context)}   ${AppStorage.getNoteList(widget.folder.filename).length}",
-                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-                            ),
+                            // Text(
+                            //   "${widget.folder.modified.toLocalizedShortString(context)}   ${AppStorage.getNoteList(widget.folder.filename).length}",
+                            //   style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                            // ),
                           ],
                         )
                       ],

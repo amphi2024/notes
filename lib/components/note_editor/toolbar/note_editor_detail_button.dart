@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/components/edit_note/note_detail_dialog.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/models/app_state.dart';
 
 class NoteEditorDetailButton extends StatelessWidget {
 
@@ -11,9 +10,9 @@ class NoteEditorDetailButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(icon: Icon(Icons.more_vert_rounded, size: 20), onPressed: () {
-      showDialog(context: context, builder: (context) {
-        return NoteDetailDialog(note: appState.noteEditingController.note);
-      });
+      // showDialog(context: context, builder: (context) {
+      //   return NoteDetailDialog(note: appState.noteEditingController.note);
+      // });
     });
   }
 }

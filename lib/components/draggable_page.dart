@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 
-class AppView extends StatefulWidget {
+class DraggablePage extends StatefulWidget {
 
   final bool canPopPage;
   final Widget child;
   final void Function(bool, dynamic)? onPopInvoked;
-  const AppView({super.key, this.canPopPage = true, required this.child, this.onPopInvoked});
+  const DraggablePage({super.key, this.canPopPage = true, required this.child, this.onPopInvoked});
 
   @override
-  State<AppView> createState() => _AppViewState();
+  State<DraggablePage> createState() => _DraggablePageState();
 }
 
-class _AppViewState extends State<AppView> {
+class _DraggablePageState extends State<DraggablePage> {
 
   late Offset startPosition;
 

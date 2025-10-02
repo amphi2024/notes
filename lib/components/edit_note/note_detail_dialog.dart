@@ -12,12 +12,12 @@ class NoteDetailDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     //print(note.filename);
     int length = 0;
-    for (Content content in note.contents) {
-      if (content.type == "text") {
-        String value = content.value;
-        length += value.length;
-      }
-    }
+    // for (Content content in note.content) {
+    //   if (content.type == "text") {
+    //     String value = content.value;
+    //     length += value.length;
+    //   }
+    // }
     return Dialog(
       child: Container(
         width: 400,

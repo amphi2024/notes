@@ -5,11 +5,11 @@ import 'package:amphi/extensions/color_extension.dart';
 import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_delete.dart';
-import 'package:notes/channels/app_web_upload.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/item.dart';
 import 'package:notes/models/note.dart';
+
+import 'app_storage.dart';
 
 class Folder extends Item {
   Folder(
@@ -129,22 +129,22 @@ class Folder extends Item {
     await file.writeAsString(fileContent);
 
     if (upload) {
-      appWebChannel.uploadFolder(folder: this, fileContent: fileContent);
+      // appWebChannel.uploadFolder(folder: this, fileContent: fileContent);
     }
   }
 
   Future<void> delete({bool upload = true}) async {
     File file = File(path);
     await file.delete();
-    for (dynamic item in AppStorage.getNoteList(filename)) {
-      if (item is Note) {
-        await item.delete();
-      } else if (item is Folder) {
-        await item.delete();
-      }
-    }
+    // for (dynamic item in AppStorage.getNoteList(filename)) {
+    //   if (item is Note) {
+    //     await item.delete();
+    //   } else if (item is Folder) {
+    //     await item.delete();
+    //   }
+    // }
     if (upload) {
-      appWebChannel.deleteFolder(folder: this);
+      // appWebChannel.deleteFolder(folder: this);
     }
   }
 }

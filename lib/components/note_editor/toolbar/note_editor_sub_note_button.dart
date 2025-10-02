@@ -16,7 +16,7 @@ class NoteEditorSubNoteButton extends StatelessWidget {
     icon: Icon(Icons.note_add),
   onPressed: () {
     String subNoteKey = noteEmbedBlocks.generatedSubNoteKey();
-    noteEmbedBlocks.subNotes[subNoteKey] = NoteEditingController(note: Note.createdNote("!SubNote"));
+    // noteEmbedBlocks.subNotes[subNoteKey] = NoteEditingController(note: Note.createdNote("!SubNote"));
     BlockEmbed blockEmbed = BlockEmbed.custom(
         SubNoteBlockEmbed(subNoteKey)
       );

@@ -1,14 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_delete.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:notes/components/settings/edit_theme_dialog.dart';
 import 'package:notes/components/settings/new_theme_item.dart';
 import 'package:notes/components/settings/theme_item.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_state.dart';
+
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/models/icons.dart';
 
@@ -81,7 +80,7 @@ class _ThemeSelectDialogState extends State<ThemeSelectDialog> {
                                 showDialog(context: context, builder: (context) {
                                   return ConfirmationDialog(title: AppLocalizations.of(context).get("@dialog_title_delete_theme"), onConfirmed: () {
                                     widget.themeList[index].delete();
-                                    appWebChannel.deleteTheme(appTheme: widget.themeList[index]);
+                                    // appWebChannel.deleteTheme(appTheme: widget.themeList[index]);
                                     setState(() {
                                       widget.themeList.removeAt(index);
                                     });
@@ -102,10 +101,10 @@ class _ThemeSelectDialogState extends State<ThemeSelectDialog> {
                               },
                               eventAllowed: index > 0,
                               onTap: () {
-                                appState.notifySomethingChanged(() {
-                                  appSettings.appTheme = widget.themeList[index];
-                                });
-                                Navigator.pop(context);
+                                // appState.notifySomethingChanged(() {
+                                //   appSettings.appTheme = widget.themeList[index];
+                                // });
+                                // Navigator.pop(context);
                               })),
                     );
                   }

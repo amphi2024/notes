@@ -7,11 +7,9 @@ import 'package:notes/components/main/list_view/linear_item_border.dart';
 import 'package:notes/components/main/list_view/note_grid_item.dart';
 import 'package:notes/components/main/list_view/note_linear_item.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_state.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/folder.dart';
 import 'package:notes/models/note.dart';
-import 'package:notes/views/main_view.dart';
 
 class NoteListView extends StatefulWidget {
   final List<dynamic> noteList;
@@ -25,26 +23,27 @@ class NoteListView extends StatefulWidget {
 }
 
 class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClientMixin<NoteListView> {
-  ScrollController scrollController = ScrollController(initialScrollOffset: appState.noteListScrollPosition);
+  // ScrollController scrollController = ScrollController(initialScrollOffset: appState.noteListScrollPosition);
+  ScrollController scrollController = ScrollController();
 
   @override
   bool get wantKeepAlive => true;
 
   void onFolderPressed(Folder folder) {
-    if (folder.location != "!Trashes" && appStorage.selectedNotes == null) {
-      if (App.isWideScreen(context)) {
-        appState.notifySomethingChanged(() {
-          appState.history.add(folder);
-        });
-      } else {
-        Navigator.push(context, CupertinoPageRoute(builder: (context) {
-          return MainView(
-            location: folder.filename,
-            title: folder.title,
-          );
-        }));
-      }
-    }
+    // if (folder.location != "!Trashes" && appStorage.selectedNotes == null) {
+    //   if (App.isWideScreen(context)) {
+    //     appState.notifySomethingChanged(() {
+    //       appState.history.add(folder);
+    //     });
+    //   } else {
+    //     Navigator.push(context, CupertinoPageRoute(builder: (context) {
+    //       return MainView(
+    //         location: folder.filename,
+    //         title: folder.title,
+    //       );
+    //     }));
+    //   }
+    // }
   }
 
   @override
@@ -57,7 +56,7 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
   void initState() {
     super.initState();
     scrollController.addListener(() {
-      appState.noteListScrollPosition = scrollController.position.pixels;
+      // appState.noteListScrollPosition = scrollController.position.pixels;
     });
   }
 
@@ -78,9 +77,9 @@ class _NoteListViewState extends State<NoteListView> with AutomaticKeepAliveClie
                 onLongPress: widget.onLongPress,
                 folder: widget.noteList[index],
                 toUpdateFolder: () {
-                  if (appStorage.selectedNotes != null) {
-                    widget.toUpdateFolder(widget.noteList[index]);
-                  }
+                  // if (appStorage.selectedNotes != null) {
+                  //   widget.toUpdateFolder(widget.noteList[index]);
+                  // }
                 },
               );
             } else {

@@ -210,6 +210,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.8.3"
+  dbus:
+    dependency: transitive
+    description:
+      name: dbus
+      sha256: "79e0c23480ff85dc68de79e2cd6334add97e48f7f4865d17686dd6ea81a47e8c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.11"
   device_info_plus:
     dependency: "direct main"
     description:
@@ -270,10 +278,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "09b474c0c8117484b80cbebc043801ff91e05cfbd2874d512825c899e1754694"
+      sha256: f2d9f173c2c14635cc0e9b14c143c49ef30b4934e8d1d274d6206fcb0086a06f
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.3"
+    version: "10.3.3"
   file_selector_macos:
     dependency: transitive
     description:
@@ -807,7 +815,7 @@ packages:
     source: hosted
     version: "3.2.2"
   riverpod:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: riverpod
       sha256: b21446f04474040479b19004c5b729605cde221bbd14cf16ad0db8804dce4810

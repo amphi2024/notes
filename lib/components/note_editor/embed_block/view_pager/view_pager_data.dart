@@ -36,11 +36,7 @@ class ViewPagerData {
       children.add(map);
     }
 
-    return Content(
-      value: children,
-      style: style,
-      type: "view-pager"
-    );
+    return Content({"value": children, "style": style, "type": "view-pager"});
   }
 
   static ViewPagerData fromContent(Note parent, Content content) {
@@ -58,7 +54,7 @@ class ViewPagerData {
 
         List<Map<String, dynamic>> contentMapList = (map["contents"] as List).map((item) => item as Map<String, dynamic>).toList();
         contentMapList.forEach((contentMap) {
-          note.contents.add(Content.fromMap(contentMap));
+          // note.content.add(Content(contentMap));
         });
 
         viewPagerData.pages.add(NoteEditingController(note: note));

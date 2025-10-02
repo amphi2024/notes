@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class NoteCalenderEventsView extends StatefulWidget {
+class NoteCalenderEventsPage extends StatefulWidget {
 
   final List<String> events;
-  const NoteCalenderEventsView({super.key, required this.events});
+  const NoteCalenderEventsPage({super.key, required this.events});
 
   @override
-  State<NoteCalenderEventsView> createState() => _NoteCalenderEventsViewState();
+  State<NoteCalenderEventsPage> createState() => _NoteCalenderEventsPageState();
 }
 
-class _NoteCalenderEventsViewState extends State<NoteCalenderEventsView> {
+class _NoteCalenderEventsPageState extends State<NoteCalenderEventsPage> {
   @override
   Widget build(BuildContext context) {
 

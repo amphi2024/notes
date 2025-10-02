@@ -4,11 +4,9 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_delete.dart';
 import 'package:notes/components/settings/edit_theme_dialog.dart';
 import 'package:notes/components/settings/new_theme_item.dart';
 import 'package:notes/components/settings/theme_item.dart';
-import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_theme.dart';
 
 class AppThemePageView extends StatefulWidget {
@@ -41,22 +39,22 @@ class _AppThemePageViewState extends State<AppThemePageView> {
 
   @override
   void dispose() {
-    appWebChannel.appThemeUpdateListeners.remove(appThemeUpdateListener);
+    // appWebChannel.appThemeUpdateListeners.remove(appThemeUpdateListener);
     super.dispose();
   }
   @override
   void initState() {
-    appWebChannel.appThemeUpdateListeners.add(appThemeUpdateListener);
-    if (appSettings.appTheme!.filename != "!DEFAULT") {
-      for (int i = 0; i < widget.themeList.length; i++) {
-        if (widget.themeList[i].filename == appSettings.appTheme!.filename) {
-          pageController = PageController(initialPage: i);
-          break;
-        }
-      }
-    } else {
-      pageController = PageController(initialPage: 0);
-    }
+    // appWebChannel.appThemeUpdateListeners.add(appThemeUpdateListener);
+    // if (appSettings.appTheme!.filename != "!DEFAULT") {
+    //   for (int i = 0; i < widget.themeList.length; i++) {
+    //     if (widget.themeList[i].filename == appSettings.appTheme!.filename) {
+    //       pageController = PageController(initialPage: i);
+    //       break;
+    //     }
+    //   }
+    // } else {
+    //   pageController = PageController(initialPage: 0);
+    // }
     super.initState();
   }
 
@@ -114,7 +112,7 @@ class _AppThemePageViewState extends State<AppThemePageView> {
                                     title: AppLocalizations.of(context).get("@dialog_title_delete_theme"),
                                     onConfirmed: () {
                                       themeList[index].delete();
-                                      appWebChannel.deleteTheme(appTheme: themeList[index]);
+                                      // appWebChannel.deleteTheme(appTheme: themeList[index]);
                                       setState(() {
                                         themeList.removeAt(index);
                                         pageController.animateToPage(pageController.page!.round() - 1,

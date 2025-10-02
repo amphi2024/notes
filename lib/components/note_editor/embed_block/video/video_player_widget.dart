@@ -1,10 +1,5 @@
 import 'dart:io';
-
-import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_download.dart';
-import 'package:notes/models/app_storage.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatefulWidget {

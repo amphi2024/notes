@@ -1,8 +1,5 @@
-import 'package:amphi/utils/file_name_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/embed_block/image/image_block_widget.dart';
 import 'package:notes/components/note_editor/embed_block/table/table/widget/items/table_edit_button.dart';
-import 'package:notes/models/app_state.dart';
 
 class TableImage extends StatelessWidget {
   final String filename;
@@ -27,15 +24,15 @@ class TableImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (appState.noteEditingController.readOnly) {
-      return Padding(
-          padding: EdgeInsets.all(7.5),
-          child: ImageBlockWidget(
-            noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
-            imageFilename: filename,
-            readOnly: readOnly,
-          ));
-    }
+    // if (appState.noteEditingController.readOnly) {
+    //   return Padding(
+    //       padding: EdgeInsets.all(7.5),
+    //       child: ImageBlockWidget(
+    //         noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
+    //         imageFilename: filename,
+    //         readOnly: readOnly,
+    //       ));
+    // }
 
     return Padding(
       padding: const EdgeInsets.all(7.5),
@@ -49,11 +46,11 @@ class TableImage extends StatelessWidget {
               removeColumn: removeColumn,
               removeRow: removeRow,
               clearCell: removeValue),
-          ImageBlockWidget(
-            noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
-            imageFilename: filename,
-            readOnly: readOnly,
-          )
+          // ImageBlockWidget(
+          //   noteName: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
+          //   imageFilename: filename,
+          //   readOnly: readOnly,
+          // )
         ],
       ),
     );

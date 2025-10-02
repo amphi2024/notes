@@ -7,15 +7,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/channels/app_web_upload.dart';
 import 'package:notes/components/note_editor/embed_block/file/file_block_embed.dart';
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/file_in_note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/utils/toast.dart';
-
-import '../../../models/app_state.dart';
 
 class NoteEditorFileButton extends StatelessWidget {
 
@@ -53,11 +50,11 @@ class NoteEditorFileButton extends StatelessWidget {
         var blockKey = noteEmbedBlocks.generatedFileKey();
         noteEmbedBlocks.files[blockKey] = fileModel;
 
-        appWebChannel.uploadFile(noteName: appState.noteEditingController.note.name, filename: fileModel.filename, filePath: file.path ,onSuccess: () {
-          appState.notifySomethingChanged(() {
-            noteEmbedBlocks.getFile(blockKey).originalPath = null;
-          });
-        });
+        // appWebChannel.uploadFile(noteName: appState.noteEditingController.note.name, filename: fileModel.filename, filePath: file.path ,onSuccess: () {
+        //   appState.notifySomethingChanged(() {
+        //     noteEmbedBlocks.getFile(blockKey).originalPath = null;
+        //   });
+        // });
         final block = BlockEmbed.custom(
           FileBlockEmbed(blockKey),
         );
@@ -71,7 +68,7 @@ class NoteEditorFileButton extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.attach_file),
       onPressed: () async {
-        var noteName = appState.noteEditingController.note.name;
+        var noteName = noteEditingController.note.id;
         if(appSettings.useOwnServer) {
           appWebChannel.getFiles(noteName: noteName, onSuccess: (list) async {
             pickFilesAndInsert(list);

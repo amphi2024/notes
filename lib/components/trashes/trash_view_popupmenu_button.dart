@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/main/popup_menu_item.dart';
 import 'package:notes/extensions/sort_extension.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_state.dart';
-import 'package:notes/models/app_storage.dart';
 import 'package:notes/models/icons.dart';
+
+import '../../models/app_storage.dart';
 
 class TrashViewPopupMenuButton extends StatelessWidget {
   const TrashViewPopupMenuButton({super.key});
@@ -27,9 +27,9 @@ class TrashViewPopupMenuButton extends StatelessWidget {
                 icon: AppIcons.grid,
                 color: appSettings.viewMode == "linear" ? textColor : accentColor,
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.viewMode = "linear";
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.viewMode = "linear";
+                  // });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.withIcon(
@@ -37,9 +37,9 @@ class TrashViewPopupMenuButton extends StatelessWidget {
                 icon: AppIcons.linear,
                 color: appSettings.viewMode == "grid" ? textColor : accentColor,
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.viewMode = "grid";
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.viewMode = "grid";
+                  // });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.title(
@@ -50,13 +50,13 @@ class TrashViewPopupMenuButton extends StatelessWidget {
                 icon: appSettings.descending ? Icons.arrow_downward : Icons.arrow_upward,
                 iconEnabled: appSettings.sortBy == "title",
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.setSortOption("title");
-                    appStorage.notes.updateAll((home, list) {
-                      list.sortByOption();
-                      return list;
-                    });
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.setSortOption("title");
+                  //   appStorage.notes.updateAll((home, list) {
+                  //     list.sortByOption();
+                  //     return list;
+                  //   });
+                  // });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.text(
@@ -65,13 +65,13 @@ class TrashViewPopupMenuButton extends StatelessWidget {
                 icon: appSettings.descending ? Icons.arrow_upward : Icons.arrow_upward,
                 iconEnabled: appSettings.sortBy == "created",
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.setSortOption("created");
-                    appStorage.notes.updateAll((home, list) {
-                      list.sortByOption();
-                      return list;
-                    });
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.setSortOption("created");
+                  //   appStorage.notes.updateAll((home, list) {
+                  //     list.sortByOption();
+                  //     return list;
+                  //   });
+                  // });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.text(
@@ -80,13 +80,13 @@ class TrashViewPopupMenuButton extends StatelessWidget {
                 icon: appSettings.descending ? Icons.arrow_upward : Icons.arrow_upward,
                 iconEnabled: appSettings.sortBy == "modified",
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.setSortOption("modified");
-                    appStorage.notes.updateAll((home, list) {
-                      list.sortByOption();
-                      return list;
-                    });
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.setSortOption("modified");
+                  //   appStorage.notes.updateAll((home, list) {
+                  //     list.sortByOption();
+                  //     return list;
+                  //   });
+                  // });
                   appSettings.save();
                 }),
             CustomPopupMenuItem.text(
@@ -95,13 +95,13 @@ class TrashViewPopupMenuButton extends StatelessWidget {
                 icon: appSettings.descending ? Icons.arrow_upward : Icons.arrow_upward,
                 iconEnabled: appSettings.sortBy == "deleted",
                 onTap: () {
-                  appState.notifySomethingChanged(() {
-                    appSettings.setSortOption("deleted");
-                    appStorage.notes.updateAll((home, list) {
-                      list.sortByOption();
-                      return list;
-                    });
-                  });
+                  // appState.notifySomethingChanged(() {
+                  //   appSettings.setSortOption("deleted");
+                  //   appStorage.notes.updateAll((home, list) {
+                  //     list.sortByOption();
+                  //     return list;
+                  //   });
+                  // });
                 })
           ];
         });

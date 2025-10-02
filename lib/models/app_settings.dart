@@ -1,12 +1,13 @@
-// ignore_for_file: constant_identifier_names
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/models/app_storage.dart';
+
 import 'package:notes/models/app_theme.dart';
+
+import 'app_storage.dart';
 
 final appSettings = AppSettings.getInstance();
 

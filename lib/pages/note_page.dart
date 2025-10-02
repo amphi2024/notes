@@ -13,7 +13,6 @@ import 'package:notes/components/note_editor/toolbar/note_editor_import_button.d
 import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
 import 'package:notes/main.dart';
-import 'package:notes/models/app_state.dart';
 import 'package:notes/models/app_theme_data.dart';
 import 'package:notes/models/icons.dart';
 import 'package:notes/models/item.dart';
@@ -22,24 +21,24 @@ import 'package:notes/models/note_embed_blocks.dart';
 
 import '../dialogs/draft_dialog.dart';
 
-class EditNoteView extends StatefulWidget {
+class NotePage extends StatefulWidget {
   final NoteEditingController noteEditingController;
   final bool createNote;
   final void Function(Note) onSave;
 
-  const EditNoteView({super.key, required this.createNote, required this.onSave, required this.noteEditingController});
+  const NotePage({super.key, required this.createNote, required this.onSave, required this.noteEditingController});
 
   @override
-  State<EditNoteView> createState() => _EditNoteViewState();
+  State<NotePage> createState() => _NotePageState();
 }
 
-class _EditNoteViewState extends State<EditNoteView> {
+class _NotePageState extends State<NotePage> {
   Note? originalNote;
 
   @override
   void dispose() {
     noteEmbedBlocks.clear();
-    appState.draftSaveTimer?.cancel();
+    // appState.draftSaveTimer?.cancel();
     super.dispose();
   }
 
@@ -80,7 +79,8 @@ class _EditNoteViewState extends State<EditNoteView> {
     var themeData = Theme.of(context);
     appMethodChannel.setNavigationBarColor(noteEditingController.note.backgroundColorByTheme(themeData.isDarkMode()) ?? Theme.of(context).colorScheme.surface);
     return PopScope(
-      canPop: noteEditingController.readOnly || (!File(noteEditingController.note.path).existsSync() && noteEditingController.document.isEmpty()),
+      // canPop: noteEditingController.readOnly || (!File(noteEditingController.note.path).existsSync() && noteEditingController.document.isEmpty()),
+      canPop: noteEditingController.readOnly || noteEditingController.document.isEmpty(),
       onPopInvokedWithResult: onPopInvoked,
       child: Theme(
           data: Theme.of(context).noteThemeData(),
@@ -97,7 +97,7 @@ class _EditNoteViewState extends State<EditNoteView> {
                               return ConfirmationDialog(
                                   title: AppLocalizations.of(context).get("@dialog_title_not_save_note"),
                                   onConfirmed: () {
-                                    appState.deleteDraft(widget.noteEditingController.note);
+                                    // appState.deleteDraft(widget.noteEditingController.note);
                                     if (!widget.createNote && widget.noteEditingController.readOnly == false) {
                                       setState(() {
                                         widget.noteEditingController.setNote(originalNote!);
@@ -134,32 +134,32 @@ class _EditNoteViewState extends State<EditNoteView> {
                   IconButton(
                       onPressed: () {
                         if (noteEditingController.readOnly) {
-                          appState.noteEditingController.note.getDraft((draftNote) {
-                            appState.startDraftSave();
-                            if(draftNote != null) {
-                              showDialog(context: context, builder: (context) {
-                                return DraftDialog(
-                                  onCanceled: () {
-                                    setState(() {
-                                      noteEditingController.readOnly = false;
-                                    });
-                                  },
-                                  onConfirmed: () {
-                                    noteEditingController.note.contents = draftNote.contents;
-                                    noteEditingController.setNote(noteEditingController.note);
-                                    setState(() {
-                                      noteEditingController.readOnly = false;
-                                    });
-                                  },
-                                );
-                              });
-                            }
-                            else {
-                              setState(() {
-                                noteEditingController.readOnly = false;
-                              });
-                            }
-                          });
+                          // appState.noteEditingController.note.getDraft((draftNote) {
+                          //   appState.startDraftSave();
+                          //   if(draftNote != null) {
+                          //     showDialog(context: context, builder: (context) {
+                          //       return DraftDialog(
+                          //         onCanceled: () {
+                          //           setState(() {
+                          //             noteEditingController.readOnly = false;
+                          //           });
+                          //         },
+                          //         onConfirmed: () {
+                          //           noteEditingController.note.contents = draftNote.contents;
+                          //           noteEditingController.setNote(noteEditingController.note);
+                          //           setState(() {
+                          //             noteEditingController.readOnly = false;
+                          //           });
+                          //         },
+                          //       );
+                          //     });
+                          //   }
+                          //   else {
+                          //     setState(() {
+                          //       noteEditingController.readOnly = false;
+                          //     });
+                          //   }
+                          // });
                         } else {
                           if (!widget.createNote) {
                             setState(() {
