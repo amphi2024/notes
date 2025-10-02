@@ -31,17 +31,17 @@ extension AppWebUpload on AppWebChannel {
   }
 
   void uploadTheme({required String themeFileContent, required String themeFilename, void Function()? onSuccess, void Function(int?)? onFailed}) async {
-    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadTheme, value: themeFilename, timestamp: DateTime.now().toUtc());
+    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadTheme, value: themeFilename);
     uploadJson(url: "$serverAddress/notes/themes/${themeFilename}", jsonBody: themeFileContent, updateEvent: updateEvent, onSuccess: onSuccess, onFailed: onFailed);
   }
 
   void uploadColors({required String colorsFileContent, void Function()? onSuccess, void Function(int?)? onFailed}) async {
-    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadColors, value: colorsFileContent, timestamp: DateTime.now().toUtc());
+    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadColors, value: colorsFileContent);
     uploadJson(url: "$serverAddress/notes/colors", jsonBody: colorsFileContent, updateEvent: updateEvent, onSuccess: onSuccess, onFailed: onFailed);
   }
 
   void uploadNote({required Note note, required String fileContent, void Function(int?)? onFailed, void Function()? onSuccess}) async {
-    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadNote, value: note.filename, timestamp: DateTime.now().toUtc());
+    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadNote, value: note.filename);
     uploadJson(url: "$serverAddress/notes/${note.filename}", jsonBody: fileContent, updateEvent: updateEvent, onSuccess: onSuccess, onFailed: onFailed);
 
     for (Content content in note.contents) {
@@ -65,7 +65,7 @@ extension AppWebUpload on AppWebChannel {
   }
 
   void uploadFolder({required Folder folder, required String fileContent, void Function(int?)? onFailed, void Function()? onSuccess}) async {
-    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadNote, value: folder.filename, timestamp: DateTime.now().toUtc());
+    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.uploadNote, value: folder.filename);
     uploadJson(url: "$serverAddress/notes/${folder.filename}", jsonBody: fileContent, updateEvent: updateEvent, onSuccess: onSuccess, onFailed: onFailed);
   }
 

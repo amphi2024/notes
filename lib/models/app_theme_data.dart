@@ -136,7 +136,7 @@ class AppThemeData {
         bodyMedium: TextStyle(
             color: textColor, fontSize: 15, overflow: TextOverflow.ellipsis),
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
           shape: RoundedRectangleBorder(
             side: BorderSide.none,
             borderRadius: BorderRadius.circular(15),

@@ -18,7 +18,7 @@ class FileBlockWidget extends StatelessWidget {
 
   void downloadFile( BuildContext context,  FileInNote fileInNote) async {
 
-        appWebChannel.downloadFile(
+        appWebChannel.downloadFileInNote(
           noteName: appState.noteEditingController.note.name,
           filename: fileInNote.filename,
           onSuccess: (bytes) async {

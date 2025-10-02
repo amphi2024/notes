@@ -33,7 +33,7 @@ class AppWebChannel extends AppWebChannelCore {
   get serverAddress => appSettings.serverAddress;
 
   @override
-  Future<void> connectWebSocket() async => connectWebSocketSuper("/notes/sync");
+  String get appType => "notes";
 
   void setupWebsocketChannel(String address) async {
     webSocketChannel = IOWebSocketChannel.connect(address, headers: {"Authorization": appWebChannel.token});
@@ -159,7 +159,7 @@ class AppWebChannel extends AppWebChannelCore {
     if (response.statusCode == HttpStatus.ok) {
       List<dynamic> decoded = jsonDecode(utf8.decode(response.bodyBytes));
       for (Map<String, dynamic> map in decoded) {
-        UpdateEvent updateEvent = UpdateEvent(action: map["action"], value: map["value"], timestamp: DateTime.fromMillisecondsSinceEpoch( map["timestamp"]).toLocal());
+        UpdateEvent updateEvent = UpdateEvent(action: map["action"], value: map["value"]);
         list.add(updateEvent);
       }
       onResponse(list);

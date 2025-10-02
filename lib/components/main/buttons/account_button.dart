@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:amphi/models/app.dart';
-import 'package:amphi/widgets/profile_image.dart';
+import 'package:amphi/widgets/account/profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';

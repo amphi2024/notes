@@ -1,12 +1,11 @@
-
+import 'dart:io';
 
 import 'package:amphi/utils/path_utils.dart';
-import 'package:amphi/widgets/video/video_player.dart';
-import 'package:amphi/widgets/video/video_player_network.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/channels/app_web_download.dart';
 import 'package:notes/models/app_storage.dart';
+import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   static const int embedBlock = 0;
@@ -293,17 +292,20 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   //   videoPlayerController.play();
   // }
 
+  late final controller = VideoPlayerController.file(File(widget.noteFileNameOnly));
+
   @override
   Widget build(BuildContext context) {
-    return VideoPlayer(
-        path: PathUtils.join(appStorage.notesPath, widget.noteFileNameOnly, "videos", widget.videoFilename),
-        errorBuilder: () {
-          appWebChannel.downloadVideo(noteName: widget.noteFileNameOnly, filename: widget.videoFilename);
-
-          return VideoPlayerNetwork(
-            url: "${appWebChannel.serverAddress}/notes/${widget.noteFileNameOnly}/videos/${widget.videoFilename}",
-            headers: {"Authorization": appWebChannel.token},
-          );
-        });
+    return VideoPlayer(controller);
+    // return VideoPlayer(
+    //     path: PathUtils.join(appStorage.notesPath, widget.noteFileNameOnly, "videos", widget.videoFilename),
+    //     errorBuilder: () {
+    //       appWebChannel.downloadVideo(noteName: widget.noteFileNameOnly, filename: widget.videoFilename);
+    //
+    //       return VideoPlayerNetwork(
+    //         url: "${appWebChannel.serverAddress}/notes/${widget.noteFileNameOnly}/videos/${widget.videoFilename}",
+    //         headers: {"Authorization": appWebChannel.token},
+    //       );
+    //     });
   }
 }

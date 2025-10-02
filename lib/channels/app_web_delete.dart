@@ -57,12 +57,12 @@ extension AppWebDelete on AppWebChannel {
   }
 
   void deleteFolder({required Folder folder, void Function(int?)? onFailed, void Function()? onSuccess}) async {
-    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.deleteNote, value: folder.filename, timestamp: DateTime.now());
+    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.deleteNote, value: folder.filename);
     deleteItem(url: "$serverAddress/notes/${folder.filename}", updateEvent: updateEvent, onSuccess: onSuccess, onFailed: onFailed);
   }
 
   void deleteNote({required Note note, void Function(int?)? onFailed, void Function()? onSuccess, bool postWebSocket = true}) async {
-    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.deleteNote, value: note.filename, timestamp: DateTime.now());
+    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.deleteNote, value: note.filename);
     deleteItem(url: "$serverAddress/notes/${note.filename}", updateEvent: updateEvent,  onSuccess: onSuccess, onFailed: onFailed);
 
     String noteFileNameOnly = FilenameUtils.nameOnly(note.filename);
@@ -86,7 +86,7 @@ extension AppWebDelete on AppWebChannel {
   }
 
   void deleteTheme({required AppTheme appTheme, void Function(int?)? onFailed, void Function()? onSuccess, bool postWebSocket = true}) async {
-    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.deleteTheme, value: appTheme.filename, timestamp: DateTime.now());
+    UpdateEvent updateEvent = UpdateEvent(action: UpdateEvent.deleteTheme, value: appTheme.filename);
     deleteItem(url: "$serverAddress/notes/themes/${appTheme.filename}", updateEvent: updateEvent, onFailed: onFailed, onSuccess: onSuccess);
   }
 }

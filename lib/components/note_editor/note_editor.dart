@@ -72,7 +72,7 @@ class _NoteEditorState extends State<NoteEditor> {
 
     return QuillEditor(
       controller: widget.noteEditingController,
-      configurations: QuillEditorConfigurations(
+      config: QuillEditorConfig(
         autoFocus: false,
         placeholder: AppLocalizations.of(context).get("@new_note"),
         customStyles: DefaultStyles(

@@ -114,7 +114,7 @@ extension AppWebDownload on AppWebChannel {
     }
   }
 
-  void downloadFile({required String noteName, required String filename, required void Function(Uint8List) onSuccess, void Function(int?)? onFailed}) async {
+  void downloadFileInNote({required String noteName, required String filename, required void Function(Uint8List) onSuccess, void Function(int?)? onFailed}) async {
 
     try {
       final response = await get(
