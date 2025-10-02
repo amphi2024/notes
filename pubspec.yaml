@@ -44,13 +44,14 @@ dependencies:
   flutter_colorpicker: ^1.1.0
   device_info_plus: ^11.3.3
   percent_indicator: ^4.2.4
-  file_picker: ^9.2.3
+  file_picker: ^10.3.3
   image_picker_ios: ^0.8.12+2
   image_picker_macos: ^0.2.1+2
   fl_chart: ^0.70.2
   smooth_page_indicator: ^1.2.1
   bitsdojo_window: ^0.1.6
   video_player: ^2.10.0
+  riverpod: ^3.0.0
   flutter_riverpod: ^3.0.0
   video_thumbnail: ^0.5.6
   sqflite: ^2.4.2
