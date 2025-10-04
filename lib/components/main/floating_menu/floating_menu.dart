@@ -7,7 +7,7 @@ import '../../../channels/app_method_channel.dart';
 import '../../../channels/app_web_channel.dart';
 import '../../../models/app_cache_data.dart';
 import '../../../models/app_storage.dart';
-import '../../../models/icons.dart';
+import '../../../icons/icons.dart';
 import '../../../pages/settings_page.dart';
 import '../../../pages/trash_page.dart';
 import '../../../providers/providers.dart';

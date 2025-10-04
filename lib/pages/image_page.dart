@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/components/image_from_storage.dart';
 
-import 'package:notes/models/icons.dart';
+import 'package:notes/icons/icons.dart';
 
 
 class ImagePage extends StatefulWidget {
@@ -159,7 +159,7 @@ class _ImagePageState extends State<ImagePage> {
                     minScale: 0.5,
                     child: ImageFromStorage(
                         fit: BoxFit.contain,
-                        imageFilename: widget.imageFilename, noteName: widget.noteName),
+                        filename: widget.imageFilename, noteId: widget.noteName),
                   ),
                 ),
                 Align(

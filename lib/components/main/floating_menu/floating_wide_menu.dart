@@ -7,17 +7,16 @@ import 'package:amphi/widgets/account/account_button.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/components/main/app_bar/main_view_title.dart';
-import 'package:notes/components/main/buttons/main_view_popupmenu_button.dart';
+import 'package:notes/components/main_page_title.dart';
 import 'package:notes/components/main/choose_folder_dialog.dart';
 import 'package:notes/components/main/edit_folder_dialog.dart';
-import 'package:notes/components/main/list_view/note_list_view.dart';
+import 'package:notes/views/notes_view.dart';
 import 'package:notes/components/main/notes_search_bar.dart';
 import 'package:notes/extensions/sort_extension.dart';
 import 'package:notes/models/app_settings.dart';
 
 import 'package:notes/models/folder.dart';
-import 'package:notes/models/icons.dart';
+import 'package:notes/icons/icons.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/dialogs/settings_dialog.dart';
@@ -197,7 +196,7 @@ class _FloatingWideMenuState extends ConsumerState<FloatingWideMenu> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: MainViewTitle(
+                      child: MainPageTitle(
                         notesCount: 0,
                         // notesCount: AppStorage
                         //     .getNoteList(location)
@@ -236,34 +235,35 @@ class _FloatingWideMenuState extends ConsumerState<FloatingWideMenu> {
                   child: SizedBox(height: 30, child: NotesSearchBar(textEditingController: searchBarController)),
                 ),
                 Expanded(
-                    child: NoteListView(
+                    child: NotesView(
                       // noteList: AppStorage.getNoteList(location),
-                      noteList: [],
-                      onLongPress: () {
-                        // setState(() {
-                        //   appStorage.selectedNotes = [];
-                        // });
-                      },
-                      onNotePressed: (note) {
-                        noteEmbedBlocks.clear();
-                        widget.onNoteSelected(note);
-                      },
-                      toUpdateFolder: (folder) {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return EditFolderDialog(
-                                  folder: folder,
-                                  onSave: (changed) {
-                                    setState(() {
-                                      //appStorage.selectedNotes = null;
-                                      folder = changed;
-                                      // AppStorage.getNoteList(location).sortByOption();
-                                    });
-                                    changed.save();
-                                  });
-                            });
-                      },
+                      folder: Note(id: ""),
+                      idList: [],
+                      // onLongPress: () {
+                      //   // setState(() {
+                      //   //   appStorage.selectedNotes = [];
+                      //   // });
+                      // },
+                      // onNotePressed: (note) {
+                      //   noteEmbedBlocks.clear();
+                      //   widget.onNoteSelected(note);
+                      // },
+                      // toUpdateFolder: (folder) {
+                      //   showDialog(
+                      //       context: context,
+                      //       builder: (context) {
+                      //         return EditFolderDialog(
+                      //             folder: folder,
+                      //             onSave: (changed) {
+                      //               setState(() {
+                      //                 //appStorage.selectedNotes = null;
+                      //                 folder = changed;
+                      //                 // AppStorage.getNoteList(location).sortByOption();
+                      //               });
+                      //               changed.save();
+                      //             });
+                      //       });
+                      // },
                     )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

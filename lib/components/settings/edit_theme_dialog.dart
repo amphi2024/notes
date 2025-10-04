@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/settings/color_row.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_theme.dart';
-import 'package:notes/models/icons.dart';
+import 'package:notes/icons/icons.dart';
 
 class EditThemeDialog extends StatefulWidget {
   final AppTheme appTheme;

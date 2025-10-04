@@ -6,7 +6,7 @@ import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/extensions/sort_extension.dart';
 
 import 'package:notes/models/folder.dart';
-import 'package:notes/models/icons.dart';
+import 'package:notes/icons/icons.dart';
 import 'package:notes/models/note.dart';
 
 import '../../models/app_storage.dart';
@@ -29,7 +29,7 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
   }
 
   void getFolders() {
-    Directory directory = Directory(appStorage.notesPath);
+    Directory directory = Directory(appStorage.attachmentsPath);
     // for (FileSystemEntity file in directory.listSync()) {
     //   if (file.path.endsWith(".folder") && file is File) {
     //     bool exists = false;

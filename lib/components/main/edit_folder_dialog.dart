@@ -1,7 +1,7 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/models/folder.dart';
-import 'package:notes/models/icons.dart';
+import 'package:notes/icons/icons.dart';
 
 const int insertFolder = 0, updateFolder = 1;
 

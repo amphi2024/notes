@@ -10,7 +10,7 @@ import 'package:notes/components/note_editor/edit_style/toggle_attribute_button.
 import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/models/app_colors.dart';
 import 'package:notes/models/app_theme.dart';
-import 'package:notes/models/icons.dart';
+import 'package:notes/icons/icons.dart';
 
 class EditNoteTextStyle extends StatefulWidget {
   final NoteEditingController noteEditingController;
