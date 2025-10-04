@@ -1,123 +1,177 @@
 import 'package:amphi/utils/file_name_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/image_from_storage_rounded.dart';
 import 'package:notes/components/main/list_view/linear_item_border.dart';
 import 'package:notes/components/main/list_view/list_view_item.dart';
 import 'package:notes/extensions/date_extension.dart';
 
 import 'package:notes/models/note.dart';
+import 'package:notes/providers/selected_notes_provider.dart';
 
 import '../../../models/app_storage.dart';
+import '../../../models/icons.dart';
 
-class NoteLinearItem extends ListViewItem {
+class NoteLinearItem extends ConsumerWidget {
   final Note note;
-  final LinearItemBorder linearItemBorder;
-
-  const NoteLinearItem({super.key, required super.onPressed, required super.onLongPress, required this.note, required this.linearItemBorder});
-
-  @override
-  State<NoteLinearItem> createState() => _NoteLinearItemState();
-}
-
-class _NoteLinearItemState extends State<NoteLinearItem> {
-  bool selected = false;
+  final BorderRadius borderRadius;
+  final bool showDivider;
+  const NoteLinearItem({super.key, required this.note, required this.borderRadius, required this.showDivider});
 
   @override
-  Widget build(BuildContext context) {
-    if (appStorage.selectedNotes == null) {
-      selected = false;
-    }
-    return GestureDetector(
-      onLongPress: widget.onLongPress,
-      onTap: widget.onPressed,
-      child: Container(
-          margin: const EdgeInsets.only(left: 7.5, right: 7.5, top: 0, bottom: 0),
-          width: double.infinity,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectingNotes = ref.watch(selectedNotesProvider) != null;
+
+    return Material(
+      color: Theme
+          .of(context)
+          .cardColor,
+      borderRadius: borderRadius,
+      child: InkWell(
+        highlightColor: Color.fromARGB(25, 125, 125, 125),
+        splashColor: Color.fromARGB(25, 125, 125, 125),
+        borderRadius: borderRadius,
+        onTap: () {
+
+        },
+        onLongPress: () {
+          ref.read(selectedNotesProvider.notifier).startSelection();
+        },
+        child: SizedBox(
           height: 60,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              border: Border(
-                bottom: widget.linearItemBorder.borderSide,
-              ),
-              borderRadius: widget.linearItemBorder.borderRadius),
           child: Stack(
             children: [
+              if(showDivider) ... [
+                Positioned(
+                    left: 10,
+                    right: 0,
+                    bottom: 0,
+                    child: Divider(
+                      color: Theme
+                          .of(context)
+                          .dividerColor
+                          .withAlpha(80),
+                      height: 1,
+                      thickness: 1,
+                    )
+                ),
+              ],
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 1000),
                 curve: Curves.easeOutQuint,
                 top: 0.0,
                 bottom: 0.0,
-                left: appStorage.selectedNotes != null ? 10.0 : 0.0,
+                left: selectingNotes ? 10.0 : 0.0,
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 1000),
                   curve: Curves.easeOutQuint,
-                  opacity: appStorage.selectedNotes != null ? 1.0 : 0,
+                  opacity: selectingNotes ? 1.0 : 0,
                   child: SizedBox(
                     width: 30,
                     height: 30,
-                    child: Checkbox(
-                        value: selected,
-                        onChanged: (bool? value) {
-                          if (appStorage.selectedNotes != null) {
-                            setState(() {
-                              selected = value!;
-                            });
-                            if (selected) {
-                              appStorage.selectedNotes!.add(widget.note);
-                            } else {
-                              appStorage.selectedNotes!.remove(widget.note);
+                    child: IgnorePointer(
+                      ignoring: !selectingNotes,
+                      child: Checkbox(
+                          value: ref.watch(selectedNotesProvider)?.contains(
+                              note.id) == true,
+                          onChanged: (bool? value) {
+                            if (value == true) {
+                              ref.read(selectedNotesProvider.notifier).addId(note.id);
                             }
-                          }
-                        }),
+                            else {
+                              ref.read(selectedNotesProvider.notifier).removeId(note.id);
+                            }
+                          }),
+                    ),
                   ),
                 ),
               ),
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 1000),
                 curve: Curves.easeOutQuint,
+                left: selectingNotes ? 40 : 0,
                 top: 0,
-                right: 8,
                 bottom: 0,
-                left: appStorage.selectedNotes != null ? 50 : 8,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
+                    if(note.isFolder) ...[
+                      const Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Icon(
+                          AppIcons.folder,
+                          size: 25,
+                        ),
+                      ),
+                    ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            widget.note.title,
-                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
-                            maxLines: 1,
+                            note.title,
+                            style: TextStyle(color: Theme
+                                .of(context)
+                                .colorScheme
+                                .onSurface,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                            widget.note.subtitle.isEmpty
-                                ? widget.note.modified.toLocalizedShortString(context)
-                                : "${widget.note.modified.toLocalizedShortString(context)}   ${widget.note.subtitle}",
-                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface, overflow: TextOverflow.ellipsis),
-                            maxLines: 1,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(note.linearViewSubtitle(context, ref),
+                                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                              ),
+                            ],
                           )
                         ],
                       ),
                     ),
                     // Visibility(
-                    //     visible: widget.note.thumbnailImageFilename != null,
+                    //     visible: note.thumbnailImageFilename != null,
                     //     child: SizedBox(
                     //   width: 42,
                     //   height: 42,
-                    //   child: widget.note.thumbnailImageFilename != null ?  ImageFromStorageRounded(
-                    //       noteName: FilenameUtils.nameOnly(widget.note.filename),
-                    //       filename: widget.note.thumbnailImageFilename ?? "",
+                    //   child: note.thumbnailImageFilename != null ?  ImageFromStorageRounded(
+                    //       noteName: FilenameUtils.nameOnly(note.filename),
+                    //       filename: note.thumbnailImageFilename ?? "",
                     //       borderRadius: BorderRadius.circular(10)): Placeholder(),
                     // ))
                   ],
                 ),
               ),
+
+              if(note.isFolder)...[
+                AnimatedPositioned(
+                  duration: const Duration(milliseconds: 1000),
+                  curve: Curves.easeOutQuint,
+                  top: 0.0,
+                  bottom: 0.0,
+                  right: selectingNotes &&
+                      note.deleted == null ? 10.0 : 0.0,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 1000),
+                    curve: Curves.easeOutQuint,
+                    opacity: selectingNotes &&
+                        note.deleted == null ? 1.0 : 0,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.edit,
+                        size: 20,
+                      ),
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                )
+              ]
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
-//   "${widget.note.modified.toLocalizedShortString(context)}   $secondLine",
