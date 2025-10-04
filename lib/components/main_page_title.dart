@@ -1,23 +1,23 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/providers/selected_notes_provider.dart';
 
-
-class MainViewTitle extends StatefulWidget {
+class MainPageTitle extends ConsumerStatefulWidget {
   final String? title;
   final int notesCount;
-  const MainViewTitle({super.key, this.title, required this.notesCount});
+  const MainPageTitle({super.key, this.title, required this.notesCount});
 
   @override
-  State<MainViewTitle> createState() => _MainViewTitleState();
+  ConsumerState<MainPageTitle> createState() => _MainViewTitleState();
 }
 
-class _MainViewTitleState extends State<MainViewTitle> {
+class _MainViewTitleState extends ConsumerState<MainPageTitle> {
   bool fileCountVisibility = false;
 
   @override
   Widget build(BuildContext context) {
-    // if (appStorage.selectedNotes == null) {
-    if (true) {
+    if (ref.watch(selectedNotesProvider) == null) {
       return Builder(builder: (context) {
         return GestureDetector(
             onTap: () {
@@ -31,16 +31,17 @@ class _MainViewTitleState extends State<MainViewTitle> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: 110),
-                    child: Text(
-                      widget.title == null ? AppLocalizations.of(context).get("@notes") : widget.title!,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 20,
-                      ),
+                  Text(
+                    widget.title == null ? AppLocalizations.of(context).get(
+                        "@notes") : widget.title!,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme
+                          .of(context)
+                          .colorScheme
+                          .primary,
+                      fontSize: 20,
                     ),
                   ),
                   AnimatedOpacity(
@@ -52,7 +53,9 @@ class _MainViewTitleState extends State<MainViewTitle> {
                       child: Text(
                         "${widget.notesCount}",
                         style: TextStyle(
-                          color: Theme.of(context).disabledColor,
+                          color: Theme
+                              .of(context)
+                              .disabledColor,
                           fontSize: 14,
                         ),
                         textAlign: TextAlign.center,
@@ -69,9 +72,7 @@ class _MainViewTitleState extends State<MainViewTitle> {
         child: IconButton(
           icon: Icon(Icons.check_circle_outline),
           onPressed: () {
-            // appState.notifySomethingChanged(() {
-            //   appStorage.selectedNotes = null;
-            // });
+            ref.read(selectedNotesProvider.notifier).endSelection();
           },
         ),
       );

@@ -17,12 +17,9 @@ class AppSettings {
 
   static AppSettings getInstance() => _instance;
 
-  AppTheme? appTheme = null;
+  AppTheme appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
   Locale? locale = null;
   late Map<String, dynamic> data;
-
-  set viewMode(value) => data["viewMode"] = value;
-  String get viewMode => data.putIfAbsent("viewMode", () => "linear");
 
   set serverAddress(value) => data["serverAddress"] = value;
   String get serverAddress => data.putIfAbsent("serverAddress", () => "");

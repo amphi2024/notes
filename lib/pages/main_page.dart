@@ -3,21 +3,22 @@ import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/components/main_page_app_bar.dart';
+import 'package:notes/models/app_cache_data.dart';
+import 'package:notes/models/sort_option.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/providers.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 import 'package:notes/utils/data_sync.dart';
 import '../channels/app_method_channel.dart';
 import '../components/draggable_page.dart';
-import '../components/main/app_bar/main_view_title.dart';
-import '../components/main/buttons/main_view_popupmenu_button.dart';
-import '../components/main/choose_folder_dialog.dart';
+import '../components/main_page_title.dart';
 import '../components/floating_button.dart';
 import '../components/main/floating_search_bar.dart';
 import '../components/titled_floating_button.dart';
 import '../components/main/floating_menu/floating_menu.dart';
 import '../views/notes_view.dart';
-import '../models/icons.dart';
+import '../icons/icons.dart';
 import '../models/note.dart';
 
 class MainPage extends ConsumerStatefulWidget {
@@ -46,7 +47,9 @@ class _MainPageState extends ConsumerState<MainPage> {
   Widget build(BuildContext context) {
     appMethodChannel
         .setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor);
-    final selectingNotes = ref.watch(selectedNotesProvider) != null;
+
+    final selectedNotes = ref.watch(selectedNotesProvider);
+    final selectingNotes = selectedNotes != null;
     final buttonRotated = ref.watch(floatingButtonStateProvider);
     var bottomPadding = MediaQuery.of(context).padding.bottom;
     if (bottomPadding == 0) {
@@ -67,32 +70,12 @@ class _MainPageState extends ConsumerState<MainPage> {
           appBar: AppBar(
             leadingWidth: 310,
             automaticallyImplyLeading: false,
-            leading: MainViewTitle(
+            leading: MainPageTitle(
                 title: widget.folder.id.isEmpty
                     ? AppLocalizations.of(context).get("@notes")
                     : widget.folder.title,
-                notesCount: 0),
-            actions: selectingNotes
-                ? <Widget>[
-                    IconButton(
-                        icon: const Icon(AppIcons.move),
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return ChooseFolderDialog();
-                              });
-                        }),
-                    IconButton(
-                        icon: const Icon(AppIcons.trash),
-                        onPressed: () => showConfirmationDialog(
-                                "@dialog_title_move_to_trash", () {
-                              // setState(() {
-                              //   AppStorage.moveSelectedNotesToTrash(widget.location);
-                              // });
-                            })),
-                  ]
-                : [MainViewPopupMenuButton()],
+                notesCount: ref.watch(notesProvider).idListByFolderId(widget.folder.id).length),
+            actions: appbarActions(context: context, selectedNotes: selectedNotes, ref: ref, folder: widget.folder),
           ),
           body: Stack(children: [
             Positioned(
@@ -101,6 +84,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 bottom: 0,
                 right: 16,
                 child: NotesView(
+                  folder: widget.folder,
                   idList: ref
                       .watch(notesProvider)
                       .idListByFolderId(widget.folder.id)

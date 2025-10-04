@@ -13,7 +13,7 @@ class AppCacheData extends AppCacheDataCore {
   String sortOption(String id) {
     var dirName = PathUtils.basename(appStorage.selectedUser.storagePath);
     if(data["sortOption"]?[dirName] is Map) {
-      var option = data["sortOption"][dirName][id];
+      var option = data["sortOption"][dirName][id.isEmpty ? "!HOME" : id];
       if(option is String) {
         return option;
       }
@@ -33,6 +33,67 @@ class AppCacheData extends AppCacheDataCore {
       data["sortOption"] = <String, dynamic>{};
       data["sortOption"][dirName] = <String, dynamic>{};
     }
-    data["sortOption"][dirName][id] = sortOption;
+    data["sortOption"][dirName][id.isEmpty ? "!HOME" : id] = sortOption;
+  }
+
+  void setViewOption({required String sortOption, required String id}) {
+    var dirName = PathUtils.basename(appStorage.selectedUser.storagePath);
+    if(data["sortOption"]?[dirName] is! Map) {
+      data["sortOption"] = <String, dynamic>{};
+      data["sortOption"][dirName] = <String, dynamic>{};
+    }
+    data["sortOption"][dirName][id.isEmpty ? "!HOME" : id] = sortOption;
+  }
+
+  bool shouldGroupNotes(String id) {
+    var dirName = PathUtils.basename(appStorage.selectedUser.storagePath);
+    if(data["shouldGroupNotes"]?[dirName] is Map) {
+      var option = data["shouldGroupNotes"][dirName][id.isEmpty ? "!HOME" : id];
+      if(option is bool) {
+        return option;
+      }
+      else {
+        return true;
+      }
+    }
+    else {
+      data["shouldGroupNotes"] = <String, dynamic>{};
+      return true;
+    }
+  }
+
+  void setShouldGroupNotes({required bool value, required String id}) {
+    var dirName = PathUtils.basename(appStorage.selectedUser.storagePath);
+    if(data["shouldGroupNotes"]?[dirName] is! Map) {
+      data["shouldGroupNotes"] = <String, dynamic>{};
+      data["shouldGroupNotes"][dirName] = <String, dynamic>{};
+    }
+    data["shouldGroupNotes"][dirName][id.isEmpty ? "!HOME" : id] = value;
+  }
+
+  String viewMode(String id) {
+    var dirName = PathUtils.basename(appStorage.selectedUser.storagePath);
+    if(data["viewMode"]?[dirName] is Map) {
+      var option = data["viewMode"][dirName][id.isEmpty ? "!HOME" : id];
+      if(option is String) {
+        return option;
+      }
+      else {
+        return "linear";
+      }
+    }
+    else {
+      data["viewMode"] = <String, dynamic>{};
+      return "linear";
+    }
+  }
+
+  void setViewMode({required String value, required String id}) {
+    var dirName = PathUtils.basename(appStorage.selectedUser.storagePath);
+    if(data["viewMode"]?[dirName] is! Map) {
+      data["viewMode"] = <String, dynamic>{};
+      data["viewMode"][dirName] = <String, dynamic>{};
+    }
+    data["viewMode"][dirName][id.isEmpty ? "!HOME" : id] = value;
   }
 }
