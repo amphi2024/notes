@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/font.dart';
-import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 class EditNoteFont extends StatefulWidget {
-  final NoteEditingController noteEditingController;
+  final QuillController noteEditingController;
   final void Function(String) onChange;
   const EditNoteFont({super.key, required this.noteEditingController, required this.onChange});
 
@@ -23,7 +23,7 @@ class _EditNoteFontState extends State<EditNoteFont> {
     if(App.isDesktop()) {
       return DropdownButton<String>(
           style: Theme.of(context).textTheme.bodyMedium,
-          value: widget.noteEditingController.getSelectionStyle().attributes[Attribute.font.key]?.value ?? widget.noteEditingController.note.font ?? "",
+          value: widget.noteEditingController.getSelectionStyle().attributes[Attribute.font.key]?.value ?? "",
           items: fonts.entries.map((entry) => DropdownMenuItem<String>(value: entry.value, child: Text(entry.key)) ).toList(),
           onChanged: (item) {
             if(item != null) {

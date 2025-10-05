@@ -3,13 +3,12 @@ import 'package:amphi/widgets/menu/popup/custom_popup_menu_route.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/edit_note/edit_detail_dialog.dart';
 import 'package:notes/components/note_editor/edit_style/edit_note_detail.dart';
-import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 class NoteEditorEditDetailButton extends StatelessWidget {
 
-  final NoteEditingController noteEditingController;
-  final void Function(void Function()) onChange;
-  const NoteEditorEditDetailButton({super.key, required this.noteEditingController, required this.onChange});
+  final QuillController controller;
+  const NoteEditorEditDetailButton({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +16,11 @@ class NoteEditorEditDetailButton extends StatelessWidget {
       icon: Icon(Icons.more_vert_rounded),
       onPressed: () {
         if(App.isWideScreen(context)) {
-          showCustomPopupMenu(context, EditNoteDetail(noteEditingController: noteEditingController, onChange: onChange,));
+          showCustomPopupMenu(context, EditNoteDetail(controller: controller));
         }
         else {
           showDialog(context: context, builder: (context) {
-            return EditDetailDialog(noteEditingController: noteEditingController, onChange: onChange,);
+            return EditDetailDialog(noteEditingController: controller);
           });
         }
 

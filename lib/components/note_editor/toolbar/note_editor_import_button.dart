@@ -1,13 +1,13 @@
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/note_editing_controller.dart';
-import 'package:notes/models/icons.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:notes/icons/icons.dart';
 
 class NoteEditorImportButton extends StatelessWidget {
 
-  final NoteEditingController noteEditingController;
-  const NoteEditorImportButton({super.key, required this.noteEditingController});
+  final QuillController controller;
+  const NoteEditorImportButton({super.key, required this.controller});
 
   void importFromNote() async {
     var selectedFiles = await FilePicker.platform.pickFiles();

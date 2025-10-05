@@ -5,43 +5,43 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/menu/popup/show_menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/extensions/note_extension.dart';
-import 'package:notes/models/icons.dart';
+import 'package:notes/icons/icons.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/utils/toast.dart';
 
 class NoteEditorExportButton extends StatelessWidget {
-  final NoteEditingController noteEditingController;
-  const NoteEditorExportButton({super.key, required this.noteEditingController});
+  final QuillController controller;
+  const NoteEditorExportButton({super.key, required this.controller});
 
   void exportToNote(BuildContext context) async {
-    Note note = noteEditingController.note;
-    var bytes = utf8.encode(note.toFileContentBase64());
-    var selectedPath = await FilePicker.platform.saveFile(
-        fileName: "${note.title}.note",
-      bytes: bytes
-    );
-
-    if(selectedPath != null) {
-      var file = File(selectedPath);
-      await file.writeAsBytes(bytes);
-      showToast(context, AppLocalizations.of(context).get("@toast_message_note_export_success"));
-    }
+    // Note note = controller.note;
+    // var bytes = utf8.encode(note.toFileContentBase64());
+    // var selectedPath = await FilePicker.platform.saveFile(
+    //     fileName: "${note.title}.note",
+    //   bytes: bytes
+    // );
+    //
+    // if(selectedPath != null) {
+    //   var file = File(selectedPath);
+    //   await file.writeAsBytes(bytes);
+    //   showToast(context, AppLocalizations.of(context).get("@toast_message_note_export_success"));
+    // }
   }
 
   void exportToHTML(BuildContext context) async {
-    Note note = noteEditingController.note;
-    var bytes = utf8.encode(note.toHTML(context));
-    var selectedPath = await FilePicker.platform.saveFile(
-        fileName: "${note.title}.html",
-        bytes: bytes
-    );
-    if(selectedPath != null) {
-      var file = File(selectedPath);
-      await file.writeAsBytes(bytes);
-      showToast(context, AppLocalizations.of(context).get("@toast_message_note_export_success"));
-    }
+    // Note note = controller.note;
+    // var bytes = utf8.encode(note.toHTML(context));
+    // var selectedPath = await FilePicker.platform.saveFile(
+    //     fileName: "${note.title}.html",
+    //     bytes: bytes
+    // );
+    // if(selectedPath != null) {
+    //   var file = File(selectedPath);
+    //   await file.writeAsBytes(bytes);
+    //   showToast(context, AppLocalizations.of(context).get("@toast_message_note_export_success"));
+    // }
   }
 
   // void exportAsMarkdown(BuildContext context) async {

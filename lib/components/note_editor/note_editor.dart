@@ -8,76 +8,39 @@ import 'package:notes/components/note_editor/embed_block/image/image_embed_build
 import 'package:notes/components/note_editor/embed_block/sub_note/sub_note_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/table/note_table_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/video/video_embed_builder.dart';
-import 'package:notes/components/note_editor/embed_block/view_pager/view_pager_embed_builder.dart';
-import 'package:notes/components/note_editor/note_editing_controller.dart';
 import 'package:notes/components/note_editor/note_editor_check_box_builder.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_file_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_sub_note_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_image_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_text_style_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_divider_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_table_button.dart';
-import 'package:notes/components/note_editor/toolbar/note_editor_video_button.dart';
 import 'package:notes/models/note.dart';
-
-import 'toolbar/note_editor_edit_detail_button.dart';
 
 class NoteEditor extends StatefulWidget {
 
-  final NoteEditingController noteEditingController;
-
-  const NoteEditor(
-      {super.key, required this.noteEditingController});
+  final Note note;
+  final QuillController controller;
+  const NoteEditor({super.key, required this.note, required this.controller});
 
   @override
   State<NoteEditor> createState() => _NoteEditorState();
 }
 
 class _NoteEditorState extends State<NoteEditor> {
-  FocusNode focusNode = FocusNode();
-  final ScrollController scrollController = ScrollController();
-
-  @override
-  void dispose() {
-    focusNode.dispose();
-    scrollController.dispose();
-    super.dispose();
-  }
-
-  Color codeBlockTextColor() {
-    int red = 13;
-    int green = 71;
-    int blue = 161;
-
-    var backgroundColor = Theme.of(context).scaffoldBackgroundColor;
-    if(backgroundColor.red + backgroundColor.blue + backgroundColor.green < 375) {
-       red = 93;
-       green = 151;
-       blue = 241;
-    }
-
-    return Color.fromARGB(240, red, green, blue);
-  }
 
   @override
   Widget build(BuildContext context) {
 
     final TextStyle defaultTextStyle = Theme.of(context).textTheme.bodyMedium!;
-    var isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    Note note = widget.noteEditingController.note;
-    final TextStyle textStyle =     TextStyle(
-        color: note.textColorByTheme(isDarkMode) ?? defaultTextStyle.color,
-        fontSize: note.textSize ?? defaultTextStyle.fontSize,
-    fontFamily: note.font);
+    final TextStyle textStyle = TextStyle(
+        color: widget.note.textColorByTheme(context) ?? defaultTextStyle.color,
+        fontSize: widget.note.textSize ?? defaultTextStyle.fontSize);
 
     return QuillEditor(
-      controller: widget.noteEditingController,
+      controller: widget.controller,
+      scrollController: ScrollController(),
+      focusNode: FocusNode(),
       config: QuillEditorConfig(
         autoFocus: false,
         placeholder: AppLocalizations.of(context).get("@new_note"),
         customStyles: DefaultStyles(
           code: DefaultTextBlockStyle(TextStyle(
-              color: codeBlockTextColor(),
+              color: codeBlockTextColor(context),
               fontSize: 13,
             height: 1.15,
           ),
@@ -85,7 +48,7 @@ class _NoteEditorState extends State<NoteEditor> {
                 1, 1
             ),
             VerticalSpacing(
-                note.lineHeight ?? 1, note.lineHeight ?? 1
+                widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
             ),
             VerticalSpacing(
                 1,  1
@@ -101,7 +64,7 @@ class _NoteEditorState extends State<NoteEditor> {
               1, 1
           ),
             VerticalSpacing(
-                note.lineHeight ?? 1, note.lineHeight ?? 1
+                widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
             ),
             VerticalSpacing(
               1,  1
@@ -122,38 +85,18 @@ class _NoteEditorState extends State<NoteEditor> {
               NoteEditorCheckboxBuilder(),
           )
         ),
-        showCursor: !widget.noteEditingController.readOnly,
+        showCursor: !widget.controller.readOnly,
         embedBuilders: [
-          ImageEmbedBuilder(),
+          ImageEmbedBuilder(widget.note),
           VideoEmbedBuilder(),
           NoteTableEmbedBuilder(),
           SubNoteEmbedBuilder(),
           DividerEmbedBuilder(),
-          ViewPagerEmbedBuilder(),
           FileEmbedBuilder()
         ],
-      ),
-      focusNode: focusNode,
-      scrollController: scrollController,
+      )
     );
   }
-}
-
-
-List<Widget> noteEditorToolbarButtons(NoteEditingController noteEditingController, void Function(void Function()) onNoteDetailChanged) {
-  return  [
-    NoteEditorTextStyleButton(noteEditingController: noteEditingController),
-    NoteEditorImageButton(noteEditingController: noteEditingController),
-    NoteEditorTableButton(noteEditingController: noteEditingController),
-    NoteEditorFileButton(noteEditingController: noteEditingController),
-    NoteEditorVideoButton(noteEditingController: noteEditingController),
-    NoteEditorSubNoteButton(noteEditingController: noteEditingController),
-    NoteEditorDividerButton(noteEditingController: noteEditingController),
-    NoteEditorEditDetailButton(noteEditingController: noteEditingController, onChange: onNoteDetailChanged),
-    //NoteEditorViewPagerButton(noteEditingController: noteEditingController),
-    // NoteEditorMindMapButton(noteEditingController: appState.noteEditingController),
-    // NoteEditorAudioButton(noteEditingController: appState.noteEditingController),
-  ];
 }
 
 extension CodeStyleExtension on Color {
@@ -166,4 +109,19 @@ extension CodeStyleExtension on Color {
       return Color.fromARGB(alpha, red + 5, green + 5, blue + 5);
     }
   }
+}
+
+Color codeBlockTextColor(BuildContext context) {
+  int red = 13;
+  int green = 71;
+  int blue = 161;
+
+  var backgroundColor = Theme.of(context).scaffoldBackgroundColor;
+  if(backgroundColor.red + backgroundColor.blue + backgroundColor.green < 375) {
+    red = 93;
+    green = 151;
+    blue = 241;
+  }
+
+  return Color.fromARGB(240, red, green, blue);
 }

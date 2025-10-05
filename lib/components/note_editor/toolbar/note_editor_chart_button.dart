@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 class NoteEditorChartButton extends StatelessWidget {
-  final NoteEditingController noteEditingController;
+  final QuillController noteEditingController;
   const NoteEditorChartButton({super.key, required this.noteEditingController});
 
   @override

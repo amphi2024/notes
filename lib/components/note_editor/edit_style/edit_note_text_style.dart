@@ -3,28 +3,31 @@ import 'package:amphi/models/app.dart';
 import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/bottom_sheet_drag_handle.dart';
 import 'package:notes/components/note_editor/edit_style/edit_note_font.dart';
 import 'package:notes/components/note_editor/edit_style/edit_note_text_size.dart';
 import 'package:notes/components/note_editor/edit_style/toggle_attribute_button.dart';
-import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:notes/components/note_editor/editor_extension.dart';
 import 'package:notes/models/app_colors.dart';
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/icons/icons.dart';
+import 'package:notes/providers/editing_note_provider.dart';
 
-class EditNoteTextStyle extends StatefulWidget {
-  final NoteEditingController noteEditingController;
+class EditNoteTextStyle extends ConsumerStatefulWidget {
+
+  final QuillController controller;
 
   const EditNoteTextStyle({
     super.key,
-    required this.noteEditingController,
+    required this.controller
   });
 
   @override
-  State<EditNoteTextStyle> createState() => _EditNoteTextStyleState();
+  ConsumerState<EditNoteTextStyle> createState() => _EditNoteTextStyleState();
 }
 
-class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
+class _EditNoteTextStyleState extends ConsumerState<EditNoteTextStyle> {
   void addNoteTextColor(Color color) {
     appColors.noteTextColors.add(color);
     appColors.save();
@@ -36,79 +39,95 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
   }
 
   Color selectionBackgroundColorToIconColor() {
-    Color? backgroundColor = widget.noteEditingController.selectionBackgroundColor();
+    Color? backgroundColor = widget.controller.selectionBackgroundColor();
     if (backgroundColor != null) {
       if (backgroundColor.opacity < 0.1) {
-        return Theme.of(context).cardColor;
+        return Theme
+            .of(context)
+            .cardColor;
       } else {
         return backgroundColor;
       }
     } else {
-      return Theme.of(context).cardColor;
+      return Theme
+          .of(context)
+          .cardColor;
     }
   }
 
-  bool attributeApplied(Attribute attribute) => widget.noteEditingController.getSelectionStyle().containsKey(attribute.key);
+  bool attributeApplied(Attribute attribute) =>
+      widget.controller.getSelectionStyle().containsKey(attribute.key);
 
-  bool listAttributeApplied(Attribute attribute) => widget.noteEditingController.getSelectionStyle().attributes["list"]?.value == attribute.value;
+  bool listAttributeApplied(Attribute attribute) =>
+      widget.controller
+          .getSelectionStyle()
+          .attributes["list"]?.value == attribute.value;
 
-  bool alignAttributeApplied(Attribute attribute) => widget.noteEditingController.getSelectionStyle().attributes["align"]?.value == attribute.value;
+  bool alignAttributeApplied(Attribute attribute) =>
+      widget.controller
+          .getSelectionStyle()
+          .attributes["align"]?.value == attribute.value;
 
   void toggleAttribute(Attribute attribute) {
     setState(() {
-      widget.noteEditingController.skipRequestKeyboard = attribute.isInline;
+      widget.controller.skipRequestKeyboard = attribute.isInline;
       if (attributeApplied(attribute)) {
-        widget.noteEditingController.formatSelection(Attribute.clone(attribute, null));
+        widget.controller.formatSelection(Attribute.clone(attribute, null));
       } else {
-        widget.noteEditingController.formatSelection(attribute);
+        widget.controller.formatSelection(attribute);
       }
     });
   }
 
   bool headerAttributeApplied(Attribute headerAttribute) {
-    return widget.noteEditingController.getSelectionStyle().attributes["header"]?.value == headerAttribute.value;
+    return widget.controller
+        .getSelectionStyle()
+        .attributes["header"]?.value == headerAttribute.value;
   }
 
   void toggleHeaderAttribute(Attribute attribute) {
     setState(() {
-      widget.noteEditingController.skipRequestKeyboard = attribute.isInline;
+      widget.controller.skipRequestKeyboard = attribute.isInline;
       if (headerAttributeApplied(attribute)) {
-        widget.noteEditingController.formatSelection(Attribute.clone(attribute, null));
+        widget.controller.formatSelection(Attribute.clone(attribute, null));
       } else {
-        widget.noteEditingController.formatSelection(attribute);
+        widget.controller.formatSelection(attribute);
       }
     });
   }
 
   void toggleListAttribute(Attribute attribute) {
     setState(() {
-      widget.noteEditingController.skipRequestKeyboard = attribute.isInline;
+      widget.controller.skipRequestKeyboard = attribute.isInline;
       if (listAttributeApplied(attribute)) {
-        widget.noteEditingController.formatSelection(Attribute.clone(attribute, null));
+        widget.controller.formatSelection(Attribute.clone(attribute, null));
       } else {
-        widget.noteEditingController.formatSelection(attribute);
+        widget.controller.formatSelection(attribute);
       }
     });
   }
 
   void toggleAlignAttribute(Attribute attribute) {
     setState(() {
-      widget.noteEditingController.skipRequestKeyboard = attribute.isInline;
+      widget.controller.skipRequestKeyboard = attribute.isInline;
       if (alignAttributeApplied(attribute)) {
-        widget.noteEditingController.formatSelection(Attribute(attribute.key, AttributeScope.inline, null));
+        widget.controller.formatSelection(
+            Attribute(attribute.key, AttributeScope.inline, null));
       } else {
-        widget.noteEditingController.formatSelection(attribute);
+        widget.controller.formatSelection(attribute);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var themeData = Theme.of(context);
+    final note = ref.watch(editingNoteProvider);
+    final themeData = Theme.of(context);
     return Container(
       height: App.isDesktop() ? 250 : 400,
       width: double.infinity,
-      decoration: BoxDecoration(color: themeData.colorScheme.surface, borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(color: themeData.colorScheme.surface,
+          borderRadius: BorderRadius.circular(15)),
       child: Column(
         children: [
           Visibility(
@@ -185,10 +204,11 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                     onPressed: () {
                       showAdaptiveColorPicker(
                           context: context,
-                          color: widget.noteEditingController.currentTextColor(context),
+                          color: widget.controller.currentTextColor(context),
                           onAddColor: addNoteTextColor,
                           onColorChanged: (color) {
-                            toggleAttribute(ColorAttribute(color.toHexString()));
+                            toggleAttribute(ColorAttribute(color
+                                .toHexString()));
                           },
                           colors: appColors.noteTextColors,
                           onRemoveColor: removeNoteTextColor,
@@ -221,14 +241,20 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                           onPressed: () {
                             showAdaptiveColorPicker(
                                 context: context,
-                                color: widget.noteEditingController.selectionBackgroundColor() ?? AppTheme.transparent,
+                                color: widget.controller
+                                    .selectionBackgroundColor() ??
+                                    AppTheme.transparent,
                                 onAddColor: addNoteTextColor,
                                 onColorChanged: (color) {
                                   setState(() {
-                                    widget.noteEditingController.formatSelection(BackgroundAttribute(color.toHexString()));
+                                    widget.controller.formatSelection(
+                                        BackgroundAttribute(
+                                            color.toHexString()));
                                   });
                                 },
-                                colors: AppColors.getInstance().noteTextColors,
+                                colors: AppColors
+                                    .getInstance()
+                                    .noteTextColors,
                                 onRemoveColor: removeNoteTextColor,
                                 defaultColor: AppTheme.transparent,
                                 onDefaultColorTap: (color) {
@@ -236,7 +262,8 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                                 });
                           },
                           child: Visibility(
-                            visible: widget.noteEditingController.selectionBackgroundColor() == null,
+                            visible: widget.controller
+                                .selectionBackgroundColor() == null,
                             child: Icon(
                               Icons.square,
                               color: selectionBackgroundColorToIconColor(),
@@ -250,8 +277,12 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 ToggleAttributeButton(
-                  activated: widget.noteEditingController.getSelectionStyle().attributes["list"]?.value == Attribute.unchecked.value ||
-                      widget.noteEditingController.getSelectionStyle().attributes["list"]?.value == Attribute.checked.value,
+                  activated: widget.controller
+                      .getSelectionStyle()
+                      .attributes["list"]?.value == Attribute.unchecked.value ||
+                      widget.controller
+                          .getSelectionStyle()
+                          .attributes["list"]?.value == Attribute.checked.value,
                   icon: Icons.checklist,
                   onPressed: () => toggleAttribute(Attribute.unchecked),
                 ),
@@ -280,17 +311,25 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                   icon: Icons.height,
                   onPressed: () {
                     setState(() {
-                      final lineHeight = widget.noteEditingController.getSelectionStyle().attributes[Attribute.lineHeight.key]?.value;
+                      final lineHeight = widget.controller
+                          .getSelectionStyle()
+                          .attributes[Attribute.lineHeight.key]?.value;
                       if (lineHeight != null) {
-                        if (lineHeight == LineHeightAttribute.lineHeightTight.value) {
-                          widget.noteEditingController.formatSelection(LineHeightAttribute.lineHeightOneAndHalf);
-                        } else if (lineHeight == LineHeightAttribute.lineHeightOneAndHalf.value) {
-                          widget.noteEditingController.formatSelection(LineHeightAttribute.lineHeightDouble);
+                        if (lineHeight ==
+                            LineHeightAttribute.lineHeightTight.value) {
+                          widget.controller.formatSelection(
+                              LineHeightAttribute.lineHeightOneAndHalf);
+                        } else if (lineHeight == LineHeightAttribute
+                            .lineHeightOneAndHalf.value) {
+                          widget.controller.formatSelection(
+                              LineHeightAttribute.lineHeightDouble);
                         } else {
-                          widget.noteEditingController.formatSelection(Attribute.clone(LineHeightAttribute.lineHeightNormal, null));
+                          widget.controller.formatSelection(Attribute.clone(
+                              LineHeightAttribute.lineHeightNormal, null));
                         }
                       } else {
-                        widget.noteEditingController.formatSelection(LineHeightAttribute.lineHeightTight);
+                        widget.controller.formatSelection(
+                            LineHeightAttribute.lineHeightTight);
                       }
                     });
                   },
@@ -304,15 +343,20 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                 icon: Icons.format_indent_decrease,
                 onPressed: () {
                   setState(() {
-                    widget.noteEditingController.skipRequestKeyboard = IndentAttribute().isInline;
-                    int? value = widget.noteEditingController.getSelectionStyle().attributes["indent"]?.value;
-                    if(value != null) {
+                    widget.controller.skipRequestKeyboard =
+                        IndentAttribute().isInline;
+                    int? value = widget.controller
+                        .getSelectionStyle()
+                        .attributes["indent"]?.value;
+                    if (value != null) {
                       value--;
-                      if(value == 0) {
-                        widget.noteEditingController.formatSelection(Attribute.clone(IndentAttribute(), null));
+                      if (value == 0) {
+                        widget.controller.formatSelection(
+                            Attribute.clone(IndentAttribute(), null));
                       }
                       else {
-                        widget.noteEditingController.formatSelection(IndentAttribute(level: value));
+                        widget.controller.formatSelection(
+                            IndentAttribute(level: value));
                       }
                     }
                   });
@@ -323,14 +367,19 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
                 icon: Icons.format_indent_increase,
                 onPressed: () {
                   setState(() {
-                    widget.noteEditingController.skipRequestKeyboard = IndentAttribute().isInline;
-                    int? value = widget.noteEditingController.getSelectionStyle().attributes["indent"]?.value;
-                    if(value != null) {
+                    widget.controller.skipRequestKeyboard =
+                        IndentAttribute().isInline;
+                    int? value = widget.controller
+                        .getSelectionStyle()
+                        .attributes["indent"]?.value;
+                    if (value != null) {
                       value++;
-                      widget.noteEditingController.formatSelection(IndentAttribute(level: value));
+                      widget.controller.formatSelection(IndentAttribute(
+                          level: value));
                     }
                     else {
-                      widget.noteEditingController.formatSelection(IndentAttribute(level: 1));
+                      widget.controller.formatSelection(IndentAttribute(
+                          level: 1));
                     }
                   });
                 },
@@ -343,7 +392,8 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
               ToggleAttributeButton(
                 activated: alignAttributeApplied(Attribute.centerAlignment),
                 icon: Icons.format_align_center,
-                onPressed: () => toggleAlignAttribute(Attribute.centerAlignment),
+                onPressed: () =>
+                    toggleAlignAttribute(Attribute.centerAlignment),
               ),
               ToggleAttributeButton(
                 activated: alignAttributeApplied(Attribute.rightAlignment),
@@ -353,7 +403,8 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
               ToggleAttributeButton(
                 activated: alignAttributeApplied(Attribute.justifyAlignment),
                 icon: Icons.format_align_justify,
-                onPressed: () => toggleAlignAttribute(Attribute.justifyAlignment),
+                onPressed: () =>
+                    toggleAlignAttribute(Attribute.justifyAlignment),
               ),
             ]),
           ),
@@ -361,28 +412,35 @@ class _EditNoteTextStyleState extends State<EditNoteTextStyle> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               EditNoteTextSize(
-                  value: double.tryParse(widget.noteEditingController.getSelectionStyle().attributes[Attribute.size.key]?.value ?? "") ??
-                      widget.noteEditingController.note.textSize ??
+                  value: double.tryParse(widget.controller
+                      .getSelectionStyle()
+                      .attributes[Attribute.size.key]?.value ?? "") ??
+                      note.textSize ??
                       15,
-                  noteEditingController: widget.noteEditingController,
+                  controller: widget.controller,
                   onChange: (size) {
                     setState(() {
-                      widget.noteEditingController.skipRequestKeyboard = Attribute.size.isInline;
-                      if (size == widget.noteEditingController.note.textSize) {
-                        widget.noteEditingController.formatSelection(Attribute.clone(Attribute.size, null));
+                      widget.controller.skipRequestKeyboard =
+                          Attribute.size.isInline;
+                      if (size == note.textSize) {
+                        widget.controller.formatSelection(
+                            Attribute.clone(Attribute.size, null));
                       } else {
-                        widget.noteEditingController.formatSelection(SizeAttribute(size.toString()));
+                        widget.controller.formatSelection(
+                            SizeAttribute(size.toString()));
                       }
                     });
                   }),
               EditNoteFont(
-                  noteEditingController: widget.noteEditingController,
+                  noteEditingController: widget.controller,
                   onChange: (font) {
-                    widget.noteEditingController.skipRequestKeyboard = Attribute.font.isInline;
+                    widget.controller.skipRequestKeyboard =
+                        Attribute.font.isInline;
                     if (font == "") {
-                      widget.noteEditingController.formatSelection(Attribute.clone(Attribute.font, null));
+                      widget.controller.formatSelection(
+                          Attribute.clone(Attribute.font, null));
                     } else {
-                      widget.noteEditingController.formatSelection(FontAttribute(font));
+                      widget.controller.formatSelection(FontAttribute(font));
                     }
                   })
             ],

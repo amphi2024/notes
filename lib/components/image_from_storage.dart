@@ -5,17 +5,16 @@ import 'package:flutter/material.dart';
 
 import '../models/app_storage.dart';
 
-
 class ImageFromStorage extends StatelessWidget {
-  final String imageFilename;
-  final String noteName;
+  final String filename;
+  final String noteId;
   final BoxFit fit;
-  const ImageFromStorage({super.key, this.fit = BoxFit.cover, required this.imageFilename, required this.noteName});
+  const ImageFromStorage({super.key, this.fit = BoxFit.cover, required this.filename, required this.noteId});
 
   @override
   Widget build(BuildContext context) {
 
-    String absolutePath = PathUtils.join(appStorage.notesPath, noteName, "images", imageFilename);
+    String absolutePath = PathUtils.join(appStorage.attachmentsPath, noteId[0], noteId[1] , noteId, "images", filename);
     return Image.file(
       fit: fit,
       File(absolutePath)

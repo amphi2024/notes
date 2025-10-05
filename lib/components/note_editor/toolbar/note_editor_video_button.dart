@@ -4,17 +4,25 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/menu/popup/show_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker_ios/image_picker_ios.dart';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
+import 'package:notes/components/note_editor/editor_extension.dart';
 import 'package:notes/components/note_editor/embed_block/video/video_block_embed.dart';
-import 'package:notes/components/note_editor/note_editing_controller.dart';
+import 'package:notes/providers/editing_note_provider.dart';
 
-class NoteEditorVideoButton extends StatelessWidget {
-  final NoteEditingController noteEditingController;
-  const NoteEditorVideoButton({super.key, required this.noteEditingController});
+import '../../../utils/select_file_utils.dart';
+
+class NoteEditorVideoButton extends ConsumerWidget {
+  final QuillController controller;
+
+  const NoteEditorVideoButton({super.key, required this.controller});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final note = ref.watch(editingNoteProvider);
+
     return IconButton(
         icon: Icon(Icons.video_camera_back_outlined),
         onPressed: () async {
@@ -27,20 +35,23 @@ class NoteEditorVideoButton extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 7.5),
                         child: Icon(Icons.photo_library),
                       ),
-                      Text(AppLocalizations.of(context).get("@editor_add_image_from_photos"))
+                      Text(AppLocalizations.of(context).get(
+                          "@editor_add_image_from_photos"))
                     ],
                   ),
                   onTap: () async {
                     XFile? videoFile;
                     if (Platform.isIOS) {
-                      videoFile = await ImagePickerIOS().getVideo(source: ImageSource.gallery);
+                      videoFile = await ImagePickerIOS().getVideo(
+                          source: ImageSource.gallery);
                     }
                     if (videoFile != null) {
-                      File file = await noteEditingController.note.createdVideoFile(videoFile.path);
+                      File file = await createdVideoFile(note.id,
+                          videoFile.path);
                       final block = BlockEmbed.custom(
                         VideoBlockEmbed(file.path),
                       );
-                      noteEditingController.insertBlock(block);
+                      controller.insertBlock(block);
                     }
                   }),
               PopupMenuItem(
@@ -50,27 +61,27 @@ class NoteEditorVideoButton extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 7.5),
                         child: Icon(Icons.folder),
                       ),
-                      Text(AppLocalizations.of(context).get("@editor_add_image_from_files"))
+                      Text(AppLocalizations.of(context).get(
+                          "@editor_add_image_from_files"))
                     ],
                   ),
                   onTap: () async {
-                    File? file = await noteEditingController.selectedVideoFile();
+                    File? file = await selectedVideoFile(note.id);
                     if (file != null) {
                       final block = BlockEmbed.custom(
                         VideoBlockEmbed(file.path),
                       );
-                      noteEditingController.insertBlock(block);
+                      controller.insertBlock(block);
                     }
                   }),
             ]);
           } else {
-            // appMethodChannel.selectImage();
-            File? file = await noteEditingController.selectedVideoFile();
+            File? file = await selectedVideoFile(note.id);
             if (file != null) {
               final block = BlockEmbed.custom(
                 VideoBlockEmbed(file.path),
               );
-              noteEditingController.insertBlock(block);
+              controller.insertBlock(block);
             }
           }
           // appMethodChannel.selectVideo();

@@ -1,4 +1,5 @@
 import 'package:amphi/utils/file_name_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/image_from_storage_rounded.dart';
@@ -7,10 +8,14 @@ import 'package:notes/components/main/list_view/list_view_item.dart';
 import 'package:notes/extensions/date_extension.dart';
 
 import 'package:notes/models/note.dart';
+import 'package:notes/pages/main_page.dart';
+import 'package:notes/pages/note_page.dart';
+import 'package:notes/providers/editing_note_provider.dart';
+import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 
 import '../../../models/app_storage.dart';
-import '../../../models/icons.dart';
+import '../../../icons/icons.dart';
 
 class NoteLinearItem extends ConsumerWidget {
   final Note note;
@@ -32,7 +37,17 @@ class NoteLinearItem extends ConsumerWidget {
         splashColor: Color.fromARGB(25, 125, 125, 125),
         borderRadius: borderRadius,
         onTap: () {
-
+          if(note.isFolder) {
+            Navigator.push(context, CupertinoPageRoute(builder: (context) {
+              return MainPage(folder: note);
+            }));
+          }
+          else {
+            ref.read(editingNoteProvider.notifier).setNote(note);
+            Navigator.push(context, CupertinoPageRoute(builder: (context) {
+              return NotePage();
+            }));
+          }
         },
         onLongPress: () {
           ref.read(selectedNotesProvider.notifier).startSelection();
@@ -42,15 +57,16 @@ class NoteLinearItem extends ConsumerWidget {
           child: Stack(
             children: [
               if(showDivider) ... [
-                Positioned(
-                    left: 10,
+                AnimatedPositioned(
+                    duration: const Duration(milliseconds: 1000),
+                    curve: Curves.easeOutQuint,
+                    left: selectingNotes ? 50 : 10,
                     right: 0,
                     bottom: 0,
                     child: Divider(
                       color: Theme
                           .of(context)
-                          .dividerColor
-                          .withAlpha(80),
+                          .dividerColor,
                       height: 1,
                       thickness: 1,
                     )
@@ -92,6 +108,7 @@ class NoteLinearItem extends ConsumerWidget {
                 left: selectingNotes ? 40 : 0,
                 top: 0,
                 bottom: 0,
+                right: 10,
                 child: Row(
                   children: [
                     if(note.isFolder) ...[
@@ -103,42 +120,46 @@ class NoteLinearItem extends ConsumerWidget {
                         ),
                       ),
                     ],
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            note.title,
-                            style: TextStyle(color: Theme
-                                .of(context)
-                                .colorScheme
-                                .onSurface,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(note.linearViewSubtitle(context, ref),
-                                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-                              ),
-                            ],
-                          )
-                        ],
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              note.title,
+                              style: TextStyle(color: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .onSurface,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Text(note.modified.toLocalizedShortString(context)),
+                                ),
+                                Expanded(child: Text(note.isFolder ? ref.watch(notesProvider).idListByFolderId(note.id).length.toString() : note.subtitle)),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    // Visibility(
-                    //     visible: note.thumbnailImageFilename != null,
-                    //     child: SizedBox(
-                    //   width: 42,
-                    //   height: 42,
-                    //   child: note.thumbnailImageFilename != null ?  ImageFromStorageRounded(
-                    //       noteName: FilenameUtils.nameOnly(note.filename),
-                    //       filename: note.thumbnailImageFilename ?? "",
-                    //       borderRadius: BorderRadius.circular(10)): Placeholder(),
-                    // ))
+                    Visibility(
+                        visible: note.thumbnailImageFilename != null,
+                        child: SizedBox(
+                      width: 42,
+                      height: 42,
+                      child: note.thumbnailImageFilename != null ?  ImageFromStorageRounded(
+                          noteId: note.id,
+                          filename: note.thumbnailImageFilename ?? "",
+                          borderRadius: BorderRadius.circular(10)): Placeholder(),
+                    ))
                   ],
                 ),
               ),

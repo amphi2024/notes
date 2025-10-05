@@ -5,10 +5,10 @@ import 'package:notes/components/image_from_storage.dart';
 import 'package:notes/pages/image_page.dart';
 
 class ImageBlockWidget extends StatefulWidget {
-  final String imageFilename;
-  final String noteName;
+  final String filename;
+  final String noteId;
   final bool readOnly;
-  const ImageBlockWidget({super.key, required this.imageFilename, required this.noteName, required this.readOnly});
+  const ImageBlockWidget({super.key, required this.filename, required this.noteId, required this.readOnly});
 
   @override
   State<ImageBlockWidget> createState() => _ImageBlockWidgetState();
@@ -20,36 +20,31 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
   // if(widget.readOnly) {
      return Align(
        alignment: Alignment.centerLeft,
-       child: MouseRegion(
-         cursor: SystemMouseCursors.click,
-         child: GestureDetector(
-           onLongPress: () {},
-           onTap: () {
-             Navigator.push(
-               context,
-               PageRouteBuilder(
-                 pageBuilder: (context, animation, secondaryAnimation) {
-                   return ImagePage(noteName: widget.noteName, imageFilename: widget.imageFilename);
-                 },
-                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                   const begin = Offset(0.0, 1.0);
-                   const end = Offset.zero;
-                   const curve = Curves.ease;
-
-                   var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                   var offsetAnimation = animation.drive(tween);
-
-                   return SlideTransition(
-                     position: offsetAnimation,
-                     child: child,
-                   );
-                 },
-               ),
-             );
-           },
+       child: GestureDetector(
+         onLongPress: () {},
+         onTap: () {
+           Navigator.of(context).push(
+             PageRouteBuilder(
+               opaque: false,
+               pageBuilder: (context, animation, secondaryAnimation) {
+                 return ImagePage(noteName: widget.noteId, imageFilename: widget.filename);
+               },
+               transitionsBuilder:
+                   (context, animation, secondaryAnimation, child) {
+                 return FadeTransition(
+                   opacity: animation,
+                   child: child,
+                 );
+               },
+               transitionDuration: const Duration(milliseconds: 300),
+             ),
+           );
+         },
+         child: Hero(
+           tag: widget.noteId,
            child: ImageFromStorage(
-             noteName: widget.noteName,
-             imageFilename: widget.imageFilename,
+             noteId: widget.noteId,
+             filename: widget.filename,
              fit: BoxFit.contain,
            ),
          ),
