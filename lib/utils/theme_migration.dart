@@ -10,6 +10,9 @@ import '../models/app_storage.dart';
 Future<void> migrateThemes(Database db) async {
   final batch = db.batch();
   Directory directory = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "themes"));
+  if(!await directory.exists()) {
+    return;
+  }
   List<FileSystemEntity> fileList = directory.listSync();
 
   for (FileSystemEntity file in fileList) {

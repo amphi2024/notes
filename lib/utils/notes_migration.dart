@@ -20,6 +20,9 @@ Future<void> _moveAttachments(String oldId, String id) async {
 Future<void> migrateNotes(Database db) async {
   final batch = db.batch();
   Directory directory = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "notes"));
+  if(!await directory.exists()) {
+    return;
+  }
 
   List<FileSystemEntity> fileList = directory.listSync();
   Map<String, String> oldIds = {};
