@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/database/database_helper.dart';
 import 'package:notes/models/app_storage.dart';
 import 'package:notes/utils/notes_migration.dart';
 import 'package:notes/utils/theme_migration.dart';
@@ -22,10 +23,7 @@ class NotesState {
   }
 
   void loadChildren(String folderId) async {
-    final database = await openDatabase(
-      PathUtils.join(appStorage.selectedUser.storagePath, "notes.db"),
-      version: 1,
-    );
+    final database = await databaseHelper.database;
 
     for(var id in idLists[folderId] ?? []) {
       final List<Map<String, dynamic>> children = await database.rawQuery("SELECT * FROM notes WHERE parent_id == ?", [id]);
@@ -36,7 +34,6 @@ class NotesState {
       }
     }
 
-    await database.close();
   }
 }
 
@@ -46,15 +43,14 @@ class NotesNotifier extends Notifier<NotesState> {
     return NotesState({}, {}, []);
   }
 
-  void insertFile(Note note) {
+  void insertNote(Note note) {
     final notes = {...state.notes, note.id: note};
 
     final list = state.idLists.putIfAbsent(note.parentId, () => []);
     final mergedList = list.contains(note.id) ? [...list] : [...list, note.id];
 
     final idLists = {...state.idLists, note.parentId: mergedList};
-    final sortOptionId = note.parentId.isEmpty ? "!HOME" : note.parentId;
-    idLists[note.parentId]!.sortFiles(appCacheData.sortOption(sortOptionId), notes);
+    idLists[note.parentId]!.sortNotes(appCacheData.sortOption(note.parentId), notes);
     state = NotesState(notes, idLists, [...state.trash]);
   }
 
@@ -66,7 +62,7 @@ class NotesNotifier extends Notifier<NotesState> {
       ...list.where((id) => !state.trash.contains(id)),
     ];
     final notes = {...state.notes};
-    trash.sortFiles(appCacheData.sortOption("!TRASH"), notes);
+    trash.sortNotes(appCacheData.sortOption("!TRASH"), notes);
     state = NotesState(notes, idLists, trash);
   }
 
@@ -78,11 +74,8 @@ class NotesNotifier extends Notifier<NotesState> {
     final trash = [...state.trash];
     final notes = {...state.notes};
 
-    final sortOptionIdFrom = from.isEmpty ? "!HOME" : from;
-    final sortOptionIdTo = to.isEmpty ? "!HOME" : to;
-
-    idLists[from]!.sortFiles(appCacheData.sortOption(sortOptionIdFrom), notes);
-    idLists[sortOptionIdTo]!.sortFiles(appCacheData.sortOption(sortOptionIdFrom), notes);
+    idLists[from]!.sortNotes(appCacheData.sortOption(from), notes);
+    idLists[to]!.sortNotes(appCacheData.sortOption(to), notes);
 
     state = NotesState(notes, idLists, trash);
   }
@@ -94,7 +87,7 @@ class NotesNotifier extends Notifier<NotesState> {
 
     final trash = state.trash.where((id) => !list.contains(id)).toList();
     final notes = {...state.notes};
-    idLists[""]!.sortFiles(appCacheData.sortOption("!HOME"), notes);
+    idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
     state = NotesState(notes, idLists, trash);
   }
 
@@ -111,7 +104,7 @@ class NotesNotifier extends Notifier<NotesState> {
 
   void sortNotes(String? folderId) {
     final idList = state.idLists.putIfAbsent(folderId ?? "", () => []);
-    idList.sortFiles(appCacheData.sortOption(folderId ?? "!HOME"), state.notes);
+    idList.sortNotes(appCacheData.sortOption(folderId ?? "!HOME"), state.notes);
 
     final idLists = {...state.idLists, folderId ?? "": idList};
 
@@ -120,60 +113,12 @@ class NotesNotifier extends Notifier<NotesState> {
 
   void sortTrash() {
     final trash = [...state.trash];
-    trash.sortFiles(appCacheData.sortOption("!TRASH"), state.notes);
+    trash.sortNotes(appCacheData.sortOption("!TRASH"), state.notes);
     state = NotesState({...state.notes}, {...state.idLists}, trash);
   }
 
   void init() async {
-    final database = await openDatabase(
-      PathUtils.join(appStorage.selectedUser.storagePath, "notes.db"),
-        version: 1,
-        onCreate: (Database db, int version) async {
-
-          await db.execute("""
-           CREATE TABLE IF NOT EXISTS notes (
-            id TEXT PRIMARY KEY NOT NULL, 
-            content TEXT, 
-            created INTEGER NOT NULL,
-            modified INTEGER NOT NULL,
-            deleted INTEGER,
-            is_folder BOOLEAN,
-            parent_id TEXT,
-            line_height INTEGER,
-            text_size INTEGER,
-            text_color INTEGER,
-            background_color INTEGER,
-            background TEXT,
-            title TEXT,
-            subtitle TEXT
-          );""");
-
-          await db.execute("""
-           CREATE TABLE IF NOT EXISTS themes (
-            id TEXT PRIMARY KEY NOT NULL,
-            title TEXT NOT NULL,
-            created INTEGER NOT NULL,
-            modified INTEGER NOT NULL,
-
-            background_light INTEGER NOT NULL,
-            text_light INTEGER NOT NULL,
-            accent_light INTEGER NOT NULL,
-            card_light INTEGER NOT NULL,
-            floating_button_background_light INTEGER NOT NULL,
-            floating_button_icon_light INTEGER NOT NULL,
-
-            background_dark INTEGER NOT NULL,
-            text_dark INTEGER NOT NULL,
-            accent_dark INTEGER NOT NULL,
-            card_dark INTEGER NOT NULL,
-            floating_button_background_dark INTEGER NOT NULL,
-            floating_button_icon_dark INTEGER NOT NULL
-          );""");
-          await migrateNotes(db);
-          await migrateThemes(db);
-        }
-    );
-
+    final database = await databaseHelper.database;
     final Map<String, Note> notes = {};
     final Map<String, List<String>> idLists = {
       "" : []
@@ -187,7 +132,7 @@ class NotesNotifier extends Notifier<NotesState> {
       idLists[""]!.add(note.id);
     }
 
-    await database.close();
+    idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
 
     state = NotesState(notes, idLists, trash);
     state.loadChildren("");
@@ -205,7 +150,7 @@ extension NoteNullSafeExtension on Map<String, Note> {
 }
 
 extension SortEx on List {
-  void sortFiles(String sortOption, Map<String, Note> map) {
+  void sortNotes(String sortOption, Map<String, Note> map) {
     switch(sortOption) {
       case SortOption.created:
         sort((a, b) {
@@ -239,7 +184,7 @@ extension SortEx on List {
         break;
       case SortOption.title:
         sort((a, b) {
-          return map.get(b).title.toLowerCase().compareTo(map.get(a).title.toLowerCase());
+          return map.get(a).title.toLowerCase().compareTo(map.get(b).title.toLowerCase());
         });
         break;
       case SortOption.titleDescending:
