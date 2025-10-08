@@ -7,20 +7,18 @@ class AppStorage extends AppStorageCore {
   static final AppStorage _instance = AppStorage._internal();
   AppStorage._internal();
 
-  late String notesPath;
+  late String attachmentsPath;
   late String themesPath;
   static AppStorage getInstance() => _instance;
 
-  List<dynamic> selectedNotes = [];
+  String get databasePath => PathUtils.join(selectedUser.storagePath, "notes.db");
 
   @override
   void initPaths() {
     super.initPaths();
-    notesPath = PathUtils.join(selectedUser.storagePath, "notes");
+    attachmentsPath = PathUtils.join(selectedUser.storagePath, "attachments");
     themesPath = PathUtils.join(selectedUser.storagePath, "themes");
 
-    createDirectoryIfNotExists(notesPath);
-    createDirectoryIfNotExists(themesPath);
   }
 
 }
