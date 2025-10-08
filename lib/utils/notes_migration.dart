@@ -3,13 +3,11 @@ import 'dart:io';
 
 import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
-import 'package:notes/models/app_settings.dart';
-import 'package:notes/utils/generate_id.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/app_storage.dart';
 
-Future<void> _moveAttachments(String oldId, String id) async {
+Future<void> moveAttachments(String oldId, String id) async {
   var directory = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "notes", oldId));
   if(await directory.exists() && id.length > 2) {
     await Directory(PathUtils.join(appStorage.selectedUser.storagePath, "attachments", id[0] , id[1])).create(recursive: true);
@@ -25,35 +23,27 @@ Future<void> migrateNotes(Database db) async {
   }
 
   List<FileSystemEntity> fileList = directory.listSync();
-  Map<String, String> oldIds = {};
 
   for (int i = 0; i < fileList.length; i++) {
     FileSystemEntity file = fileList[i];
     if (file is File) {
-      var id = FilenameUtils.nameOnly(PathUtils.basename(file.path));
-      if(id.length < 15 && !appSettings.useOwnServer) {
-        var oldId = id;
-        id = await generatedNoteId(db);
-        oldIds[id] = oldId;
-      }
+       var oldId = FilenameUtils.nameOnly(PathUtils.basename(file.path));
       Map<String, dynamic> map = jsonDecode(await file.readAsString());
 
       if (file.path.endsWith(".note")) {
+        var id = "${oldId}legacynote";
 
           var data = _parsedLegacyNote(id, map);
           batch.insert("notes", data);
-          _moveAttachments(oldIds[id] ?? id, id);
+          moveAttachments(oldId, id);
       } else if (file.path.endsWith(".folder")) {
+        var id = "${oldId}legacyfolder";
         var data = _parsedLegacyFolder(id, map);
 
         batch.insert("notes", data);
       }
     }
   }
-  
-  oldIds.forEach((id, oldId) {
-    batch.rawUpdate("UPDATE notes SET parent_id = ? WHERE parent_id is ?", [id, oldId]);
-  });
 
   batch.commit();
 
