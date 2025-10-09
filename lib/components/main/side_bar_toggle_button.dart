@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../channels/app_method_channel.dart';
 import '../../models/app_settings.dart';
-import '../../models/icons.dart';
+import '../../icons/icons.dart';
 
 class SideBarToggleButton extends StatefulWidget {
 

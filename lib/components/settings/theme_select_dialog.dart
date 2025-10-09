@@ -9,7 +9,7 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
 
 import 'package:notes/models/app_theme.dart';
-import 'package:notes/models/icons.dart';
+import 'package:notes/icons/icons.dart';
 
 class ThemeSelectDialog extends StatefulWidget {
 
