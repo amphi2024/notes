@@ -157,9 +157,12 @@ class _ImagePageState extends State<ImagePage> {
                     scaleEnabled: true,
                     panEnabled: true,
                     minScale: 0.5,
-                    child: ImageFromStorage(
-                        fit: BoxFit.contain,
-                        filename: widget.imageFilename, noteId: widget.noteName),
+                    child: Hero(
+                      tag: widget.noteName,
+                      child: ImageFromStorage(
+                          fit: BoxFit.contain,
+                          filename: widget.imageFilename, noteId: widget.noteName),
+                    ),
                   ),
                 ),
                 Align(
