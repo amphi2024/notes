@@ -33,3 +33,16 @@ class SearchKeywordNotifier extends Notifier<String?> {
     state = null;
   }
 }
+
+class ViewModeNotifier extends Notifier<Map<String, String>> {
+  @override
+  Map<String, String> build() {
+    return {};
+  }
+
+  void setViewMode(String id, String value) {
+    state = {...state, id: value};
+  }
+}
+
+final viewModeProvider = NotifierProvider<ViewModeNotifier, Map<String, String>>(ViewModeNotifier.new);

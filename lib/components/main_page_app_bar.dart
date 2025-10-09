@@ -5,6 +5,7 @@ import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/models/sort_option.dart';
 import 'package:notes/providers/notes_provider.dart';
+import 'package:notes/providers/providers.dart';
 
 import '../icons/icons.dart';
 import 'main/choose_folder_dialog.dart';
@@ -52,8 +53,8 @@ List<Widget> appbarActions({
         itemBuilder: (context) {
           return [
             _header(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_view_as")),
-            _viewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_grid"), context: context, folder: folder, icon: AppIcons.grid, viewMode: "grid"),
-            _viewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_list"), context: context, folder: folder, icon: AppIcons.linear, viewMode: "linear"),
+            _viewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_grid"), context: context, folder: folder, icon: AppIcons.grid, viewMode: "grid", ref: ref),
+            _viewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_list"), context: context, folder: folder, icon: AppIcons.linear, viewMode: "linear", ref: ref),
             _header(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_sort_by")),
 
             _sortButton(context: context, label: AppLocalizations.of(context).get("@title"), folder: folder, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
@@ -77,12 +78,13 @@ PopupMenuItem _header({required String label, required BuildContext context}) {
   );
 }
 
-PopupMenuItem _viewModeButton({required String label, required BuildContext context, required Note folder, required IconData icon, required String viewMode}) {
+PopupMenuItem _viewModeButton({required String label, required BuildContext context, required Note folder, required IconData icon, required String viewMode, required WidgetRef ref}) {
   return PopupMenuItem(
       height: 40,
       onTap: () {
         appCacheData.setViewMode(id: folder.id, value: viewMode);
         appCacheData.save();
+        ref.read(viewModeProvider.notifier).setViewMode(folder.id, viewMode);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +92,7 @@ PopupMenuItem _viewModeButton({required String label, required BuildContext cont
           Text(
             label,
             style: TextStyle(
-                color: appCacheData.viewMode(folder.id) == viewMode ? Theme.of(context).highlightColor : Theme.of(context).textTheme.bodyMedium?.color,
+                color: (ref.watch(viewModeProvider)[folder.id] ?? appCacheData.viewMode(folder.id)) == viewMode ? Theme.of(context).highlightColor : Theme.of(context).textTheme.bodyMedium?.color,
                 fontSize: 15
             ),
           ),
