@@ -39,14 +39,12 @@ Future<void> migrateNotes(Database db) async {
       } else if (file.path.endsWith(".folder")) {
         var id = "${oldId}legacyfolder";
         var data = _parsedLegacyFolder(id, map);
-
         batch.insert("notes", data);
       }
     }
   }
 
   batch.commit();
-
 }
 
 Map<String, dynamic> _parsedLegacyNote(String id, Map<String, dynamic> map) {
@@ -80,7 +78,7 @@ Map<String, dynamic> _parsedLegacyData(String id, Map<String, dynamic> map) {
   }
 
   if(parentId != null && parentId.isNotEmpty) {
-    data["parent_id"] = parentId;
+    data["parent_id"] = "${parentId}legacyfolder";
   }
 
   if(map["lineHeight"] is int) {
