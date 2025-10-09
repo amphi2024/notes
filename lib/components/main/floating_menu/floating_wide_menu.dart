@@ -328,19 +328,19 @@ class _FloatingWideMenuState extends ConsumerState<FloatingWideMenu> {
                                 height: 30,
                                 child: Text(AppLocalizations.of(context).get("@new_folder")),
                                 onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return EditFolderDialog(
-                                            folder: Folder.createdFolder(location),
-                                            onSave: (folder) {
-                                              // AppStorage.getNoteList(location).add(folder);
-                                              // setState(() {
-                                              //   AppStorage.getNoteList(location).sortByOption();
-                                              // });
-                                              folder.save();
-                                            });
-                                      });
+                                  // showDialog(
+                                  //     context: context,
+                                  //     builder: (context) {
+                                  //       // return EditFolderDialog(
+                                  //       //     folder: Folder.createdFolder(location),
+                                  //       //     onSave: (folder) {
+                                  //       //       // AppStorage.getNoteList(location).add(folder);
+                                  //       //       // setState(() {
+                                  //       //       //   AppStorage.getNoteList(location).sortByOption();
+                                  //       //       // });
+                                  //       //       folder.save();
+                                  //       //     });
+                                  //     });
                                 }),
                             PopupMenuItem(
                                 height: 30,

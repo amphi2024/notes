@@ -13,7 +13,7 @@ import 'package:notes/utils/get_themes.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/app_theme.dart';
-import 'package:notes/models/icons.dart';
+import 'package:notes/icons/icons.dart';
 import 'package:amphi/widgets/settings/language.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -126,17 +126,17 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 Column(
                   children: [
-                    AppThemePageView(
-                      themeList: themeList,
-                      onPageChanged: (AppTheme theme) {
-                        // setState(() {
-                        //   selectedTheme = theme;
-                        // });
-                        // appState.notifySomethingChanged(() {
-                        //   appSettings.appTheme = theme;
-                        // });
-                      },
-                    ),
+                    // AppThemePageView(
+                    //   themeList: themeList,
+                    //   onPageChanged: (AppTheme theme) {
+                    //     // setState(() {
+                    //     //   selectedTheme = theme;
+                    //     // });
+                    //     // appState.notifySomethingChanged(() {
+                    //     //   appSettings.appTheme = theme;
+                    //     // });
+                    //   },
+                    // ),
                   ],
                 ),
                 Column(

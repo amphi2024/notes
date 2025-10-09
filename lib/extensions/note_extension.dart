@@ -220,7 +220,7 @@ font-size: ${textSize ?? 15}px;
   }
 
   String base64FromSomething(String value, String directoryName) {
-    var file = File(PathUtils.join(appStorage.notesPath, id[0], id[1], directoryName, value));
+    var file = File(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], directoryName, value));
     return base64Encode( file.readAsBytesSync());
   }
 }

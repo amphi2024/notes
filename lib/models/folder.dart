@@ -24,11 +24,11 @@ class Folder extends Item {
       super.deleted});
 
   static Folder createdFolder(String location) {
-    String filename = FilenameUtils.generatedFileName(".folder", appStorage.notesPath);
+    String filename = FilenameUtils.generatedFileName(".folder", appStorage.attachmentsPath);
     return Folder(
         title: "",
         filename: filename,
-        path: PathUtils.join(appStorage.notesPath, filename),
+        path: PathUtils.join(appStorage.attachmentsPath, filename),
         location: location,
         created: DateTime.now(),
         originalCreated: DateTime.now(),
@@ -38,7 +38,7 @@ class Folder extends Item {
 
   Future<void> bringToFrontIfOrphan() async {
     if(location != "" && location != "!Trashes") {
-      var folderFile = File(PathUtils.join(appStorage.notesPath, location));
+      var folderFile = File(PathUtils.join(appStorage.attachmentsPath, location));
       if(! await folderFile.exists()) {
         location = "";
         save(upload: false, changeModified: false);
