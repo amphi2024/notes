@@ -14,8 +14,9 @@ import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 
-import '../../../models/app_storage.dart';
-import '../../../icons/icons.dart';
+import '../../models/app_storage.dart';
+import '../../icons/icons.dart';
+import '../../utils/note_item_press_callback.dart';
 
 class NoteLinearItem extends ConsumerWidget {
   final Note note;
@@ -25,7 +26,8 @@ class NoteLinearItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectingNotes = ref.watch(selectedNotesProvider) != null;
+    final selectedNotes = ref.watch(selectedNotesProvider);
+    final selectingNotes = selectedNotes != null;
 
     return Material(
       color: Theme
@@ -37,17 +39,7 @@ class NoteLinearItem extends ConsumerWidget {
         splashColor: Color.fromARGB(25, 125, 125, 125),
         borderRadius: borderRadius,
         onTap: () {
-          if(note.isFolder) {
-            Navigator.push(context, CupertinoPageRoute(builder: (context) {
-              return MainPage(folder: note);
-            }));
-          }
-          else {
-            ref.read(editingNoteProvider.notifier).setNote(note);
-            Navigator.push(context, CupertinoPageRoute(builder: (context) {
-              return NotePage();
-            }));
-          }
+          onNotePressed(note, context, ref);
         },
         onLongPress: () {
           ref.read(selectedNotesProvider.notifier).startSelection();
@@ -88,7 +80,7 @@ class NoteLinearItem extends ConsumerWidget {
                     child: IgnorePointer(
                       ignoring: !selectingNotes,
                       child: Checkbox(
-                          value: ref.watch(selectedNotesProvider)?.contains(
+                          value: selectedNotes?.contains(
                               note.id) == true,
                           onChanged: (bool? value) {
                             if (value == true) {
@@ -111,15 +103,6 @@ class NoteLinearItem extends ConsumerWidget {
                 right: 10,
                 child: Row(
                   children: [
-                    if(note.isFolder) ...[
-                      const Padding(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Icon(
-                          AppIcons.folder,
-                          size: 25,
-                        ),
-                      ),
-                    ],
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -143,7 +126,7 @@ class NoteLinearItem extends ConsumerWidget {
                                   padding: const EdgeInsets.only(right: 10),
                                   child: Text(note.modified.toLocalizedShortString(context)),
                                 ),
-                                Expanded(child: Text(note.isFolder ? ref.watch(notesProvider).idListByFolderId(note.id).length.toString() : note.subtitle)),
+                                Expanded(child: Text(note.subtitle)),
                               ],
                             )
                           ],
@@ -162,33 +145,7 @@ class NoteLinearItem extends ConsumerWidget {
                     ))
                   ],
                 ),
-              ),
-
-              if(note.isFolder)...[
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 1000),
-                  curve: Curves.easeOutQuint,
-                  top: 0.0,
-                  bottom: 0.0,
-                  right: selectingNotes &&
-                      note.deleted == null ? 10.0 : 0.0,
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 1000),
-                    curve: Curves.easeOutQuint,
-                    opacity: selectingNotes &&
-                        note.deleted == null ? 1.0 : 0,
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.edit,
-                        size: 20,
-                      ),
-                      onPressed: () {
-
-                      },
-                    ),
-                  ),
-                )
-              ]
+              )
             ],
           ),
         ),

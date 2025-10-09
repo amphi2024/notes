@@ -1,22 +1,21 @@
-import 'package:amphi/models/app.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:notes/components/main/list_view/folder_grid_item.dart';
-import 'package:notes/components/main/list_view/folder_linear_item.dart';
-import 'package:notes/components/main/list_view/linear_item_border.dart';
-import 'package:notes/components/main/list_view/note_grid_item.dart';
-import 'package:notes/components/main/list_view/note_linear_item.dart';
-import 'package:notes/models/app_settings.dart';
-
-import 'package:notes/models/folder.dart';
-import 'package:notes/models/note.dart';
-import 'package:notes/providers/notes_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:notes/components/items/folder_grid_item.dart';
+import '../components/items/folder_linear_item.dart';
+import '../components/items/note_grid_item.dart';
+import '../components/items/note_linear_item.dart';
+import '../models/app_cache_data.dart';
+import '../models/note.dart';
+import '../providers/notes_provider.dart';
+import '../utils/data_sync.dart';
 
 class NotesView extends ConsumerStatefulWidget {
+  final Note folder;
   final List<String> idList;
 
-  const NotesView({super.key, required this.idList});
+  const NotesView({super.key, required this.idList, required this.folder});
 
   @override
   ConsumerState<NotesView> createState() => _NotesViewState();
@@ -29,6 +28,11 @@ class _NotesViewState extends ConsumerState<NotesView>
 
   @override
   bool get wantKeepAlive => true;
+
+  Future<void> refresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    refreshDataWithServer(ref);
+  }
 
   @override
   void dispose() {
@@ -51,101 +55,82 @@ class _NotesViewState extends ConsumerState<NotesView>
         .watch(notesProvider)
         .notes;
     final idList = widget.idList;
-    // if (appSettings.viewMode == "linear") {
-    //
-    // } else {
-    //   return LayoutBuilder(builder: (context, constraints) {
-    //     double width = constraints.maxWidth;
-    //     int axisCount = (width / 150).toInt();
-    //     return MasonryGridView.builder(
-    //       controller: scrollController,
-    //       itemCount: widget.idList.length,
-    //       gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: axisCount),
-    //       itemBuilder: (context, index) {
-    //         if (widget.idList[index] is Folder) {
-    //           return FolderGridItem(
-    //             onPressed: () => onFolderPressed(widget.idList[index]),
-    //             onLongPress: widget.onLongPress,
-    //             folder: widget.idList[index] as Folder,
-    //             toUpdateFolder: () {
-    //               widget.toUpdateFolder(widget.idList[index]);
-    //             },
-    //           );
-    //         } else {
-    //           return NoteGridItem(
-    //               onPressed: () => widget.onNotePressed(widget.idList[index]),
-    //               onLongPress: widget.onLongPress,
-    //               note: widget.idList[index] as Note);
-    //         }
-    //       },
-    //     );
-    //   });
-    // }
-    return ListView.builder(
-      physics: AlwaysScrollableScrollPhysics(),
-      controller: scrollController,
-      itemCount: idList.length,
-      itemBuilder: (context, index) {
-        LinearItemBorder border = LinearItemBorder(
-            index: index, length: idList.length, context: context);
-        final id = idList[index];
-        final note = notes.get(id);
-
-        Note? front;
-
-        if (index > 0) {
-          front = notes.get(idList[index - 1]);
-        }
-
-        // if(index == 0) {
-        //   borderRadius = const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15), bottomRight:  Radius.circular(0), bottomLeft: Radius.circular(0));
-        // }
-        // else if(index == length - 1) {
-        //   borderRadius = const BorderRadius.only(topLeft: Radius.circular(0), topRight: Radius.circular(0), bottomRight:  Radius.circular(15), bottomLeft: Radius.circular(15));
-        //   borderSide = const BorderSide(
-        //     color: Colors.transparent,
-        //     width: 1,
-        //   );
-        // }
-        // if(length == 1) {
-        //   borderRadius = BorderRadius.circular(15);
-        //   borderSide = const BorderSide(
-        //     color: Colors.transparent,
-        //     width: 1,
-        //   );
-        // }
-
-        return NoteLinearItem(
-            note: note,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(front == null ? 15 : 0),
-                topRight: Radius.circular(front == null ? 15 : 0),
-                bottomRight: Radius.circular(index == idList.length -1 ? 15 : 0),
-                bottomLeft: Radius.circular(index == idList.length -1 ? 15 : 0)),
-            showDivider: index != idList.length -1,
-    );
-  }
-
-  );
+    if (appCacheData.viewMode(widget.folder.id) == "linear") {
+      return RefreshIndicator(
+        onRefresh: refresh,
+        child: ListView.builder(
+            // physics: AlwaysScrollableScrollPhysics(),
+            // controller: scrollController,
+            itemCount: idList.length,
+            itemBuilder: (context, index) {
+              final id = idList[index];
+              final note = notes.get(id);
+        
+              final roundedTop = index == 0 || notes.get(idList[index - 1]).modified.difference(note.modified).inDays > 30 || note.modified.difference(notes.get(idList[index - 1]).modified).inDays > 30;
+        
+              final roundBottom = index == idList.length - 1 || note.modified.difference(notes.get(idList[index + 1]).modified).inDays > 30 || notes.get(idList[index + 1]).modified.difference(note.modified).inDays > 30;
+        
+              final itemWidget = note.isFolder ? FolderLinearItem(
+                note: note,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(roundedTop ? 15 : 0),
+                    topRight: Radius.circular(roundedTop ? 15 : 0),
+                    bottomRight: Radius.circular(roundBottom ? 15 : 0),
+                    bottomLeft: Radius.circular(roundBottom ? 15 : 0)),
+                showDivider: !roundBottom,
+              ): NoteLinearItem(
+                note: note,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(roundedTop ? 15 : 0),
+                    topRight: Radius.circular(roundedTop ? 15 : 0),
+                    bottomRight: Radius.circular(roundBottom ? 15 : 0),
+                    bottomLeft: Radius.circular(roundBottom ? 15 : 0)),
+                showDivider: !roundBottom,
+              );
+        
+              if(roundedTop && appCacheData.shouldGroupNotes(widget.folder.id)) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
+                      child: Text(
+                       DateTime.now().difference(note.modified).inDays < 8 ? "This Week" : DateFormat.MMMM().format(note.modified),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18
+                        ),
+                      ),
+                    ),
+                    itemWidget
+                  ],
+                );
+              }
+        
+              return itemWidget;
+            }
+        
+        ),
+      );
+    } else {
+      return LayoutBuilder(builder: (context, constraints) {
+        double width = constraints.maxWidth;
+        int axisCount = (width / 150).toInt();
+        return MasonryGridView.builder(
+          controller: scrollController,
+          itemCount: widget.idList.length,
+          gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: axisCount),
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          itemBuilder: (context, index) {
+            final id = idList[index];
+            final note = notes.get(id);
+            if(note.isFolder) {
+              return FolderGridItem(folder: note);
+            }
+            return NoteGridItem(note: note);
+          },
+        );
+      });
+    }
 }}
-
-void onNotePressed(Note note) {
-
-}
-
-void onFolderPressed(Folder folder) {
-  // if (folder.location != "!Trashes" && appStorage.selectedNotes == null) {
-  //   if (App.isWideScreen(context)) {
-  //     appState.notifySomethingChanged(() {
-  //       appState.history.add(folder);
-  //     });
-  //   } else {
-  //     Navigator.push(context, CupertinoPageRoute(builder: (context) {
-  //       return MainView(
-  //         location: folder.filename,
-  //         title: folder.title,
-  //       );
-  //     }));
-  //   }
-  // }
-}

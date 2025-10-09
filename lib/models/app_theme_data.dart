@@ -58,7 +58,7 @@ class AppThemeData {
       //     Colors.red
       //   )
       // ),
-      dividerColor: inactiveColor,
+      dividerColor: Color.fromARGB(60, 153, 153, 153),
       dropdownMenuTheme: DropdownMenuThemeData(
         textStyle: TextStyle(
           color: textColor, fontSize: 15
