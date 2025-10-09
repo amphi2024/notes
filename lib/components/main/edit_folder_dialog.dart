@@ -1,28 +1,22 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/models/folder.dart';
-import 'package:notes/icons/icons.dart';
-
-const int insertFolder = 0, updateFolder = 1;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/providers/notes_provider.dart';
+import 'package:notes/utils/generate_id.dart';
+import '../../icons/icons.dart';
+import '../../models/note.dart';
 
 class EditFolderDialog extends StatefulWidget {
-  final Folder folder;
-  final void Function(Folder) onSave;
-  const EditFolderDialog({super.key, required this.folder, required this.onSave});
+  final Note folder;
+  final WidgetRef ref;
+  const EditFolderDialog({super.key, required this.folder, required this.ref});
 
   @override
   State<EditFolderDialog> createState() => _EditFolderDialogState();
 }
 
 class _EditFolderDialogState extends State<EditFolderDialog> {
-  late Folder folder = widget.folder;
-  final TextEditingController folderNameController = TextEditingController();
-
-  @override
-  void initState() {
-    folderNameController.text = widget.folder.title;
-    super.initState();
-  }
+  late final TextEditingController folderNameController = TextEditingController(text: widget.folder.title);
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +57,14 @@ class _EditFolderDialogState extends State<EditFolderDialog> {
                       AppIcons.check,
                       size: 20,
                     ),
-                    onPressed: () {
-                      folder.title = folderNameController.text;
-                      folder.save();
-
-                      widget.onSave(folder);
+                    onPressed: () async {
+                      if(widget.folder.id.isEmpty) {
+                        widget.folder.id = await generatedNoteId();
+                      }
+                      widget.folder.title = folderNameController.text;
+                      widget.folder.modified = DateTime.now();
+                      widget.folder.save();
+                      widget.ref.read(notesProvider.notifier).insertNote(widget.folder);
                       Navigator.pop(context);
                     }))
           ],
