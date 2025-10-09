@@ -1,17 +1,15 @@
 import 'package:amphi/models/app_localizations.dart';
-import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/main_page_app_bar.dart';
-import 'package:notes/models/app_cache_data.dart';
-import 'package:notes/models/sort_option.dart';
+import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/providers.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
-import 'package:notes/utils/data_sync.dart';
 import '../channels/app_method_channel.dart';
 import '../components/draggable_page.dart';
+import '../components/main/edit_folder_dialog.dart';
 import '../components/main_page_title.dart';
 import '../components/floating_button.dart';
 import '../components/main/floating_search_bar.dart';
@@ -20,6 +18,7 @@ import '../components/main/floating_menu/floating_menu.dart';
 import '../views/notes_view.dart';
 import '../icons/icons.dart';
 import '../models/note.dart';
+import 'note_page.dart';
 
 class MainPage extends ConsumerStatefulWidget {
   final Note folder;
@@ -31,11 +30,6 @@ class MainPage extends ConsumerStatefulWidget {
 }
 
 class _MainPageState extends ConsumerState<MainPage> {
-
-  Future<void> refresh() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    refreshDataWithServer(ref);
-  }
 
   @override
   void initState() {
@@ -99,19 +93,11 @@ class _MainPageState extends ConsumerState<MainPage> {
                 title: AppLocalizations.of(context).get("@folder"),
                 icon: AppIcons.folder,
                 onPressed: () {
-                  // showDialog(
-                  //     context: context,
-                  //     builder: (context) {
-                  //       // return EditFolderDialog(
-                  //       //     folder: Folder.createdFolder(widget.location),
-                  //       //     onSave: (folder) {
-                  //       //       AppStorage.getNoteList(widget.location).add(folder);
-                  //       //       setState(() {
-                  //       //         AppStorage.getNoteList(widget.location).sortByOption();
-                  //       //       });
-                  //       //       folder.save();
-                  //       //     });
-                  //     });
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return EditFolderDialog(folder: Note(id: ""), ref: ref);
+                      });
                 },
               ),
             ),
@@ -124,22 +110,10 @@ class _MainPageState extends ConsumerState<MainPage> {
                   icon: AppIcons.note,
                   title: AppLocalizations.of(context).get("@note"),
                   onPressed: () {
-                    // appState.noteEditingController.setNote(Note.createdNote(widget.location));
-                    // appState.noteEditingController.readOnly = false;
-                    // appState.startDraftSave();
-                    // Navigator.push(context, CupertinoPageRoute(builder: (context) {
-                    //   return NotePage(
-                    //       noteEditingController: appState.noteEditingController,
-                    //       createNote: true,
-                    //       onSave: (note) {
-                    //         setState(() {
-                    //           note.initTitles();
-                    //           AppStorage.getNoteList(widget.location).add(note);
-                    //           AppStorage.getNoteList(widget.location).sortByOption();
-                    //         });
-                    //         note.save();
-                    //       });
-                    // }));
+                    ref.read(editingNoteProvider.notifier).setNote(Note(id: ""));
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) {
+                      return NotePage();
+                    }));
                   },
                 )),
             AnimatedPositioned(
