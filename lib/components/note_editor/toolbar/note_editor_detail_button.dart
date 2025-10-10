@@ -14,7 +14,7 @@ class NoteEditorDetailButton extends ConsumerWidget {
     return IconButton(
         icon: Icon(Icons.more_vert_rounded, size: 20), onPressed: () {
       showDialog(context: context, builder: (context) {
-        return NoteDetailDialog(note: ref.watch(editingNoteProvider));
+        return NoteDetailDialog(note: ref.watch(editingNoteProvider).note);
       });
     });
   }

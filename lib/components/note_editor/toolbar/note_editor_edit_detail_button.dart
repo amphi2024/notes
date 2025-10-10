@@ -13,7 +13,7 @@ class NoteEditorEditDetailButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.more_vert_rounded),
+      icon: Icon(Icons.more_vert_rounded, size: 30),
       onPressed: () {
         if(App.isWideScreen(context)) {
           showCustomPopupMenu(context, EditNoteDetail(controller: controller));

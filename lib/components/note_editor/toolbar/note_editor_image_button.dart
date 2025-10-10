@@ -19,10 +19,10 @@ class NoteEditorImageButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final note = ref.watch(editingNoteProvider);
+    final note = ref.watch(editingNoteProvider).note;
 
     return IconButton(
-        icon: Icon(Icons.image),
+        icon: Icon(Icons.image, size: 30),
         onPressed: () async {
           if (Platform.isIOS) {
             showMenuByRelative(context: context, items: [

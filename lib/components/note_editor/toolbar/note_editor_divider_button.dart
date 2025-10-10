@@ -12,7 +12,7 @@ class NoteEditorDividerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.horizontal_rule),
+      icon: Icon(Icons.horizontal_rule, size: 30),
       onPressed: () {
         String dividerKey = noteEmbedBlocks.generatedTableKey();
         BlockEmbed divider = BlockEmbed.custom(DividerBlockEmbed(dividerKey));

@@ -69,10 +69,10 @@ class NoteEditorFileButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
-      icon: Icon(Icons.attach_file),
+      icon: Icon(Icons.attach_file, size: 30),
       onPressed: () async {
         if (appSettings.useOwnServer) {
-          appWebChannel.getFiles(noteId: ref.watch(editingNoteProvider).id, onSuccess: (list) async {
+          appWebChannel.getFiles(noteId: ref.watch(editingNoteProvider).note.id, onSuccess: (list) async {
             pickFilesAndInsert(list);
           }, onFailed: (statusCode) {
             if (statusCode == HttpStatus.notFound) {

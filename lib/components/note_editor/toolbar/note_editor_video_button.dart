@@ -21,10 +21,10 @@ class NoteEditorVideoButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final note = ref.watch(editingNoteProvider);
+    final note = ref.watch(editingNoteProvider).note;
 
     return IconButton(
-        icon: Icon(Icons.video_camera_back_outlined),
+        icon: Icon(Icons.video_camera_back_outlined, size: 30),
         onPressed: () async {
           if (Platform.isIOS) {
             showMenuByRelative(context: context, items: [

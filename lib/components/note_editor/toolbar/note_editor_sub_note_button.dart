@@ -15,7 +15,7 @@ class NoteEditorSubNoteButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
-      icon: Icon(Icons.note_add),
+      icon: Icon(Icons.note_add, size: 30),
       onPressed: () {
         String subNoteKey = noteEmbedBlocks.generatedSubNoteKey();
         BlockEmbed blockEmbed = BlockEmbed.custom(

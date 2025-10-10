@@ -12,7 +12,7 @@ class NoteEditorTableButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(icon: Icon(Icons.table_rows_outlined), onPressed: () {
+    return IconButton(icon: Icon(Icons.table_rows_outlined, size: 30), onPressed: () {
       String tableKey = noteEmbedBlocks.generatedTableKey();
       noteEmbedBlocks.tables[tableKey] = TableData();
       BlockEmbed table = BlockEmbed.custom(NoteTableBlockEmbed(tableKey));

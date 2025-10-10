@@ -12,7 +12,7 @@ class NoteEditorTextStyleButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return IconButton(
-        icon: Icon(Icons.font_download),
+        icon: Icon(Icons.font_download, size: 30),
         onPressed: () {
           if(App.isWideScreen(context)) {
             showCustomPopupMenu(context, EditNoteTextStyle(controller: controller));
