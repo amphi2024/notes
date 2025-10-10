@@ -7,6 +7,7 @@ import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/providers.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
+import 'package:notes/utils/generate_id.dart';
 import '../channels/app_method_channel.dart';
 import '../components/draggable_page.dart';
 import '../components/main/edit_folder_dialog.dart';
@@ -33,7 +34,6 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   @override
   void initState() {
-    //ref.read(notesProvider).loadChildren(widget.folder.id);
     super.initState();
   }
 
@@ -55,10 +55,13 @@ class _MainPageState extends ConsumerState<MainPage> {
       onPopInvoked: (value, result) {
         if (selectingNotes) {
           ref.read(selectedNotesProvider.notifier).endSelection();
+          return;
         }
         if (buttonRotated) {
           ref.read(floatingButtonStateProvider.notifier).setRotated(false);
+          return;
         }
+        ref.read(notesProvider).releaseNotes(widget.folder.id);
       },
       child: Scaffold(
           appBar: AppBar(
@@ -96,7 +99,10 @@ class _MainPageState extends ConsumerState<MainPage> {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return EditFolderDialog(folder: Note(id: ""), ref: ref);
+                        var folder = Note(id: "");
+                        folder.parentId = widget.folder.id;
+                        folder.isFolder = true;
+                        return EditFolderDialog(folder: folder, ref: ref);
                       });
                 },
               ),
@@ -109,8 +115,10 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: TitledFloatingButton(
                   icon: AppIcons.note,
                   title: AppLocalizations.of(context).get("@note"),
-                  onPressed: () {
-                    ref.read(editingNoteProvider.notifier).setNote(Note(id: ""));
+                  onPressed: () async {
+                    var note = Note(id: await generatedNoteId());
+                    note.parentId = widget.folder.id;
+                    ref.read(editingNoteProvider.notifier).startEditing(note, true);
                     Navigator.push(context, CupertinoPageRoute(builder: (context) {
                       return NotePage();
                     }));
