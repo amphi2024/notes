@@ -23,6 +23,16 @@ class NoteEditor extends StatefulWidget {
 
 class _NoteEditorState extends State<NoteEditor> {
 
+  final focusNode = FocusNode();
+  final scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -33,8 +43,8 @@ class _NoteEditorState extends State<NoteEditor> {
 
     return QuillEditor(
       controller: widget.controller,
-      scrollController: ScrollController(),
-      focusNode: FocusNode(),
+      scrollController: scrollController,
+      focusNode: focusNode,
       config: QuillEditorConfig(
         autoFocus: false,
         placeholder: AppLocalizations.of(context).get("@new_note"),
