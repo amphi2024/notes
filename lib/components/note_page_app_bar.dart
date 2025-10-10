@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/providers/editing_note_provider.dart';
+import 'package:notes/providers/notes_provider.dart';
+import 'package:notes/utils/document_conversion.dart';
+import 'package:notes/utils/generate_id.dart';
 
 import '../models/note.dart';
 import 'note_editor/toolbar/note_editor_detail_button.dart';
@@ -13,41 +17,42 @@ List<Widget> notePageAppbarActions(
     {required BuildContext context,
     required WidgetRef ref,
     required Note note,
-    required QuillController controller}) {
-  if (controller.readOnly) {
+    required QuillController controller,
+    required bool editing}) {
+  if (!editing) {
     return [
       NoteEditorExportButton(controller: controller),
       NoteEditorDetailButton(controller: controller),
       IconButton(
           onPressed: () {
-            if (controller.readOnly) {
-              // appState.note.getDraft((draftNote) {
-              //   appState.startDraftSave();
-              //   if(draftNote != null) {
-              //     showDialog(context: context, builder: (context) {
-              //       return DraftDialog(
-              //         onCanceled: () {
-              //           setState(() {
-              //             controller.readOnly = false;
-              //           });
-              //         },
-              //         onConfirmed: () {
-              //           note.contents = draftNote.contents;
-              //           controller.setNote(note);
-              //           setState(() {
-              //             controller.readOnly = false;
-              //           });
-              //         },
-              //       );
-              //     });
-              //   }
-              //   else {
-              //     setState(() {
-              //       controller.readOnly = false;
-              //     });
-              //   }
-              // });
-            }
+            controller.readOnly = false;
+            ref.read(editingNoteProvider.notifier).setEditing(true);
+            // appState.note.getDraft((draftNote) {
+            //   appState.startDraftSave();
+            //   if(draftNote != null) {
+            //     showDialog(context: context, builder: (context) {
+            //       return DraftDialog(
+            //         onCanceled: () {
+            //           setState(() {
+            //             controller.readOnly = false;
+            //           });
+            //         },
+            //         onConfirmed: () {
+            //           note.contents = draftNote.contents;
+            //           controller.setNote(note);
+            //           setState(() {
+            //             controller.readOnly = false;
+            //           });
+            //         },
+            //       );
+            //     });
+            //   }
+            //   else {
+            //     setState(() {
+            //       controller.readOnly = false;
+            //     });
+            //   }
+            // });
           },
           icon: Icon(
             Icons.edit,
@@ -55,27 +60,40 @@ List<Widget> notePageAppbarActions(
           ))
     ];
   }
-  return [
-    NoteEditorImportButton(controller: controller),
-    NoteEditorUndoButton(controller: controller),
-    NoteEditorRedoButton(controller: controller),
-    IconButton(
-        onPressed: () {
-            // if (!widget.createNote) {
-            //   setState(() {
-            //     controller.readOnly = true;
-            //   });
-            // } else {
-            //   controller.readOnly = true;
-            //   Navigator.pop(context);
-            // }
-            // Note note = controller.getNote();
-            // // Note note = Note.createdNote("");
-            // widget.onSave(note);
-        },
-        icon: Icon(
-          Icons.check_circle_outline,
-          size: 25,
-        ))
-  ];
+  else {
+    return [
+      NoteEditorImportButton(controller: controller),
+      NoteEditorUndoButton(controller: controller),
+      NoteEditorRedoButton(controller: controller),
+      IconButton(
+          onPressed: () async {
+            if(note.id.isEmpty) {
+              note.id = await generatedNoteId();
+              note.created = DateTime.now();
+            }
+            note.modified = DateTime.now();
+            note.content = controller.document.toNoteContent();
+            note.save();
+            note.initTitles();
+            ref.read(notesProvider.notifier).insertNote(note);
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.check_circle_outline,
+            size: 25,
+          ))
+    ];
+  }
+}
+
+void saveNote({required BuildContext context,
+required WidgetRef ref,
+required Note note,
+required QuillController controller,
+required bool editing}) async {
+  if(note.id.isEmpty) {
+    note.id = await generatedNoteId();
+  }
+  note.save();
+  ref.read(notesProvider.notifier).insertNote(note);
 }

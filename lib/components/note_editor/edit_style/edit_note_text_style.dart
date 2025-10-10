@@ -121,7 +121,7 @@ class _EditNoteTextStyleState extends ConsumerState<EditNoteTextStyle> {
 
   @override
   Widget build(BuildContext context) {
-    final note = ref.watch(editingNoteProvider);
+    final note = ref.watch(editingNoteProvider).note;
     final themeData = Theme.of(context);
     return Container(
       height: App.isDesktop() ? 250 : 400,

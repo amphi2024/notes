@@ -21,7 +21,7 @@ class EditNoteDetail extends ConsumerStatefulWidget {
 
 class _EditNoteDetailState extends ConsumerState<EditNoteDetail> {
   late final TextEditingController lineHeightController = TextEditingController(
-      text: ref.watch(editingNoteProvider).lineHeight?.toString() ?? "1.0");
+      text: ref.watch(editingNoteProvider).note.lineHeight?.toString() ?? "1.0");
 
   @override
   void dispose() {
@@ -55,7 +55,7 @@ class _EditNoteDetailState extends ConsumerState<EditNoteDetail> {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    final note = ref.watch(editingNoteProvider);
+    final note = ref.watch(editingNoteProvider).note;
     return Container(
       width: 250,
       height: App.isDesktop() ? 200 : 400,

@@ -2,43 +2,57 @@ import 'dart:ui';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/note.dart';
 
-class EditingNoteNotifier extends Notifier<Note> {
+class EditingNoteState {
+  final Note note;
+  final bool editing;
+  EditingNoteState(this.note, this.editing);
+}
+
+class EditingNoteNotifier extends Notifier<EditingNoteState> {
+
+  Note? originalNote;
+
   @override
-  Note build() {
-    return Note(id: "");
+  EditingNoteState build() {
+    return EditingNoteState(Note(id: ""), true);
   }
 
-  void setNote(Note note) {
-    state = note;
+  void startEditing(Note note, bool editing) {
+    originalNote = note;
+    state = EditingNoteState(note, editing);
   }
 
   void setLineHeight(double? lineHeight) {
-    final note = state;
+    final note = state.note;
     note.lineHeight = lineHeight;
 
-    state = note;
+    state = EditingNoteState(note, state.editing);
   }
 
   void setTextColor(Color? textColor) {
-    final note = state;
+    final note = state.note;
     note.textColor = textColor;
 
-    state = note;
+    state = EditingNoteState(note, state.editing);
   }
 
   void setBackgroundColor(Color? backgroundColor) {
-    final note = state;
+    final note = state.note;
     note.backgroundColor = backgroundColor;
 
-    state = note;
+    state = EditingNoteState(note, state.editing);
   }
 
   void setTextSize(double? textSize) {
-    final note = state;
+    final note = state.note;
     note.textSize = textSize;
 
-    state = note;
+    state = EditingNoteState(note, state.editing);
+  }
+
+  void setEditing(bool value) {
+    state = EditingNoteState(state.note, value);
   }
 }
 
-final editingNoteProvider = NotifierProvider<EditingNoteNotifier, Note>(EditingNoteNotifier.new);
+final editingNoteProvider = NotifierProvider<EditingNoteNotifier, EditingNoteState>(EditingNoteNotifier.new);
