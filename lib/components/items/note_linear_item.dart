@@ -2,7 +2,7 @@ import 'package:amphi/utils/file_name_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/components/image_from_storage_rounded.dart';
+import 'package:notes/components/note_image_rounded.dart';
 import 'package:notes/components/main/list_view/linear_item_border.dart';
 import 'package:notes/components/main/list_view/list_view_item.dart';
 import 'package:notes/extensions/date_extension.dart';
@@ -138,7 +138,7 @@ class NoteLinearItem extends ConsumerWidget {
                         child: SizedBox(
                       width: 42,
                       height: 42,
-                      child: note.thumbnailImageFilename != null ?  ImageFromStorageRounded(
+                      child: note.thumbnailImageFilename != null ?  NoteImageRounded(
                           noteId: note.id,
                           filename: note.thumbnailImageFilename ?? "",
                           borderRadius: BorderRadius.circular(10)): Placeholder(),

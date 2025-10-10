@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
-import 'package:notes/components/image_from_storage.dart';
+import 'package:notes/components/note_image.dart';
 
 import 'package:notes/icons/icons.dart';
 
@@ -159,7 +159,7 @@ class _ImagePageState extends State<ImagePage> {
                     minScale: 0.5,
                     child: Hero(
                       tag: widget.noteName,
-                      child: ImageFromStorage(
+                      child: NoteImage(
                           fit: BoxFit.contain,
                           filename: widget.imageFilename, noteId: widget.noteName),
                     ),

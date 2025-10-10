@@ -1,7 +1,7 @@
 
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/components/image_from_storage.dart';
+import 'package:notes/components/note_image.dart';
 import 'package:notes/pages/image_page.dart';
 
 class ImageBlockWidget extends StatefulWidget {

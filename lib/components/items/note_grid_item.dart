@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/components/image_from_storage_rounded.dart';
+import 'package:notes/components/note_image_rounded.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/utils/note_item_press_callback.dart';
@@ -42,7 +42,7 @@ class NoteGridItem extends ConsumerWidget {
             children: [
               Visibility(
                   visible: note.thumbnailImageFilename != null,
-                  child: ImageFromStorageRounded(
+                  child: NoteImageRounded(
                       noteId: note.id,
                       filename: note.thumbnailImageFilename ?? "",
                       borderRadius: const BorderRadius.only(
