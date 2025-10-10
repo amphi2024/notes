@@ -11,8 +11,8 @@ import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/video/video_block_embed.dart';
 import 'package:notes/database/database_helper.dart';
+import 'package:notes/database/note_queries.dart';
 import 'package:notes/extensions/note_extension.dart';
-import 'package:sqflite/sqflite.dart';
 
 
 import 'app_storage.dart';
@@ -34,7 +34,7 @@ class Note {
   List<Map<String, dynamic>> content = [];
 
   bool isFolder = false;
-  Document document = Document();
+  Delta delta = Delta();
 
   Note({
     required this.id,
@@ -52,7 +52,7 @@ class Note {
     this.deleted,
     this.content = const []
   }) {
-    document = contentToDocument();
+    delta = contentToDelta();
   }
 
   Note.fromMap(Map<String, dynamic> data) : id = data["id"] {
@@ -72,7 +72,7 @@ class Note {
 
     if(!isFolder) {
       initTitles();
-      document = contentToDocument();
+      delta = contentToDelta();
     }
   }
 
@@ -80,7 +80,7 @@ class Note {
     return Note(id: "");
   }
 
-  Document contentToDocument() {
+  Delta contentToDelta() {
     Delta delta = Delta();
     for (var item in content) {
       switch (item["type"]) {
@@ -165,7 +165,7 @@ class Note {
       delta.insert("\n");
     }
 
-    return Document.fromDelta(delta);
+    return delta;
   }
 
   Future<void> delete({bool upload = true}) async {
@@ -300,36 +300,11 @@ class Note {
 
   Future<void> save({bool upload = true}) async {
     final database = await databaseHelper.database;
-    await database.rawInsert("""
-    INSERT INTO notes (
-                    id, content, created, modified, deleted, is_folder, parent_id,
-                    line_height, text_size, text_color, background_color, background,
-                    title, subtitle
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ON CONFLICT(id) DO UPDATE SET
-                  content = excluded.content,
-                  modified = excluded.modified,
-                  deleted = excluded.deleted,
-                  is_folder = excluded.is_folder,
-                  parent_id = excluded.parent_id,
-                  line_height = excluded.line_height,
-                  text_size = excluded.text_size,
-                  text_color = excluded.text_color,
-                  background_color = excluded.background_color,
-                  background = excluded.background,
-                  title = excluded.title,
-                  subtitle = excluded.subtitle;
-    """, [
-      id, isFolder? null : jsonEncode(content), created.toUtc().millisecondsSinceEpoch, modified.toUtc().millisecondsSinceEpoch, deleted?.toUtc().millisecondsSinceEpoch, isFolder ? 1 : 0, parentId.isEmpty ? null : parentId, lineHeight?.toInt(), textSize?.toInt(), textColor?.value, backgroundColor?.value,  null, isFolder ? title : null, null
-    ]);
+    await database.insertNote(this);
 
     if(upload) {
       appWebChannel.uploadNote(this);
     }
-  }
-
-  Future<void> saveDraft() async {
-
   }
 
   void initTitles() {
@@ -387,7 +362,7 @@ class Note {
     return {
       "id": id,
       "title": isFolder ? title : null,
-      "subtitle": isFolder ? null : subtitle,
+      "subtitle": null,
       "background_color": backgroundColor?.value,
       "text_color": textColor?.value,
       "text_size": textSize?.toInt(),
@@ -396,8 +371,8 @@ class Note {
       "modified": modified.toUtc().millisecondsSinceEpoch,
       "created": created.toUtc().millisecondsSinceEpoch,
       "deleted": deleted?.toUtc().millisecondsSinceEpoch,
-      "content": jsonEncode(content),
-      "is_folder": isFolder ? 1 : 0,
+      "content": content,
+      "is_folder": isFolder,
       "background": null
     };
   }
@@ -408,6 +383,10 @@ class Note {
 
   Color backgroundColorByTheme(BuildContext context) {
     return (Theme.of(context).brightness == Brightness.dark ? backgroundColor?.inverted() : backgroundColor) ?? Theme.of(context).cardColor;
+  }
+
+  void initDelta() {
+    delta = contentToDelta();
   }
 
 }
