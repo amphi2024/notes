@@ -42,7 +42,7 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
          },
          child: Hero(
            tag: widget.noteId,
-           child: ImageFromStorage(
+           child: NoteImage(
              noteId: widget.noteId,
              filename: widget.filename,
              fit: BoxFit.contain,

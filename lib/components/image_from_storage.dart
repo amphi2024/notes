@@ -2,22 +2,27 @@ import 'dart:io';
 
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/channels/app_web_channel.dart';
+import 'package:notes/utils/attachment_path.dart';
 
 import '../models/app_storage.dart';
 
-class ImageFromStorage extends StatelessWidget {
+class NoteImage extends StatelessWidget {
   final String filename;
   final String noteId;
   final BoxFit fit;
-  const ImageFromStorage({super.key, this.fit = BoxFit.cover, required this.filename, required this.noteId});
+  const NoteImage({super.key, this.fit = BoxFit.cover, required this.filename, required this.noteId});
 
   @override
   Widget build(BuildContext context) {
 
-    String absolutePath = PathUtils.join(appStorage.attachmentsPath, noteId[0], noteId[1] , noteId, "images", filename);
     return Image.file(
       fit: fit,
-      File(absolutePath)
+      File(noteImagePath(noteId, filename)),
+      errorBuilder: (context, error, stackTrace) {
+        appWebChannel.downloadNoteImage(id: noteId, filename: filename);
+        return Image(image: NetworkImage("${appWebChannel.serverAddress}/notes/$noteId/images/$filename", headers: {"Authorization": appWebChannel.token}), fit: fit);
+      },
     );
   }
 }

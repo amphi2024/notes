@@ -13,7 +13,7 @@ class ImageFromStorageRounded extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: borderRadius,
-      child: ImageFromStorage(filename: filename, noteId: noteId),
+      child: NoteImage(filename: filename, noteId: noteId),
     );
   }
 }
