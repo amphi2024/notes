@@ -24,7 +24,7 @@ class FolderGridItem extends ConsumerWidget {
         ref.read(selectedNotesProvider.notifier).startSelection();
       },
       onTap: () {
-        onFolderPressed(folder, context);
+        onFolderPressed(folder, context, ref);
       },
       child: Container(
         margin: const EdgeInsets.all(7.5),

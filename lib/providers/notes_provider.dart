@@ -1,15 +1,8 @@
-import 'dart:convert';
-
-import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/database/database_helper.dart';
-import 'package:notes/models/app_storage.dart';
-import 'package:notes/utils/notes_migration.dart';
-import 'package:notes/utils/theme_migration.dart';
 import '../models/app_cache_data.dart';
 import '../models/note.dart';
 import '../models/sort_option.dart';
-import 'package:sqflite/sqflite.dart';
 
 class NotesState {
   final Map<String, Note> notes;
@@ -22,7 +15,7 @@ class NotesState {
     return idLists[id] ?? [];
   }
 
-  void loadChildren(String folderId) async {
+  Future<void> preloadNotes(String folderId) async {
     final database = await databaseHelper.database;
 
     for(var id in idLists[folderId] ?? []) {
@@ -34,6 +27,15 @@ class NotesState {
       }
     }
 
+  }
+
+  void releaseNotes(String folderId) {
+    for(var id in idLists[folderId] ?? []) {
+      for(var child in idLists[id] ?? []) {
+        notes.remove(child);
+      }
+      idLists.remove(id);
+    }
   }
 }
 
@@ -134,8 +136,9 @@ class NotesNotifier extends Notifier<NotesState> {
 
     idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
 
-    state = NotesState(notes, idLists, trash);
-    state.loadChildren("");
+    final newState = NotesState(notes, idLists, trash);
+    await newState.preloadNotes("");
+    state = newState;
   }
 
 }

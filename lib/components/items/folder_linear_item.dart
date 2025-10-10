@@ -29,7 +29,7 @@ class FolderLinearItem extends ConsumerWidget {
         splashColor: Color.fromARGB(25, 125, 125, 125),
         borderRadius: borderRadius,
         onTap: () {
-          onFolderPressed(note, context);
+          onFolderPressed(note, context, ref);
         },
         onLongPress: () {
           ref.read(selectedNotesProvider.notifier).startSelection();
