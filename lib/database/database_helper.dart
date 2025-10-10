@@ -20,7 +20,6 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    print(appStorage.databasePath);
     return await openDatabase(
       appStorage.databasePath,
       version: 1,
