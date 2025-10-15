@@ -4,8 +4,10 @@ import '../../providers/providers.dart';
 import '../../providers/selected_notes_provider.dart';
 
 class FloatingSearchBar extends ConsumerWidget {
+
+  final FocusNode focusNode;
   const FloatingSearchBar(
-      {super.key});
+      {super.key, required this.focusNode});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,6 +47,7 @@ class FloatingSearchBar extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: TextField(
+              focusNode: focusNode,
               onChanged: (text) {
                 ref.read(searchKeywordProvider.notifier).setKeyword(text);
               },

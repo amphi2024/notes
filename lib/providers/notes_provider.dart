@@ -11,8 +11,12 @@ class NotesState {
 
   NotesState(this.notes, this.idLists, this.trash);
 
-  List<String> idListByFolderId(String id) {
-    return idLists[id] ?? [];
+  List<String> idListByFolderId(String id, {String? filename}) {
+    var list = idLists[id] ?? [];
+    if(filename == null) {
+      return list;
+    }
+    return list.where((id) => notes[id]?.title.toLowerCase().contains(filename.toLowerCase()) ?? false).toList();
   }
 
   Future<void> preloadNotes(String folderId) async {
