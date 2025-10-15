@@ -56,7 +56,7 @@ Future<File> createdFileWithBase64(String id, String base64, String fileExtensio
 }
 
 Future<File> createdFile(String id, String originalPath, String directoryName) async {
-  Directory directory = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], directoryName));
+  Directory directory = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], id, directoryName));
   if (!directory.existsSync()) {
     await directory.create(recursive: true);
   }
