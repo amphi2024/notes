@@ -32,10 +32,7 @@ class MainPage extends ConsumerStatefulWidget {
 
 class _MainPageState extends ConsumerState<MainPage> {
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  final focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +114,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                   title: AppLocalizations.of(context).get("@note"),
                   onPressed: () async {
                     var note = Note(id: await generatedNoteId());
+                    note.created = DateTime.now();
                     note.parentId = widget.folder.id;
                     ref.read(editingNoteProvider.notifier).startEditing(note, true);
                     Navigator.push(context, CupertinoPageRoute(builder: (context) {
@@ -136,6 +134,9 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: FloatingButton(
                   icon: AppIcons.plus,
                   onPressed: () {
+                    if(focusNode.hasFocus) {
+                      focusNode.unfocus();
+                    }
                     ref
                         .read(floatingButtonStateProvider.notifier)
                         .setRotated(!buttonRotated);
@@ -144,7 +145,7 @@ class _MainPageState extends ConsumerState<MainPage> {
               ),
             ),
             const FloatingMenu(),
-            const FloatingSearchBar()
+            FloatingSearchBar(focusNode: focusNode)
           ])),
     );
   }
