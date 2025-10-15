@@ -1,5 +1,6 @@
 
 import 'package:amphi/models/app_localizations.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/note_editor/embed_block/divider/divider_embed_builder.dart';
@@ -15,7 +16,8 @@ class NoteEditor extends StatefulWidget {
 
   final Note note;
   final QuillController controller;
-  const NoteEditor({super.key, required this.note, required this.controller});
+  final FocusNode focusNode;
+  const NoteEditor({super.key, required this.note, required this.controller, required this.focusNode});
 
   @override
   State<NoteEditor> createState() => _NoteEditorState();
@@ -23,12 +25,10 @@ class NoteEditor extends StatefulWidget {
 
 class _NoteEditorState extends State<NoteEditor> {
 
-  final focusNode = FocusNode();
   final scrollController = ScrollController();
 
   @override
   void dispose() {
-    focusNode.dispose();
     scrollController.dispose();
     super.dispose();
   }
@@ -41,70 +41,73 @@ class _NoteEditorState extends State<NoteEditor> {
         color: widget.note.textColorByTheme(context) ?? defaultTextStyle.color,
         fontSize: widget.note.textSize ?? defaultTextStyle.fontSize);
 
-    return QuillEditor(
-      controller: widget.controller,
-      scrollController: scrollController,
-      focusNode: focusNode,
-      config: QuillEditorConfig(
-        autoFocus: false,
-        placeholder: AppLocalizations.of(context).get("@new_note"),
-        customStyles: DefaultStyles(
-          code: DefaultTextBlockStyle(TextStyle(
-              color: codeBlockTextColor(context),
-              fontSize: 13,
-            height: 1.15,
-          ),
-            HorizontalSpacing(
-                1, 1
+    return CupertinoScrollbar(
+      controller: scrollController,
+      child: QuillEditor(
+        controller: widget.controller,
+        scrollController: scrollController,
+        focusNode: widget.focusNode,
+        config: QuillEditorConfig(
+          autoFocus: false,
+          placeholder: AppLocalizations.of(context).get("@new_note"),
+          customStyles: DefaultStyles(
+            code: DefaultTextBlockStyle(TextStyle(
+                color: codeBlockTextColor(context),
+                fontSize: 13,
+              height: 1.15,
             ),
-            VerticalSpacing(
-                widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
-            ),
-            VerticalSpacing(
-                1,  1
-            ),
-            BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor.toCodeBlockBackground(),
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-          paragraph: DefaultTextBlockStyle(
-            textStyle,
-            HorizontalSpacing(
-              1, 1
-          ),
-            VerticalSpacing(
-                widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
-            ),
-            VerticalSpacing(
-              1,  1
-            ),
-            BoxDecoration(),),
-          lists: DefaultListBlockStyle(
-            textStyle,
-            HorizontalSpacing(
-              1, 1
-            ),
-            VerticalSpacing(
-                1, 1
-            ),
+              HorizontalSpacing(
+                  1, 1
+              ),
+              VerticalSpacing(
+                  widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
+              ),
               VerticalSpacing(
                   1,  1
               ),
-            BoxDecoration(),
-              NoteEditorCheckboxBuilder(),
-          )
-        ),
-        showCursor: !widget.controller.readOnly,
-        embedBuilders: [
-          ImageEmbedBuilder(widget.note),
-          VideoEmbedBuilder(),
-          NoteTableEmbedBuilder(),
-          SubNoteEmbedBuilder(),
-          DividerEmbedBuilder(),
-          FileEmbedBuilder()
-        ],
-      )
+              BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor.toCodeBlockBackground(),
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            paragraph: DefaultTextBlockStyle(
+              textStyle,
+              HorizontalSpacing(
+                1, 1
+            ),
+              VerticalSpacing(
+                  widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
+              ),
+              VerticalSpacing(
+                1,  1
+              ),
+              BoxDecoration(),),
+            lists: DefaultListBlockStyle(
+              textStyle,
+              HorizontalSpacing(
+                1, 1
+              ),
+              VerticalSpacing(
+                  1, 1
+              ),
+                VerticalSpacing(
+                    1,  1
+                ),
+              BoxDecoration(),
+                NoteEditorCheckboxBuilder(),
+            )
+          ),
+          showCursor: !widget.controller.readOnly,
+          embedBuilders: [
+            ImageEmbedBuilder(widget.note),
+            VideoEmbedBuilder(),
+            NoteTableEmbedBuilder(),
+            SubNoteEmbedBuilder(),
+            DividerEmbedBuilder(),
+            FileEmbedBuilder()
+          ],
+        )
+      ),
     );
   }
 }

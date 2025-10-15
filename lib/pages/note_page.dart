@@ -23,25 +23,28 @@ class NotePage extends ConsumerStatefulWidget {
 class _NotePageState extends ConsumerState<NotePage> {
   late final controller = QuillController(
       document: Document.fromDelta(ref.watch(editingNoteProvider).note.delta),
-      // document: Document.fromDelta(note.delta),
       selection: TextSelection(baseOffset: 0, extentOffset: 0));
+  final focusNode = FocusNode();
   Timer? timer;
-  // late final note = ref.read(editingNoteProvider).note;
 
   @override
   void dispose() {
     noteEmbedBlocks.clear();
     controller.dispose();
+    focusNode.dispose();
     timer?.cancel();
-    // note.content = controller.document.toNoteContent();
-    // note.modified = DateTime.now();
-    //note.save();
     super.dispose();
+  }
+
+  void startEditingListener() {
+    ref.read(editingNoteProvider.notifier).setEditing(true);
+    controller.removeListener(startEditingListener);
   }
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.addListener(startEditingListener);
       controller.document.changes.listen((data) {
         timer?.cancel();
         timer = Timer(Duration(seconds: 2), () async {
@@ -82,19 +85,19 @@ class _NotePageState extends ConsumerState<NotePage> {
             backgroundColor: note.backgroundColorByTheme(context),
             leading: IconButton(
                 onPressed: () {
-                  // if (ref.watch(editingNoteProvider).note.id.isNotEmpty &&
-                  //     !controller.readOnly) {
-                  //   setState(() {
-                  //     controller.document = originalNote.contentToDocument();
-                  //     controller.readOnly = true;
-                  //   });
-                  // } else {
-                  //   Navigator.pop(context);
-                  // }
                   Navigator.pop(context);
                 },
                 icon: const Icon(AppIcons.back, size: 25)),
-            actions: notePageAppbarActions(context: context, ref: ref, note: note, controller: controller, editing: editing),
+            actions: notePageAppbarActions(context: context, ref: ref, note: note, controller: controller, editing: editing, onSave: () {
+              note.modified = DateTime.now();
+              note.content = controller.document.toNoteContent();
+              note.save();
+              note.initTitles();
+              ref.read(notesProvider.notifier).insertNote(note);
+              ref.read(editingNoteProvider.notifier).setEditing(false);
+              controller.addListener(startEditingListener);
+              focusNode.unfocus();
+            }),
           ),
           body: Stack(
             children: [
@@ -106,6 +109,7 @@ class _NotePageState extends ConsumerState<NotePage> {
                   child: NoteEditor(
                     note: note,
                     controller: controller,
+                    focusNode: focusNode,
                   )),
               Positioned(
                 bottom: bottomPadding,

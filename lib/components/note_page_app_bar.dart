@@ -18,7 +18,8 @@ List<Widget> notePageAppbarActions(
     required WidgetRef ref,
     required Note note,
     required QuillController controller,
-    required bool editing}) {
+    required bool editing,
+    required void Function() onSave}) {
   if (!editing) {
     return [
       NoteEditorExportButton(controller: controller),
@@ -66,18 +67,7 @@ List<Widget> notePageAppbarActions(
       NoteEditorUndoButton(controller: controller),
       NoteEditorRedoButton(controller: controller),
       IconButton(
-          onPressed: () async {
-            if(note.id.isEmpty) {
-              note.id = await generatedNoteId();
-              note.created = DateTime.now();
-            }
-            note.modified = DateTime.now();
-            note.content = controller.document.toNoteContent();
-            note.save();
-            note.initTitles();
-            ref.read(notesProvider.notifier).insertNote(note);
-            Navigator.pop(context);
-          },
+          onPressed: onSave,
           icon: Icon(
             Icons.check_circle_outline,
             size: 25,
