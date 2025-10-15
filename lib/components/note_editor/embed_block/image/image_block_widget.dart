@@ -2,7 +2,7 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_image.dart';
-import 'package:notes/pages/image_page.dart';
+import 'package:notes/pages/image/image_page.dart';
 
 class ImageBlockWidget extends StatefulWidget {
   final String filename;
@@ -27,7 +27,7 @@ class _ImageBlockWidgetState extends State<ImageBlockWidget> {
              PageRouteBuilder(
                opaque: false,
                pageBuilder: (context, animation, secondaryAnimation) {
-                 return ImagePage(noteName: widget.noteId, imageFilename: widget.filename);
+                 return ImagePage(noteId: widget.noteId, filename: widget.filename);
                },
                transitionsBuilder:
                    (context, animation, secondaryAnimation, child) {
