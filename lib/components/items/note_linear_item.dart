@@ -1,21 +1,11 @@
-import 'package:amphi/utils/file_name_utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/note_image_rounded.dart';
-import 'package:notes/components/main/list_view/linear_item_border.dart';
-import 'package:notes/components/main/list_view/list_view_item.dart';
 import 'package:notes/extensions/date_extension.dart';
 
 import 'package:notes/models/note.dart';
-import 'package:notes/pages/main_page.dart';
-import 'package:notes/pages/note_page.dart';
-import 'package:notes/providers/editing_note_provider.dart';
-import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 
-import '../../models/app_storage.dart';
-import '../../icons/icons.dart';
 import '../../utils/note_item_press_callback.dart';
 
 class NoteLinearItem extends ConsumerWidget {
