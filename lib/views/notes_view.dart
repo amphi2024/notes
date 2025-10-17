@@ -21,13 +21,7 @@ class NotesView extends ConsumerStatefulWidget {
   ConsumerState<NotesView> createState() => _NotesViewState();
 }
 
-class _NotesViewState extends ConsumerState<NotesView>
-    with AutomaticKeepAliveClientMixin<NotesView> {
-  // ScrollController scrollController = ScrollController(initialScrollOffset: appState.noteListScrollPosition);
-  ScrollController scrollController = ScrollController();
-
-  @override
-  bool get wantKeepAlive => true;
+class _NotesViewState extends ConsumerState<NotesView> {
 
   Future<void> refresh() async {
     await Future.delayed(Duration(milliseconds: 1000));
@@ -35,22 +29,7 @@ class _NotesViewState extends ConsumerState<NotesView>
   }
 
   @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    scrollController.addListener(() {
-      // appState.noteListScrollPosition = scrollController.position.pixels;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     final notes = ref
         .watch(notesProvider)
         .notes;
@@ -59,17 +38,15 @@ class _NotesViewState extends ConsumerState<NotesView>
       return RefreshIndicator(
         onRefresh: refresh,
         child: ListView.builder(
-            // physics: AlwaysScrollableScrollPhysics(),
-            // controller: scrollController,
             itemCount: idList.length,
             itemBuilder: (context, index) {
               final id = idList[index];
               final note = notes.get(id);
-        
+
               final roundedTop = index == 0 || notes.get(idList[index - 1]).modified.difference(note.modified).inDays > 30 || note.modified.difference(notes.get(idList[index - 1]).modified).inDays > 30;
-        
+
               final roundBottom = index == idList.length - 1 || note.modified.difference(notes.get(idList[index + 1]).modified).inDays > 30 || notes.get(idList[index + 1]).modified.difference(note.modified).inDays > 30;
-        
+
               final itemWidget = note.isFolder ? FolderLinearItem(
                 note: note,
                 borderRadius: BorderRadius.only(
@@ -87,7 +64,7 @@ class _NotesViewState extends ConsumerState<NotesView>
                     bottomLeft: Radius.circular(roundBottom ? 15 : 0)),
                 showDivider: !roundBottom,
               );
-        
+
               if(roundedTop && appCacheData.shouldGroupNotes(widget.folder.id)) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,10 +83,10 @@ class _NotesViewState extends ConsumerState<NotesView>
                   ],
                 );
               }
-        
+
               return itemWidget;
             }
-        
+
         ),
       );
     } else {
@@ -117,7 +94,6 @@ class _NotesViewState extends ConsumerState<NotesView>
         double width = constraints.maxWidth;
         int axisCount = (width / 150).toInt();
         return MasonryGridView.builder(
-          controller: scrollController,
           itemCount: widget.idList.length,
           gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: axisCount),
           mainAxisSpacing: 16,
