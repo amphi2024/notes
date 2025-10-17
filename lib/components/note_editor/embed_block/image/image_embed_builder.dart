@@ -12,7 +12,6 @@ class ImageEmbedBuilder extends EmbedBuilder {
 
   @override
   Widget build(BuildContext context, EmbedContext embedContext) {
-    return ImageBlockWidget(noteId: note.id, filename: embedContext.node.value.data,
-        readOnly: embedContext.readOnly);
+    return ImageBlockWidget(noteId: note.id, filename: embedContext.node.value.data);
   }
 }
