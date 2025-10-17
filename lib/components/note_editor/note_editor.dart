@@ -100,7 +100,7 @@ class _NoteEditorState extends State<NoteEditor> {
           showCursor: !widget.controller.readOnly,
           embedBuilders: [
             ImageEmbedBuilder(widget.note),
-            VideoEmbedBuilder(),
+            VideoEmbedBuilder(widget.note),
             NoteTableEmbedBuilder(),
             SubNoteEmbedBuilder(),
             DividerEmbedBuilder(),

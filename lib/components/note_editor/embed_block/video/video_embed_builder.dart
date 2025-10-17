@@ -5,19 +5,20 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/note_editor/embed_block/video/video_player_widget.dart';
 
-class VideoEmbedBuilder extends EmbedBuilder {
+import '../../../../models/note.dart';
 
-  VideoEmbedBuilder();
+class VideoEmbedBuilder extends EmbedBuilder {
+  final Note note;
+  VideoEmbedBuilder(this.note);
 
   @override
   String get key => 'video';
 
   @override
   Widget build(BuildContext context, EmbedContext embedContext) {
-   return VideoPlayerWidget(
-     // noteFileNameOnly: FilenameUtils.nameOnly(appState.noteEditingController.note.filename),
-     noteFileNameOnly: "",
-     videoFilename: embedContext.node.value.data
+   return NoteVideo(
+     noteId: note.id,
+     filename: embedContext.node.value.data
    );
   }
 }

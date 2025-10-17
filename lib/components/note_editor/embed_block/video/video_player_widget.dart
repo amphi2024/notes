@@ -1,22 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:notes/utils/attachment_path.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPlayerWidget extends StatefulWidget {
-  static const int embedBlock = 0;
-  static const int view = 1;
-
-  final String videoFilename;
-  final int type;
-  final int position;
-  final String noteFileNameOnly;
-  const VideoPlayerWidget({super.key, required this.videoFilename, this.type = embedBlock, this.position = 0, required this.noteFileNameOnly});
+class NoteVideo extends StatefulWidget {
+  final String filename;
+  final String noteId;
+  const NoteVideo({super.key, required this.filename, required this.noteId});
 
   @override
-  State<VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
+  State<NoteVideo> createState() => _NoteVideoState();
 }
 
-class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
+class _NoteVideoState extends State<NoteVideo> {
   //  late VideoPlayerController videoPlayerController;
   //
   // late Future<void> initController;
@@ -287,7 +283,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   //   videoPlayerController.play();
   // }
 
-  late final controller = VideoPlayerController.file(File(widget.noteFileNameOnly));
+  late final controller = VideoPlayerController.file(File(noteVideoPath(widget.noteId, widget.filename)));
 
   @override
   Widget build(BuildContext context) {
