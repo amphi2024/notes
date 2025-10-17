@@ -197,7 +197,7 @@ class _ImagePageState extends State<ImagePage> with TickerProviderStateMixin {
                     duration: const Duration(milliseconds: 200),
                     curve: Curves.easeOut,
                     child: Hero(
-                      tag: widget.noteId,
+                      tag: widget.filename,
                       child: NoteImage(filename: widget.filename, noteId: widget.noteId),
                     ),
                   ),
