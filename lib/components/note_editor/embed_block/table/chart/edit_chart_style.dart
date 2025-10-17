@@ -1,32 +1,30 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/embed_block/table/table/table_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/providers/tables_provider.dart';
 
-class EditChartStyle extends StatefulWidget {
-  final TableData tableData;
-  final Map<String, dynamic> pageInfo;
-  final void Function(void Function()) onStyleChange;
-  const EditChartStyle({super.key, required this.tableData, required this.onStyleChange, required this.pageInfo});
+class EditChartStyle extends ConsumerWidget {
+  final int viewIndex;
+  final String tableId;
+  const EditChartStyle({super.key, required this.tableId, required this.viewIndex});
 
   @override
-  State<EditChartStyle> createState() => _EditChartStyleState();
-}
-
-class _EditChartStyleState extends State<EditChartStyle> {
-  @override
-  Widget build(BuildContext context) {
-
-    var items = List.generate(widget.tableData.data.first.length, (index) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tableData = ref.watch(tablesProvider)[tableId]!.data();
+    final viewInfo = tableData.views[viewIndex];
+    final items = List.generate(tableData.data.first.length, (index) {
       return DropdownMenuItem(
-        value: index,
+          value: index,
           child: Text((index + 1).toString())
       );
     });
 
     return Container(
       width: 250,
-      height: 120,
-      decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(10)),
+      height: 130,
+      decoration: BoxDecoration(color: Theme
+          .of(context)
+          .cardColor, borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
           Padding(
@@ -35,12 +33,8 @@ class _EditChartStyleState extends State<EditChartStyle> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(AppLocalizations.of(context).get("@editor_chart_ascending")),
-                Checkbox(value: widget.pageInfo["ascending"] ?? false, onChanged: (value) {
-                 setState(() {
-                   widget.onStyleChange(() {
-                     widget.pageInfo["ascending"] = value;
-                   });
-                 });
+                Checkbox(value: viewInfo["ascending"] ?? false, onChanged: (value) {
+                  ref.read(tablesProvider.notifier).updateView(tableId, viewIndex, "ascending", value);
                 })
               ],
             ),
@@ -52,15 +46,11 @@ class _EditChartStyleState extends State<EditChartStyle> {
               children: [
                 Text(AppLocalizations.of(context).get("@editor_chart_rows_to_show")),
                 DropdownButton<int>(
-                  value: widget.pageInfo["rowIndex"] ?? 0,
+                    value: viewInfo["rowIndex"] ?? 0,
                     items: items,
                     onChanged: (item) {
-                      if(item != null) {
-                        setState(() {
-                          widget.onStyleChange(() {
-                            widget.pageInfo["rowIndex"] = item;
-                          });
-                        });
+                      if (item != null) {
+                        ref.read(tablesProvider.notifier).updateView(tableId, viewIndex, "rowIndex", item);
                       }
                     })
               ],

@@ -16,6 +16,7 @@ import '../components/floating_button.dart';
 import '../components/main/floating_search_bar.dart';
 import '../components/titled_floating_button.dart';
 import '../components/main/floating_menu/floating_menu.dart';
+import '../providers/tables_provider.dart';
 import '../views/notes_view.dart';
 import '../icons/icons.dart';
 import '../models/note.dart';
@@ -117,9 +118,10 @@ class _MainPageState extends ConsumerState<MainPage> {
                     note.created = DateTime.now();
                     note.parentId = widget.folder.id;
                     ref.read(editingNoteProvider.notifier).startEditing(note, true);
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) {
+                    await Navigator.push(context, CupertinoPageRoute(builder: (context) {
                       return NotePage();
                     }));
+                    ref.read(tablesProvider.notifier).clear();
                   },
                 )),
             AnimatedPositioned(

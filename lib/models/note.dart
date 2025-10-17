@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:amphi/extensions/color_extension.dart';
 import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
+import 'package:amphi/utils/random_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
@@ -13,8 +14,10 @@ import 'package:notes/components/note_editor/embed_block/video/video_block_embed
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/database/note_queries.dart';
 import 'package:notes/extensions/note_extension.dart';
+import 'package:notes/models/table_data.dart';
 
 
+import '../components/note_editor/embed_block/table/note_table_block_embed.dart';
 import 'app_storage.dart';
 
 class Note {
@@ -35,6 +38,7 @@ class Note {
 
   bool isFolder = false;
   Delta delta = Delta();
+  Map<String, TableData> tables = {};
 
   Note({
     required this.id,
@@ -52,7 +56,7 @@ class Note {
     this.deleted,
     this.content = const []
   }) {
-    delta = contentToDelta();
+    initDelta();
   }
 
   Note.fromMap(Map<String, dynamic> data) : id = data["id"] {
@@ -72,7 +76,7 @@ class Note {
 
     if(!isFolder) {
       initTitles();
-      delta = contentToDelta();
+      initDelta();
     }
   }
 
@@ -80,92 +84,14 @@ class Note {
     return Note(id: "");
   }
 
-  Delta contentToDelta() {
-    Delta delta = Delta();
-    for (var item in content) {
-      switch (item["type"]) {
-        case "img":
-          BlockEmbed blockEmbed = BlockEmbed.custom(ImageBlockEmbed(item["value"]));
-          delta.insert(blockEmbed.toJson());
-          break;
-        case "video":
-          BlockEmbed blockEmbed = BlockEmbed.custom(VideoBlockEmbed(item["value"]));
-          delta.insert(blockEmbed.toJson());
-          break;
-        case "table":
-          // String tableKey = noteEmbedBlocks.generatedTableKey();
-          // noteEmbedBlocks.tables[tableKey] = TableData.fromContent(content);
-          // BlockEmbed blockEmbed = BlockEmbed.custom(NoteTableBlockEmbed(tableKey));
-          // delta.insert(blockEmbed.toJson());
-          // break;
-        case "note":
-          // Map<String, dynamic> subNoteData = item["value"];
-          //
-          // Note subNote = Note.subNote(this);
-          // subNote.title = subNoteData["title"] ?? "";
-          // for (dynamic data in subNoteData["contents"] ?? []) {
-          //   Map<String, dynamic> map = data;
-          //   subNote.content.add(Content(map));
-          // }
-          //
-          // String subNoteKey = noteEmbedBlocks.generatedSubNoteKey();
-          // noteEmbedBlocks.subNotes[subNoteKey] = NoteEditingController(note: subNote, readOnly: true);
-          // BlockEmbed blockEmbed = BlockEmbed.custom(SubNoteBlockEmbed(subNoteKey));
-          // delta.insert(blockEmbed.toJson());
-          //
-          // break;
-        // case "divider":
-        //   String dividerKey = noteEmbedBlocks.generatedDividerKey();
-        //   if (content.style != null) {
-        //     noteEmbedBlocks.dividers[dividerKey] = Color(content.style!["color"] ?? 0);
-        //   }
-        //   BlockEmbed divider = BlockEmbed.custom(DividerBlockEmbed(dividerKey));
-        //   delta.insert(divider.toJson());
-        //
-        //   break;
-        // case "view-pager":
-        //   String viewPagerKey = noteEmbedBlocks.generatedViewPagerKey();
-        //   noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData.fromContent(this, content);
-        //   BlockEmbed blockEmbed = BlockEmbed.custom(ViewPagerBlockEmbed(viewPagerKey));
-        //   delta.insert(blockEmbed.toJson());
-        //   break;
-        // case "file":
-        //   var key = noteEmbedBlocks.generatedFileKey();
-        //   noteEmbedBlocks.files[key] = FileInNote.fromContent(content);
-        //   BlockEmbed blockEmbed = BlockEmbed.custom(FileBlockEmbed(key));
-        //   delta.insert(blockEmbed.toJson());
-        //   break;
-        case "text":
-          if (item["value"] is String) {
-            // if(!item["value"].endsWith("\n")) {
-            //   item["value"] = item["value"] + "\n";
-            // }
-            // String text = item["value"];
-
-            delta.insert(item["value"], item["style"]);
-            break;
-          }
-
-
-        default:
-          // if(!item["value"].toString().endsWith("\n")) {
-          //   item["value"] = item["value"].toString() + "\n";
-          // }
-          delta.insert(item["value"].toString());
-
-          break;
-      }
+  String generatedKey(Map map) {
+    String key = randomString(9, 3);
+    if(map.containsKey(key)) {
+      return generatedKey(map);
     }
-
-    if (delta.isEmpty) {
-      delta.insert("\n");
+    else {
+      return key;
     }
-
-    if (!delta.last.data.toString().endsWith('\n')) {
-      delta.insert("\n");
-    }
-
-    return delta;
   }
 
   Future<void> delete({bool upload = true}) async {
@@ -386,7 +312,91 @@ class Note {
   }
 
   void initDelta() {
-    delta = contentToDelta();
+    delta = Delta();
+    tables.clear();
+    for (var item in content) {
+      switch (item["type"]) {
+        case "img":
+          BlockEmbed blockEmbed = BlockEmbed.custom(ImageBlockEmbed(item["value"]));
+          delta.insert(blockEmbed.toJson());
+          break;
+        case "video":
+          BlockEmbed blockEmbed = BlockEmbed.custom(VideoBlockEmbed(item["value"]));
+          delta.insert(blockEmbed.toJson());
+          break;
+        case "table":
+          final id = generatedKey(tables);
+
+          tables[id] = TableData.fromMap(item);
+          BlockEmbed blockEmbed = BlockEmbed.custom(NoteTableBlockEmbed(id));
+          delta.insert(blockEmbed.toJson());
+          break;
+        case "note":
+        // Map<String, dynamic> subNoteData = item["value"];
+        //
+        // Note subNote = Note.subNote(this);
+        // subNote.title = subNoteData["title"] ?? "";
+        // for (dynamic data in subNoteData["contents"] ?? []) {
+        //   Map<String, dynamic> map = data;
+        //   subNote.content.add(Content(map));
+        // }
+        //
+        // String subNoteKey = noteEmbedBlocks.generatedSubNoteKey();
+        // noteEmbedBlocks.subNotes[subNoteKey] = NoteEditingController(note: subNote, readOnly: true);
+        // BlockEmbed blockEmbed = BlockEmbed.custom(SubNoteBlockEmbed(subNoteKey));
+        // delta.insert(blockEmbed.toJson());
+        //
+        // break;
+        // case "divider":
+        //   String dividerKey = noteEmbedBlocks.generatedDividerKey();
+        //   if (content.style != null) {
+        //     noteEmbedBlocks.dividers[dividerKey] = Color(content.style!["color"] ?? 0);
+        //   }
+        //   BlockEmbed divider = BlockEmbed.custom(DividerBlockEmbed(dividerKey));
+        //   delta.insert(divider.toJson());
+        //
+        //   break;
+        // case "view-pager":
+        //   String viewPagerKey = noteEmbedBlocks.generatedViewPagerKey();
+        //   noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData.fromContent(this, content);
+        //   BlockEmbed blockEmbed = BlockEmbed.custom(ViewPagerBlockEmbed(viewPagerKey));
+        //   delta.insert(blockEmbed.toJson());
+        //   break;
+        // case "file":
+        //   var key = noteEmbedBlocks.generatedFileKey();
+        //   noteEmbedBlocks.files[key] = FileInNote.fromContent(content);
+        //   BlockEmbed blockEmbed = BlockEmbed.custom(FileBlockEmbed(key));
+        //   delta.insert(blockEmbed.toJson());
+        //   break;
+        case "text":
+          if (item["value"] is String) {
+            // if(!item["value"].endsWith("\n")) {
+            //   item["value"] = item["value"] + "\n";
+            // }
+            // String text = item["value"];
+
+            delta.insert(item["value"], item["style"]);
+            break;
+          }
+
+
+        default:
+        // if(!item["value"].toString().endsWith("\n")) {
+        //   item["value"] = item["value"].toString() + "\n";
+        // }
+          delta.insert(item["value"].toString());
+
+          break;
+      }
+    }
+
+    if (delta.isEmpty) {
+      delta.insert("\n");
+    }
+
+    if (!delta.last.data.toString().endsWith('\n')) {
+      delta.insert("\n");
+    }
   }
 
 }

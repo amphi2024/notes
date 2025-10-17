@@ -7,7 +7,6 @@ import 'package:notes/components/note_editor/note_editor_toolbar.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_page_app_bar.dart';
 import 'package:notes/icons/icons.dart';
-import 'package:notes/models/note.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
@@ -37,8 +36,10 @@ class _NotePageState extends ConsumerState<NotePage> {
   }
 
   void startEditingListener() {
-    ref.read(editingNoteProvider.notifier).setEditing(true);
-    controller.removeListener(startEditingListener);
+    if(controller.hasUndo) {
+      ref.read(editingNoteProvider.notifier).setEditing(true);
+      controller.removeListener(startEditingListener);
+    }
   }
 
   @override
@@ -49,9 +50,9 @@ class _NotePageState extends ConsumerState<NotePage> {
         timer?.cancel();
         timer = Timer(Duration(seconds: 2), () async {
           final note = ref.watch(editingNoteProvider).note;
-          note.content = controller.document.toNoteContent();
+          note.content = controller.document.toNoteContent(ref);
           note.modified = DateTime.now();
-          note.save();
+          note.save(upload: false);
         });
       });
     });
@@ -71,7 +72,7 @@ class _NotePageState extends ConsumerState<NotePage> {
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
         if(controller.hasUndo) {
-          note.content = controller.document.toNoteContent();
+          note.content = controller.document.toNoteContent(ref);
           note.modified = DateTime.now();
           note.initTitles();
           note.save();
@@ -90,9 +91,10 @@ class _NotePageState extends ConsumerState<NotePage> {
                 icon: const Icon(AppIcons.back, size: 25)),
             actions: notePageAppbarActions(context: context, ref: ref, note: note, controller: controller, editing: editing, onSave: () {
               note.modified = DateTime.now();
-              note.content = controller.document.toNoteContent();
+              note.content = controller.document.toNoteContent(ref);
               note.save();
               note.initTitles();
+              note.initDelta();
               ref.read(notesProvider.notifier).insertNote(note);
               ref.read(editingNoteProvider.notifier).setEditing(false);
               controller.addListener(startEditingListener);

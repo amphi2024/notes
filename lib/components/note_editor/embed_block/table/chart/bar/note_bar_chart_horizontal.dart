@@ -1,20 +1,20 @@
 import 'package:amphi/models/app.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/embed_block/table/table/note_table_block.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/models/table_data.dart';
+import 'package:notes/providers/tables_provider.dart';
 
-class NoteBarChartHorizontal extends NoteTableBlock {
-  const NoteBarChartHorizontal(
-      {super.key,
-      required super.readOnly,
-      required super.tableData,
-      required super.pageInfo, required super.removePage});
+class NoteBarChartHorizontal extends ConsumerStatefulWidget {
+  final String tableId;
+  final int viewIndex;
+  const NoteBarChartHorizontal({super.key, required this.tableId, required this.viewIndex});
 
   @override
-  State<NoteBarChartHorizontal> createState() => _NoteBarChartState();
+  ConsumerState<NoteBarChartHorizontal> createState() => _NoteBarChartState();
 }
 
-class _NoteBarChartState extends State<NoteBarChartHorizontal> {
+class _NoteBarChartState extends ConsumerState<NoteBarChartHorizontal> {
   ScrollController scrollController = ScrollController();
 
   @override
@@ -27,29 +27,28 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
   Widget build(BuildContext context) {
     List<BarChartGroupData> barGroups = [];
 
-    Map<String, dynamic> map = widget.tableData.toChartDataMap(widget.pageInfo);
+    final tableData = ref.watch(tablesProvider)[widget.tableId]!.data();
+    Map<String, dynamic> map = chartViewData(tableData, widget.viewIndex);
     double width = map.length * 100;
     double bottomLabelSize = 50;
 
-    if(map.length < 5) {
+    if (map.length < 5) {
       width = map.length * 200;
     }
 
     for (int i = 0; i < map.keys.length; i++) {
       String title = map.keys.elementAt(i);
-      if(title.length > 10) {
+      if (title.length > 10) {
         bottomLabelSize = 90;
       }
-      if(title.length > 15) {
+      if (title.length > 15) {
         bottomLabelSize = 120;
       }
-      if(title.length > 20) {
+      if (title.length > 20) {
         bottomLabelSize = 150;
       }
 
-
-      BarChartGroupData barChartGroupData = BarChartGroupData(x: i,
-          barRods: [
+      BarChartGroupData barChartGroupData = BarChartGroupData(x: i, barRods: [
         BarChartRodData(
           toY: map[title]!,
           color: Theme.of(context).highlightColor,
@@ -66,8 +65,6 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
       barGroups.add(barChartGroupData);
     }
 
-
-
     FlTitlesData titlesData = FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
@@ -76,18 +73,18 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
             getTitlesWidget: (double value, TitleMeta meta) {
               String text = map.keys.elementAt(value.toInt());
               return SideTitleWidget(
-                  child: SizedBox(
-                      width: 100,
-                      height: bottomLabelSize,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          text,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 5,
-                          textAlign: TextAlign.center,
-                        ),
-                      )),
+                child: SizedBox(
+                    width: 100,
+                    height: bottomLabelSize,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        text,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 5,
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
                 meta: meta,
               );
             },
@@ -113,25 +110,16 @@ class _NoteBarChartState extends State<NoteBarChartHorizontal> {
             child: barGroups.isNotEmpty
                 ? Padding(
                     padding: const EdgeInsets.only(top: 80),
-                    child: BarChart(
-                        BarChartData(
+                    child: BarChart(BarChartData(
                         barTouchData: BarTouchData(
                           enabled: false,
-                            touchTooltipData: BarTouchTooltipData(
-                              getTooltipItem: (group, groupIndex, rod, rodIndex) => BarTooltipItem(rod.toY.toStringAsFixed(0), TextStyle(
-                                color: Theme.of(context).highlightColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold
-                              )),
-                                getTooltipColor: (group) =>
-                                    Colors.transparent),
-
+                          touchTooltipData: BarTouchTooltipData(
+                              getTooltipItem: (group, groupIndex, rod, rodIndex) => BarTooltipItem(rod.toY.toStringAsFixed(0),
+                                  TextStyle(color: Theme.of(context).highlightColor, fontSize: 14, fontWeight: FontWeight.bold)),
+                              getTooltipColor: (group) => Colors.transparent),
                         ),
                         borderData: FlBorderData(
-                            border: Border(
-                                left: BorderSide(color: themeData.dividerColor),
-                                bottom:
-                                    BorderSide(color: themeData.dividerColor))),
+                            border: Border(left: BorderSide(color: themeData.dividerColor), bottom: BorderSide(color: themeData.dividerColor))),
                         gridData: FlGridData(show: false),
                         barGroups: barGroups,
                         titlesData: titlesData)),

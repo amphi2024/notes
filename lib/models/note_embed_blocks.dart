@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:amphi/utils/random_string.dart';
-import 'package:notes/components/note_editor/embed_block/table/table/table_data.dart';
+import 'package:notes/models/table_data.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 import 'package:notes/models/file_in_note.dart';

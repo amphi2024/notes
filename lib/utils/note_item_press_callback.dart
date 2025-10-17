@@ -6,8 +6,10 @@ import '../pages/main_page.dart';
 import '../pages/note_page.dart';
 import '../providers/editing_note_provider.dart';
 import '../providers/notes_provider.dart';
+import '../providers/tables_provider.dart';
 
-void onNotePressed(Note note, BuildContext context, WidgetRef ref) {
+void onNotePressed(Note note, BuildContext context, WidgetRef ref) async {
+  ref.read(tablesProvider.notifier).setTables(note.tables);
   ref.read(editingNoteProvider.notifier).startEditing(note, false);
   Navigator.push(context, CupertinoPageRoute(builder: (context) {
     return NotePage();

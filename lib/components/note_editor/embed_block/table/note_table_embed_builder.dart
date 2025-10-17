@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:notes/components/note_editor/embed_block/table/note_table_widget.dart';
+import 'package:notes/components/note_editor/embed_block/table/note_table_view.dart';
 
 class NoteTableEmbedBuilder extends EmbedBuilder {
 
@@ -11,7 +11,7 @@ class NoteTableEmbedBuilder extends EmbedBuilder {
 
   @override
   Widget build(BuildContext context, EmbedContext embedContext) {
-    return NoteTableWidget(tableKey: embedContext.node.value.data, readOnly: embedContext.readOnly);
+    return NoteTableView(tableId: embedContext.node.value.data, readOnly: true);
   }
 
 }

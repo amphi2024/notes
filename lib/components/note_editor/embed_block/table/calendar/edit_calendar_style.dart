@@ -1,26 +1,19 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/embed_block/table/table/table_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/providers/tables_provider.dart';
 
-class EditCalenderStyle extends StatefulWidget {
+class EditCalenderStyle extends ConsumerWidget {
+  final String tableId;
+  final int viewIndex;
 
-  final TableData tableData;
-  final Map<String, dynamic> pageInfo;
-  final void Function(void Function()) onStyleChange;
-  const EditCalenderStyle({super.key, required this.tableData, required this.pageInfo, required this.onStyleChange});
-
-  @override
-  State<EditCalenderStyle> createState() => _EditCalenderStyleState();
-}
-
-class _EditCalenderStyleState extends State<EditCalenderStyle> {
-
-
+  const EditCalenderStyle({super.key, required this.viewIndex, required this.tableId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tableData = ref.watch(tablesProvider)[tableId]!.data();
 
-    var items = List.generate(widget.tableData.data.first.length, (index) {
+    final items = List.generate(tableData.data.first.length, (index) {
       return DropdownMenuItem(
           value: index,
           child: Text((index + 1).toString())
@@ -30,7 +23,9 @@ class _EditCalenderStyleState extends State<EditCalenderStyle> {
     return Container(
       width: 250,
       height: 130,
-      decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: Theme
+          .of(context)
+          .cardColor, borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
           Padding(
@@ -40,15 +35,11 @@ class _EditCalenderStyleState extends State<EditCalenderStyle> {
               children: [
                 Text(AppLocalizations.of(context).get("@editor_calendar_rows_to_show")),
                 DropdownButton<int>(
-                    value: widget.pageInfo["rowIndex"] ?? 0,
+                    value: tableData.views[viewIndex]["rowIndex"] ?? 0,
                     items: items,
                     onChanged: (item) {
-                      if(item != null) {
-                        setState(() {
-                          widget.onStyleChange(() {
-                            widget.pageInfo["rowIndex"] = item;
-                          });
-                        });
+                      if (item != null) {
+                        ref.read(tablesProvider.notifier).updateView(tableId, viewIndex, "rowIndex", item);
                       }
                     })
               ],
@@ -61,15 +52,11 @@ class _EditCalenderStyleState extends State<EditCalenderStyle> {
               children: [
                 Text(AppLocalizations.of(context).get("@editor_calendar_rows_for_date")),
                 DropdownButton<int>(
-                    value: widget.pageInfo["dateRowIndex"] ?? 0,
+                    value: tableData.views[viewIndex]["dateRowIndex"] ?? 0,
                     items: items,
                     onChanged: (item) {
-                      if(item != null) {
-                        setState(() {
-                          widget.onStyleChange(() {
-                            widget.pageInfo["dateRowIndex"] = item;
-                          });
-                        });
+                      if (item != null) {
+                        ref.read(tablesProvider.notifier).updateView(tableId, viewIndex, "dateRowIndex", item);
                       }
                     })
               ],

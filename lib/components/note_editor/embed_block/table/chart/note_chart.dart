@@ -1,27 +1,23 @@
 import 'package:amphi/models/app.dart';
 import 'package:amphi/widgets/menu/popup/custom_popup_menu_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/note_editor/embed_block/table/chart/edit_chart_style.dart';
 import 'package:notes/components/note_editor/embed_block/table/chart/bar/note_bar_chart_horizontal.dart';
-import 'package:notes/components/note_editor/embed_block/table/table/note_table_block.dart';
+import 'package:notes/providers/tables_provider.dart';
 
-class NoteChartBlock extends NoteTableBlock {
-  const NoteChartBlock({super.key, required super.readOnly, required super.tableData, required super.pageInfo, required super.removePage});
+class NoteChart extends ConsumerWidget {
+
+  final bool readOnly;
+  final String tableId;
+  final int viewIndex;
+  const NoteChart({super.key, required this.readOnly, required this.tableId, required this.viewIndex});
 
   @override
-  State<NoteChartBlock> createState() => _NoteChartState();
-}
-
-class _NoteChartState extends State<NoteChartBlock> {
-  @override
-  Widget build(BuildContext context) {
-    Widget chartWidget = NoteBarChartHorizontal(readOnly: widget.readOnly, tableData: widget.tableData, pageInfo: widget.pageInfo, removePage: () {  },);
-    var editBarChartStyle = EditChartStyle(
-      tableData: widget.tableData,
-      onStyleChange: (function) {
-        setState(function);
-      },
-      pageInfo: widget.pageInfo,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final editBarChartStyle = EditChartStyle(
+      tableId: tableId,
+      viewIndex: viewIndex
     );
 
     return Column(
@@ -29,12 +25,11 @@ class _NoteChartState extends State<NoteChartBlock> {
         Align(
           alignment: Alignment.topRight,
           child: Visibility(
-              visible: !widget.readOnly,
+              visible: !readOnly,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(icon: Icon(Icons.more_horiz), onPressed: () {
-
                     if(App.isWideScreen(context)) {
                       final RenderBox button = context.findRenderObject() as RenderBox;
                       final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
@@ -57,12 +52,12 @@ class _NoteChartState extends State<NoteChartBlock> {
                     }
                   }),
                   IconButton(onPressed: () {
-                    widget.removePage!();
+                    ref.read(tablesProvider.notifier).removeView(tableId, viewIndex);
                   }, icon: Icon(Icons.remove))
                 ],
               )),
         ),
-        chartWidget
+        NoteBarChartHorizontal(tableId: tableId, viewIndex: viewIndex)
       ],
     );
   }

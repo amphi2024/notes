@@ -1,29 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/components/note_editor/embed_block/table/calendar/note_calendar_page.dart';
-
-TableCell noteCalendarCell({required NoteCalendarPage widget, required DateTime dateTime, required int startingIndex, required double height}) {
-
-    int titleIndex = widget.pageInfo["rowIndex"] ?? 0;
-    int dateIndex = widget.pageInfo["dateRowIndex"] ?? 0;
-
-    List<String> events = [];
-
-    widget.tableData.data.forEach((list) {
-      if(list[dateIndex]["date"] is int && list[titleIndex]["text"] is String) {
-        DateTime dateOfEvent = DateTime.fromMillisecondsSinceEpoch(list[dateIndex]["date"]).toLocal();
-        if(dateOfEvent.day == dateTime.day && dateOfEvent.year == dateTime.year && dateOfEvent.month == dateTime.month) {
-          events.add(list[titleIndex]["text"]);
-        }
-      }
-    });
-    bool dayOff = false;
-    if(dateTime.weekday > 5) {
-      dayOff = true;
-    }
-
-    return TableCell(child: _DayWidget(day: dateTime.day, events: events, height: height, isDayOff:  dayOff,));
-
-}
+import 'package:notes/components/note_editor/embed_block/table/calendar/note_calendar_view.dart';
 
 
 class _DayWidget extends StatelessWidget {
