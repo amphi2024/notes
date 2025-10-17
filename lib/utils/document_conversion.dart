@@ -2,108 +2,81 @@ import 'dart:convert';
 
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/providers/tables_provider.dart';
+
+typedef EmbedHandler = Map<String, dynamic> Function(Map<String, dynamic> data, WidgetRef ref);
+
+final embedHandlers = <String, EmbedHandler>{
+  "image": (blockData, ref) => {
+    "value": PathUtils.basename(blockData["image"]),
+    "type": "img",
+  },
+  "video": (blockData, ref) => {
+    "value": PathUtils.basename(blockData["video"]),
+    "type": "video",
+  },
+  "table": (blockData, ref) {
+    final key = blockData["table"];
+    final tableData = ref.watch(tablesProvider)[key]!.data();
+    return {
+      "value": tableData.data,
+      "type": "table",
+      "style": {"views": tableData.views},
+    };
+  },
+  // "note": (blockData, ref) {
+  //   final key = blockData["note"];
+  //   final subNote = noteEmbedBlocks.getSubNote(key);
+  //   return {
+  //     "value": {
+  //       "title": subNote.note.title,
+  //       "contents": subNote.getNote().contentsToMap(),
+  //     },
+  //     "type": "note",
+  //   };
+  // },
+  // "divider": (blockData, ref) {
+  //   final key = blockData["divider"];
+  //   final color = noteEmbedBlocks.dividers[key];
+  //   return {
+  //     "type": "divider",
+  //     "style": color != null ? {"color": color.value} : null,
+  //   };
+  // },
+  // "file": (blockData, ref) {
+  //   final key = blockData["file"];
+  //   final file = noteEmbedBlocks.getFile(key);
+  //   return file.toContent();
+  // },
+};
 
 extension DocumentConversion on Document {
-  List<Map<String, dynamic>> toNoteContent() {
+  List<Map<String, dynamic>> toNoteContent(WidgetRef ref) {
     List<Map<String, dynamic>> content = [];
 
-    for(var operation in toDelta().toList()) {
-      // switch(operation.value.runtimeType) {
-      //   case Map:
-      //     print(operation.value["custom"]);
-      //   case String:
-      //     content.add({"value": operation.value, "type": "text", "style": operation.attributes});
-      //   default:
-      //     print(operation.value.runtimeType);
-      // }
-          if (operation.value is String) {
-      content.add({"value": operation.value, "type": "text", "style": operation.attributes});
-    } else {
-      Map<String, dynamic> blockData = jsonDecode(operation.value["custom"]);
-      if (blockData.containsKey("image")) {
-        String path = blockData["image"];
-        content.add({"value": PathUtils.basename(path), "type": "img"});
-      } else if (blockData.containsKey("video")) {
-        String path = blockData["video"];
-        content.add({"value": PathUtils.basename(path), "type": "video"});
+    for (var operation in toDelta().toList()) {
+      final value = operation.value;
+      if (value is String) {
+        content.add({
+          "value": value,
+          "type": "text",
+          "style": operation.attributes,
+        });
+        continue;
       }
-      // else if (blockData.containsKey("table")) {
-      //   String key = blockData["table"];
-      //   TableData tableData = noteEmbedBlocks.getTable(key);
-      //
-      //   content.add({"value": tableData.data, "type": "table", "style": {
-      //     "pages": tableData.pages,
-      //   }));
-      // } else if (blockData.containsKey("note")) {
-      //   String key = blockData["note"];
-      //   content.add({
-      //       "value": {"title": noteEmbedBlocks.getSubNote(key).note.title, "contents": noteEmbedBlocks.getSubNote(key).getNote().contentsToMap()},
-      //       "type": "note"});
-      // } else if (blockData.containsKey("divider")) {
-      //   String key = blockData["divider"];
-      //   Color? color = noteEmbedBlocks.dividers[key];
-      //   if (color != null) {
-      //     content.add({"type": "divider", "style": {"color": color.value}});
-      //   } else {
-      //     content.add({"type": "divider", "value": null, "style": null});
-      //   }
-      // }
-      // else if(blockData.containsKey("file")) {
-      //   String key = blockData["file"];
-      //   var fileModel = noteEmbedBlocks.getFile(key);
-      //   content.add(fileModel.toContent());
-      // }
-    }
+
+      final blockData = jsonDecode(value["custom"]) as Map<String, dynamic>;
+      final key = blockData.keys.first;
+      final handler = embedHandlers[key];
+
+      if (handler != null) {
+        content.add(handler(blockData, ref));
+      } else {
+        //print("Unknown embed type: $key");
+      }
     }
 
     return content;
   }
 }
-// Note getNote() {
-//   content = [];
-//   for (Operation operation in document.toDelta().toList()) {
-//     if (operation.value is String) {
-//       content.add({"value": operation.value, "type": "text", "style": operation.attributes));
-//     } else {
-//       Map<String, dynamic> blockData = jsonDecode(operation.value["custom"]);
-//       if (blockData.containsKey("image")) {
-//         String path = blockData["image"];
-//         content.add({"value": PathUtils.basename(path), "type": "img"));
-//       } else if (blockData.containsKey("video")) {
-//         String path = blockData["video"];
-//         content.add({"value": PathUtils.basename(path), "type": "video"));
-//       } else if (blockData.containsKey("table")) {
-//         String key = blockData["table"];
-//         TableData tableData = noteEmbedBlocks.getTable(key);
-//
-//         content.add({"value": tableData.data, "type": "table", "style": {
-//           "pages": tableData.pages,
-//         }));
-//       } else if (blockData.containsKey("note")) {
-//         String key = blockData["note"];
-//         content.add({
-//             "value": {"title": noteEmbedBlocks.getSubNote(key).note.title, "contents": noteEmbedBlocks.getSubNote(key).getNote().contentsToMap()},
-//             "type": "note"));
-//       } else if (blockData.containsKey("divider")) {
-//         String key = blockData["divider"];
-//         Color? color = noteEmbedBlocks.dividers[key];
-//         if (color != null) {
-//           content.add({"type": "divider", "style": {"color": color.value}));
-//         } else {
-//           content.add({"type": "divider", "value": null, "style": null));
-//         }
-//       } else if (blockData.containsKey("view-pager")) {
-//         String key = blockData["view-pager"];
-//         ViewPagerData viewPagerData = noteEmbedBlocks.getViewPager(key);
-//         content.add(viewPagerData.to{));
-//       }
-//       else if(blockData.containsKey("file")) {
-//         String key = blockData["file"];
-//         var fileModel = noteEmbedBlocks.getFile(key);
-//         content.add(fileModel.to{));
-//       }
-//     }
-//   }
-//
-//   return note;
-// }
