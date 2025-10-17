@@ -18,12 +18,12 @@ class AppCacheData extends AppCacheDataCore {
         return option;
       }
       else {
-        return SortOption.created;
+        return SortOption.modified;
       }
     }
     else {
       data["sortOption"] = <String, dynamic>{};
-      return SortOption.created;
+      return SortOption.modified;
     }
   }
 
