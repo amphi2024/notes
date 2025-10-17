@@ -1,11 +1,7 @@
 import 'package:amphi/models/update_event.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/database/database_helper.dart';
 import 'package:notes/providers/notes_provider.dart';
-import 'package:sqflite/sqflite.dart';
-
-import 'notes_migration.dart';
 
 void refreshDataWithServer(WidgetRef ref) {
   appWebChannel.getNotes(onSuccess: (list) async {
@@ -36,8 +32,33 @@ void syncDataWithServer(WidgetRef ref) {
 
 Future<void> applyUpdateEvent(UpdateEvent updateEvent, WidgetRef ref) async {
   switch(updateEvent.action) {
+    case UpdateEvent.uploadNote:
+      await appWebChannel.downloadNote(id: updateEvent.value, onSuccess: (note) async {
+        await note.save(upload: false);
+        note.initTitles();
 
+        final originalNote = ref.watch(notesProvider).notes.get(updateEvent.value);
+        if(originalNote.deleted == null && note.deleted != null) {
+          ref.read(notesProvider.notifier).moveNotesToTrash(note.parentId, [note.id]);
+        }
+        else if(originalNote.deleted != null && note.deleted == null) {
+          ref.read(notesProvider.notifier).restoreNotes([note.id]);
+        }
+        else {
+          ref.read(notesProvider.notifier).insertNote(note);
+        }
+      });
+      break;
+    case UpdateEvent.deleteNote:
+
+      break;
+    case UpdateEvent.uploadTheme:
+      break;
+    case UpdateEvent.deleteTheme:
+      break;
+    case UpdateEvent.renameUser:
+      break;
   }
 
-  //appWebChannel.acknowledgeEvent(updateEvent);
+  appWebChannel.acknowledgeEvent(updateEvent);
 }
