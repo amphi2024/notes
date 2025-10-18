@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/note_editor/embed_block/table/buttons/table_edit_button.dart';
 
 import '../../../../../providers/editing_note_provider.dart';
-import '../../video/video_player_widget.dart';
+import '../../video/note_video.dart';
 
 class TableVideo extends ConsumerWidget {
   final String filename;

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:notes/components/note_editor/embed_block/video/video_player_widget.dart';
+import 'package:notes/components/note_editor/embed_block/video/note_video.dart';
 
 import '../../../../models/note.dart';
 
