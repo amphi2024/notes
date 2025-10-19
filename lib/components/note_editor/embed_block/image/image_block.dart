@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/note_image.dart';
 import 'package:notes/pages/image/image_page.dart';
 
-class ImageBlockWidget extends StatefulWidget {
+class ImageBlock extends StatefulWidget {
   final String filename;
   final String noteId;
-  const ImageBlockWidget({super.key, required this.filename, required this.noteId});
+  const ImageBlock({super.key, required this.filename, required this.noteId});
 
   @override
-  State<ImageBlockWidget> createState() => _ImageBlockWidgetState();
+  State<ImageBlock> createState() => _ImageBlockState();
 }
 
-class _ImageBlockWidgetState extends State<ImageBlockWidget> {
+class _ImageBlockState extends State<ImageBlock> {
   @override
   Widget build(BuildContext context) {
      return Align(
        alignment: Alignment.centerLeft,
        child: GestureDetector(
-         onLongPress: () {},
          onTap: () {
            Focus.of(context).unfocus();
            Navigator.of(context).push(

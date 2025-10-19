@@ -3,16 +3,16 @@ import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:notes/utils/attachment_path.dart';
 
-class NoteVideo extends StatefulWidget {
+class VideoBlock extends StatefulWidget {
   final String filename;
   final String noteId;
-  const NoteVideo({super.key, required this.filename, required this.noteId});
+  const VideoBlock({super.key, required this.filename, required this.noteId});
 
   @override
-  State<NoteVideo> createState() => _NoteVideoState();
+  State<VideoBlock> createState() => _VideoBlockState();
 }
 
-class _NoteVideoState extends State<NoteVideo> {
+class _VideoBlockState extends State<VideoBlock> {
 
   late final Player player;
   late final VideoController controller;

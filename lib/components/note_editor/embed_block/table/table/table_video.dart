@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/note_editor/embed_block/table/buttons/table_edit_button.dart';
 
 import '../../../../../providers/editing_note_provider.dart';
-import '../../video/note_video.dart';
+import '../../video/video_block.dart';
 
 class TableVideo extends ConsumerWidget {
   final String filename;
@@ -17,7 +17,7 @@ class TableVideo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final noteId = ref.read(editingNoteProvider).note.id;
     if (readOnly) {
-      return Padding(padding: EdgeInsets.all(7.5), child: NoteVideo(filename: filename, noteId: noteId));
+      return Padding(padding: EdgeInsets.all(7.5), child: VideoBlock(filename: filename, noteId: noteId));
     }
 
     return Padding(
@@ -25,7 +25,7 @@ class TableVideo extends ConsumerWidget {
       child: Column(
         children: [
           TableEditButton(colIndex: colIndex, rowIndex: rowIndex, tableId: tableId),
-          NoteVideo(filename: filename, noteId: noteId),
+          VideoBlock(filename: filename, noteId: noteId),
         ],
       ),
     );

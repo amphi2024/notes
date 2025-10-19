@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:notes/components/note_editor/embed_block/image/image_block_widget.dart';
+import 'package:notes/components/note_editor/embed_block/image/image_block.dart';
 import 'package:notes/models/note.dart';
 
 class ImageEmbedBuilder extends EmbedBuilder {
@@ -12,6 +12,6 @@ class ImageEmbedBuilder extends EmbedBuilder {
 
   @override
   Widget build(BuildContext context, EmbedContext embedContext) {
-    return ImageBlockWidget(noteId: note.id, filename: embedContext.node.value.data);
+    return ImageBlock(noteId: note.id, filename: embedContext.node.value.data);
   }
 }

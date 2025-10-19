@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../providers/editing_note_provider.dart';
 import '../buttons/table_edit_button.dart';
-import '../../image/image_block_widget.dart';
+import '../../image/image_block.dart';
 
 class TableImage extends ConsumerWidget {
   final String filename;
@@ -21,7 +21,7 @@ class TableImage extends ConsumerWidget {
     if (readOnly) {
       return Padding(
           padding: EdgeInsets.all(7.5),
-          child: ImageBlockWidget(
+          child: ImageBlock(
             noteId: noteId,
             filename: filename
           ));
@@ -32,7 +32,7 @@ class TableImage extends ConsumerWidget {
       child: Column(
         children: [
           TableEditButton(tableId: tableId, rowIndex: rowIndex, colIndex: colIndex),
-          ImageBlockWidget(
+          ImageBlock(
               noteId: noteId,
               filename: filename
           )
