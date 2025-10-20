@@ -17,6 +17,8 @@ import '../components/main/floating_search_bar.dart';
 import '../components/titled_floating_button.dart';
 import '../components/main/floating_menu/floating_menu.dart';
 import '../providers/tables_provider.dart';
+import '../services/audio_service.dart';
+import '../services/videos_service.dart';
 import '../views/notes_view.dart';
 import '../icons/icons.dart';
 import '../models/note.dart';
@@ -117,6 +119,8 @@ class _MainPageState extends ConsumerState<MainPage> {
                     var note = Note(id: await generatedNoteId());
                     note.created = DateTime.now();
                     note.parentId = widget.folder.id;
+                    videosService.noteId = note.id;
+                    audioService.noteId = note.id;
                     ref.read(editingNoteProvider.notifier).startEditing(note, true);
                     await Navigator.push(context, CupertinoPageRoute(builder: (context) {
                       return NotePage();
