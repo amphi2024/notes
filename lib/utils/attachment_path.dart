@@ -13,3 +13,11 @@ String noteImagePath(String id, String filename) {
 String noteVideoPath(String id, String filename) {
   return PathUtils.join(appStorage.attachmentsPath, id[0], id[1] , id, "videos", filename);
 }
+
+String noteAudioPath(String id, String filename) {
+  return PathUtils.join(appStorage.attachmentsPath, id[0], id[1] , id, "audio", filename);
+}
+
+String noteAttachmentPath(String id, String filename, String directoryName) {
+  return PathUtils.join(appStorage.attachmentsPath, id[0], id[1] , id, directoryName, filename);
+}

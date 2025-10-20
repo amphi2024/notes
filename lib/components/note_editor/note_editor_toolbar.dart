@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_audio_button.dart';
 import 'toolbar/note_editor_divider_button.dart';
 import 'toolbar/note_editor_edit_detail_button.dart';
 import 'toolbar/note_editor_file_button.dart';
 import 'toolbar/note_editor_image_button.dart';
-import 'toolbar/note_editor_sub_note_button.dart';
 import 'toolbar/note_editor_table_button.dart';
 import 'toolbar/note_editor_text_style_button.dart';
 import 'toolbar/note_editor_video_button.dart';
@@ -55,7 +55,7 @@ List<Widget> noteEditorToolbarButtons(QuillController controller) {
     NoteEditorTableButton(controller: controller),
     NoteEditorFileButton(controller: controller),
     NoteEditorVideoButton(controller: controller),
-    NoteEditorSubNoteButton(controller: controller),
+    NoteEditorAudioButton(controller: controller),
     NoteEditorDividerButton(controller: controller),
     NoteEditorEditDetailButton(controller: controller)
   ];

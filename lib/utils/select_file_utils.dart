@@ -41,6 +41,19 @@ Future<File?> selectedVideoFile(String noteId) async {
   }
 }
 
+Future<List<File>> selectedAudioFiles(String noteId) async {
+  final result = await FilePicker.platform.pickFiles(type: FileType.audio, allowMultiple: true);
+  List<File> list = [];
+  if (result?.files.isNotEmpty ?? false) {
+    for(var file in result!.files) {
+      list.add(await createdAudioFile(noteId, file.path!));
+    }
+  }
+
+  return list;
+
+}
+
 Future<File> createdFileWithBase64(String id, String base64, String fileExtension ,String directoryName) async {
   Directory directory = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], directoryName));
   if (!directory.existsSync()) {
@@ -74,6 +87,10 @@ Future<File> createdImageFile(String id, String originalPath) async => createdFi
 
 Future<File> createdVideoFile(String id, String originalPath) async => createdFile(id, originalPath, "videos");
 
+Future<File> createdAudioFile(String id, String originalPath) async => createdFile(id, originalPath, "audio");
+
 Future<File> createdImageFileWithBase64(String id, String base64, String fileExtension) async => createdFileWithBase64(id, base64, fileExtension , "images");
 
 Future<File> createdVideoFileWithBase64(String id,String base64, String fileExtension) async => createdFileWithBase64(id, base64, fileExtension , "videos");
+
+Future<File> createdAudioFileWithBase64(String id,String base64, String fileExtension) async => createdFileWithBase64(id, base64, fileExtension , "audio");

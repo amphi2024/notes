@@ -6,11 +6,12 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/note_editor/embed_block/divider/divider_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/file/file_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_embed_builder.dart';
-import 'package:notes/components/note_editor/embed_block/sub_note/sub_note_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/table/note_table_embed_builder.dart';
 import 'package:notes/components/note_editor/embed_block/video/video_embed_builder.dart';
 import 'package:notes/components/note_editor/note_editor_check_box_builder.dart';
 import 'package:notes/models/note.dart';
+
+import 'embed_block/audio/audio_embed_builder.dart';
 
 class NoteEditor extends StatefulWidget {
 
@@ -102,7 +103,7 @@ class _NoteEditorState extends State<NoteEditor> {
             ImageEmbedBuilder(widget.note),
             VideoEmbedBuilder(widget.note),
             NoteTableEmbedBuilder(),
-            SubNoteEmbedBuilder(),
+            AudioEmbedBuilder(widget.note),
             DividerEmbedBuilder(),
             FileEmbedBuilder()
           ],

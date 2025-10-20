@@ -49,6 +49,10 @@ final embedHandlers = <String, EmbedHandler>{
   //   final file = noteEmbedBlocks.getFile(key);
   //   return file.toContent();
   // },
+  "audio": (blockData, ref) => {
+    "value": PathUtils.basename(blockData["audio"]),
+    "type": "audio"
+  }
 };
 
 extension DocumentConversion on Document {
