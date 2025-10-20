@@ -17,7 +17,6 @@ import 'package:notes/database/note_queries.dart';
 import 'package:notes/extensions/note_extension.dart';
 import 'package:notes/models/table_data.dart';
 
-
 import '../components/note_editor/embed_block/table/note_table_block_embed.dart';
 import 'app_storage.dart';
 
@@ -41,29 +40,28 @@ class Note {
   Delta delta = Delta();
   Map<String, TableData> tables = {};
 
-  Note({
-    required this.id,
-    this.title = "",
-    this.subtitle = "",
-    this.longSubtitle = "",
-    this.thumbnailImageFilename,
-    this.backgroundColor,
-    this.textColor,
-    this.textSize,
-    this.lineHeight,
-    this.parentId = "",
-    DateTime? modified,
-    DateTime? created,
-    this.deleted,
-    this.content = const []
-  }) {
+  Note(
+      {required this.id,
+      this.title = "",
+      this.subtitle = "",
+      this.longSubtitle = "",
+      this.thumbnailImageFilename,
+      this.backgroundColor,
+      this.textColor,
+      this.textSize,
+      this.lineHeight,
+      this.parentId = "",
+      DateTime? modified,
+      DateTime? created,
+      this.deleted,
+      this.content = const []}) {
     initDelta();
   }
 
   Note.fromMap(Map<String, dynamic> data) : id = data["id"] {
-    if(data["content"] is String) {
+    if (data["content"] is String) {
       var decoded = jsonDecode(data["content"]);
-      if(decoded is List<dynamic>) {
+      if (decoded is List<dynamic>) {
         content = decoded.map((e) => e as Map<String, dynamic>).toList();
       }
     }
@@ -75,7 +73,7 @@ class Note {
     modified = DateTime.fromMillisecondsSinceEpoch(data["modified"]).toLocal();
     parentId = data["parent_id"] ?? "";
 
-    if(!isFolder) {
+    if (!isFolder) {
       initTitles();
       initDelta();
     }
@@ -87,10 +85,9 @@ class Note {
 
   String generatedKey(Map map) {
     String key = randomString(9, 3);
-    if(map.containsKey(key)) {
+    if (map.containsKey(key)) {
       return generatedKey(map);
-    }
-    else {
+    } else {
       return key;
     }
   }
@@ -99,14 +96,14 @@ class Note {
     var images = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "images"));
     var videos = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "videos"));
     var audio = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "audio"));
-    if(await images.exists()) {
+    if (await images.exists()) {
       images.delete(recursive: true);
     }
-    if(await videos.exists()) {
+    if (await videos.exists()) {
       videos.delete(recursive: true);
     }
 
-    if(await audio.exists()) {
+    if (await audio.exists()) {
       audio.delete(recursive: true);
     }
 
@@ -115,9 +112,7 @@ class Note {
     }
   }
 
-  Future<void> moveToTrashIfOrphan() async {
-
-  }
+  Future<void> moveToTrashIfOrphan() async {}
 
   List<Map<String, dynamic>> contentsToMap() {
     List<Map<String, dynamic>> contentList = [];
@@ -130,80 +125,57 @@ class Note {
 
   List<Map<String, dynamic>> convertContentsDataToBase64(List<dynamic> list) {
     List<Map<String, dynamic>> result = [];
-    for(Map<String, dynamic> map in list) {
-      switch(map["type"]) {
+    for (Map<String, dynamic> map in list) {
+      switch (map["type"]) {
         case "img":
           var fileType = FilenameUtils.extensionName(map["value"]);
-          result.add({
-            "type": "img",
-            "value": "!BASE64;$fileType;${base64FromSomething(map["value"], "images")}"
-          });
+          result.add({"type": "img", "value": "!BASE64;$fileType;${base64FromSomething(map["value"], "images")}"});
         case "video":
           var fileType = FilenameUtils.extensionName(map["value"]);
-          result.add({
-            "type": "video",
-            "value": "!BASE64;$fileType;${base64FromSomething(map["value"], "videos")}"
-          });
+          result.add({"type": "video", "value": "!BASE64;$fileType;${base64FromSomething(map["value"], "videos")}"});
         case "table":
           List<List<Map<String, dynamic>>> tableData = [];
-          for(List<Map<String, dynamic>> rows in map["value"]) {
+          for (List<Map<String, dynamic>> rows in map["value"]) {
             List<Map<String, dynamic>> addingRows = [];
-            for(var data in rows) {
-              if(data["img"] != null) {
+            for (var data in rows) {
+              if (data["img"] != null) {
                 var fileType = FilenameUtils.extensionName(data["img"]);
-                addingRows.add({
-                  "img": "!BASE64;$fileType;${base64FromSomething(data["img"], "images")}"
-                });
-              }
-              else if(data["video"] != null) {
+                addingRows.add({"img": "!BASE64;$fileType;${base64FromSomething(data["img"], "images")}"});
+              } else if (data["video"] != null) {
                 var fileType = FilenameUtils.extensionName(data["video"]);
-                addingRows.add({
-                  "img": "!BASE64;$fileType;${base64FromSomething(data["video"], "videos")}"
-                });
-              }
-              else {
+                addingRows.add({"img": "!BASE64;$fileType;${base64FromSomething(data["video"], "videos")}"});
+              } else {
                 addingRows.add(data);
               }
             }
             tableData.add(addingRows);
           }
-          result.add({
-            "type": "table",
-            "value": tableData,
-            "style": map["style"]
-          });
+          result.add({"type": "table", "value": tableData, "style": map["style"]});
         case "note":
           result.add({
             "type": "note",
-            "value": {
-              "title": map["value"]["title"],
-              "contents": convertContentsDataToBase64(map["value"]["contents"])
-            },
+            "value": {"title": map["value"]["title"], "contents": convertContentsDataToBase64(map["value"]["contents"])},
             "style": map["style"]
           });
         case "view-pager":
           List<Map<String, dynamic>> viewPagerData = [];
-          for(Map<String, dynamic> data in map["value"]) {
+          for (Map<String, dynamic> data in map["value"]) {
             viewPagerData.add({
               "backgroundColor": data["backgroundColor"],
               "textSize": data["textSize"],
               "textColor": data["textColor"],
               "lineHeight": data["lineHeight"],
-              "contents": convertContentsDataToBase64( data["contents"] ?? [])
+              "contents": convertContentsDataToBase64(data["contents"] ?? [])
             });
           }
-          result.add({
-            "type": "view-pager",
-            "value": viewPagerData,
-            "style": map["style"]
-          });
+          result.add({"type": "view-pager", "value": viewPagerData, "style": map["style"]});
         default:
           result.add(map);
       }
     }
     return result;
   }
-  
+
   String toFileContentBase64() {
     Map<String, dynamic> jsonData = {
       "parent_id": parentId,
@@ -229,7 +201,7 @@ class Note {
     final database = await databaseHelper.database;
     await database.insertNote(this);
 
-    if(upload) {
+    if (upload) {
       appWebChannel.uploadNote(this);
     }
   }
@@ -252,7 +224,7 @@ class Note {
                 if (subtitle.isEmpty) {
                   subtitle = line;
                 }
-                if(longSubtitle.length < 500) {
+                if (longSubtitle.length < 500) {
                   longSubtitle += line + "\n";
                 }
               }
@@ -264,9 +236,9 @@ class Note {
               title = item["value"];
             } else {
               if (subtitle.isEmpty) {
-              subtitle = item["value"];
+                subtitle = item["value"];
               }
-              if(longSubtitle.length < 500) {
+              if (longSubtitle.length < 500) {
                 longSubtitle += item["value"] + "\n";
               }
             }
@@ -282,7 +254,6 @@ class Note {
         break;
       }
     }
-
   }
 
   Map<String, dynamic> toMap() {
@@ -327,7 +298,6 @@ class Note {
       delta.insert("\n");
     }
   }
-
 }
 
 extension DeltaExtension on Delta {
@@ -352,50 +322,51 @@ extension DeltaExtension on Delta {
         BlockEmbed blockEmbed = BlockEmbed.custom(AudioBlockEmbed(item["value"]));
         insert(blockEmbed.toJson());
         break;
+
+      // Convert old sub-notes to regular notes
+      // The sub-note feature was time-consuming to develop and didn't seem useful for most users, so it has been removed.
       case "note":
         final subNoteData = item["value"];
-        if(subNoteData is Map<String, dynamic>) {
+        if (subNoteData is Map<String, dynamic>) {
           final subNoteTitle = subNoteData["title"];
           final subNoteContent = subNoteData["contents"];
-          if(subNoteTitle is String) {
+          if (subNoteTitle is String) {
             insert(subNoteTitle);
             insert("\n");
-          }
-          else {
+          } else {
             insert(subNoteTitle.toString());
           }
 
-          if(subNoteContent is List<dynamic>) {
-            for(var subNoteItem in subNoteContent) {
+          if (subNoteContent is List<dynamic>) {
+            for (var subNoteItem in subNoteContent) {
               insertContent(note, subNoteItem);
             }
-          }
-          else {
+          } else {
             insert(subNoteContent.toString());
           }
         }
         break;
-    // case "divider":
-    //   String dividerKey = noteEmbedBlocks.generatedDividerKey();
-    //   if (content.style != null) {
-    //     noteEmbedBlocks.dividers[dividerKey] = Color(content.style!["color"] ?? 0);
-    //   }
-    //   BlockEmbed divider = BlockEmbed.custom(DividerBlockEmbed(dividerKey));
-    //   delta.insert(divider.toJson());
-    //
-    //   break;
-    // case "view-pager":
-    //   String viewPagerKey = noteEmbedBlocks.generatedViewPagerKey();
-    //   noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData.fromContent(this, content);
-    //   BlockEmbed blockEmbed = BlockEmbed.custom(ViewPagerBlockEmbed(viewPagerKey));
-    //   delta.insert(blockEmbed.toJson());
-    //   break;
-    // case "file":
-    //   var key = noteEmbedBlocks.generatedFileKey();
-    //   noteEmbedBlocks.files[key] = FileInNote.fromContent(content);
-    //   BlockEmbed blockEmbed = BlockEmbed.custom(FileBlockEmbed(key));
-    //   delta.insert(blockEmbed.toJson());
-    //   break;
+      // case "divider":
+      //   String dividerKey = noteEmbedBlocks.generatedDividerKey();
+      //   if (content.style != null) {
+      //     noteEmbedBlocks.dividers[dividerKey] = Color(content.style!["color"] ?? 0);
+      //   }
+      //   BlockEmbed divider = BlockEmbed.custom(DividerBlockEmbed(dividerKey));
+      //   delta.insert(divider.toJson());
+      //
+      //   break;
+      // case "view-pager":
+      //   String viewPagerKey = noteEmbedBlocks.generatedViewPagerKey();
+      //   noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData.fromContent(this, content);
+      //   BlockEmbed blockEmbed = BlockEmbed.custom(ViewPagerBlockEmbed(viewPagerKey));
+      //   delta.insert(blockEmbed.toJson());
+      //   break;
+      // case "file":
+      //   var key = noteEmbedBlocks.generatedFileKey();
+      //   noteEmbedBlocks.files[key] = FileInNote.fromContent(content);
+      //   BlockEmbed blockEmbed = BlockEmbed.custom(FileBlockEmbed(key));
+      //   delta.insert(blockEmbed.toJson());
+      //   break;
       case "text":
         if (item["value"] is String) {
           // if(!item["value"].endsWith("\n")) {
@@ -407,11 +378,10 @@ extension DeltaExtension on Delta {
           break;
         }
 
-
       default:
-      // if(!item["value"].toString().endsWith("\n")) {
-      //   item["value"] = item["value"].toString() + "\n";
-      // }
+        // if(!item["value"].toString().endsWith("\n")) {
+        //   item["value"] = item["value"].toString() + "\n";
+        // }
         insert(item["value"].toString());
 
         break;
