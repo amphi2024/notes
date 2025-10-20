@@ -7,7 +7,6 @@ import 'package:notes/components/note_editor/note_editor_toolbar.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_page_app_bar.dart';
 import 'package:notes/icons/icons.dart';
-import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/utils/document_conversion.dart';
@@ -28,7 +27,6 @@ class _NotePageState extends ConsumerState<NotePage> {
 
   @override
   void dispose() {
-    noteEmbedBlocks.clear();
     controller.dispose();
     focusNode.dispose();
     timer?.cancel();
@@ -41,6 +39,7 @@ class _NotePageState extends ConsumerState<NotePage> {
       controller.removeListener(startEditingListener);
     }
   }
+
 
   @override
   void initState() {
