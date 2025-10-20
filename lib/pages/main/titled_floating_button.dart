@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/components/floating_button.dart';
+import 'package:notes/pages/main/floating_button.dart';
 
 class TitledFloatingButton extends StatelessWidget {
 

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/utils/generate_id.dart';
-import '../../icons/icons.dart';
-import '../../models/note.dart';
+import '../icons/icons.dart';
+import '../models/note.dart';
 
 class EditFolderDialog extends StatefulWidget {
   final Note folder;

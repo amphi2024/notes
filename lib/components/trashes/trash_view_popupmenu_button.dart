@@ -1,6 +1,6 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/components/main/popup_menu_item.dart';
+import 'package:notes/components/popup_menu_item.dart';
 import 'package:notes/extensions/sort_extension.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/icons/icons.dart';

@@ -9,7 +9,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:notes/database/database_helper.dart';
-import 'package:notes/pages/main_page.dart';
+import 'package:notes/pages/main/main_page.dart';
 import 'package:notes/providers/notes_provider.dart';
 
 import 'channels/app_method_channel.dart';
@@ -19,7 +19,7 @@ import 'models/app_colors.dart';
 import 'models/app_settings.dart';
 import 'models/app_storage.dart';
 import 'models/note.dart';
-import 'pages/wide_main_page.dart';
+import 'pages/main/wide_main_page.dart';
 import 'utils/data_sync.dart';
 
 void main() async {

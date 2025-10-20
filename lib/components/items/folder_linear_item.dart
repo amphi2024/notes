@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/components/main/edit_folder_dialog.dart';
+import 'package:notes/dialogs/edit_folder_dialog.dart';
 import 'package:notes/extensions/date_extension.dart';
 
 import '../../icons/icons.dart';

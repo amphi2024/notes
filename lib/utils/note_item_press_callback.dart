@@ -4,7 +4,7 @@ import 'package:notes/services/audio_service.dart';
 import 'package:notes/services/videos_service.dart';
 
 import '../models/note.dart';
-import '../pages/main_page.dart';
+import '../pages/main/main_page.dart';
 import '../pages/note_page.dart';
 import '../providers/editing_note_provider.dart';
 import '../providers/notes_provider.dart';

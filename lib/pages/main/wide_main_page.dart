@@ -4,9 +4,9 @@ import 'package:amphi/models/app.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_method_channel.dart';
-import 'package:notes/components/main/floating_menu/floating_wide_menu.dart';
-import 'package:notes/components/main/side_bar_toggle_button.dart';
-import 'package:notes/components/main/wide_main_view_toolbar.dart';
+import 'package:notes/pages/main/menu/floating_wide_menu.dart';
+import 'package:notes/pages/main/side_bar_toggle_button.dart';
+import 'package:notes/pages/main/wide_main_view_toolbar.dart';
 import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/app_settings.dart';
 

@@ -7,11 +7,11 @@ import 'package:amphi/widgets/account/account_button.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/components/main_page_title.dart';
-import 'package:notes/components/main/choose_folder_dialog.dart';
-import 'package:notes/components/main/edit_folder_dialog.dart';
+import 'package:notes/pages/main/main_page_title.dart';
+import 'package:notes/dialogs/choose_folder_dialog.dart';
+import 'package:notes/dialogs/edit_folder_dialog.dart';
 import 'package:notes/views/notes_view.dart';
-import 'package:notes/components/main/notes_search_bar.dart';
+import 'package:notes/pages/main/notes_search_bar.dart';
 import 'package:notes/extensions/sort_extension.dart';
 import 'package:notes/models/app_settings.dart';
 

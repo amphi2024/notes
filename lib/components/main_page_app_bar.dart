@@ -8,7 +8,7 @@ import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/providers.dart';
 
 import '../icons/icons.dart';
-import 'main/choose_folder_dialog.dart';
+import '../dialogs/choose_folder_dialog.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 
 List<Widget> appbarActions({
