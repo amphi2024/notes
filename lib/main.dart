@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/pages/main_page.dart';
 import 'package:notes/providers/notes_provider.dart';
-import 'package:sqflite/sqflite.dart';
 
 import 'channels/app_method_channel.dart';
 import 'channels/app_web_channel.dart';
@@ -24,6 +24,7 @@ import 'utils/data_sync.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MediaKit.ensureInitialized();
   await appCacheData.getData();
   appStorage.initialize(() {
     appSettings.getData();
