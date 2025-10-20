@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:amphi/models/app_web_channel_core.dart';
 import 'package:amphi/models/update_event.dart';
-import 'package:amphi/utils/path_utils.dart';
 import 'package:http/http.dart';
 import 'package:notes/models/app_settings.dart';
 
@@ -120,6 +119,61 @@ class AppWebChannel extends AppWebChannelCore {
   Future<void> uploadNote(Note note) async {
     final updateEvent = UpdateEvent(action: UpdateEvent.uploadNote, value: note.id);
     await postJson(url: "$serverAddress/notes/${note.id}", jsonBody: jsonEncode(note.toMap()), updateEvent: updateEvent);
+    await uploadMissingAttachments(note, "audio", "audio");
+    await uploadMissingAttachments(note, "videos", "video");
+    await uploadMissingAttachments(note, "images", "img");
+  }
+
+  Future<void> uploadMissingAttachments(Note note, String directoryName, String type) async {
+    getItems(
+        url: "$serverAddress/notes/${note.id}/$directoryName",
+        onSuccess: (list) async {
+          for (var item in note.content) {
+            bool exists = false;
+            if (item["type"] != type) {
+              continue;
+            }
+            var file = File(noteAttachmentPath(note.id, item["value"], directoryName));
+            var fileSize = await file.length();
+            for (var fileInfo in list) {
+
+              if (item["value"] == fileInfo["filename"] && item["size"] == fileSize) {
+                exists = true;
+                break;
+              }
+            }
+
+            if (!exists) {
+              await postFile(url: "$serverAddress/notes/${note.id}/$directoryName/${item["value"]}", filePath: file.path);
+            }
+          }
+        });
+  }
+
+  Future<void> downloadMissingAttachments(Note note, String directoryName, String type) async {
+    getItems(
+        url: "$serverAddress/notes/${note.id}/$directoryName",
+        onSuccess: (list) async {
+          for (var item in note.content) {
+            bool exists = false;
+            if (item["type"] != type) {
+              continue;
+            }
+            var file = File(noteAttachmentPath(note.id, item["value"], directoryName));
+            var fileSize = await file.length();
+            for (var fileInfo in list) {
+
+              if (item["value"] == fileInfo["filename"] && item["size"] == fileSize) {
+                exists = true;
+                break;
+              }
+            }
+
+            if (!exists) {
+              await downloadFile(url: "$serverAddress/notes/${note.id}/$directoryName/${item["value"]}", filePath: file.path);
+            }
+          }
+        });
   }
 
   Future<void> downloadNote({required String id, required void Function(Note note) onSuccess, void Function(int?)? onFailed}) async {
@@ -132,18 +186,25 @@ class AppWebChannel extends AppWebChannelCore {
 
   Future<void> downloadNoteImage({required String id, required String filename}) async {
     var attachments = Directory(noteAttachmentDirPath(id, "images"));
-    if(!await attachments.exists()) {
+    if (!await attachments.exists()) {
       attachments.create(recursive: true);
     }
     await downloadFile(url: "$serverAddress/notes/$id/images/$filename", filePath: noteImagePath(id, filename));
   }
 
-  Future<void> downloadNoteVideo({required String id, required String filename}) async {
+  Future<void> downloadNoteVideo({required String id, required String filename, void Function()? onSuccess, void Function(int received, int total)? onProgress}) async {
     var attachments = Directory(noteAttachmentDirPath(id, "videos"));
-    if(!await attachments.exists()) {
+    if (!await attachments.exists()) {
       attachments.create(recursive: true);
     }
-    await downloadFile(url: "$serverAddress/notes/$id/videos/$filename", filePath: noteImagePath(id, filename));
+    await downloadFile(url: "$serverAddress/notes/$id/videos/$filename", filePath: noteVideoPath(id, filename), onSuccess: onSuccess, onProgress: onProgress);
   }
 
+  Future<void> downloadNoteAudio({required String id, required String filename, void Function()? onSuccess, void Function(int received, int total)? onProgress}) async {
+    var attachments = Directory(noteAttachmentDirPath(id, "audio"));
+    if (!await attachments.exists()) {
+      attachments.create(recursive: true);
+    }
+    await downloadFile(url: "$serverAddress/notes/$id/audio/$filename", filePath: noteAudioPath(id, filename), onSuccess: onSuccess, onProgress: onProgress);
+  }
 }
