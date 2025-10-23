@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -31,6 +32,15 @@ void main() async {
     appColors.getData();
 
     runApp(const ProviderScope(child: MyApp()));
+
+    if(App.isDesktop()) {
+      doWhenWindowReady(() {
+        appWindow.minSize = Size(600, 350);
+        appWindow.size = Size(appCacheData.windowWidth, appCacheData.windowHeight);
+        appWindow.alignment = Alignment.center;
+        appWindow.show();
+      });
+    }
   });
 }
 
