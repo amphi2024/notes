@@ -11,6 +11,9 @@ import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/utils/document_conversion.dart';
 
+import '../channels/app_web_channel.dart';
+import '../utils/toast.dart';
+
 class NotePage extends ConsumerStatefulWidget {
   const NotePage({super.key});
 
@@ -54,6 +57,10 @@ class _NotePageState extends ConsumerState<NotePage> {
           note.save(upload: false);
         });
       });
+
+      if(appWebChannel.uploadBlocked) {
+        showToast(context, "ddfdfdfdfdfdfdfdfdfdfddfdfdfdfdfdfd");
+      }
     });
     super.initState();
   }

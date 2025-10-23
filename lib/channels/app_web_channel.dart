@@ -26,6 +26,27 @@ class AppWebChannel extends AppWebChannelCore {
 
   late void Function(UpdateEvent) onWebSocketEvent;
 
+  bool uploadBlocked = false;
+
+  void getServerVersion({required void Function(String version) onSuccess, void Function(int?)? onFailed}) async {
+    try {
+      final response = await get(
+        Uri.parse("$serverAddress/version")
+      );
+      if (response.statusCode == 200) {
+        onSuccess(response.body);
+      } else {
+        if (onFailed != null) {
+          onFailed(response.statusCode);
+        }
+      }
+    } catch (e) {
+      if (onFailed != null) {
+        onFailed(null);
+      }
+    }
+  }
+
   @override
   String get appType => "notes";
 
@@ -46,6 +67,9 @@ class AppWebChannel extends AppWebChannelCore {
   }
 
   void getItems({required String url, void Function(int?)? onFailed, void Function(List<Map<String, dynamic>>)? onSuccess}) async {
+    if(uploadBlocked) {
+      return;
+    }
     try {
       final response = await get(
         Uri.parse(url),
@@ -79,6 +103,9 @@ class AppWebChannel extends AppWebChannelCore {
   }
 
   void getEvents({required void Function(List<UpdateEvent>) onResponse}) async {
+    if(uploadBlocked) {
+      return;
+    }
     List<UpdateEvent> list = [];
     final response = await get(
       Uri.parse("$serverAddress/notes/events"),
@@ -97,6 +124,9 @@ class AppWebChannel extends AppWebChannelCore {
   }
 
   void acknowledgeEvent(UpdateEvent updateEvent) async {
+    if(uploadBlocked) {
+      return;
+    }
     Map<String, dynamic> data = {
       'value': updateEvent.value,
       'action': updateEvent.action,
@@ -111,9 +141,30 @@ class AppWebChannel extends AppWebChannelCore {
     );
   }
 
+  @override
+  Future<void> simpleDelete({required String url, void Function()? onSuccess, void Function(int?)? onFailed, required UpdateEvent updateEvent}) async {
+    if(uploadBlocked) {
+      return;
+    }
+    await super.simpleDelete(url: url, updateEvent: updateEvent, onFailed: onFailed, onSuccess: onSuccess);
+  }
+
   Future<void> deleteNote({required Note note}) async {
     final updateEvent = UpdateEvent(action: UpdateEvent.deleteNote, value: note.id);
     await simpleDelete(url: "$serverAddress/notes/${note.id}", updateEvent: updateEvent);
+  }
+
+
+  Future<void> postJson(
+      {required String url,
+        required String jsonBody,
+        void Function()? onSuccess,
+        void Function(int?)? onFailed,
+        required UpdateEvent updateEvent}) async {
+    if(uploadBlocked) {
+      return;
+    }
+    await super.postJson(url: url, jsonBody: jsonBody, updateEvent: updateEvent, onFailed: onFailed, onSuccess: onSuccess);
   }
 
   Future<void> uploadNote(Note note) async {

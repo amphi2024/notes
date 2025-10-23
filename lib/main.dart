@@ -12,6 +12,7 @@ import 'package:media_kit/media_kit.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/pages/main/main_page.dart';
 import 'package:notes/providers/notes_provider.dart';
+import 'package:notes/utils/toast.dart';
 
 import 'channels/app_method_channel.dart';
 import 'channels/app_web_channel.dart';
@@ -63,6 +64,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
         syncDataWithServer(ref);
       }
     }
+
     super.didChangeAppLifecycleState(state);
   }
 
@@ -75,6 +77,15 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    if(appSettings.useOwnServer) {
+      appWebChannel.getServerVersion(onSuccess: (version) {
+        if(!version.startsWith("2.")) {
+          appWebChannel.uploadBlocked = true;
+        }
+      }, onFailed: (code) {
+        appWebChannel.uploadBlocked = true;
+      });
+    }
     WidgetsBinding.instance.addObserver(this);
     ref.read(notesProvider.notifier).init();
 
@@ -92,7 +103,6 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       appMethodChannel.getSystemVersion();
       appMethodChannel.configureNeedsBottomPadding();
     }
-
     super.initState();
   }
 

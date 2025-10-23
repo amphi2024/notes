@@ -12,6 +12,13 @@ void onUserRemoved(WidgetRef ref) {
   appWebChannel.disconnectWebSocket();
   // appStorage.initPaths();
   appSettings.getData();
+  appWebChannel.getServerVersion(onSuccess: (version) {
+    if(!version.startsWith("2.")) {
+      appWebChannel.uploadBlocked = true;
+    }
+  }, onFailed: (code) {
+    appWebChannel.uploadBlocked = true;
+  });
   appWebChannel.connectWebSocket();
   refreshDataWithServer(ref);
 }
@@ -29,6 +36,13 @@ void onUsernameChanged(WidgetRef ref) {
 }
 
 void onSelectedUserChanged(User user, WidgetRef ref) {
+  appWebChannel.getServerVersion(onSuccess: (version) {
+    if(!version.startsWith("2.")) {
+      appWebChannel.uploadBlocked = true;
+    }
+  }, onFailed: (code) {
+    appWebChannel.uploadBlocked = true;
+  });
   appSettings.data = {};
   appWebChannel.disconnectWebSocket();
   // appStorage.initPaths();
@@ -37,6 +51,13 @@ void onSelectedUserChanged(User user, WidgetRef ref) {
 }
 
 void onLoggedIn({required String id, required String token, required String username, required BuildContext context,required WidgetRef ref}) async {
+  appWebChannel.getServerVersion(onSuccess: (version) {
+    if(!version.startsWith("2.")) {
+      appWebChannel.uploadBlocked = true;
+    }
+  }, onFailed: (code) {
+    appWebChannel.uploadBlocked = true;
+  });
   appStorage.selectedUser.id = id;
   Navigator.popUntil(
     context,
