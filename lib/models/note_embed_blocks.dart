@@ -4,7 +4,7 @@ import 'package:amphi/utils/random_string.dart';
 import 'package:notes/models/table_data.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
-import 'package:notes/models/file_in_note.dart';
+import 'package:notes/models/file_model.dart';
 import 'package:notes/models/note.dart';
 
 final noteEmbedBlocks = NoteEmbedBlocks.getInstance();
@@ -18,7 +18,7 @@ class NoteEmbedBlocks {
   Map<String, TableData> tables = {};
   Map<String, QuillController> subNotes = {};
   Map<String, Color> dividers = {};
-  Map<String, FileInNote> files = {};
+  Map<String, FileModel> files = {};
 
   String generatedTableKey() => generatedKey(tables);
   String generatedSubNoteKey() => generatedKey(subNotes);
@@ -45,7 +45,7 @@ class NoteEmbedBlocks {
     }
   }
   
-  FileInNote getFile(String key) => files.putIfAbsent(key, () => FileInNote(filename: "not found", label: "not found"));
+  FileModel getFile(String key) => files.putIfAbsent(key, () => FileModel(filename: "not found", label: "not found"));
 
   String generatedKey(Map map) {
     String key = randomString(9, 3);

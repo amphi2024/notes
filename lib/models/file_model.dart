@@ -1,19 +1,19 @@
 import 'package:notes/models/content.dart';
 
-class FileInNote {
+class FileModel {
   String filename;
   String? originalPath;
   String label;
   bool get uploaded => originalPath == null;
 
-  FileInNote({required this.filename, this.originalPath, required this.label});
+  FileModel({required this.filename, this.originalPath, required this.label});
 
-  static FileInNote fromContent(Content content) {
+  static FileModel fromContent(Content content) {
     try {
-      return FileInNote(filename: content.value["filename"], label:  content.value["label"]);
+      return FileModel(filename: content.value["filename"], label:  content.value["label"]);
     }
     catch(e) {
-      return FileInNote(filename: "not found", label: "not found");
+      return FileModel(filename: "not found", label: "not found");
     }
   }
 

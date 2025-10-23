@@ -5,7 +5,7 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/models/file_in_note.dart';
+import 'package:notes/models/file_model.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/utils/toast.dart';
 
@@ -14,7 +14,7 @@ class FileBlockWidget extends StatelessWidget {
   final String blockKey;
   const FileBlockWidget({super.key, required this.blockKey});
 
-  void downloadFile( BuildContext context,  FileInNote fileInNote) async {
+  void downloadFile( BuildContext context,  FileModel fileInNote) async {
 
         // appWebChannel.downloadFile(
         //   noteName: appState.noteEditingController.note.name,
