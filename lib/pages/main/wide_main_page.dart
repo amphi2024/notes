@@ -1,13 +1,11 @@
-import 'dart:async';
+import 'dart:io';
 
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:media_kit_video/media_kit_video_controls/src/controls/methods/video_state.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
@@ -22,11 +20,11 @@ import 'package:notes/pages/main/side_bar_toggle_button.dart';
 import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
-import 'package:notes/utils/document_conversion.dart';
 import 'package:notes/utils/generate_id.dart';
 import 'package:notes/utils/toast.dart';
 import 'package:notes/views/notes_view.dart';
 
+import '../../components/custom_window_button.dart';
 import '../../providers/providers.dart';
 
 class WideMainPage extends ConsumerStatefulWidget {
@@ -85,6 +83,15 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
     final themeData = Theme.of(context);
 
     final selectedFolderId = ref.watch(selectedFolderProvider);
+
+    final colors = CustomWindowButtonColors(
+        iconMouseOver: Theme.of(context).textTheme.bodyMedium?.color,
+        mouseOver: const Color.fromRGBO(125, 125, 125, 0.1),
+        iconNormal: Theme.of(context).textTheme.bodyMedium?.color,
+        mouseDown: const Color.fromRGBO(125, 125, 125, 0.1),
+        iconMouseDown: Theme.of(context).textTheme.bodyMedium?.color,
+        normal: Theme.of(context).scaffoldBackgroundColor
+    );
 
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
@@ -210,6 +217,32 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                   children: noteEditorToolbarButtons(controller, Theme.of(context).appBarTheme.iconTheme!.size!),
                                 ),
                                 if (App.isDesktop()) ...[Expanded(child: MoveWindow())],
+                                if (Platform.isWindows) ...[
+                                  Visibility(
+                                    visible: App.isDesktop(),
+                                    child: MinimizeCustomWindowButton(colors: colors),
+                                  ),
+                                  appWindow.isMaximized
+                                      ? RestoreCustomWindowButton(
+                                    colors: colors,
+                                    onPressed: () {
+                                      appWindow.restore();
+                                    },
+                                  )
+                                      : MaximizeCustomWindowButton(
+                                    colors: colors,
+                                    onPressed: () {
+                                      appWindow.maximize();
+                                    },
+                                  ),
+                                  CloseCustomWindowButton(
+                                      colors: CustomWindowButtonColors(
+                                          mouseOver: const Color(0xFFD32F2F),
+                                          mouseDown: const Color(0xFFB71C1C),
+                                          iconNormal: const Color(0xFF805306),
+                                          iconMouseOver: const Color(0xFFFFFFFF),
+                                          normal: Theme.of(context).scaffoldBackgroundColor))
+                                ],
                               ],
                             ),
                           ),
