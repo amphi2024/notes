@@ -1,6 +1,11 @@
+import 'dart:async';
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/note.dart';
+import 'package:notes/providers/notes_provider.dart';
+import 'package:notes/utils/document_conversion.dart';
 
 class EditingNoteState {
   final Note note;
@@ -10,15 +15,85 @@ class EditingNoteState {
 
 class EditingNoteNotifier extends Notifier<EditingNoteState> {
 
-  Note? originalNote;
+  Timer? timer;
+  QuillController? _controller;
+
+  QuillController get controller {
+    if(_controller == null) {
+      _controller = QuillController(document: Document.fromDelta(state.note.delta), selection: TextSelection(baseOffset: 0, extentOffset: 0));
+    }
+    return _controller!;
+  }
 
   @override
   EditingNoteState build() {
     return EditingNoteState(Note(id: ""), true);
   }
 
+  void initController(WidgetRef ref) {
+    _controller?.dispose();
+    _controller = QuillController(document: Document.fromDelta(state.note.delta), selection: TextSelection(baseOffset: 0, extentOffset: 0));
+
+    controller.addListener(() {
+      if(controller.hasUndo) {
+        final note = state.note;
+        var title = "";
+        var subtitle = "";
+        String? thumbnail = null;
+        for (var operation in controller.document.toDelta().toList()) {
+          if (operation.value is String) {
+            List<String> textLines = operation.value.split("\n");
+            if (textLines.length > 1) {
+              for (String line in textLines) {
+                if (line.trim().isNotEmpty) {
+                  if (title.isEmpty) {
+                    title = line;
+                  } else {
+                    if (subtitle.isEmpty) {
+                      subtitle = line;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (operation.value.trim().isNotEmpty) {
+                if (title.isEmpty) {
+                  title = operation.value;
+                } else {
+                  if (subtitle.isEmpty) {
+                    subtitle = operation.value;
+                  }
+                }
+              }
+            }
+          }
+          if (thumbnail != null && title.isNotEmpty && subtitle.isNotEmpty) {
+            break;
+          }
+        }
+
+        ref.read(notesProvider.notifier).updateNotePreview(
+            noteId: note.id,
+            title: title,
+            subtitle: subtitle,
+            thumbnailImageFilename: thumbnail
+        );
+      }
+    });
+
+    controller.document.changes.listen((data) {
+      timer?.cancel();
+      timer = Timer(Duration(seconds: 2), () async {
+        final note = state.note;
+        note.content = controller.document.toNoteContent(ref);
+        note.modified = DateTime.now();
+        await note.save();
+        ref.read(notesProvider.notifier).insertNote(note);
+      });
+    });
+  }
+
   void startEditing(Note note, bool editing) {
-    originalNote = note;
     state = EditingNoteState(note, editing);
   }
 

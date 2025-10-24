@@ -1,4 +1,5 @@
 
+import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +43,7 @@ class _NoteEditorState extends State<NoteEditor> {
         color: widget.note.textColorByTheme(context) ?? defaultTextStyle.color,
         fontSize: widget.note.textSize ?? defaultTextStyle.fontSize);
 
-    return CupertinoScrollbar(
-      controller: scrollController,
-      child: QuillEditor(
+    final editor = QuillEditor(
         controller: widget.controller,
         scrollController: scrollController,
         focusNode: widget.focusNode,
@@ -52,51 +51,51 @@ class _NoteEditorState extends State<NoteEditor> {
           autoFocus: false,
           placeholder: AppLocalizations.of(context).get("@new_note"),
           customStyles: DefaultStyles(
-            code: DefaultTextBlockStyle(TextStyle(
+              code: DefaultTextBlockStyle(TextStyle(
                 color: codeBlockTextColor(context),
                 fontSize: 13,
-              height: 1.15,
-            ),
-              HorizontalSpacing(
-                  1, 1
+                height: 1.15,
               ),
-              VerticalSpacing(
-                  widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
-              ),
-              VerticalSpacing(
-                  1,  1
-              ),
-              BoxDecoration(
-                color: Theme.of(context).scaffoldBackgroundColor.toCodeBlockBackground(),
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-            paragraph: DefaultTextBlockStyle(
-              textStyle,
-              HorizontalSpacing(
-                1, 1
-            ),
-              VerticalSpacing(
-                  widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
-              ),
-              VerticalSpacing(
-                1,  1
-              ),
-              BoxDecoration(),),
-            lists: DefaultListBlockStyle(
-              textStyle,
-              HorizontalSpacing(
-                1, 1
-              ),
-              VerticalSpacing(
-                  1, 1
-              ),
+                HorizontalSpacing(
+                    1, 1
+                ),
+                VerticalSpacing(
+                    widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
+                ),
                 VerticalSpacing(
                     1,  1
                 ),
-              BoxDecoration(),
+                BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor.toCodeBlockBackground(),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              paragraph: DefaultTextBlockStyle(
+                textStyle,
+                HorizontalSpacing(
+                    1, 1
+                ),
+                VerticalSpacing(
+                    widget.note.lineHeight ?? 1, widget.note.lineHeight ?? 1
+                ),
+                VerticalSpacing(
+                    1,  1
+                ),
+                BoxDecoration(),),
+              lists: DefaultListBlockStyle(
+                textStyle,
+                HorizontalSpacing(
+                    1, 1
+                ),
+                VerticalSpacing(
+                    1, 1
+                ),
+                VerticalSpacing(
+                    1,  1
+                ),
+                BoxDecoration(),
                 NoteEditorCheckboxBuilder(),
-            )
+              )
           ),
           showCursor: !widget.controller.readOnly,
           embedBuilders: [
@@ -108,7 +107,14 @@ class _NoteEditorState extends State<NoteEditor> {
             FileEmbedBuilder()
           ],
         )
-      ),
+    );
+
+    if(App.isDesktop() || App.isWideScreen(context)) {
+      return editor;
+    }
+    return CupertinoScrollbar(
+      controller: scrollController,
+      child: editor,
     );
   }
 }

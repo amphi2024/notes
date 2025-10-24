@@ -22,8 +22,8 @@ List<Widget> notePageAppbarActions(
     required void Function() onSave}) {
   if (!editing) {
     return [
-      NoteEditorExportButton(controller: controller),
-      NoteEditorDetailButton(controller: controller),
+      NoteEditorExportButton(controller: controller, iconSize: 20),
+      NoteEditorDetailButton(controller: controller, iconSize: 20),
       IconButton(
           onPressed: () {
             controller.readOnly = false;

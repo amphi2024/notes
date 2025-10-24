@@ -9,9 +9,10 @@ import '../models/app_storage.dart';
 
 Future<void> moveAttachments(String oldId, String id) async {
   var directory = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "notes", oldId));
-  if(await directory.exists() && id.length > 2) {
+  var target = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "attachments", id[0] , id[1], id));
+  if(await directory.exists() && id.length > 2 && !await target.exists()) {
     await Directory(PathUtils.join(appStorage.selectedUser.storagePath, "attachments", id[0] , id[1])).create(recursive: true);
-    await directory.rename(PathUtils.join(appStorage.selectedUser.storagePath, "attachments", id[0] , id[1], id));
+    await directory.rename(target.path);
   }
 }
 
@@ -28,15 +29,16 @@ Future<void> migrateNotes(Database db) async {
     FileSystemEntity file = fileList[i];
     if (file is File) {
        var oldId = FilenameUtils.nameOnly(PathUtils.basename(file.path));
-      Map<String, dynamic> map = jsonDecode(await file.readAsString());
 
       if (file.path.endsWith(".note")) {
+        Map<String, dynamic> map = jsonDecode(await file.readAsString());
         var id = "${oldId}legacynote";
 
           var data = _parsedLegacyNote(id, map);
           batch.insert("notes", data);
           moveAttachments(oldId, id);
       } else if (file.path.endsWith(".folder")) {
+        Map<String, dynamic> map = jsonDecode(await file.readAsString());
         var id = "${oldId}legacyfolder";
         var data = _parsedLegacyFolder(id, map);
         batch.insert("notes", data);

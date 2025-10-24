@@ -1,21 +1,22 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/providers/providers.dart';
 
 import '../../channels/app_method_channel.dart';
 import '../../models/app_settings.dart';
 import '../../icons/icons.dart';
 
-class SideBarToggleButton extends StatefulWidget {
+class SideBarToggleButton extends ConsumerStatefulWidget {
 
-  final void Function(void Function()) setState;
-  const SideBarToggleButton({super.key, required this.setState});
+  const SideBarToggleButton({super.key});
 
   @override
-  State<SideBarToggleButton> createState() => _SideBarToggleButtonState();
+  ConsumerState<SideBarToggleButton> createState() => _SideBarToggleButtonState();
 }
 
-class _SideBarToggleButtonState extends State<SideBarToggleButton> {
+class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
 
   bool isFullscreen = false;
 
@@ -42,20 +43,23 @@ class _SideBarToggleButtonState extends State<SideBarToggleButton> {
     double left = 5;
     double top = 7.5;
 
-    if(Platform.isMacOS) {
+    if (Platform.isMacOS) {
       left = isFullscreen ? 5 : 80;
     }
 
-    if(!appSettings.dockedFloatingMenu && appSettings.floatingMenuShowing) {
+    if (!appSettings.dockedFloatingMenu && appSettings.floatingMenuShowing) {
       left = 20;
       top = 20;
-      if(Platform.isMacOS && !isFullscreen) {
+      if (Platform.isMacOS && !isFullscreen) {
         top = 30;
       }
     }
 
-    if(Platform.isAndroid) {
-      top += MediaQuery.of(context).padding.top;
+    if (Platform.isAndroid) {
+      top += MediaQuery
+          .of(context)
+          .padding
+          .top;
     }
 
     return AnimatedPositioned(
@@ -65,21 +69,19 @@ class _SideBarToggleButtonState extends State<SideBarToggleButton> {
         curve: Curves.easeOutQuint,
         child: GestureDetector(
           onLongPress: () {
-            if (appSettings.floatingMenuShowing) {
-              widget.setState(() {
-                appSettings.dockedFloatingMenu =
-                !appSettings.dockedFloatingMenu;
-              });
-              appSettings.save();
-            }
+            // if (appSettings.floatingMenuShowing) {
+            //   ref.read(wideMainPageStateProvider.notifier).setsid
+            //   widget.setState(() {
+            //     appSettings.dockedFloatingMenu =
+            //     !appSettings.dockedFloatingMenu;
+            //   });
+            //   appSettings.save();
+            // }
           },
           child: IconButton(
-              icon: Icon(AppIcons.sidebar),
+              icon: Icon(AppIcons.sidebar, size: Theme.of(context).appBarTheme.iconTheme?.size),
               onPressed: () {
-                widget.setState(() {
-                  appSettings.floatingMenuShowing = !appSettings.floatingMenuShowing;
-                });
-                appSettings.save();
+                ref.read(wideMainPageStateProvider.notifier).setSideBarShowing(!ref.watch(wideMainPageStateProvider).sideBarShowing);
               }),
         ));
   }

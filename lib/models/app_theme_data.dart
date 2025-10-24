@@ -73,13 +73,16 @@ class AppThemeData {
       ),
       iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
-              surfaceTintColor: WidgetStateProperty.all(backgroundColor))),
+              surfaceTintColor: WidgetStateProperty.all(backgroundColor),
+            mouseCursor: WidgetStateProperty.all(MouseCursor.defer),
+          )),
       shadowColor:
           backgroundColor.green + backgroundColor.blue + backgroundColor.red >
                   381
               ? Colors.grey.withValues(alpha: 0.5)
               : Colors.black.withValues(alpha: 0.5),
-      iconTheme: IconThemeData(color: accentColor, size: App.isWideScreen(context) || App.isDesktop() ? 25 : 15),
+      iconTheme: IconThemeData(color: App.isWideScreen(context) || App.isDesktop() ? textColor.soften(brightness) : accentColor, size: App.isWideScreen(context) || App.isDesktop() ? 20 : 15),
+
       checkboxTheme: CheckboxThemeData(
         checkColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
@@ -104,7 +107,7 @@ class AppThemeData {
           surfaceTintColor: backgroundColor.withAlpha(245),
           toolbarHeight: 40,
           titleSpacing: 0.0,
-          iconTheme: IconThemeData(color: accentColor, size: 20)),
+          iconTheme: IconThemeData(color: accentColor, size: App.isDesktop() || App.isWideScreen(context) ? 25 : 20)),
       disabledColor: inactiveColor,
       highlightColor: accentColor,
       scaffoldBackgroundColor: backgroundColor,
@@ -155,36 +158,15 @@ class AppThemeData {
   }
 }
 
-extension ThemeDataExtension on ThemeData {
+const softenValue = 60;
 
-  ThemeData noteThemeData() {
-    Color noteBackgroundColor = brightness == Brightness.light
-        ? appSettings.appTheme!.lightTheme.noteBackgroundColor
-        : appSettings.appTheme!.darkTheme.noteBackgroundColor;
-    Color noteTextColor = brightness == Brightness.light
-        ? appSettings.appTheme!.lightTheme.noteTextColor
-        : appSettings.appTheme!.darkTheme.noteTextColor;
-
-    return copyWith(
-        scaffoldBackgroundColor: noteBackgroundColor,
-        textTheme: TextTheme(
-            bodyMedium: TextStyle(color: noteTextColor, fontSize: 15),
-            bodyLarge: TextStyle(color: noteTextColor, fontSize: 15)
-        ),
-        appBarTheme: AppBarTheme(
-            backgroundColor: noteBackgroundColor,
-            surfaceTintColor: noteBackgroundColor,
-            toolbarHeight: 40,
-            titleSpacing: 0.0,
-            iconTheme: IconThemeData(
-                color: brightness == Brightness.light
-                    ? appSettings.appTheme!.lightTheme.accentColor
-                    : appSettings.appTheme!.darkTheme.accentColor,
-                size: 30)),
-        iconTheme: IconThemeData(
-            color: iconTheme.color,
-            size: 30
-        ),
-    );
+extension SoftenExtension on Color {
+  Color soften(Brightness brightness) {
+    if(brightness == Brightness.light) {
+      return Color.fromARGB(alpha, red + softenValue, green + softenValue, blue + softenValue);
+    }
+    else {
+      return Color.fromARGB(alpha, red - softenValue, green - softenValue, blue - softenValue);
+    }
   }
 }

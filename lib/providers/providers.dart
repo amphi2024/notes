@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/models/note.dart';
 
 class FloatingButtonNotifier extends Notifier<bool> {
   @override
@@ -46,3 +47,64 @@ class ViewModeNotifier extends Notifier<Map<String, String>> {
 }
 
 final viewModeProvider = NotifierProvider<ViewModeNotifier, Map<String, String>>(ViewModeNotifier.new);
+
+class WideMainPageState {
+  final bool sideBarShowing;
+  final bool sideBarFloating;
+  final double sideBarWidth;
+  final double notesViewWidth;
+
+  const WideMainPageState({required this.sideBarFloating, required this.notesViewWidth, required this.sideBarShowing, required this.sideBarWidth});
+
+  WideMainPageState copyWith({
+    bool? sideBarShowing,
+    bool? sideBarFloating,
+    double? sideBarWidth,
+    double? notesViewWidth
+}) {
+    return WideMainPageState(sideBarFloating: sideBarFloating ?? this.sideBarFloating,
+        notesViewWidth: notesViewWidth ?? this.notesViewWidth,
+        sideBarShowing: sideBarShowing ?? this.sideBarShowing,
+        sideBarWidth: sideBarWidth ?? this.sideBarWidth);
+  }
+}
+
+class WideMainPageStateNotifier extends Notifier<WideMainPageState> {
+  @override
+  WideMainPageState build() {
+    return WideMainPageState(sideBarFloating: false, notesViewWidth: 250, sideBarShowing: true, sideBarWidth: 200);
+  }
+
+  void setSideBarShowing(bool value) {
+    state = state.copyWith(sideBarShowing: value);
+  }
+
+  void setSideBarFloating(bool value) {
+    state = state.copyWith(sideBarFloating: value);
+  }
+  void setSideBarWidth(double width) {
+    if(width > 150) {
+      state = state.copyWith(sideBarWidth: width);
+    }
+  }
+  void setNotesViewWidth(double value) {
+    if(value > 200) {
+      state = state.copyWith(notesViewWidth: value);
+    }
+  }
+}
+
+final wideMainPageStateProvider = NotifierProvider<WideMainPageStateNotifier, WideMainPageState>(WideMainPageStateNotifier.new);
+
+class SelectedFolderProvider extends Notifier<String> {
+  @override
+  String build() {
+    return "";
+  }
+
+  void setFolderId(String id) {
+    state = id;
+  }
+}
+
+final selectedFolderProvider = NotifierProvider<SelectedFolderProvider, String>(SelectedFolderProvider.new);

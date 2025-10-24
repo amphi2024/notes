@@ -10,7 +10,7 @@ import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/note_editor/editor_extension.dart';
 import 'package:notes/components/note_editor/embed_block/file/file_block_embed.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/file_in_note.dart';
+import 'package:notes/models/file_model.dart';
 import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/utils/toast.dart';
@@ -18,8 +18,8 @@ import 'package:notes/utils/toast.dart';
 class NoteEditorFileButton extends ConsumerWidget {
 
   final QuillController controller;
-
-  const NoteEditorFileButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorFileButton({super.key, required this.controller, required this.iconSize});
 
   String generatedFileNameCompareToList(String fileType,
       List<Map<String, dynamic>> list) {
@@ -48,7 +48,7 @@ class NoteEditorFileButton extends ConsumerWidget {
         var filename = generatedFileNameCompareToList(
             ".${FilenameUtils.extensionName(file.name)}", list);
 
-        var fileModel = FileInNote(
+        var fileModel = FileModel(
             filename: filename, originalPath: file.path, label: file.name);
         var blockKey = noteEmbedBlocks.generatedFileKey();
         noteEmbedBlocks.files[blockKey] = fileModel;
@@ -69,7 +69,7 @@ class NoteEditorFileButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
-      icon: Icon(Icons.attach_file, size: 30),
+      icon: Icon(Icons.attach_file, size: iconSize),
       onPressed: () async {
         if (appSettings.useOwnServer) {
           appWebChannel.getFiles(noteId: ref.watch(editingNoteProvider).note.id, onSuccess: (list) async {

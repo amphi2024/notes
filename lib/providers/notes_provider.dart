@@ -11,13 +11,23 @@ class NotesState {
 
   NotesState(this.notes, this.idLists, this.trash);
 
-  List<String> idListByFolderId(String id, {String? filename}) {
+  List<String> idListByFolderId(String id, {String? searchKeyword}) {
     var list = idLists[id] ?? [];
-    if(filename == null) {
+    if(searchKeyword == null) {
       return list;
     }
-    return list.where((id) => notes[id]?.title.toLowerCase().contains(filename.toLowerCase()) ?? false).toList();
+    return list.where((id) => notes[id]?.title.toLowerCase().contains(searchKeyword.toLowerCase()) ?? false).toList();
   }
+
+  List<String> idListByFolderIdNoteOnly(String id, {String? searchKeyword}) {
+    return idListByFolderId(id, searchKeyword: searchKeyword).where((id) => notes[id]?.isFolder == false).toList();
+  }
+
+  List<String> idListByFolderIdFolderOnly(String id, {String? searchKeyword}) {
+    return idListByFolderId(id, searchKeyword: searchKeyword).where((id) => notes[id]?.isFolder == true).toList();
+  }
+
+  List<String> trashNoteOnly() => trash.where((id) => notes[id]?.isFolder == false).toList();
 
   Future<void> preloadNotes(String folderId) async {
     final database = await databaseHelper.database;
@@ -58,6 +68,20 @@ class NotesNotifier extends Notifier<NotesState> {
     final idLists = {...state.idLists, note.parentId: mergedList};
     idLists[note.parentId]!.sortNotes(appCacheData.sortOption(note.parentId), notes);
     state = NotesState(notes, idLists, [...state.trash]);
+  }
+
+  void updateNotePreview({required String noteId, required String title, required String subtitle, String? thumbnailImageFilename}) {
+    final note = state.notes.get(noteId);
+    note.title = title;
+    note.subtitle = subtitle;
+    note.thumbnailImageFilename = thumbnailImageFilename;
+    note.modified = DateTime.now();
+
+    final list = state.idLists.putIfAbsent(note.parentId, () => []);
+    list.sortNotes(appCacheData.sortOption(note.parentId), state.notes);
+
+    final idLists = {...state.idLists, note.parentId: list};
+    state = NotesState({...state.notes, noteId: note}, idLists, [...state.trash]);
   }
 
   void moveNotesToTrash(String folderId, List<String> list) {

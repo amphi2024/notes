@@ -1,3 +1,4 @@
+import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -47,21 +48,19 @@ class _NotesViewState extends ConsumerState<NotesView> {
 
               final roundBottom = index == idList.length - 1 || note.modified.difference(notes.get(idList[index + 1]).modified).inDays > 30 || notes.get(idList[index + 1]).modified.difference(note.modified).inDays > 30;
 
+              final borderRadius = BorderRadius.only(
+                  topLeft: Radius.circular(roundedTop ? 15 : 0),
+                  topRight: Radius.circular(roundedTop ? 15 : 0),
+                  bottomRight: Radius.circular(roundBottom ? 15 : 0),
+                  bottomLeft: Radius.circular(roundBottom ? 15 : 0));
+
               final itemWidget = note.isFolder ? FolderLinearItem(
                 note: note,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(roundedTop ? 15 : 0),
-                    topRight: Radius.circular(roundedTop ? 15 : 0),
-                    bottomRight: Radius.circular(roundBottom ? 15 : 0),
-                    bottomLeft: Radius.circular(roundBottom ? 15 : 0)),
+                borderRadius: borderRadius,
                 showDivider: !roundBottom,
               ): NoteLinearItem(
                 note: note,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(roundedTop ? 15 : 0),
-                    topRight: Radius.circular(roundedTop ? 15 : 0),
-                    bottomRight: Radius.circular(roundBottom ? 15 : 0),
-                    bottomLeft: Radius.circular(roundBottom ? 15 : 0)),
+                borderRadius: App.isDesktop() ? BorderRadius.circular(10) : borderRadius,
                 showDivider: !roundBottom,
               );
 

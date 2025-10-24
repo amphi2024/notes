@@ -15,8 +15,8 @@ import '../../../utils/select_file_utils.dart';
 
 class NoteEditorVideoButton extends ConsumerWidget {
   final QuillController controller;
-
-  const NoteEditorVideoButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorVideoButton({super.key, required this.controller, required this.iconSize});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +24,7 @@ class NoteEditorVideoButton extends ConsumerWidget {
     final note = ref.watch(editingNoteProvider).note;
 
     return IconButton(
-        icon: Icon(Icons.video_camera_back_outlined, size: 30),
+        icon: Icon(Icons.video_camera_back_outlined, size: iconSize),
         onPressed: () async {
           if (Platform.isIOS) {
             showMenuByRelative(context: context, items: [

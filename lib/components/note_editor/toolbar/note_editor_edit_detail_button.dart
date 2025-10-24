@@ -8,12 +8,13 @@ import 'package:flutter_quill/flutter_quill.dart';
 class NoteEditorEditDetailButton extends StatelessWidget {
 
   final QuillController controller;
-  const NoteEditorEditDetailButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorEditDetailButton({super.key, required this.controller, required this.iconSize});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.more_vert_rounded, size: 30),
+      icon: Icon(Icons.more_vert_rounded, size: iconSize),
       onPressed: () {
         if(App.isWideScreen(context)) {
           showCustomPopupMenu(context, EditNoteDetail(controller: controller));

@@ -6,13 +6,14 @@ import 'package:amphi/widgets/menu/popup/custom_popup_menu_route.dart';
 
 class NoteEditorTextStyleButton extends StatelessWidget {
   final QuillController controller;
-  const NoteEditorTextStyleButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorTextStyleButton({super.key, required this.controller, required this.iconSize});
 
   @override
   Widget build(BuildContext context) {
 
     return IconButton(
-        icon: Icon(Icons.font_download, size: 30),
+        icon: Icon(Icons.font_download, size: iconSize),
         onPressed: () {
           if(App.isWideScreen(context)) {
             showCustomPopupMenu(context, EditNoteTextStyle(controller: controller));

@@ -10,7 +10,13 @@ class NoteEditorImportButton extends StatelessWidget {
   const NoteEditorImportButton({super.key, required this.controller});
 
   void importFromNote() async {
-    var selectedFiles = await FilePicker.platform.pickFiles();
+    // var selectedFiles = await FilePicker.platform.pickFiles(allo);
+    // var file = selectedFiles?.files.firstOrNull;
+    // if(file == null) {
+    //   return;
+    // }
+    // var map = file()
+
     // if(selectedFiles != null) {
     //   for(var file in selectedFiles.files) {
     //     String fileContent = await file.xFile.readAsString();

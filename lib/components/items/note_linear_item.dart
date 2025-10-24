@@ -1,9 +1,11 @@
+import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/note_image_rounded.dart';
 import 'package:notes/extensions/date_extension.dart';
 
 import 'package:notes/models/note.dart';
+import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 
 import '../../utils/note_item_press_callback.dart';
@@ -17,14 +19,16 @@ class NoteLinearItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedNotes = ref.watch(selectedNotesProvider);
-    final selectingNotes = selectedNotes != null;
+    final selectingNotes = selectedNotes != null && !App.isDesktop();
+    final focused = selectedNotes?.contains(note.id) == true || ref.watch(editingNoteProvider).note.id == note.id;
+    final themeData = Theme.of(context);
 
     return Material(
-      color: Theme
-          .of(context)
+      color: App.isDesktop() && focused ? themeData.highlightColor.withAlpha(100) : themeData
           .cardColor,
       borderRadius: borderRadius,
       child: InkWell(
+        mouseCursor: SystemMouseCursors.basic,
         highlightColor: Color.fromARGB(25, 125, 125, 125),
         splashColor: Color.fromARGB(25, 125, 125, 125),
         borderRadius: borderRadius,
@@ -35,22 +39,23 @@ class NoteLinearItem extends ConsumerWidget {
           ref.read(selectedNotesProvider.notifier).startSelection();
         },
         child: SizedBox(
-          height: 60,
+          height: App.isDesktop() ? 70 : 60,
           child: Stack(
             children: [
-              if(showDivider) ... [
+              if(showDivider || (App.isDesktop()) && focused) ... [
                 AnimatedPositioned(
                     duration: const Duration(milliseconds: 1000),
                     curve: Curves.easeOutQuint,
                     left: selectingNotes ? 50 : 10,
                     right: 0,
                     bottom: 0,
-                    child: Divider(
-                      color: Theme
-                          .of(context)
-                          .dividerColor,
-                      height: 1,
-                      thickness: 1,
+                    child: Padding(
+                      padding: App.isDesktop() ? const EdgeInsets.only(right: 5.0 , bottom: 5) : EdgeInsets.zero,
+                      child: Divider(
+                        color: themeData.dividerColor,
+                        height: 1,
+                        thickness: 1,
+                      ),
                     )
                 ),
               ],

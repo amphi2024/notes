@@ -10,8 +10,8 @@ import '../embed_block/audio/audio_block_embed.dart';
 class NoteEditorAudioButton extends ConsumerWidget {
 
   final QuillController controller;
-
-  const NoteEditorAudioButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorAudioButton({super.key, required this.controller, required this.iconSize});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +19,7 @@ class NoteEditorAudioButton extends ConsumerWidget {
     final note = ref.watch(editingNoteProvider).note;
 
     return IconButton(
-      icon: Icon(Icons.audiotrack, size: 30),
+      icon: Icon(Icons.audiotrack, size: iconSize),
       onPressed: () async {
         var files = await selectedAudioFiles(note.id);
         for (var file in files) {

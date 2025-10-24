@@ -9,11 +9,12 @@ import 'package:notes/providers/tables_provider.dart';
 class NoteEditorTableButton extends ConsumerWidget {
 
   final QuillController controller;
-  const NoteEditorTableButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorTableButton({super.key, required this.controller, required this.iconSize});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return IconButton(icon: Icon(Icons.table_rows_outlined, size: 30), onPressed: () {
+    return IconButton(icon: Icon(Icons.table_rows_outlined, size: iconSize), onPressed: () {
       final id = ref.read(tablesProvider.notifier).generatedId();
       ref.read(tablesProvider.notifier).insertTable(id, TableData());
       BlockEmbed table = BlockEmbed.custom(NoteTableBlockEmbed(id));

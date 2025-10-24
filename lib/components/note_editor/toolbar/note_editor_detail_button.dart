@@ -7,12 +7,13 @@ import 'package:notes/providers/editing_note_provider.dart';
 class NoteEditorDetailButton extends ConsumerWidget {
 
   final QuillController controller;
-  const NoteEditorDetailButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorDetailButton({super.key, required this.controller, required this.iconSize});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
-        icon: Icon(Icons.more_vert_rounded, size: 20), onPressed: () {
+        icon: Icon(Icons.more_vert_rounded, size: iconSize), onPressed: () {
       showDialog(context: context, builder: (context) {
         return NoteDetailDialog(note: ref.watch(editingNoteProvider).note);
       });

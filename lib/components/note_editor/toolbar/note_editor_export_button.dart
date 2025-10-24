@@ -13,7 +13,8 @@ import 'package:notes/utils/toast.dart';
 
 class NoteEditorExportButton extends StatelessWidget {
   final QuillController controller;
-  const NoteEditorExportButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorExportButton({super.key, required this.controller, required this.iconSize});
 
   void exportToNote(BuildContext context) async {
     // Note note = controller.note;
@@ -60,7 +61,7 @@ class NoteEditorExportButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     return IconButton(
-        icon: Icon(AppIcons.export, size: 20),
+        icon: Icon(AppIcons.export, size: iconSize),
         onPressed: () {
           showMenuByRelative(context: context, items: [
             PopupMenuItem(child: Text(localizations.get("@note_export_label_note")), onTap: () => exportToNote(context)),

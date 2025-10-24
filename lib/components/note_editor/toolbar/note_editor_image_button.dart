@@ -14,7 +14,8 @@ import '../../../utils/select_file_utils.dart';
 class NoteEditorImageButton extends ConsumerWidget {
 
   final QuillController controller;
-  const NoteEditorImageButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorImageButton({super.key, required this.controller, required this.iconSize});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +23,7 @@ class NoteEditorImageButton extends ConsumerWidget {
     final note = ref.watch(editingNoteProvider).note;
 
     return IconButton(
-        icon: Icon(Icons.image, size: 30),
+        icon: Icon(Icons.image, size: iconSize),
         onPressed: () async {
           if (Platform.isIOS) {
             showMenuByRelative(context: context, items: [

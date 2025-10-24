@@ -16,7 +16,7 @@ class NoteEditorToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final buttons = noteEditorToolbarButtons(controller);
+    final buttons = noteEditorToolbarButtons(controller, 30);
     return Container(
       height: 60,
       color: Theme.of(context).cardColor,
@@ -48,15 +48,15 @@ class NoteEditorToolbar extends StatelessWidget {
   }
 }
 
-List<Widget> noteEditorToolbarButtons(QuillController controller) {
+List<Widget> noteEditorToolbarButtons(QuillController controller, double iconSize) {
   return  [
-    NoteEditorTextStyleButton(controller: controller),
-    NoteEditorImageButton(controller: controller),
-    NoteEditorTableButton(controller: controller),
-    NoteEditorFileButton(controller: controller),
-    NoteEditorVideoButton(controller: controller),
-    NoteEditorAudioButton(controller: controller),
-    NoteEditorDividerButton(controller: controller),
-    NoteEditorEditDetailButton(controller: controller)
+    NoteEditorTextStyleButton(controller: controller, iconSize: iconSize),
+    NoteEditorImageButton(controller: controller, iconSize: iconSize),
+    NoteEditorTableButton(controller: controller, iconSize: iconSize),
+    NoteEditorFileButton(controller: controller, iconSize: iconSize),
+    NoteEditorVideoButton(controller: controller, iconSize: iconSize),
+    NoteEditorAudioButton(controller: controller, iconSize: iconSize),
+    NoteEditorDividerButton(controller: controller, iconSize: iconSize),
+    NoteEditorEditDetailButton(controller: controller, iconSize: iconSize)
   ];
 }

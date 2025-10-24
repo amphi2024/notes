@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SelectedNotesNotifier extends Notifier<List<String>?> {
+
+  bool keyPressed = false;
+
   @override
   List<String>? build() {
     return null;
@@ -28,6 +31,10 @@ class SelectedNotesNotifier extends Notifier<List<String>?> {
       return;
     }
     state = state!.where((e) => e != id).toList();
+  }
+
+  void notifyEditingNote(String id) {
+    state = [id];
   }
 }
 

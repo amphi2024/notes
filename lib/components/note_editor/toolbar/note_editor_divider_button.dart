@@ -7,12 +7,13 @@ import 'package:notes/models/note_embed_blocks.dart';
 class NoteEditorDividerButton extends StatelessWidget {
 
   final QuillController controller;
-  const NoteEditorDividerButton({super.key, required this.controller});
+  final double iconSize;
+  const NoteEditorDividerButton({super.key, required this.controller, required this.iconSize});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.horizontal_rule, size: 30),
+      icon: Icon(Icons.horizontal_rule, size: iconSize),
       onPressed: () {
         String dividerKey = noteEmbedBlocks.generatedTableKey();
         BlockEmbed divider = BlockEmbed.custom(DividerBlockEmbed(dividerKey));
