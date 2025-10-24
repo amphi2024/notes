@@ -8,9 +8,11 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_kit_video/media_kit_video_controls/src/controls/methods/video_state.dart';
 import 'package:notes/channels/app_method_channel.dart';
+import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/note_editor_toolbar.dart';
 import 'package:notes/icons/icons.dart';
+import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/pages/main/menu/side_bar.dart';
 import 'package:notes/pages/main/side_bar_toggle_button.dart';
@@ -19,6 +21,7 @@ import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 import 'package:notes/utils/document_conversion.dart';
+import 'package:notes/utils/toast.dart';
 import 'package:notes/views/notes_view.dart';
 
 import '../../providers/providers.dart';
@@ -46,6 +49,16 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
   void maximizeOrRestore() {
     setState(() {
       appWindow.maximizeOrRestore();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if(appSettings.useOwnServer && appWebChannel.uploadBlocked) {
+        showToast(context, "upload block message");
+      }
     });
   }
 
