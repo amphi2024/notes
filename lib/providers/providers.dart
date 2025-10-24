@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/note.dart';
 
 class FloatingButtonNotifier extends Notifier<bool> {
@@ -72,7 +73,7 @@ class WideMainPageState {
 class WideMainPageStateNotifier extends Notifier<WideMainPageState> {
   @override
   WideMainPageState build() {
-    return WideMainPageState(sideBarFloating: false, notesViewWidth: 250, sideBarShowing: true, sideBarWidth: 200);
+    return WideMainPageState(sideBarFloating: false, notesViewWidth: appCacheData.notesViewWidth, sideBarShowing: true, sideBarWidth: appCacheData.sidebarWidth);
   }
 
   void setSideBarShowing(bool value) {

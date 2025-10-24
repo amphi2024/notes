@@ -10,6 +10,11 @@ class AppCacheData extends AppCacheDataCore {
   static final AppCacheData _instance = AppCacheData();
   static AppCacheData getInstance() => _instance;
 
+  double get sidebarWidth => data["sidebarWidth"] ?? 200;
+  set sidebarWidth(value) => data["sidebarWidth"] = value;
+  double get notesViewWidth => data["notesViewWidth"] ?? 250;
+  set notesViewWidth(value) => data["notesViewWidth"] = value;
+
   String sortOption(String id) {
     var dirName = PathUtils.basename(appStorage.selectedUser.storagePath);
     if(data["sortOption"]?[dirName] is Map) {
