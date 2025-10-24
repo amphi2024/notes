@@ -72,16 +72,18 @@ class NotesNotifier extends Notifier<NotesState> {
 
   void updateNotePreview({required String noteId, required String title, required String subtitle, String? thumbnailImageFilename}) {
     final note = state.notes.get(noteId);
-    note.title = title;
-    note.subtitle = subtitle;
-    note.thumbnailImageFilename = thumbnailImageFilename;
-    note.modified = DateTime.now();
+    if(title != note.title || subtitle != note.subtitle || thumbnailImageFilename != note.thumbnailImageFilename) {
+      note.title = title;
+      note.subtitle = subtitle;
+      note.thumbnailImageFilename = thumbnailImageFilename;
+      note.modified = DateTime.now();
 
-    final list = state.idLists.putIfAbsent(note.parentId, () => []);
-    list.sortNotes(appCacheData.sortOption(note.parentId), state.notes);
+      final list = state.idLists.putIfAbsent(note.parentId, () => []);
+      list.sortNotes(appCacheData.sortOption(note.parentId), state.notes);
 
-    final idLists = {...state.idLists, note.parentId: list};
-    state = NotesState({...state.notes, noteId: note}, idLists, [...state.trash]);
+      final idLists = {...state.idLists, note.parentId: list};
+      state = NotesState({...state.notes, noteId: note}, idLists, [...state.trash]);
+    }
   }
 
   void moveNotesToTrash(String folderId, List<String> list) {
