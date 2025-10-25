@@ -76,7 +76,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor);
+    appMethodChannel.setNavigationBarColor(Theme.of(context).cardColor);
     final wideMainPageState = ref.watch(wideMainPageStateProvider);
     final controller = ref.watch(editingNoteProvider.notifier).controller;
 
@@ -90,7 +90,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
         iconNormal: Theme.of(context).textTheme.bodyMedium?.color,
         mouseDown: const Color.fromRGBO(125, 125, 125, 0.1),
         iconMouseDown: Theme.of(context).textTheme.bodyMedium?.color,
-        normal: Theme.of(context).scaffoldBackgroundColor
+        normal: Theme.of(context).cardColor
     );
 
     return PopScope(
@@ -241,7 +241,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                           mouseDown: const Color(0xFFB71C1C),
                                           iconNormal: const Color(0xFF805306),
                                           iconMouseOver: const Color(0xFFFFFFFF),
-                                          normal: Theme.of(context).scaffoldBackgroundColor))
+                                          normal: Theme.of(context).cardColor))
                                 ],
                               ],
                             ),
