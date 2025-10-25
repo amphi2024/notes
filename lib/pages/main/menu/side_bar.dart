@@ -153,9 +153,11 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                                         if (node.isExpanded) {
                                           expandedNodes[note.id] = false;
                                           controller.collapseNode(node);
+                                          ref.read(notesProvider).releaseNotes(note.id);
                                         } else {
                                           expandedNodes[note.id] = true;
                                           controller.expandNode(node);
+                                          ref.read(notesProvider).preloadNotes(note.id);
                                         }
                                       },
                                       expanded: node.isExpanded,
