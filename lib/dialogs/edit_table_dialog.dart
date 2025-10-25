@@ -15,9 +15,9 @@ class EditTableDialog extends ConsumerWidget {
 
     return Dialog(
       child: SizedBox(
-        width: 450,
-        height: 250,
-        child: Column(
+        width:  MediaQuery.of(context).size.width > 500 ? 500 : MediaQuery.of(context).size.width - 10,
+        height: MediaQuery.of(context).size.height > 600 ? 600 : MediaQuery.of(context).size.height - 10,
+        child: Stack(
           children: [
             Positioned(
                 left: 0,
