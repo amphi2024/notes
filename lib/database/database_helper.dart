@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:notes/models/app_storage.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../utils/notes_migration.dart';
 import '../utils/theme_migration.dart';
@@ -20,6 +23,14 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
+    if(Platform.isWindows || Platform.isLinux) {
+      final databaseFactory = databaseFactoryFfi;
+      final db = await databaseFactory.openDatabase(appStorage.databasePath, options: OpenDatabaseOptions(
+        onCreate: _onCreate,
+        version: 1
+      ));
+      return db;
+    }
     return await openDatabase(
       appStorage.databasePath,
       version: 1,

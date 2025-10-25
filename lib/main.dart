@@ -13,6 +13,7 @@ import 'package:notes/database/database_helper.dart';
 import 'package:notes/pages/main/main_page.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/utils/toast.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'channels/app_method_channel.dart';
 import 'channels/app_web_channel.dart';
@@ -25,10 +26,21 @@ import 'pages/main/wide_main_page.dart';
 import 'utils/data_sync.dart';
 
 void main() async {
+  if(Platform.isWindows || Platform.isLinux) {
+    sqfliteFfiInit();
+  }
+
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
   await appCacheData.getData();
   appStorage.initialize(() {
+    // for(var user in appStorage.users) {
+    //   if(user.storagePath.endsWith("DD")) {
+    //     appStorage.selectedUser = user;
+    //     appStorage.settingsPath = user.storagePath + "\\settings.json";
+    //     appStorage.attachmentsPath = user.storagePath + "\\attachments";
+    //   }
+    // }
     appSettings.getData();
     appColors.getData();
 
