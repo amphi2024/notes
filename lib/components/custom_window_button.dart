@@ -125,7 +125,7 @@ class CustomWindowButton extends StatelessWidget {
             ? builder!(buttonContext, icon)
             : iconWithPadding;
         return SizedBox(
-            width: buttonSize.width, height: 50, child: button);
+            width: buttonSize.width, height: 55, child: button);
       },
       onPressed: () {
         if (onPressed != null) onPressed!();

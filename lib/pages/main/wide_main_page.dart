@@ -127,7 +127,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 50,
+                            height: 55,
                             child: Row(
                               children: [
                                 if (App.isDesktop()) ...[Expanded(child: MoveWindow())],
@@ -209,7 +209,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 50,
+                            height: 55,
                             child: Row(
                               children: [
                                 if (App.isDesktop()) ...[Expanded(child: MoveWindow())],
