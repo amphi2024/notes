@@ -11,7 +11,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/pages/main/main_page.dart';
+import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
+import 'package:notes/utils/note_item_press_callback.dart';
 import 'package:notes/utils/toast.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -34,13 +36,6 @@ void main() async {
   MediaKit.ensureInitialized();
   await appCacheData.getData();
   appStorage.initialize(() {
-    // for(var user in appStorage.users) {
-    //   if(user.storagePath.endsWith("DD")) {
-    //     appStorage.selectedUser = user;
-    //     appStorage.settingsPath = user.storagePath + "\\settings.json";
-    //     appStorage.attachmentsPath = user.storagePath + "\\attachments";
-    //   }
-    // }
     appSettings.getData();
     appColors.getData();
 
@@ -99,7 +94,14 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       });
     }
     WidgetsBinding.instance.addObserver(this);
-    ref.read(notesProvider.notifier).init();
+    ref.read(notesProvider.notifier).init(() {
+      final note = ref.watch(notesProvider).notes[appCacheData.editingNote];
+      if(note != null) {
+        prepareEmbeddedBlocks(ref, note);
+        ref.read(editingNoteProvider.notifier).startEditing(note, true);
+        ref.read(editingNoteProvider.notifier).initController(ref);
+      }
+    });
 
     if (appSettings.useOwnServer) {
       appWebChannel.connectWebSocket();

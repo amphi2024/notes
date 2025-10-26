@@ -7,6 +7,8 @@ import 'package:notes/models/note.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/utils/document_conversion.dart';
 
+import '../models/app_cache_data.dart';
+
 class EditingNoteState {
   final Note note;
   final bool editing;
@@ -95,6 +97,8 @@ class EditingNoteNotifier extends Notifier<EditingNoteState> {
 
   void startEditing(Note note, bool editing) {
     state = EditingNoteState(note, editing);
+    appCacheData.editingNote = note.id;
+    appCacheData.save();
   }
 
   void setLineHeight(double? lineHeight) {

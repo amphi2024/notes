@@ -65,17 +65,6 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
       if(appSettings.useOwnServer && appWebChannel.uploadBlocked) {
         showToast(context, "upload block message");
       }
-
-      final idList = ref.watch(notesProvider).idListByFolderIdNoteOnly("");
-      if(idList.isNotEmpty) {
-        ref.read(editingNoteProvider.notifier).startEditing(ref.watch(notesProvider).notes.get(idList.first), true);
-        ref.read(editingNoteProvider.notifier).initController(ref);
-      }
-      else {
-        var id = await generatedNoteId();
-        var note = Note(id: id);
-        ref.read(editingNoteProvider.notifier).startEditing(note, true);
-      }
     });
   }
 

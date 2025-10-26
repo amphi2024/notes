@@ -118,7 +118,7 @@ class NotesNotifier extends Notifier<NotesState> {
     state = NotesState({...state.notes}, idLists);
   }
 
-  void init() async {
+  void init(void Function() onInitialize) async {
     final database = await databaseHelper.database;
     final Map<String, Note> notes = {};
     final Map<String, List<String>> idLists = {
@@ -145,6 +145,8 @@ class NotesNotifier extends Notifier<NotesState> {
     await newState.preloadNotes("");
     await newState.preloadNotes("!TRASH");
     state = newState;
+
+    onInitialize();
   }
 
 }

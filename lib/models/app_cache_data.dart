@@ -14,6 +14,8 @@ class AppCacheData extends AppCacheDataCore {
   set sidebarWidth(value) => data["sidebarWidth"] = value;
   double get notesViewWidth => data["notesViewWidth"] ?? 250;
   set notesViewWidth(value) => data["notesViewWidth"] = value;
+  String get editingNote => data["editingNote"] ?? "";
+  set editingNote(value) => data["editingNote"] = value;
 
   String sortOption(String id) {
     var dirName = PathUtils.basename(appStorage.selectedUser.storagePath);
