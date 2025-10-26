@@ -122,20 +122,28 @@ class NotesNotifier extends Notifier<NotesState> {
     final database = await databaseHelper.database;
     final Map<String, Note> notes = {};
     final Map<String, List<String>> idLists = {
-      "" : []
+      "" : [],
+      "!TRASH": []
     };
     final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM notes WHERE parent_id IS NULL", []);
     for(var data in list) {
       final note = Note.fromMap(data);
 
       notes[note.id] = note;
-      idLists[""]!.add(note.id);
+      if(note.deleted == null) {
+        idLists[""]!.add(note.id);
+      }
+      else {
+        idLists["!TRASH"]!.add(note.id);
+      }
     }
 
     idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
+    idLists["!TRASH"]!.sortNotes(appCacheData.sortOption("!TRASH"), notes);
 
     final newState = NotesState(notes, idLists);
     await newState.preloadNotes("");
+    await newState.preloadNotes("!TRASH");
     state = newState;
   }
 
