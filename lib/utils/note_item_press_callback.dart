@@ -28,30 +28,17 @@ void onNotePressed(Note note, BuildContext context, WidgetRef ref) async {
     ref.read(selectedNotesProvider.notifier).endSelection();
   }
 
-
-  videosService.noteId = note.id;
-  videosService.clear();
-  audioService.noteId = note.id;
-  audioService.clear();
+  prepareEmbeddedBlocks(ref, note);
   if(App.isWideScreen(context) || App.isDesktop()) {
 
-    final oldNote = ref.watch(editingNoteProvider).note;
-    if(oldNote.id.isNotEmpty && ref.watch(editingNoteProvider.notifier).controller.hasUndo) {
-      oldNote.content = ref.watch(editingNoteProvider.notifier).controller.document.toNoteContent(ref);
-      oldNote.modified = DateTime.now();
-      oldNote.save();
-      oldNote.initTitles();
-      oldNote.initDelta();
-      ref.read(notesProvider.notifier).insertNote(oldNote);
-    }
+    saveEditingNoteBeforeSwitch(ref);
 
-    ref.read(tablesProvider.notifier).setTables(note.tables);
+
     ref.read(editingNoteProvider.notifier).startEditing(note, false);
 
     ref.read(editingNoteProvider.notifier).initController(ref);
   }
   else {
-    ref.read(tablesProvider.notifier).setTables(note.tables);
     ref.read(editingNoteProvider.notifier).startEditing(note, false);
     Navigator.push(context, CupertinoPageRoute(builder: (context) {
       return NotePage();
@@ -66,4 +53,24 @@ void onFolderPressed(Note note, BuildContext context, WidgetRef ref) async {
       return MainPage(folder: note);
     }));
   }
+}
+
+void saveEditingNoteBeforeSwitch(WidgetRef ref) {
+  final oldNote = ref.watch(editingNoteProvider).note;
+  if(oldNote.id.isNotEmpty && ref.watch(editingNoteProvider.notifier).controller.hasUndo) {
+    oldNote.content = ref.watch(editingNoteProvider.notifier).controller.document.toNoteContent(ref);
+    oldNote.modified = DateTime.now();
+    oldNote.save();
+    oldNote.initTitles();
+    oldNote.initDelta();
+    ref.read(notesProvider.notifier).insertNote(oldNote);
+  }
+}
+
+void prepareEmbeddedBlocks(WidgetRef ref, Note note) {
+  videosService.noteId = note.id;
+  videosService.clear();
+  audioService.noteId = note.id;
+  audioService.clear();
+  ref.read(tablesProvider.notifier).setTables(note.tables);
 }
