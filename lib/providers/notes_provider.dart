@@ -98,17 +98,6 @@ class NotesNotifier extends Notifier<NotesState> {
     state = NotesState(notes, idLists);
   }
 
-  void restoreNotes(List<String> list) {
-
-    final idLists = {...state.idLists};
-    idLists[""]!.addAll(list);
-
-    final trash = state.trash.where((id) => !list.contains(id)).toList();
-    final notes = {...state.notes};
-    idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
-    state = NotesState(notes, idLists);
-  }
-
   void deleteNotes(List<String> list) {
     final notes = {...state.notes}..removeWhere((key, value) => list.contains(key));
     final trash = state.trash.where((id) => !list.contains(id)).toList();
