@@ -174,7 +174,19 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                         })
                                       ];
                                     }),
-                                    IconButton(onPressed: () {}, icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size))
+                                    IconButton(onPressed: () async {
+                                      final selectedNotes = ref.watch(selectedNotesProvider);
+                                      if(selectedNotes != null) {
+                                        ref.read(notesProvider.notifier).moveNotes(selectedNotes, selectedFolderId, "!TRASH");
+                                        ref.read(selectedNotesProvider.notifier).endSelection();
+
+                                        for(var id in selectedNotes) {
+                                          final note = ref.watch(notesProvider).notes.get(id);
+                                          note.deleted = DateTime.now();
+                                          note.save();
+                                        }
+                                      }
+                                    }, icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size))
                                   ],
                                 )
                               ],

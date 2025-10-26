@@ -11,6 +11,8 @@ import '../icons/icons.dart';
 import '../dialogs/choose_folder_dialog.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 
+import '../providers/selected_notes_provider.dart';
+
 List<Widget> appbarActions({
   required BuildContext context,
   required List<String>? selectedNotes,
@@ -36,9 +38,17 @@ List<Widget> appbarActions({
                 return ConfirmationDialog(
                   title: "@dialog_title_move_to_trash",
                   onConfirmed: () {
-                    // setState(() {
-                    //   AppStorage.moveSelectedNotesToTrash(widget.location);
-                    // });
+                    final selectedNotes = ref.watch(selectedNotesProvider);
+                    if(selectedNotes != null) {
+                      ref.read(notesProvider.notifier).moveNotes(selectedNotes, folder.id, "!TRASH");
+                      ref.read(selectedNotesProvider.notifier).endSelection();
+
+                      for(var id in selectedNotes) {
+                        final note = ref.watch(notesProvider).notes.get(id);
+                        note.deleted = DateTime.now();
+                        note.save();
+                      }
+                    }
                   },
                 );
               }))
