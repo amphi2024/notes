@@ -25,7 +25,12 @@ import 'package:notes/utils/toast.dart';
 import 'package:notes/views/notes_view.dart';
 
 import '../../components/custom_window_button.dart';
+import '../../dialogs/edit_folder_dialog.dart';
 import '../../providers/providers.dart';
+import '../../providers/tables_provider.dart';
+import '../../services/audio_service.dart';
+import '../../services/videos_service.dart';
+import '../../utils/note_item_press_callback.dart';
 
 class WideMainPage extends ConsumerStatefulWidget {
   final String? title;
@@ -140,10 +145,33 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                       return [
                                         PopupMenuItem(
                                             height: 30,
-                                            child: Text(AppLocalizations.of(context).get("@new_note"))),
+                                            child: Text(AppLocalizations.of(context).get("@new_note")),
+                                        onTap: () async {
+                                          saveEditingNoteBeforeSwitch(ref);
+                                          ref.read(selectedNotesProvider.notifier).endSelection();
+
+                                          var note = Note(id: await generatedNoteId());
+                                          note.created = DateTime.now();
+                                          note.parentId = selectedFolderId;
+                                          prepareEmbeddedBlocks(ref, note);
+
+                                          ref.read(editingNoteProvider.notifier).startEditing(note, true);
+                                          ref.read(editingNoteProvider.notifier).initController(ref);
+
+                                          ref.read(notesProvider.notifier).insertNote(note);
+                                        }),
                                         PopupMenuItem(
                                             height: 30,
-                                            child: Text(AppLocalizations.of(context).get("@new_folder")))
+                                            child: Text(AppLocalizations.of(context).get("@new_folder")), onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                var folder = Note(id: "");
+                                                folder.parentId = selectedFolderId;
+                                                folder.isFolder = true;
+                                                return EditFolderDialog(folder: folder, ref: ref);
+                                              });
+                                        })
                                       ];
                                     }),
                                     IconButton(onPressed: () {}, icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size))
@@ -172,7 +200,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                         ref.read(selectedNotesProvider.notifier).keyPressed = false;
                                         return;
                                       }
-                                      if(event.physicalKey == PhysicalKeyboardKey.metaLeft) {
+                                      if(event.physicalKey == PhysicalKeyboardKey.metaLeft || event.physicalKey == PhysicalKeyboardKey.controlLeft) {
                                         ref.read(selectedNotesProvider.notifier).keyPressed = true;
                                         if(ref.watch(selectedNotesProvider) == null) {
                                           ref.read(selectedNotesProvider.notifier).startSelection();
