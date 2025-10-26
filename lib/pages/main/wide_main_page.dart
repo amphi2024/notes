@@ -100,9 +100,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
 
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
-        appCacheData.sidebarWidth = wideMainPageState.sideBarWidth;
-        appCacheData.notesViewWidth = wideMainPageState.notesViewWidth;
-        appCacheData.save();
+
       },
       child: MouseRegion(
         onHover: (event) {
@@ -236,6 +234,11 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                         behavior: HitTestBehavior.translucent,
                         onHorizontalDragUpdate: (d) {
                           ref.read(wideMainPageStateProvider.notifier).setNotesViewWidth(wideMainPageState.notesViewWidth + d.delta.dx);
+                        },
+                        onHorizontalDragEnd: (d) {
+                          appCacheData.sidebarWidth = wideMainPageState.sideBarWidth;
+                          appCacheData.notesViewWidth = wideMainPageState.notesViewWidth;
+                          appCacheData.save();
                         },
                         child: SizedBox(
                           width: 15,

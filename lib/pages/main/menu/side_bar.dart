@@ -168,6 +168,11 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                     onHorizontalDragUpdate: (d) {
                       ref.read(wideMainPageStateProvider.notifier).setSideBarWidth(wideMainPageState.sideBarWidth + d.delta.dx);
                     },
+                    onHorizontalDragEnd: (d) {
+                      appCacheData.sidebarWidth = wideMainPageState.sideBarWidth;
+                      appCacheData.notesViewWidth = wideMainPageState.notesViewWidth;
+                      appCacheData.save();
+                    },
                     child: SizedBox(
                       width: 5,
                       child: VerticalDivider(
