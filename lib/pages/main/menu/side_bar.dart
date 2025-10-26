@@ -41,159 +41,145 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
     double normalPosition = !wideMainPageState.sideBarFloating ? 0 : 15;
     double top = !wideMainPageState.sideBarFloating ? 0 : 15;
 
-    return PopScope(
-      // canPop: appStorage.selectedNotes == null && appState.history.length <= 1,
-      onPopInvokedWithResult: (value, result) {
-        // if (appStorage.selectedNotes != null) {
-        //   setState(() {
-        //     appStorage.selectedNotes = null;
-        //   });
-        // } else if (appState.history.length > 1) {
-        //   setState(() {
-        //     appState.history.removeLast();
-        //   });
-        // }
-      },
-      child: AnimatedPositioned(
-          left: wideMainPageState.sideBarShowing ? normalPosition : -wideMainPageState.sideBarWidth - 100,
-          top: top,
-          bottom: normalPosition,
+    return AnimatedPositioned(
+        left: wideMainPageState.sideBarShowing ? normalPosition : -wideMainPageState.sideBarWidth - 100,
+        top: top,
+        bottom: normalPosition,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeOutQuint,
+        child: AnimatedContainer(
           duration: Duration(milliseconds: 500),
           curve: Curves.easeOutQuint,
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 500),
-            curve: Curves.easeOutQuint,
-            width: wideMainPageState.sideBarWidth,
-            decoration: BoxDecoration(
-              borderRadius: appSettings.dockedFloatingMenu ? BorderRadius.zero : BorderRadius.circular(15),
-              color: Theme.of(context).scaffoldBackgroundColor,
-              boxShadow: appSettings.dockedFloatingMenu
-                  ? null
-                  : [
-                      BoxShadow(
-                        color: Theme.of(context).shadowColor,
-                        spreadRadius: 3,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-            ),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if(App.isDesktop()) ... [
-                            Expanded(child: SizedBox(
-                                height: 55,
-                                child: MoveWindow()))
-                          ],
-                          AccountButton(
-                              onLoggedIn: ({required id, required token, required username}) {
-                                onLoggedIn(id: id, token: token, username: username, context: context, ref: ref);
-                              },
-                              iconSize: Theme.of(context).appBarTheme.iconTheme!.size!,
-                              profileIconSize: Theme.of(context).appBarTheme.iconTheme!.size!,
-                              wideScreenIconSize: Theme.of(context).appBarTheme.iconTheme!.size!,
-                              wideScreenProfileIconSize: 15,
-                              appWebChannel: appWebChannel,
-                              appStorage: appStorage,
-                              appCacheData: appCacheData,
-                              onUserRemoved: () {
-                                onUserRemoved(ref);
-                              },
-                              onUserAdded: () {
-                                onUserAdded(ref);
-                              },
-                              onUsernameChanged: () {
-                                onUsernameChanged(ref);
-                              },
-                              onSelectedUserChanged: (user) {
-                                onSelectedUserChanged(user, ref);
-                              },
-                              setAndroidNavigationBarColor: () {
-                                appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor);
-                              })
+          width: wideMainPageState.sideBarWidth,
+          decoration: BoxDecoration(
+            borderRadius: appSettings.dockedFloatingMenu ? BorderRadius.zero : BorderRadius.circular(15),
+            color: Theme.of(context).scaffoldBackgroundColor,
+            boxShadow: appSettings.dockedFloatingMenu
+                ? null
+                : [
+                    BoxShadow(
+                      color: Theme.of(context).shadowColor,
+                      spreadRadius: 3,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+          ),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        if(App.isDesktop()) ... [
+                          Expanded(child: SizedBox(
+                              height: 55,
+                              child: MoveWindow()))
                         ],
+                        AccountButton(
+                            onLoggedIn: ({required id, required token, required username}) {
+                              onLoggedIn(id: id, token: token, username: username, context: context, ref: ref);
+                            },
+                            iconSize: Theme.of(context).appBarTheme.iconTheme!.size!,
+                            profileIconSize: Theme.of(context).appBarTheme.iconTheme!.size!,
+                            wideScreenIconSize: Theme.of(context).appBarTheme.iconTheme!.size!,
+                            wideScreenProfileIconSize: 15,
+                            appWebChannel: appWebChannel,
+                            appStorage: appStorage,
+                            appCacheData: appCacheData,
+                            onUserRemoved: () {
+                              onUserRemoved(ref);
+                            },
+                            onUserAdded: () {
+                              onUserAdded(ref);
+                            },
+                            onUsernameChanged: () {
+                              onUsernameChanged(ref);
+                            },
+                            onSelectedUserChanged: (user) {
+                              onSelectedUserChanged(user, ref);
+                            },
+                            setAndroidNavigationBarColor: () {
+                              appMethodChannel.setNavigationBarColor(Theme.of(context).scaffoldBackgroundColor);
+                            })
+                      ],
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomScrollView(
+                          slivers: <Widget>[
+                            TreeSliver<Note>(
+                              tree: _tree(ref: ref, context: context, expandedNodes: expandedNodes),
+                              controller: controller,
+                              toggleAnimationStyle: AnimationStyle(curve: Curves.easeOutQuint),
+                              indentation: TreeSliverIndentationType.none,
+                              treeNodeBuilder: (
+                                BuildContext context,
+                                TreeSliverNode<Object?> node,
+                                AnimationStyle animationStyle,
+                              ) {
+                                final note = node.content as Note;
+
+                                final idList = ref.watch(notesProvider).idListByFolderIdNoteOnly(note.id);
+
+                                return FolderWideScreenItem(
+                                    key: Key(note.id),
+                                    folder: note,
+                                    iconVisible: node.children.isNotEmpty,
+                                    onPressed: () {
+                                      ref.read(selectedFolderProvider.notifier).setFolderId(note.id);
+                                    },
+                                    onIconPressed: () {
+                                      if (node.isExpanded) {
+                                        expandedNodes[note.id] = false;
+                                        controller.collapseNode(node);
+                                        ref.read(notesProvider).releaseNotes(note.id);
+                                      } else {
+                                        expandedNodes[note.id] = true;
+                                        controller.expandNode(node);
+                                        ref.read(notesProvider).preloadNotes(note.id);
+                                      }
+                                    },
+                                    expanded: node.isExpanded,
+                                    indent: (node.depth ?? 0) * 8,
+                                    itemCount: idList.length);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomScrollView(
-                            slivers: <Widget>[
-                              TreeSliver<Note>(
-                                tree: _tree(ref: ref, context: context, expandedNodes: expandedNodes),
-                                controller: controller,
-                                toggleAnimationStyle: AnimationStyle(curve: Curves.easeOutQuint),
-                                indentation: TreeSliverIndentationType.none,
-                                treeNodeBuilder: (
-                                  BuildContext context,
-                                  TreeSliverNode<Object?> node,
-                                  AnimationStyle animationStyle,
-                                ) {
-                                  final note = node.content as Note;
-
-                                  final idList = ref.watch(notesProvider).idListByFolderIdNoteOnly(note.id);
-
-                                  return FolderWideScreenItem(
-                                      key: Key(note.id),
-                                      folder: note,
-                                      iconVisible: node.children.isNotEmpty,
-                                      onPressed: () {
-                                        ref.read(selectedFolderProvider.notifier).setFolderId(note.id);
-                                      },
-                                      onIconPressed: () {
-                                        if (node.isExpanded) {
-                                          expandedNodes[note.id] = false;
-                                          controller.collapseNode(node);
-                                          ref.read(notesProvider).releaseNotes(note.id);
-                                        } else {
-                                          expandedNodes[note.id] = true;
-                                          controller.expandNode(node);
-                                          ref.read(notesProvider).preloadNotes(note.id);
-                                        }
-                                      },
-                                      expanded: node.isExpanded,
-                                      indent: (node.depth ?? 0) * 8,
-                                      itemCount: idList.length);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  top: 0,
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.resizeColumn,
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onHorizontalDragUpdate: (d) {
-                        ref.read(wideMainPageStateProvider.notifier).setSideBarWidth(wideMainPageState.sideBarWidth + d.delta.dx);
-                      },
-                      child: SizedBox(
-                        width: 5,
-                        child: VerticalDivider(
-                          color: Colors.transparent,
-                        ),
+              ),
+              Positioned(
+                right: 0,
+                bottom: 0,
+                top: 0,
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.resizeColumn,
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onHorizontalDragUpdate: (d) {
+                      ref.read(wideMainPageStateProvider.notifier).setSideBarWidth(wideMainPageState.sideBarWidth + d.delta.dx);
+                    },
+                    child: SizedBox(
+                      width: 5,
+                      child: VerticalDivider(
+                        color: Colors.transparent,
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
-          )),
-    );
+              ),
+            ],
+          ),
+        ));
   }
 }
 
