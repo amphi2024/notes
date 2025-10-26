@@ -31,6 +31,7 @@ class Note {
   double? textSize;
   double? lineHeight;
   String parentId = "";
+  String? background;
   DateTime modified = DateTime.now();
   DateTime created = DateTime.now();
   DateTime? deleted;
@@ -47,6 +48,7 @@ class Note {
       this.longSubtitle = "",
       this.thumbnailImageFilename,
       this.backgroundColor,
+        this.background,
       this.textColor,
       this.textSize,
       this.lineHeight,
@@ -72,6 +74,28 @@ class Note {
     created = DateTime.fromMillisecondsSinceEpoch(data["created"]).toLocal();
     modified = DateTime.fromMillisecondsSinceEpoch(data["modified"]).toLocal();
     parentId = data["parent_id"] ?? "";
+    if(data["deleted"] is int) {
+      deleted = DateTime.fromMillisecondsSinceEpoch(data["deleted"]).toLocal();
+    }
+
+    int? text_size = data["text_size"];
+    if(text_size != null) {
+      textSize = text_size.toDouble();
+    }
+
+    int? text_color = data["text_color"];
+    if(text_color != null) {
+      textColor = Color(text_color);
+    }
+    int? line_height = data["line_height"];
+    if(line_height != null) {
+      lineHeight = line_height.toDouble();
+    }
+    int? background_color = data["background_color"];
+    if(background_color != null) {
+      backgroundColor = Color(background_color);
+    }
+    background = data["background"];
 
     if (!isFolder) {
       initTitles();
