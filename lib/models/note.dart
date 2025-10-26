@@ -222,6 +222,9 @@ class Note {
   }
 
   Future<void> save({bool upload = true}) async {
+    if(id.isEmpty) {
+      return;
+    }
     final database = await databaseHelper.database;
     await database.insertNote(this);
 
