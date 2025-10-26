@@ -7,9 +7,10 @@ import '../models/sort_option.dart';
 class NotesState {
   final Map<String, Note> notes;
   final Map<String, List<String>> idLists;
-  final List<String> trash;
 
-  NotesState(this.notes, this.idLists, this.trash);
+  NotesState(this.notes, this.idLists);
+
+  List<String> get trash => idLists.putIfAbsent("!TRASH", () => []);
 
   List<String> idListByFolderId(String id, {String? searchKeyword}) {
     var list = idLists[id] ?? [];
@@ -26,8 +27,6 @@ class NotesState {
   List<String> idListByFolderIdFolderOnly(String id, {String? searchKeyword}) {
     return idListByFolderId(id, searchKeyword: searchKeyword).where((id) => notes[id]?.isFolder == true).toList();
   }
-
-  List<String> trashNoteOnly() => trash.where((id) => notes[id]?.isFolder == false).toList();
 
   Future<void> preloadNotes(String folderId) async {
     final database = await databaseHelper.database;
@@ -56,7 +55,7 @@ class NotesState {
 class NotesNotifier extends Notifier<NotesState> {
   @override
   NotesState build() {
-    return NotesState({}, {}, []);
+    return NotesState({}, {});
   }
 
   void insertNote(Note note) {
@@ -67,7 +66,7 @@ class NotesNotifier extends Notifier<NotesState> {
 
     final idLists = {...state.idLists, note.parentId: mergedList};
     idLists[note.parentId]!.sortNotes(appCacheData.sortOption(note.parentId), notes);
-    state = NotesState(notes, idLists, [...state.trash]);
+    state = NotesState(notes, idLists);
   }
 
   void updateNotePreview({required String noteId, required String title, required String subtitle, String? thumbnailImageFilename}) {
@@ -82,20 +81,8 @@ class NotesNotifier extends Notifier<NotesState> {
       list.sortNotes(appCacheData.sortOption(note.parentId), state.notes);
 
       final idLists = {...state.idLists, note.parentId: list};
-      state = NotesState({...state.notes, noteId: note}, idLists, [...state.trash]);
+      state = NotesState({...state.notes, noteId: note}, idLists);
     }
-  }
-
-  void moveNotesToTrash(String folderId, List<String> list) {
-    final idList = state.idLists.putIfAbsent(folderId, () => []).where((id) => !list.contains(id)).toList();
-    final idLists = {...state.idLists, folderId: idList};
-    final trash = [
-      ...state.trash,
-      ...list.where((id) => !state.trash.contains(id)),
-    ];
-    final notes = {...state.notes};
-    trash.sortNotes(appCacheData.sortOption("!TRASH"), notes);
-    state = NotesState(notes, idLists, trash);
   }
 
   void moveNotes(List<String> selected, String from, String to) {
@@ -103,13 +90,12 @@ class NotesNotifier extends Notifier<NotesState> {
     final toList = [...state.idLists.putIfAbsent(to, () => []), ...selected];
 
     final idLists = {...state.idLists, from: fromList, to: toList};
-    final trash = [...state.trash];
     final notes = {...state.notes};
 
     idLists[from]!.sortNotes(appCacheData.sortOption(from), notes);
     idLists[to]!.sortNotes(appCacheData.sortOption(to), notes);
 
-    state = NotesState(notes, idLists, trash);
+    state = NotesState(notes, idLists);
   }
 
   void restoreNotes(List<String> list) {
@@ -120,18 +106,18 @@ class NotesNotifier extends Notifier<NotesState> {
     final trash = state.trash.where((id) => !list.contains(id)).toList();
     final notes = {...state.notes};
     idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
-    state = NotesState(notes, idLists, trash);
+    state = NotesState(notes, idLists);
   }
 
   void deleteNotes(List<String> list) {
     final notes = {...state.notes}..removeWhere((key, value) => list.contains(key));
-    final idList = {...state.idLists};
     final trash = state.trash.where((id) => !list.contains(id)).toList();
-    state = NotesState(notes, idList, trash);
+    final idList = {...state.idLists, "!TRASH": trash};
+    state = NotesState(notes, idList);
   }
 
   void clear() {
-    state = NotesState({}, {}, []);
+    state = NotesState({}, {});
   }
 
   void sortNotes(String? folderId) {
@@ -140,13 +126,7 @@ class NotesNotifier extends Notifier<NotesState> {
 
     final idLists = {...state.idLists, folderId ?? "": idList};
 
-    state = NotesState({...state.notes}, idLists, [...state.trash]);
-  }
-
-  void sortTrash() {
-    final trash = [...state.trash];
-    trash.sortNotes(appCacheData.sortOption("!TRASH"), state.notes);
-    state = NotesState({...state.notes}, {...state.idLists}, trash);
+    state = NotesState({...state.notes}, idLists);
   }
 
   void init() async {
@@ -155,7 +135,6 @@ class NotesNotifier extends Notifier<NotesState> {
     final Map<String, List<String>> idLists = {
       "" : []
     };
-    final List<String> trash = [];
     final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM notes WHERE parent_id IS NULL", []);
     for(var data in list) {
       final note = Note.fromMap(data);
@@ -166,7 +145,7 @@ class NotesNotifier extends Notifier<NotesState> {
 
     idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
 
-    final newState = NotesState(notes, idLists, trash);
+    final newState = NotesState(notes, idLists);
     await newState.preloadNotes("");
     state = newState;
   }

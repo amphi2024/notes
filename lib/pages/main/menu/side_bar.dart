@@ -138,9 +138,7 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                                 ) {
                                   final note = node.content as Note;
 
-                                  final idList = note.id == "!TRASH"
-                                      ? ref.watch(notesProvider).trashNoteOnly()
-                                      : ref.watch(notesProvider).idListByFolderIdNoteOnly(note.id);
+                                  final idList = ref.watch(notesProvider).idListByFolderIdNoteOnly(note.id);
 
                                   return FolderWideScreenItem(
                                       key: Key(note.id),
@@ -208,7 +206,9 @@ List<TreeSliverNode<Note>> _tree({required WidgetRef ref, required BuildContext 
         ),
         children: _treeChildren(ref: ref, context: context, parentId: "", expandedNodes: expandedNodes),
         expanded: expandedNodes[""] == true),
-    TreeSliverNode<Note>(Note(id: "!TRASH", title: AppLocalizations.of(context).get("@trash")), expanded: expandedNodes["!TRASH"] == true)
+    TreeSliverNode<Note>(Note(id: "!TRASH", title: AppLocalizations.of(context).get("@trash")),
+        children: _treeChildren(ref: ref, context: context, parentId: "!TRASH", expandedNodes: expandedNodes),
+        expanded: expandedNodes["!TRASH"] == true)
   ];
 }
 

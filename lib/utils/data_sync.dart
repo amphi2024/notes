@@ -39,7 +39,7 @@ Future<void> applyUpdateEvent(UpdateEvent updateEvent, WidgetRef ref) async {
 
         final originalNote = ref.watch(notesProvider).notes.get(updateEvent.value);
         if(originalNote.deleted == null && note.deleted != null) {
-          ref.read(notesProvider.notifier).moveNotesToTrash(note.parentId, [note.id]);
+          ref.read(notesProvider.notifier).moveNotes([note.id], note.parentId, "!TRASH");
         }
         else if(originalNote.deleted != null && note.deleted == null) {
           ref.read(notesProvider.notifier).restoreNotes([note.id]);
