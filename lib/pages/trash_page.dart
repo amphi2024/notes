@@ -3,7 +3,6 @@ import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/draggable_page.dart';
 import 'package:notes/views/notes_view.dart';
-import 'package:notes/components/trashes/trash_view_popupmenu_button.dart';
 
 import 'package:notes/models/folder.dart';
 import 'package:notes/icons/icons.dart';
