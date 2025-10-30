@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/channels/app_method_channel.dart';
+import 'package:notes/dialogs/settings_dialog.dart';
+import 'package:notes/icons/icons.dart';
 import 'package:notes/providers/providers.dart';
 import 'package:notes/models/app_settings.dart';
 
 import 'package:notes/models/note.dart';
+import 'package:notes/providers/themes_provider.dart';
 
 import '../../../channels/app_web_channel.dart';
 import '../../../components/items/folder_wide_screen_item.dart';
@@ -52,9 +55,9 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
           curve: Curves.easeOutQuint,
           width: wideMainPageState.sideBarWidth,
           decoration: BoxDecoration(
-            borderRadius: appSettings.dockedFloatingMenu ? BorderRadius.zero : BorderRadius.circular(15),
+            borderRadius: !wideMainPageState.sideBarFloating ? BorderRadius.zero : BorderRadius.circular(15),
             color: Theme.of(context).scaffoldBackgroundColor,
-            boxShadow: appSettings.dockedFloatingMenu
+            boxShadow: !wideMainPageState.sideBarFloating
                 ? null
                 : [
                     BoxShadow(
@@ -153,7 +156,15 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                           ],
                         ),
                       ),
-                    )
+                    ),
+                    Row(
+                      children: [
+                      IconButton(onPressed: () async {
+                        showDialog(context: context, builder: (context) {
+                          return SettingsDialog();
+                        });
+                      }, icon: Icon(AppIcons.settings, size: 15))
+                    ])
                   ],
                 ),
               ),
