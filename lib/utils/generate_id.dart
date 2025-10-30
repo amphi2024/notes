@@ -14,3 +14,17 @@ Future<String> generatedNoteId() async {
     }
   }
 }
+
+Future<String> generatedThemeId() async {
+  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  final random = Random();
+  while(true) {
+    var length = random.nextInt(5) + 15;
+    final id = List.generate(length, (_) => chars[random.nextInt(chars.length)]).join();
+
+    final res = await (await databaseHelper.database).rawQuery('SELECT 1 FROM themes WHERE id = ? LIMIT 1;', [id]);
+    if (res.isEmpty) {
+      return id;
+    }
+  }
+}

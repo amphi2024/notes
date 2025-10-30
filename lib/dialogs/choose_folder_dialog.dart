@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:notes/components/linear_item_border.dart';
 import 'package:notes/extensions/date_extension.dart';
-import 'package:notes/extensions/sort_extension.dart';
 
 import 'package:notes/models/folder.dart';
 import 'package:notes/icons/icons.dart';

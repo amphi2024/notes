@@ -16,8 +16,8 @@ List<AppTheme> allThemes() {
 
   for (FileSystemEntity file in fileList) {
     if (file is File) {
-      AppTheme appTheme = AppTheme.fromFile(file);
-      list.add(appTheme);
+      // AppTheme appTheme = AppTheme.fromFile(file);
+      // list.add(appTheme);
     }
   }
   return list;

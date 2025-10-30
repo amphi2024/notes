@@ -13,8 +13,8 @@ import 'package:notes/database/database_helper.dart';
 import 'package:notes/pages/main/main_page.dart';
 import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
+import 'package:notes/providers/themes_provider.dart';
 import 'package:notes/utils/note_item_press_callback.dart';
-import 'package:notes/utils/toast.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'channels/app_method_channel.dart';
@@ -27,6 +27,8 @@ import 'models/note.dart';
 import 'pages/main/wide_main_page.dart';
 import 'utils/data_sync.dart';
 
+final mainScreenKey = GlobalKey<_MyAppState>();
+
 void main() async {
   if(Platform.isWindows || Platform.isLinux) {
     sqfliteFfiInit();
@@ -35,11 +37,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
   await appCacheData.getData();
-  appStorage.initialize(() {
-    appSettings.getData();
+  appStorage.initialize(() async {
+    await appSettings.getData();
     appColors.getData();
 
-    runApp(const ProviderScope(child: MyApp()));
+    runApp(ProviderScope(child: MyApp(key: mainScreenKey)));
 
     if(App.isDesktop()) {
       doWhenWindowReady(() {
@@ -102,6 +104,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
         ref.read(editingNoteProvider.notifier).initController(ref);
       }
     });
+    ref.read(themesProvider.notifier).init();
 
     if (appSettings.useOwnServer) {
       appWebChannel.connectWebSocket();
@@ -128,8 +131,8 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     }
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: appSettings.appTheme.lightTheme.toThemeData(context),
-        darkTheme: appSettings.appTheme.darkTheme.toThemeData(context),
+        theme: appSettings.appTheme.toThemeData(context: context, brightness: Brightness.light),
+        darkTheme: appSettings.appTheme.toThemeData(context: context, brightness: Brightness.dark),
         locale: locale,
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: const [

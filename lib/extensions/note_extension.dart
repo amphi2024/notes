@@ -9,71 +9,69 @@ import 'package:notes/models/app_settings.dart';
 
 import 'package:notes/models/app_theme.dart';
 import 'package:notes/models/content.dart';
-import 'package:notes/models/dark_theme.dart';
-import 'package:notes/models/light_theme.dart';
 import 'package:notes/models/note.dart';
 import 'package:pdf/widgets.dart' as PDF;
 
 import '../models/app_storage.dart';
 extension NoteExtension on Note {
-  String toHTML(BuildContext context) {
-    AppTheme appTheme = appSettings.appTheme!;
-    LightTheme lightTheme = appTheme.lightTheme;
-    DarkTheme darkTheme = appTheme.darkTheme;
-    String html = """
-   <!DOCTYPE html>
-<html>
-<head>
-<title>${title}</title>
-<meta charset="utf-8">
-<style>
-
-body {
-
- font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-background-color: ${(backgroundColor ?? lightTheme.noteBackgroundColor).toRGB()};
-color: ${(textColor ?? lightTheme.noteTextColor).toRGB()};
-font-size: ${textSize ?? 15}px;
-
-}
-
- @media (prefers-color-scheme: dark) {
-            body {
-             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                background-color: ${(backgroundColor ?? darkTheme.noteBackgroundColor).toRGB()};
-                color: ${(textColor ?? darkTheme.noteTextColor).toRGB()};
-                font-size: ${textSize ?? 15}px;
-            }
-        }
-        
-          img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-    table {
-       border-collapse: collapse;
-      width: 100%;
-    }
-    td {
-      border: 1px solid;
-      padding: 8px;
-      text-align: left;
-    }
-   </style>
-    </head>
-    <body>
-    """;
-
-    // html += toHtmlContents(context, content);
-
-    html += """
-    </body>
-    </html>
-    """;
-
-    return html;
-  }
+//   String toHTML(BuildContext context) {
+//     AppTheme appTheme = appSettings.appTheme!;
+//     LightTheme lightTheme = appTheme.lightTheme;
+//     DarkTheme darkTheme = appTheme.darkTheme;
+//     String html = """
+//    <!DOCTYPE html>
+// <html>
+// <head>
+// <title>${title}</title>
+// <meta charset="utf-8">
+// <style>
+//
+// body {
+//
+//  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+// background-color: ${(backgroundColor ?? lightTheme.noteBackgroundColor).toRGB()};
+// color: ${(textColor ?? lightTheme.noteTextColor).toRGB()};
+// font-size: ${textSize ?? 15}px;
+//
+// }
+//
+//  @media (prefers-color-scheme: dark) {
+//             body {
+//              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+//                 background-color: ${(backgroundColor ?? darkTheme.noteBackgroundColor).toRGB()};
+//                 color: ${(textColor ?? darkTheme.noteTextColor).toRGB()};
+//                 font-size: ${textSize ?? 15}px;
+//             }
+//         }
+//
+//           img {
+//       max-width: 100%;
+//       height: auto;
+//       display: block;
+//     }
+//     table {
+//        border-collapse: collapse;
+//       width: 100%;
+//     }
+//     td {
+//       border: 1px solid;
+//       padding: 8px;
+//       text-align: left;
+//     }
+//    </style>
+//     </head>
+//     <body>
+//     """;
+//
+//     // html += toHtmlContents(context, content);
+//
+//     html += """
+//     </body>
+//     </html>
+//     """;
+//
+//     return html;
+//   }
 
   String toHtmlContents(BuildContext context, List<Content> contentList) {
     String html = "";

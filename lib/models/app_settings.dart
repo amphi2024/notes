@@ -7,9 +7,12 @@ import 'package:flutter/material.dart';
 
 import 'package:notes/models/app_theme.dart';
 
+import '../database/database_helper.dart';
 import 'app_storage.dart';
 
 final appSettings = AppSettings.getInstance();
+
+ValueNotifier<AppSettings> notifier = ValueNotifier(appSettings);
 
 class AppSettings {
   static final AppSettings _instance = AppSettings._internal();
@@ -18,8 +21,12 @@ class AppSettings {
   static AppSettings getInstance() => _instance;
 
   AppTheme appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
+
+  String? get themeId => data["theme"];
+  set themeId(value) => data["theme"] = value;
+
   Locale? locale = null;
-  late Map<String, dynamic> data;
+  Map<String, dynamic> data = {};
 
   set serverAddress(value) => data["serverAddress"] = value;
   String get serverAddress => data.putIfAbsent("serverAddress", () => "");
@@ -27,70 +34,49 @@ class AppSettings {
   set useOwnServer(value) => data["useOwnServer"] = value;
   bool get useOwnServer => data.putIfAbsent("useOwnServer", () => false);
 
-  String get sortBy => data.putIfAbsent("sortBy", () => "modified");
-
-  bool get descending => data.putIfAbsent("descending", () => false);
-
   set transparentNavigationBar(value) => data["transparentNavigationBar"] = value;
   bool get transparentNavigationBar => data.putIfAbsent("transparentNavigationBar", () => false);
-
-  set dockedFloatingMenu(value) => data["dockedFloatingMenu"] = value;
-  bool get dockedFloatingMenu => data.putIfAbsent("dockedFloatingMenu", () => true);
 
   set permanentDeletionPeriod(value) => data["permanentDeletionPeriod"] = value;
   int get permanentDeletionPeriod => data.putIfAbsent("permanentDeletionPeriod", () => 30);
 
-  set floatingMenuShowing(value) => data["floatingMenuShowing"] = value;
-  bool get floatingMenuShowing => data.putIfAbsent("floatingMenuShowing", () => true);
-
-  void setSortOption(String option) {
-    if (sortBy == option) {
-      data["descending"] = !descending;
-    }
-    data["sortBy"] = option;
-  }
-
-  void getData() {
+  Future<void> getData() async {
     File file = File(appStorage.settingsPath);
-    if (!file.existsSync()) {
-      appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
+    try {
+      data = jsonDecode(file.readAsStringSync());
+
+      if (data["locale"] != null) {
+        locale = Locale(data["locale"]);
+      }
+
+      if(themeId != null) {
+        final database = await databaseHelper.database;
+        final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM themes WHERE id = ?", [themeId]);
+
+        if(list.isNotEmpty) {
+          appTheme = AppTheme.fromMap(list.first);
+        }
+      }
+    }
+    catch(e) {
       data = {
-        "viewMode": "linear",
-        "theme": appTheme!.filename,
+        "theme": null,
         "serverAddress": "",
         "useOwnServer": false,
-        "sortBy": "modified",
-        "descending": false,
-        "locale": locale?.languageCode ?? null,
+        "locale": null,
         "transparentNavigationBar": false,
         "dockedFloatingMenu": true,
         "permanentDeletionPeriod": 30,
         "floatingMenuShowing": true
       };
-      save();
-    } else {
-      data = jsonDecode(file.readAsStringSync());
-
-      String themeFilename = data["theme"] ?? "!DEFAULT";
-      File themeFile = File(PathUtils.join(appStorage.themesPath, themeFilename));
-      if (themeFilename != "!DEFAULT" && themeFile.existsSync()) {
-        appTheme = AppTheme.fromFile(themeFile);
-      } else {
-        appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
-      }
-
-
-      if (data["locale"] != null) {
-        locale = Locale(data["locale"]);
-      }
     }
   }
 
   Future<void> save() async {
-    data["theme"] = appTheme!.filename;
+    data["theme"] = appTheme.id;
     data["locale"] =  locale?.languageCode ?? null;
 
     File file = File( appStorage.settingsPath);
-    file.writeAsString(jsonEncode(data));
+    await file.writeAsString(jsonEncode(data));
   }
 }
