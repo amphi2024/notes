@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TitledCheckBox extends StatelessWidget {
   final String title;
   final bool value;
-  final Function onChanged;
+  final void Function(bool) onChanged;
   const TitledCheckBox({super.key, required this.title, required this.value, required this.onChanged});
 
   @override
@@ -22,7 +22,9 @@ class TitledCheckBox extends StatelessWidget {
         ),
         Checkbox(
             value: value, onChanged: (value) {
-          onChanged(value);
+              if(value != null) {
+                onChanged(value);
+              }
         }),
       ],
     );
