@@ -28,17 +28,18 @@ void onNotePressed(Note note, BuildContext context, WidgetRef ref) async {
     ref.read(selectedNotesProvider.notifier).endSelection();
   }
 
-  prepareEmbeddedBlocks(ref, note);
   if(App.isWideScreen(context) || App.isDesktop()) {
 
     saveEditingNoteBeforeSwitch(ref);
 
+    prepareEmbeddedBlocks(ref, note);
 
     ref.read(editingNoteProvider.notifier).startEditing(note, false);
 
     ref.read(editingNoteProvider.notifier).initController(ref);
   }
   else {
+    prepareEmbeddedBlocks(ref, note);
     ref.read(editingNoteProvider.notifier).startEditing(note, false);
     Navigator.push(context, CupertinoPageRoute(builder: (context) {
       return NotePage();
