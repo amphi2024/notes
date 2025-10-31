@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/providers/providers.dart';
 
 import '../../channels/app_method_channel.dart';
-import '../../models/app_settings.dart';
 import '../../icons/icons.dart';
 
 class SideBarToggleButton extends ConsumerStatefulWidget {
@@ -40,6 +40,7 @@ class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
 
   @override
   Widget build(BuildContext context) {
+    final wideMainPageState = ref.watch(wideMainPageStateProvider);
     double left = 5;
     double top = 7.5;
 
@@ -47,7 +48,7 @@ class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
       left = isFullscreen ? 5 : 80;
     }
 
-    if (!appSettings.dockedFloatingMenu && appSettings.floatingMenuShowing) {
+    if (wideMainPageState.sideBarFloating && wideMainPageState.sideBarShowing) {
       left = 20;
       top = 20;
       if (Platform.isMacOS && !isFullscreen) {
@@ -69,14 +70,9 @@ class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
         curve: Curves.easeOutQuint,
         child: GestureDetector(
           onLongPress: () {
-            // if (appSettings.floatingMenuShowing) {
-            //   ref.read(wideMainPageStateProvider.notifier).setsid
-            //   widget.setState(() {
-            //     appSettings.dockedFloatingMenu =
-            //     !appSettings.dockedFloatingMenu;
-            //   });
-            //   appSettings.save();
-            // }
+            appCacheData.sidebarFloating = !wideMainPageState.sideBarFloating;
+            appCacheData.save();
+            ref.read(wideMainPageStateProvider.notifier).setSideBarFloating(!wideMainPageState.sideBarFloating);
           },
           child: IconButton(
               icon: Icon(AppIcons.sidebar, size: Theme.of(context).appBarTheme.iconTheme?.size),

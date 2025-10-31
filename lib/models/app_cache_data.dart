@@ -17,6 +17,9 @@ class AppCacheData extends AppCacheDataCore {
   String get editingNote => data["editingNote"] ?? "";
   set editingNote(value) => data["editingNote"] = value;
 
+  bool get sidebarFloating => data["sidebarFloating"] ?? false;
+  set sidebarFloating(bool value) => data["sidebarFloating"] = value;
+
   String sortOption(String id) {
     var dirName = PathUtils.basename(appStorage.selectedUser.storagePath);
     if(data["sortOption"]?[dirName] is Map) {
