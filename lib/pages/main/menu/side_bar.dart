@@ -9,10 +9,8 @@ import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/dialogs/settings_dialog.dart';
 import 'package:notes/icons/icons.dart';
 import 'package:notes/providers/providers.dart';
-import 'package:notes/models/app_settings.dart';
 
 import 'package:notes/models/note.dart';
-import 'package:notes/providers/themes_provider.dart';
 
 import '../../../channels/app_web_channel.dart';
 import '../../../components/items/folder_wide_screen_item.dart';
@@ -225,7 +223,7 @@ List<TreeSliverNode<Note>>? _treeChildren(
   final List<TreeSliverNode<Note>> list = [];
 
   for (var id in idList) {
-    final note = ref.read(notesProvider).notes.get(id);
+    final note = ref.watch(notesProvider).notes.get(id);
     list.add(TreeSliverNode<Note>(Note(id: id, title: note.title),
         expanded: expandedNodes[id] == true, children: _treeChildren(ref: ref, context: context, parentId: note.id, expandedNodes: expandedNodes)));
   }
