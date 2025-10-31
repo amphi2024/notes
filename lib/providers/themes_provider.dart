@@ -1,15 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 
 import '../database/database_helper.dart';
 
 class ThemesState {
-  final Map<String, AppTheme> themes;
+  final Map<String, ThemeModel> themes;
   final List<String> idList;
 
   const ThemesState(this.themes, this.idList);
 
-  AppTheme findThemeByIndex(int index) {
+  ThemeModel findThemeByIndex(int index) {
     return themes.get(idList[index]);
   }
 }
@@ -20,7 +20,7 @@ class ThemesNotifier extends Notifier<ThemesState> {
     return ThemesState({}, []);
   }
 
-  void insertTheme(AppTheme themeModel) {
+  void insertTheme(ThemeModel themeModel) {
     final themes = {...state.themes, themeModel.id: themeModel};
 
     final mergedList = state.idList.contains(themeModel.id) ? [...state.idList] : [...state.idList, themeModel.id];
@@ -36,13 +36,13 @@ class ThemesNotifier extends Notifier<ThemesState> {
   }
 
   void init() async {
-    Map<String, AppTheme> themes = {};
+    Map<String, ThemeModel> themes = {};
     List<String> idList = [];
     final database = await databaseHelper.database;
     final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM themes", []);
 
     for(var data in list) {
-      var theme = AppTheme.fromMap(data);
+      var theme = ThemeModel.fromMap(data);
       idList.add(theme.id);
       themes[theme.id] = theme;
     }
@@ -53,8 +53,8 @@ class ThemesNotifier extends Notifier<ThemesState> {
 
 final themesProvider = NotifierProvider<ThemesNotifier, ThemesState>(ThemesNotifier.new);
 
-extension ThemesNullSafe on Map<String, AppTheme> {
-  AppTheme get(String id) {
-    return this[id] ?? AppTheme(created: DateTime.now(), modified: DateTime.now());
+extension ThemesNullSafe on Map<String, ThemeModel> {
+  ThemeModel get(String id) {
+    return this[id] ?? ThemeModel(created: DateTime.now(), modified: DateTime.now());
   }
 }

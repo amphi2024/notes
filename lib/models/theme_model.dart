@@ -2,12 +2,11 @@
 import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
-import 'package:notes/models/app_theme_data.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../database/database_helper.dart';
 
-class AppTheme {
+class ThemeModel {
   static const Color white = Color.fromRGBO(255, 255, 255, 1);
   static const Color lightGray = Color.fromRGBO(245, 245, 245, 1);
   static const Color black = Color.fromRGBO(0, 0, 0, 1);
@@ -33,7 +32,7 @@ class AppTheme {
   ThemeColors darkColors = ThemeColors(
       background: midnight, text: white, accent: lightBlue, card: charCoal, floatingButtonBackground: white, floatingButtonIcon: lightBlue);
 
-  AppTheme.fromMap(Map<String, dynamic> data) : id = data["id"] {
+  ThemeModel.fromMap(Map<String, dynamic> data) : id = data["id"] {
     title = data["title"];
     filename = "";
     path = "";
@@ -59,7 +58,7 @@ class AppTheme {
 
   }
 
-  AppTheme({this.title = "", this.filename = "!DEFAULT", required this.created, required this.modified, this.path = "", this.id = ""});
+  ThemeModel({this.title = "", this.filename = "!DEFAULT", required this.created, required this.modified, this.path = "", this.id = ""});
 
   Future<void> save({bool upload = true}) async {
     if(id.isEmpty) {
@@ -108,8 +107,8 @@ class AppTheme {
     };;
   }
 
-  static AppTheme copy(AppTheme themeModel) {
-    final result = AppTheme(
+  static ThemeModel copy(ThemeModel themeModel) {
+    final result = ThemeModel(
       created: themeModel.created,
       modified: themeModel.modified,
       title: themeModel.title,
@@ -134,7 +133,7 @@ class AppTheme {
     return ThemeData(
       brightness: brightness,
       inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(color: AppTheme.inactiveGray, fontSize: 15),
+          hintStyle: TextStyle(color: ThemeModel.inactiveGray, fontSize: 15),
           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: colors.accent, style: BorderStyle.solid, width: 2)),
           border: UnderlineInputBorder(borderSide: BorderSide(color: colors.background, style: BorderStyle.solid))),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -171,14 +170,14 @@ class AppTheme {
           if (states.contains(WidgetState.selected)) {
             return colors.card;
           } else {
-            return AppTheme.transparent;
+            return ThemeModel.transparent;
           }
         }),
         fillColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
             return colors.accent;
           } else {
-            return AppTheme.transparent;
+            return ThemeModel.transparent;
           }
         }),
         shape: RoundedRectangleBorder(
@@ -191,7 +190,7 @@ class AppTheme {
           toolbarHeight: 40,
           titleSpacing: 0.0,
           iconTheme: IconThemeData(color: colors.accent, size: App.isDesktop() || App.isWideScreen(context) ? 25 : 20)),
-      disabledColor: AppTheme.inactiveGray,
+      disabledColor: ThemeModel.inactiveGray,
       highlightColor: colors.accent,
       scaffoldBackgroundColor: colors.background,
       cardColor: colors.card,
@@ -207,7 +206,7 @@ class AppTheme {
         secondary: colors.accent,
         onSecondary: colors.text,
         onError: colors.accent,
-        error: AppTheme.red,
+        error: ThemeModel.red,
         surface: colors.card,
         onSurface: colors.text,
       ),
@@ -246,4 +245,17 @@ class ThemeColors {
     required this.floatingButtonBackground,
     required this.floatingButtonIcon,
   });
+}
+
+const softenValue = 60;
+
+extension SoftenExtension on Color {
+  Color soften(Brightness brightness) {
+    if(brightness == Brightness.light) {
+      return Color.fromARGB(alpha, red + softenValue, green + softenValue, blue + softenValue);
+    }
+    else {
+      return Color.fromARGB(alpha, red - softenValue, green - softenValue, blue - softenValue);
+    }
+  }
 }

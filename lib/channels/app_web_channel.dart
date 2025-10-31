@@ -4,7 +4,7 @@ import 'package:amphi/models/app_web_channel_core.dart';
 import 'package:amphi/models/update_event.dart';
 import 'package:http/http.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 
 import 'package:notes/models/note.dart';
 import 'package:notes/utils/attachment_path.dart';
@@ -260,12 +260,12 @@ class AppWebChannel extends AppWebChannelCore {
     await downloadFile(url: "$serverAddress/notes/$id/audio/$filename", filePath: noteAudioPath(id, filename), onSuccess: onSuccess, onProgress: onProgress);
   }
 
-  Future<void> uploadThemeModel(AppTheme themeModel) async {
+  Future<void> uploadThemeModel(ThemeModel themeModel) async {
     final updateEvent = UpdateEvent(action: UpdateEvent.uploadTheme, value: themeModel.id);
     await postJson(url: "$serverAddress/notes/themes/${themeModel.id}", jsonBody: jsonEncode(themeModel.toMap()), updateEvent: updateEvent);
   }
 
-  Future<void> deleteTheme(AppTheme themeModel) async {
+  Future<void> deleteTheme(ThemeModel themeModel) async {
     final updateEvent = UpdateEvent(action: UpdateEvent.deleteTheme, value: themeModel.id);
     await simpleDelete(url: "$serverAddress/notes/themes/${themeModel.id}", updateEvent: updateEvent);
   }

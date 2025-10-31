@@ -9,7 +9,7 @@ import 'package:notes/components/note_image.dart';
 
 import 'package:notes/icons/icons.dart';
 
-import '../../models/app_theme.dart';
+import '../../models/theme_model.dart';
 import 'image_page_bottom_bar.dart';
 import 'image_page_title_bar.dart';
 
@@ -157,7 +157,7 @@ class _ImagePageState extends State<ImagePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: _isFullScreen ? AppTheme.black : backgroundColor,
+      backgroundColor: _isFullScreen ? ThemeModel.black : backgroundColor,
       body: Stack(
         children: [
           Positioned.fill(

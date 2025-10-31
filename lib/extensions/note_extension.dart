@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_settings.dart';
 
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 import 'package:notes/models/content.dart';
 import 'package:notes/models/note.dart';
 import 'package:pdf/widgets.dart' as PDF;
@@ -15,9 +15,9 @@ import 'package:pdf/widgets.dart' as PDF;
 import '../models/app_storage.dart';
 extension NoteExtension on Note {
 //   String toHTML(BuildContext context) {
-//     AppTheme appTheme = appSettings.appTheme!;
-//     LightTheme lightTheme = appTheme.lightTheme;
-//     DarkTheme darkTheme = appTheme.darkTheme;
+//     AppTheme themeModel = appSettings.themeModel!;
+//     LightTheme lightTheme = themeModel.lightTheme;
+//     DarkTheme darkTheme = themeModel.darkTheme;
 //     String html = """
 //    <!DOCTYPE html>
 // <html>

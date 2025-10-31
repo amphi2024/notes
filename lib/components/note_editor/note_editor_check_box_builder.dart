@@ -13,7 +13,7 @@ class NoteEditorCheckboxBuilder extends QuillCheckboxBuilder {
             onChanged(value!);
           }),
     );
-    // return Material(child: NoteEditorCheckbox(appTheme: appTheme));
+    // return Material(child: NoteEditorCheckbox(themeModel: themeModel));
   }
 
 }

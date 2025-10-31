@@ -3,7 +3,7 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/settings/edit_theme_dialog.dart';
 
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 import 'package:notes/utils/generate_id.dart';
 
 
@@ -21,7 +21,7 @@ class CreateThemeButton extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return EditThemeDialog(
-                      appTheme: AppTheme(
+                      themeModel: ThemeModel(
                           id: id,
                           created: DateTime.now(),
                           modified: DateTime.now()));

@@ -10,7 +10,7 @@ import 'package:notes/components/note_editor/edit_style/edit_note_text_size.dart
 import 'package:notes/components/note_editor/edit_style/toggle_attribute_button.dart';
 import 'package:notes/components/note_editor/editor_extension.dart';
 import 'package:notes/models/app_colors.dart';
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 import 'package:notes/icons/icons.dart';
 import 'package:notes/providers/editing_note_provider.dart';
 
@@ -233,17 +233,17 @@ class _EditNoteTextStyleState extends ConsumerState<EditNoteTextStyle> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               backgroundColor: themeData.colorScheme.primary,
-                              disabledForegroundColor: AppTheme.transparent,
-                              disabledBackgroundColor: AppTheme.transparent,
-                              surfaceTintColor: AppTheme.transparent,
-                              foregroundColor: AppTheme.transparent,
-                              shadowColor: AppTheme.transparent),
+                              disabledForegroundColor: ThemeModel.transparent,
+                              disabledBackgroundColor: ThemeModel.transparent,
+                              surfaceTintColor: ThemeModel.transparent,
+                              foregroundColor: ThemeModel.transparent,
+                              shadowColor: ThemeModel.transparent),
                           onPressed: () {
                             showAdaptiveColorPicker(
                                 context: context,
                                 color: widget.controller
                                     .selectionBackgroundColor() ??
-                                    AppTheme.transparent,
+                                    ThemeModel.transparent,
                                 onAddColor: addNoteTextColor,
                                 onColorChanged: (color) {
                                   setState(() {
@@ -256,7 +256,7 @@ class _EditNoteTextStyleState extends ConsumerState<EditNoteTextStyle> {
                                     .getInstance()
                                     .noteTextColors,
                                 onRemoveColor: removeNoteTextColor,
-                                defaultColor: AppTheme.transparent,
+                                defaultColor: ThemeModel.transparent,
                                 onDefaultColorTap: (color) {
                                   toggleAttribute(Attribute.background);
                                 });

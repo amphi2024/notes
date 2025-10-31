@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/settings/color_row.dart';
 import 'package:amphi/models/app_localizations.dart';
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 import 'package:notes/providers/themes_provider.dart';
 
 class EditThemeDialog extends ConsumerStatefulWidget {
-  final AppTheme appTheme;
+  final ThemeModel themeModel;
   final bool showDeleteButton;
 
-  const EditThemeDialog({super.key, required this.appTheme, this.showDeleteButton = false});
+  const EditThemeDialog({super.key, required this.themeModel, this.showDeleteButton = false});
 
   @override
   ConsumerState<EditThemeDialog> createState() => _EditThemeDialogState();
 }
 
 class _EditThemeDialogState extends ConsumerState<EditThemeDialog> {
-  late AppTheme appTheme = AppTheme.copy(widget.appTheme);
-  AppTheme defaultTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
-  late TextEditingController textEditingController = TextEditingController(text: appTheme.title);
+  late ThemeModel themeModel = ThemeModel.copy(widget.themeModel);
+  ThemeModel defaultTheme = ThemeModel(created: DateTime.now(), modified: DateTime.now());
+  late TextEditingController textEditingController = TextEditingController(text: themeModel.title);
 
   @override
   void dispose() {
@@ -69,9 +69,9 @@ class _EditThemeDialogState extends ConsumerState<EditThemeDialog> {
                     size: 20,
                   ),
                   onPressed: () {
-                    appTheme.title = textEditingController.text;
-                    appTheme.save();
-                    ref.read(themesProvider.notifier).insertTheme(appTheme);
+                    themeModel.title = textEditingController.text;
+                    themeModel.save();
+                    ref.read(themesProvider.notifier).insertTheme(themeModel);
                     Navigator.pop(context);
                   },
                 )
@@ -83,108 +83,108 @@ class _EditThemeDialogState extends ConsumerState<EditThemeDialog> {
                   ColorRow(
                     label: AppLocalizations.of(context)
                         .get("@color_name_background_color"),
-                    lightColor: appTheme.lightColors.background,
-                    darkColor: appTheme.darkColors.background,
+                    lightColor: themeModel.lightColors.background,
+                    darkColor: themeModel.darkColors.background,
                     defaultLightColor: defaultTheme.lightColors.background,
                     defaultDarkColor: defaultTheme.darkColors.background,
                     lightColorChanged: (Color color) {
                       setState(() {
-                        appTheme.lightColors.background = color;
+                        themeModel.lightColors.background = color;
                       });
                     },
                     darkColorChanged: (Color color) {
                       setState(() {
-                        appTheme.darkColors.background = color;
+                        themeModel.darkColors.background = color;
                       });
                     },
                   ),
                   ColorRow(
                     label: AppLocalizations.of(context)
                         .get("@color_name_text_color"),
-                    lightColor: appTheme.lightColors.text,
-                    darkColor: appTheme.darkColors.text,
+                    lightColor: themeModel.lightColors.text,
+                    darkColor: themeModel.darkColors.text,
                     defaultLightColor: defaultTheme.lightColors.text,
                     defaultDarkColor: defaultTheme.darkColors.text,
                     lightColorChanged: (Color color) {
                       setState(() {
-                        appTheme.lightColors.text = color;
+                        themeModel.lightColors.text = color;
                       });
                     },
                     darkColorChanged: (Color color) {
                       setState(() {
-                        appTheme.darkColors.text = color;
+                        themeModel.darkColors.text = color;
                       });
                     },
                   ),
                   ColorRow(
                     label: AppLocalizations.of(context)
                         .get("@color_name_accent_color"),
-                    lightColor: appTheme.lightColors.accent,
-                    darkColor: appTheme.darkColors.accent,
+                    lightColor: themeModel.lightColors.accent,
+                    darkColor: themeModel.darkColors.accent,
                     defaultLightColor: defaultTheme.lightColors.accent,
                     defaultDarkColor: defaultTheme.darkColors.accent,
                     lightColorChanged: (Color color) {
                       setState(() {
-                        appTheme.lightColors.accent = color;
+                        themeModel.lightColors.accent = color;
                       });
                     },
                     darkColorChanged: (Color color) {
                       setState(() {
-                        appTheme.darkColors.accent = color;
+                        themeModel.darkColors.accent = color;
                       });
                     },
                   ),
                   ColorRow(
                     label: AppLocalizations.of(context)
                         .get("@color_name_note_background_color"),
-                    lightColor: appTheme.lightColors.card,
-                    darkColor: appTheme.darkColors.card,
+                    lightColor: themeModel.lightColors.card,
+                    darkColor: themeModel.darkColors.card,
                     defaultLightColor: defaultTheme.lightColors.card,
                     defaultDarkColor: defaultTheme.darkColors.card,
                     lightColorChanged: (Color color) {
                       setState(() {
-                        appTheme.lightColors.card = color;
+                        themeModel.lightColors.card = color;
                       });
                     },
                     darkColorChanged: (Color color) {
                       setState(() {
-                        appTheme.darkColors.card = color;
+                        themeModel.darkColors.card = color;
                       });
                     },
                   ),
                   ColorRow(
                     label: AppLocalizations.of(context)
                         .get("@color_name_floating_button_background"),
-                    lightColor: appTheme.lightColors.floatingButtonBackground,
-                    darkColor: appTheme.darkColors.floatingButtonBackground,
+                    lightColor: themeModel.lightColors.floatingButtonBackground,
+                    darkColor: themeModel.darkColors.floatingButtonBackground,
                     defaultLightColor: defaultTheme.lightColors.floatingButtonBackground,
                     defaultDarkColor: defaultTheme.darkColors.floatingButtonBackground,
                     lightColorChanged: (Color color) {
                       setState(() {
-                        appTheme.lightColors.floatingButtonBackground = color;
+                        themeModel.lightColors.floatingButtonBackground = color;
                       });
                     },
                     darkColorChanged: (Color color) {
                       setState(() {
-                        appTheme.darkColors.floatingButtonBackground = color;
+                        themeModel.darkColors.floatingButtonBackground = color;
                       });
                     },
                   ),
                   ColorRow(
                     label: AppLocalizations.of(context)
                         .get("@color_name_floating_button_icon_color"),
-                    lightColor: appTheme.lightColors.floatingButtonIcon,
-                    darkColor: appTheme.darkColors.floatingButtonIcon,
+                    lightColor: themeModel.lightColors.floatingButtonIcon,
+                    darkColor: themeModel.darkColors.floatingButtonIcon,
                     defaultLightColor: defaultTheme.lightColors.floatingButtonIcon,
                     defaultDarkColor: defaultTheme.darkColors.floatingButtonIcon,
                     lightColorChanged: (Color color) {
                       setState(() {
-                        appTheme.lightColors.floatingButtonIcon = color;
+                        themeModel.lightColors.floatingButtonIcon = color;
                       });
                     },
                     darkColorChanged: (Color color) {
                       setState(() {
-                        appTheme.darkColors.floatingButtonIcon = color;
+                        themeModel.darkColors.floatingButtonIcon = color;
                       });
                     },
                   ),
@@ -201,8 +201,8 @@ class _EditThemeDialogState extends ConsumerState<EditThemeDialog> {
                     onPressed: () {
                       showDialog(context: context, builder: (ctx) {
                         return ConfirmationDialog(title: AppLocalizations.of(ctx).get("@dialog_title_delete_theme"), onConfirmed: () {
-                          appTheme.delete();
-                          ref.read(themesProvider.notifier).deleteTheme(appTheme.id);
+                          themeModel.delete();
+                          ref.read(themesProvider.notifier).deleteTheme(themeModel.id);
                           Navigator.pop(context);
                         });
                       });

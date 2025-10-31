@@ -5,7 +5,7 @@ import 'package:notes/components/settings/create_theme_button.dart';
 import 'package:notes/components/settings/select_theme_dialog.dart';
 import 'package:notes/components/settings/theme_item.dart';
 import 'package:notes/main.dart';
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 import 'package:notes/providers/themes_provider.dart';
 
 import '../../models/app_settings.dart';
@@ -39,7 +39,7 @@ class __WideSettingsState extends ConsumerState<_WideSettings> {
           return SelectThemeDialog();
         });
       },
-      child: ThemeItem(id: appSettings.appTheme.id, brightness: Theme.brightnessOf(context)),
+      child: ThemeItem(id: appSettings.themeModel.id, brightness: Theme.brightnessOf(context)),
     );
   }
 }
@@ -63,7 +63,7 @@ class __MobileSettingsState extends ConsumerState<_MobileSettings> {
       final themesState = ref.watch(themesProvider);
       for (var i = 0; i < themesState.idList.length; i++) {
         final id = themesState.idList[i];
-        if (id == appSettings.appTheme.id) {
+        if (id == appSettings.themeModel.id) {
           pageController.jumpToPage(i + 1);
         }
       }
@@ -84,12 +84,12 @@ class __MobileSettingsState extends ConsumerState<_MobileSettings> {
           onPageChanged: (int index) {
             if (index == 0) {
               mainScreenKey.currentState?.setState(() {
-                appSettings.appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
+                appSettings.themeModel = ThemeModel(created: DateTime.now(), modified: DateTime.now());
               });
             }
             else if (index < idList.length + 1) {
               mainScreenKey.currentState?.setState(() {
-                appSettings.appTheme = ref.watch(themesProvider).findThemeByIndex(index - 1);
+                appSettings.themeModel = ref.watch(themesProvider).findThemeByIndex(index - 1);
               });
             }
           },

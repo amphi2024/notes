@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 
 class ToggleAttributeButton extends StatelessWidget {
   final bool activated;
@@ -30,11 +30,11 @@ class ToggleAttributeButton extends StatelessWidget {
                 backgroundColor: activated
                     ? accentColor
                     : noteBackgroundColor,
-              disabledForegroundColor: AppTheme.transparent,
-               disabledBackgroundColor: AppTheme.transparent,
-               surfaceTintColor: AppTheme.transparent,
-              foregroundColor: AppTheme.transparent,
-              shadowColor: AppTheme.transparent
+              disabledForegroundColor: ThemeModel.transparent,
+               disabledBackgroundColor: ThemeModel.transparent,
+               surfaceTintColor: ThemeModel.transparent,
+              foregroundColor: ThemeModel.transparent,
+              shadowColor: ThemeModel.transparent
             ),
             onPressed: onPressed,
             child: Icon(

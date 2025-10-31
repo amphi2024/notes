@@ -4,7 +4,7 @@ import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/app_cache_data.dart';
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 import 'package:notes/providers/themes_provider.dart';
 
 class ThemeItem extends ConsumerWidget {

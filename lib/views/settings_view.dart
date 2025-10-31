@@ -13,7 +13,7 @@ import '../channels/app_web_channel.dart';
 import '../components/settings/server_settings.dart';
 import '../components/settings/titled_check_box.dart';
 import '../models/app_settings.dart';
-import '../models/app_theme.dart';
+import '../models/theme_model.dart';
 
 class SettingsView extends ConsumerStatefulWidget {
   const SettingsView({super.key});

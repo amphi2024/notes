@@ -131,8 +131,8 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     }
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: appSettings.appTheme.toThemeData(context: context, brightness: Brightness.light),
-        darkTheme: appSettings.appTheme.toThemeData(context: context, brightness: Brightness.dark),
+        theme: appSettings.themeModel.toThemeData(context: context, brightness: Brightness.light),
+        darkTheme: appSettings.themeModel.toThemeData(context: context, brightness: Brightness.dark),
         locale: locale,
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: const [

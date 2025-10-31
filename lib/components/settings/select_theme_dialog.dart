@@ -6,7 +6,7 @@ import 'package:notes/components/settings/theme_item.dart';
 import 'package:notes/main.dart';
 import 'package:notes/models/app_settings.dart';
 
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 
 import '../../providers/themes_provider.dart';
 
@@ -63,7 +63,7 @@ class _SelectThemeDialogState extends ConsumerState<SelectThemeDialog> {
                       return GestureDetector(
                           onTap: () {
                             mainScreenKey.currentState?.setState(() {
-                              appSettings.appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
+                              appSettings.themeModel = ThemeModel(created: DateTime.now(), modified: DateTime.now());
                             });
                             Navigator.pop(context);
                           },
@@ -74,13 +74,13 @@ class _SelectThemeDialogState extends ConsumerState<SelectThemeDialog> {
                       return GestureDetector(
                           onTap: () {
                             mainScreenKey.currentState?.setState(() {
-                              appSettings.appTheme = AppTheme.copy(themeModel);
+                              appSettings.themeModel = ThemeModel.copy(themeModel);
                             });
                             Navigator.pop(context);
                           },
                           onLongPress: () {
                             showDialog(context: context, builder: (context) {
-                              return EditThemeDialog(appTheme: themeModel, showDeleteButton: true);
+                              return EditThemeDialog(themeModel: themeModel, showDeleteButton: true);
                             });
                           },
                           child: ThemeItem(id: id, brightness: brightness));

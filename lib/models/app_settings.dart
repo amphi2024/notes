@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 
-import 'package:notes/models/app_theme.dart';
+import 'package:notes/models/theme_model.dart';
 
 import '../database/database_helper.dart';
 import 'app_storage.dart';
@@ -20,7 +20,7 @@ class AppSettings {
 
   static AppSettings getInstance() => _instance;
 
-  AppTheme appTheme = AppTheme(created: DateTime.now(), modified: DateTime.now());
+  ThemeModel themeModel = ThemeModel(created: DateTime.now(), modified: DateTime.now());
 
   String? get themeId => data["theme"];
   set themeId(value) => data["theme"] = value;
@@ -54,7 +54,7 @@ class AppSettings {
         final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM themes WHERE id = ?", [themeId]);
 
         if(list.isNotEmpty) {
-          appTheme = AppTheme.fromMap(list.first);
+          themeModel = ThemeModel.fromMap(list.first);
         }
       }
     }
@@ -73,7 +73,7 @@ class AppSettings {
   }
 
   Future<void> save() async {
-    data["theme"] = appTheme.id;
+    data["theme"] = themeModel.id;
     data["locale"] =  locale?.languageCode ?? null;
 
     File file = File( appStorage.settingsPath);
