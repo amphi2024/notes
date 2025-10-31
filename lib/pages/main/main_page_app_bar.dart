@@ -7,11 +7,11 @@ import 'package:notes/models/sort_option.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/providers.dart';
 
-import '../icons/icons.dart';
-import '../dialogs/choose_folder_dialog.dart';
+import '../../icons/icons.dart';
+import '../../dialogs/choose_folder_dialog.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 
-import '../providers/selected_notes_provider.dart';
+import '../../providers/selected_notes_provider.dart';
 
 List<Widget> appbarActions({
   required BuildContext context,

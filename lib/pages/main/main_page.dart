@@ -2,7 +2,7 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/components/main_page_app_bar.dart';
+import 'package:notes/pages/main/main_page_app_bar.dart';
 import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/providers.dart';
