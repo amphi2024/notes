@@ -62,20 +62,20 @@ List<Widget> appbarActions({
         ),
         itemBuilder: (context) {
           return [
-            _header(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_view_as")),
+            header(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_view_as")),
             _viewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_grid"), context: context, folder: folder, icon: AppIcons.grid, viewMode: "grid", ref: ref),
             _viewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_list"), context: context, folder: folder, icon: AppIcons.linear, viewMode: "linear", ref: ref),
-            _header(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_sort_by")),
+            header(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_sort_by")),
 
-            _sortButton(context: context, label: AppLocalizations.of(context).get("@title"), folder: folder, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
-            _sortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folder: folder, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
-            _sortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folder: folder, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
+            sortButton(context: context, label: AppLocalizations.of(context).get("@title"), folderId: folder.id, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
+            sortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folderId: folder.id, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
+            sortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folderId: folder.id, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
           ];
         })
   ];
 }
 
-PopupMenuItem _header({required String label, required BuildContext context}) {
+PopupMenuItem header({required String label, required BuildContext context}) {
   return PopupMenuItem(
     height: 25,
     enabled: false,
@@ -115,20 +115,20 @@ PopupMenuItem _viewModeButton({required String label, required BuildContext cont
       ));
 }
 
-PopupMenuItem _sortButton({required String label, required BuildContext context, required Note folder, required String sortOption, required String sortOptionDescending, required WidgetRef ref}) {
-  final currentSortOption = appCacheData.sortOption(folder.id);
+PopupMenuItem sortButton({required String label, required BuildContext context, required String folderId, required String sortOption, required String sortOptionDescending, required WidgetRef ref}) {
+  final currentSortOption = appCacheData.sortOption(folderId);
   return PopupMenuItem(
     height: 40,
     onTap: () {
       if(currentSortOption == sortOption) {
-        appCacheData.setSortOption(sortOption: sortOptionDescending, id: folder.id);
+        appCacheData.setSortOption(sortOption: sortOptionDescending, id: folderId);
       }
       else {
-        appCacheData.setSortOption(sortOption: sortOption, id: folder.id);
+        appCacheData.setSortOption(sortOption: sortOption, id: folderId);
       }
 
       appCacheData.save();
-      ref.read(notesProvider.notifier).sortNotes(folder.id);
+      ref.read(notesProvider.notifier).sortNotes(folderId);
     },
     child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,9 +142,9 @@ PopupMenuItem _sortButton({required String label, required BuildContext context,
           ),
           if(currentSortOption == sortOption || currentSortOption == sortOptionDescending) ... [
             Icon(
-              appCacheData.sortOption(folder.id) == sortOption ? Icons.arrow_upward : Icons.arrow_downward,
+              appCacheData.sortOption(folderId) == sortOption ? Icons.arrow_upward : Icons.arrow_downward,
               size: 20,
-              color: appCacheData.sortOption(folder.id).contains(sortOption) ? Theme.of(context).highlightColor : Theme.of(context).textTheme.bodyMedium?.color,
+              color: appCacheData.sortOption(folderId).contains(sortOption) ? Theme.of(context).highlightColor : Theme.of(context).textTheme.bodyMedium?.color,
             )
           ]
         ])
