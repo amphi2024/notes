@@ -4,17 +4,17 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class ServerSettingComponent extends StatefulWidget {
+class ServerSettings extends StatefulWidget {
   final TextEditingController serverAddressController;
 
-  const ServerSettingComponent(
+  const ServerSettings(
       {super.key, required this.serverAddressController});
 
   @override
-  State<ServerSettingComponent> createState() => _ServerSettingComponentState();
+  State<ServerSettings> createState() => _ServerSettingsState();
 }
 
-class _ServerSettingComponentState extends State<ServerSettingComponent> {
+class _ServerSettingsState extends State<ServerSettings> {
   int? totalSpace = null;
   int? usableSpace = null;
   int? usedSpace = null;
