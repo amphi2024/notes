@@ -26,11 +26,10 @@ import 'package:notes/views/notes_view.dart';
 
 import '../../components/custom_window_button.dart';
 import '../../dialogs/edit_folder_dialog.dart';
+import '../../models/sort_option.dart';
 import '../../providers/providers.dart';
-import '../../providers/tables_provider.dart';
-import '../../services/audio_service.dart';
-import '../../services/videos_service.dart';
 import '../../utils/note_item_press_callback.dart';
+import 'main_page_app_bar.dart';
 
 class WideMainPage extends ConsumerStatefulWidget {
   final String? title;
@@ -122,31 +121,41 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                             height: 55,
                             child: Row(
                               children: [
+                                PopupMenuButton(
+                                    icon: Icon(
+                                      AppIcons.linear,
+                                      size: Theme.of(context).appBarTheme.iconTheme?.size,
+                                    ),
+                                    itemBuilder: (context) {
+                                      return [
+                                        sortButton(context: context, label: AppLocalizations.of(context).get("@title"), folderId: selectedFolderId, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
+                                        sortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folderId: selectedFolderId, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
+                                        sortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folderId: selectedFolderId, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
+                                      ];
+                                    }),
                                 if (App.isDesktop()) ...[Expanded(child: MoveWindow())],
-                                Row(
-                                  children: [
-                                    PopupMenuButton(
-                                        icon: Icon(Icons.add_circle_outline),
-                                        iconSize: Theme.of(context).appBarTheme.iconTheme?.size,
-                                        itemBuilder: (context) {
+                                PopupMenuButton(
+                                    icon: Icon(Icons.add_circle_outline),
+                                    iconSize: Theme.of(context).appBarTheme.iconTheme?.size,
+                                    itemBuilder: (context) {
                                       return [
                                         PopupMenuItem(
                                             height: 30,
                                             child: Text(AppLocalizations.of(context).get("@new_note")),
-                                        onTap: () async {
-                                          saveEditingNoteBeforeSwitch(ref);
-                                          ref.read(selectedNotesProvider.notifier).endSelection();
+                                            onTap: () async {
+                                              saveEditingNoteBeforeSwitch(ref);
+                                              ref.read(selectedNotesProvider.notifier).endSelection();
 
-                                          var note = Note(id: await generatedNoteId());
-                                          note.created = DateTime.now();
-                                          note.parentId = selectedFolderId;
-                                          prepareEmbeddedBlocks(ref, note);
+                                              var note = Note(id: await generatedNoteId());
+                                              note.created = DateTime.now();
+                                              note.parentId = selectedFolderId;
+                                              prepareEmbeddedBlocks(ref, note);
 
-                                          ref.read(editingNoteProvider.notifier).startEditing(note, true);
-                                          ref.read(editingNoteProvider.notifier).initController(ref);
+                                              ref.read(editingNoteProvider.notifier).startEditing(note, true);
+                                              ref.read(editingNoteProvider.notifier).initController(ref);
 
-                                          ref.read(notesProvider.notifier).insertNote(note);
-                                        }),
+                                              ref.read(notesProvider.notifier).insertNote(note);
+                                            }),
                                         PopupMenuItem(
                                             height: 30,
                                             child: Text(AppLocalizations.of(context).get("@new_folder")), onTap: () {
@@ -161,21 +170,19 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                         })
                                       ];
                                     }),
-                                    IconButton(onPressed: () async {
-                                      final selectedNotes = ref.watch(selectedNotesProvider);
-                                      if(selectedNotes != null) {
-                                        ref.read(notesProvider.notifier).moveNotes(selectedNotes, selectedFolderId, "!TRASH");
-                                        ref.read(selectedNotesProvider.notifier).endSelection();
+                                IconButton(onPressed: () async {
+                                  final selectedNotes = ref.watch(selectedNotesProvider);
+                                  if(selectedNotes != null) {
+                                    ref.read(notesProvider.notifier).moveNotes(selectedNotes, selectedFolderId, "!TRASH");
+                                    ref.read(selectedNotesProvider.notifier).endSelection();
 
-                                        for(var id in selectedNotes) {
-                                          final note = ref.watch(notesProvider).notes.get(id);
-                                          note.deleted = DateTime.now();
-                                          note.save();
-                                        }
-                                      }
-                                    }, icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size))
-                                  ],
-                                )
+                                    for(var id in selectedNotes) {
+                                      final note = ref.watch(notesProvider).notes.get(id);
+                                      note.deleted = DateTime.now();
+                                      note.save();
+                                    }
+                                  }
+                                }, icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size))
                               ],
                             ),
                           ),
