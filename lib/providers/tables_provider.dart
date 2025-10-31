@@ -89,17 +89,13 @@ class TablesNotifier extends Notifier<Map<String, TableState>> {
     final tableState = state[id];
     if (tableState == null) return;
 
-    // 현재 index까지의 히스토리만 유지
     final truncatedHistory = tableState.history.sublist(0, tableState.index + 1);
 
-    // 현재 데이터 복사 후 수정
     final newData = modify(tableState.data().copy());
 
-    // 새로운 히스토리 및 인덱스 생성
     final newHistory = [...truncatedHistory, newData];
     final newIndex = newHistory.length - 1;
 
-    // 상태 갱신
     state = {
       ...state,
       id: TableState(newHistory, newIndex),
