@@ -104,7 +104,7 @@ class ThemeModel {
       "card_dark": darkColors.card.toARGB32(),
       "floating_button_background_dark": darkColors.floatingButtonBackground.toARGB32(),
       "floating_button_icon_dark": darkColors.floatingButtonIcon.toARGB32()
-    };;
+    };
   }
 
   static ThemeModel copy(ThemeModel themeModel) {
