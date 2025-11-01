@@ -16,6 +16,7 @@ import 'package:notes/database/database_helper.dart';
 import 'package:notes/database/note_queries.dart';
 import 'package:notes/extensions/note_extension.dart';
 import 'package:notes/models/table_data.dart';
+import 'package:notes/utils/generate_id.dart';
 
 import '../components/note_editor/embed_block/table/note_table_block_embed.dart';
 import 'app_storage.dart';
@@ -223,7 +224,7 @@ class Note {
 
   Future<void> save({bool upload = true}) async {
     if(id.isEmpty) {
-      return;
+      id = await generatedNoteId();
     }
     final database = await databaseHelper.database;
     await database.insertNote(this);
