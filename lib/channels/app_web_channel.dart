@@ -265,6 +265,14 @@ class AppWebChannel extends AppWebChannelCore {
     await postJson(url: "$serverAddress/notes/themes/${themeModel.id}", jsonBody: jsonEncode(themeModel.toMap()), updateEvent: updateEvent);
   }
 
+  Future<void> downloadTheme({required String id, required void Function(ThemeModel themeModel) onSuccess, void Function(int?)? onFailed}) async {
+    await downloadJson(
+        url: "$serverAddress/notes/themes/$id",
+        onSuccess: (data) {
+          onSuccess(ThemeModel.fromMap(data));
+        });
+  }
+
   Future<void> deleteTheme(ThemeModel themeModel) async {
     final updateEvent = UpdateEvent(action: UpdateEvent.deleteTheme, value: themeModel.id);
     await simpleDelete(url: "$serverAddress/notes/themes/${themeModel.id}", updateEvent: updateEvent);
