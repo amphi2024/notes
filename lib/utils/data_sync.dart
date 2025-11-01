@@ -1,6 +1,7 @@
 import 'package:amphi/models/update_event.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/channels/app_web_channel.dart';
+import 'package:notes/database/database_helper.dart';
 import 'package:notes/providers/notes_provider.dart';
 
 void refreshDataWithServer(WidgetRef ref) {
@@ -8,7 +9,9 @@ void refreshDataWithServer(WidgetRef ref) {
     for (var item in list) {
       final id = item["id"];
       if (id is String) {
-        if (!ref.read(notesProvider).notes.containsKey(item["id"])) {
+        final database = await databaseHelper.database;
+        final List<Map<String, dynamic>> noteList = await database.rawQuery("SELECT * FROM notes WHERE id = ?", [id]);
+        if(noteList.isEmpty) {
           await appWebChannel.downloadNote(id: id, onSuccess: (note) {
             note.save(upload: false);
             if(!note.isFolder) {
@@ -17,6 +20,15 @@ void refreshDataWithServer(WidgetRef ref) {
             ref.read(notesProvider.notifier).insertNote(note);
           });
         }
+      }
+    }
+  });
+
+  appWebChannel.getThemes(onSuccess: (list) async {
+    for (var item in list) {
+      final id = item["id"];
+      if (id is String) {
+
       }
     }
   });
