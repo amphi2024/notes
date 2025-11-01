@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/providers/notes_provider.dart';
+import 'package:notes/providers/themes_provider.dart';
 
 void refreshDataWithServer(WidgetRef ref) {
   appWebChannel.getNotes(onSuccess: (list) async {
@@ -28,7 +29,14 @@ void refreshDataWithServer(WidgetRef ref) {
     for (var item in list) {
       final id = item["id"];
       if (id is String) {
-
+        final database = await databaseHelper.database;
+        final List<Map<String, dynamic>> themeList = await database.rawQuery("SELECT * FROM themes WHERE id = ?", [id]);
+        if(themeList.isEmpty) {
+          await appWebChannel.downloadTheme(id: id, onSuccess: (theme) {
+            theme.save(upload: false);
+            ref.read(themesProvider.notifier).insertTheme(theme);
+          });
+        }
       }
     }
   });
