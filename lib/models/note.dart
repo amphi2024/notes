@@ -118,6 +118,11 @@ class Note {
   }
 
   Future<void> delete({bool upload = true}) async {
+    if(id.isEmpty) {
+      return;
+    }
+    final database = await databaseHelper.database;
+    database.delete("notes", where: "id = ?", whereArgs: [id]);
     var images = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "images"));
     var videos = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "videos"));
     var audio = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "audio"));
@@ -289,8 +294,8 @@ class Note {
       "id": id,
       "title": isFolder ? title : null,
       "subtitle": null,
-      "background_color": backgroundColor?.value,
-      "text_color": textColor?.value,
+      "background_color": backgroundColor?.toARGB32(),
+      "text_color": textColor?.toARGB32(),
       "text_size": textSize?.toInt(),
       "line_height": lineHeight?.toInt(),
       "parent_id": parentId.isEmpty ? null : parentId,
