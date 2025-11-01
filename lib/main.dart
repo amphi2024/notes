@@ -88,7 +88,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   void initState() {
     if(appSettings.useOwnServer) {
       appWebChannel.getServerVersion(onSuccess: (version) {
-        if(!version.startsWith("2.")) {
+        if(version.startsWith("1.")) {
           appWebChannel.uploadBlocked = true;
         }
       }, onFailed: (code) {
