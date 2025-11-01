@@ -2,6 +2,7 @@ import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/settings/create_theme_button.dart';
+import 'package:notes/components/settings/edit_theme_dialog.dart';
 import 'package:notes/components/settings/select_theme_dialog.dart';
 import 'package:notes/components/settings/theme_item.dart';
 import 'package:notes/main.dart';
@@ -102,6 +103,15 @@ class __MobileSettingsState extends ConsumerState<_MobileSettings> {
             }
             else {
               return GestureDetector(
+                onLongPress: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                    return EditThemeDialog(
+                        showDeleteButton: true,
+                        themeModel: ref.watch(themesProvider).findThemeByIndex(index - 1));
+                  });
+                },
                 child: ThemeItem(
                     id: idList[index - 1],
                     brightness: brightness
