@@ -111,11 +111,33 @@ class NotesNotifier extends Notifier<NotesState> {
 
   void sortNotes(String? folderId) {
     final idList = state.idLists.putIfAbsent(folderId ?? "", () => []);
+
     idList.sortNotes(appCacheData.sortOption(folderId ?? "!HOME"), state.notes);
 
     final idLists = {...state.idLists, folderId ?? "": idList};
 
     state = NotesState({...state.notes}, idLists);
+  }
+
+  void applyServerUpdate(Note note) {
+    final idLists = {...state.idLists};
+    final originalNote = state.notes.get(note.id);
+    if(note.parentId != originalNote.parentId) {
+      idLists[originalNote.parentId]?.remove(note.id);
+      idLists[note.parentId]?.add(note.id);
+    }
+    else if(originalNote.deleted == null && note.deleted != null) {
+      idLists[originalNote.parentId]?.remove(note.id);
+      idLists["!TRASH"]?.add(note.id);
+    }
+    else if(originalNote.deleted != null && note.deleted == null) {
+      idLists["!TRASH"]?.remove(note.id);
+      idLists[""]?.add(note.id);
+    }
+    else {
+      idLists[note.parentId]?.add(note.id);
+    }
+    state = NotesState({...state.notes, note.id: note}, idLists);
   }
 
   void init(void Function() onInitialize) async {
