@@ -2,6 +2,7 @@ import 'package:amphi/models/update_event.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/database/database_helper.dart';
+import 'package:notes/models/app_storage.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/themes_provider.dart';
 
@@ -55,28 +56,32 @@ Future<void> applyUpdateEvent(UpdateEvent updateEvent, WidgetRef ref) async {
     case UpdateEvent.uploadNote:
       await appWebChannel.downloadNote(id: updateEvent.value, onSuccess: (note) async {
         await note.save(upload: false);
-        note.initTitles();
-
-        final originalNote = ref.watch(notesProvider).notes.get(updateEvent.value);
-        if(originalNote.deleted == null && note.deleted != null) {
-          ref.read(notesProvider.notifier).moveNotes([note.id], note.parentId, "!TRASH");
-        }
-        else if(originalNote.deleted != null && note.deleted == null) {
-          ref.read(notesProvider.notifier).moveNotes([note.id], "!TRASH", note.parentId);
-        }
-        else {
-          ref.read(notesProvider.notifier).insertNote(note);
-        }
+        ref.read(notesProvider.notifier).applyServerUpdate(note);
       });
       break;
     case UpdateEvent.deleteNote:
-
+      final note = ref.watch(notesProvider).notes[updateEvent.value];
+      if(note != null) {
+        note.delete(upload: false);
+        ref.read(notesProvider.notifier).deleteNotes([updateEvent.value]);
+      }
       break;
     case UpdateEvent.uploadTheme:
+      await appWebChannel.downloadTheme(id: updateEvent.value, onSuccess: (theme) async {
+        await theme.save(upload: false);
+        ref.read(themesProvider.notifier).insertTheme(theme);
+      });
       break;
     case UpdateEvent.deleteTheme:
+      final theme = ref.watch(themesProvider).themes[updateEvent.value];
+      if(theme != null) {
+        theme.delete(upload: false);
+        ref.read(themesProvider.notifier).deleteTheme(theme.id);
+      }
       break;
     case UpdateEvent.renameUser:
+      appStorage.selectedUser.name = updateEvent.value;
+      appStorage.saveSelectedUserInformation(updateEvent: null);
       break;
   }
 
