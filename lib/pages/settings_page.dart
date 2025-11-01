@@ -4,6 +4,8 @@ import 'package:amphi/models/app_localizations.dart';
 import 'package:notes/icons/icons.dart';
 import 'package:notes/views/settings_view.dart';
 
+import '../models/app_settings.dart';
+
 class SettingsPage extends StatefulWidget {
 
   const SettingsPage({super.key});
@@ -19,7 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return DraggablePage(
       canPopPage: true,
       onPopInvoked: (value, result) {
-
+        appSettings.save();
       },
       child: Scaffold(
         appBar: AppBar(
