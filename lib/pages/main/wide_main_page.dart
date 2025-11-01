@@ -86,6 +86,8 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
         normal: Theme.of(context).cardColor
     );
 
+    final double macosPadding = Platform.isMacOS ? 75 : 0;
+
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
 
@@ -121,18 +123,23 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                             height: 55,
                             child: Row(
                               children: [
-                                PopupMenuButton(
-                                    icon: Icon(
-                                      AppIcons.linear,
-                                      size: Theme.of(context).appBarTheme.iconTheme?.size,
-                                    ),
-                                    itemBuilder: (context) {
-                                      return [
-                                        sortButton(context: context, label: AppLocalizations.of(context).get("@title"), folderId: selectedFolderId, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
-                                        sortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folderId: selectedFolderId, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
-                                        sortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folderId: selectedFolderId, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
-                                      ];
-                                    }),
+                                AnimatedPadding(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.easeOutQuint,
+                                  padding: wideMainPageState.sideBarShowing && !wideMainPageState.sideBarFloating ? EdgeInsets.zero : EdgeInsets.only(left: 45 + macosPadding),
+                                  child: PopupMenuButton(
+                                      icon: Icon(
+                                        AppIcons.linear,
+                                        size: Theme.of(context).appBarTheme.iconTheme?.size,
+                                      ),
+                                      itemBuilder: (context) {
+                                        return [
+                                          sortButton(context: context, label: AppLocalizations.of(context).get("@title"), folderId: selectedFolderId, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
+                                          sortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folderId: selectedFolderId, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
+                                          sortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folderId: selectedFolderId, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
+                                        ];
+                                      }),
+                                ),
                                 if (App.isDesktop()) ...[Expanded(child: MoveWindow())],
                                 PopupMenuButton(
                                     icon: Icon(Icons.add_circle_outline),
