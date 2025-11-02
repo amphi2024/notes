@@ -33,11 +33,13 @@ class NotesState {
 
     for(var id in idLists[folderId] ?? []) {
       final List<Map<String, dynamic>> children = await database.rawQuery("SELECT * FROM notes WHERE parent_id == ?", [id]);
+      idLists.putIfAbsent(id, () => []).clear();
       for(var childData in children) {
         final child = Note.fromMap(childData);
         idLists.putIfAbsent(id, () => []).add(child.id);
         notes[child.id] = child;
       }
+      idLists.putIfAbsent(id, () => []).sortNotes(appCacheData.sortOption(id), notes);
     }
 
   }
