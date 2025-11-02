@@ -123,22 +123,19 @@ class NotesNotifier extends Notifier<NotesState> {
 
   void applyServerUpdate(Note note) {
     final idLists = {...state.idLists};
-    final originalNote = state.notes.get(note.id);
-    if(note.parentId != originalNote.parentId) {
-      idLists[originalNote.parentId]?.remove(note.id);
-      idLists[note.parentId]?.add(note.id);
+    final oldNote = state.notes.get(note.id);
+
+    final oldParentId = oldNote.deleted != null ? "!TRASH" : oldNote.parentId;
+    final parentId = note.deleted != null ? "!TRASH" : note.parentId;
+
+    if(oldParentId != parentId) {
+      idLists[oldParentId]?.remove(note.id);
     }
-    else if(originalNote.deleted == null && note.deleted != null) {
-      idLists[originalNote.parentId]?.remove(note.id);
-      idLists["!TRASH"]?.add(note.id);
+    if(idLists[parentId]?.contains(note.id) != true) {
+      idLists[parentId]?.add(note.id);
+      idLists[parentId]?.sortNotes(appCacheData.sortOption(parentId), state.notes);
     }
-    else if(originalNote.deleted != null && note.deleted == null) {
-      idLists["!TRASH"]?.remove(note.id);
-      idLists[""]?.add(note.id);
-    }
-    else {
-      idLists[note.parentId]?.add(note.id);
-    }
+
     state = NotesState({...state.notes, note.id: note}, idLists);
   }
 
@@ -185,6 +182,7 @@ extension NoteNullSafeExtension on Map<String, Note> {
 }
 
 extension SortEx on List {
+
   void sortNotes(String sortOption, Map<String, Note> map) {
     switch(sortOption) {
       case SortOption.created:
