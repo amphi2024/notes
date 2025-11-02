@@ -63,6 +63,7 @@ class _EditFolderDialogState extends State<EditFolderDialog> {
                       }
                       widget.folder.title = folderNameController.text;
                       widget.folder.modified = DateTime.now();
+                      widget.folder.isFolder = true;
                       widget.folder.save();
                       widget.ref.read(notesProvider.notifier).insertNote(widget.folder);
                       Navigator.pop(context);
