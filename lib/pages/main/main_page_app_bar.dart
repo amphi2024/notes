@@ -27,7 +27,7 @@ List<Widget> appbarActions({
             showDialog(
                 context: context,
                 builder: (context) {
-                  return ChooseFolderDialog();
+                  return ChooseFolderDialog(folderId: folder.id);
                 });
           }),
       IconButton(

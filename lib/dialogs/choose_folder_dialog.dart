@@ -1,171 +1,115 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:notes/components/linear_item_border.dart';
-import 'package:notes/extensions/date_extension.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:notes/models/folder.dart';
 import 'package:notes/icons/icons.dart';
-import 'package:notes/models/note.dart';
+import 'package:notes/providers/notes_provider.dart';
+import 'package:notes/providers/selected_notes_provider.dart';
 
-import '../models/app_storage.dart';
 
-class ChooseFolderDialog extends StatefulWidget {
-  const ChooseFolderDialog({super.key});
+class ChooseFolderDialog extends ConsumerStatefulWidget {
+
+  final String folderId;
+  const ChooseFolderDialog({super.key, required this.folderId});
 
   @override
-  State<ChooseFolderDialog> createState() => _ChooseFolderDialogState();
+  ConsumerState<ChooseFolderDialog> createState() => _ChooseFolderDialogState();
 }
 
-class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
-  Map<String, List<Folder>> folderList = {};
-  List<String> history = [""];
+class _ChooseFolderDialogState extends ConsumerState<ChooseFolderDialog> {
 
-  @override
-  void initState() {
-    getFolders();
-    super.initState();
-  }
-
-  void getFolders() {
-    Directory directory = Directory(appStorage.attachmentsPath);
-    // for (FileSystemEntity file in directory.listSync()) {
-    //   if (file.path.endsWith(".folder") && file is File) {
-    //     bool exists = false;
-    //     for (dynamic item in appStorage.selectedNotes!) {
-    //       if (item is Folder && item.path == file.path) {
-    //         exists = true;
-    //       }
-    //     }
-    //     if (!exists) {
-    //       Folder folder = Folder.fromFile(file);
-    //       if (folderList[folder.location] == null) {
-    //         folderList[folder.location] = [];
-    //       }
-    //       if (folderList[folder.filename] == null) {
-    //         folderList[folder.filename] = [];
-    //       }
-    //
-    //       folderList[folder.location]!.add(folder);
-    //     }
-    //   }
-    // }
-  }
+  List<String> history = [];
 
   @override
   Widget build(BuildContext context) {
-    if (history.isEmpty) {
-      history.add("");
+    final selectedNotes = ref.watch(selectedNotesProvider);
+    final idList =
+        ref.watch(notesProvider).idListByFolderIdFolderOnly(history.firstOrNull ?? "").where((id) => !selectedNotes!.contains(id)).toList();
+    if (history.isNotEmpty) {
+      idList.insert(0, "!POP");
     }
+    final notes = ref.watch(notesProvider).notes;
 
     return Dialog(
-      child: Container(
+      child: SizedBox(
         width: 250,
         height: 500,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-        ),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(onPressed: () {}, icon: const Icon(AppIcons.times)),
-                IconButton(
-                    onPressed: () {
-                      // Navigator.pop(context);
-                      // for (dynamic item in appStorage.selectedNotes!) {
-                      //   if (item is Note) {
-                      //     AppStorage.getNoteList(item.location).remove(item);
-                      //     item.location = history.last;
-                      //     item.save(changeModified: false);
-                      //     AppStorage.getNoteList(history.last).add(item);
-                      //   } else if (item is Folder) {
-                      //     AppStorage.getNoteList(item.location).remove(item);
-                      //     item.location = history.last;
-                      //     item.save(changeModified: false);
-                      //     AppStorage.getNoteList(history.last).add(item);
-                      //   }
-                      // }
-                      // AppStorage.getNoteList(history.last).sortByOption();
-                      // appState.notifySomethingChanged(() {
-                      //   appStorage.selectedNotes = null;
-                      // });
-                    },
-                    icon: const Icon(AppIcons.check, size: 20))
+                IconButton(onPressed: () {
+                  Navigator.pop(context);
+                }, icon: const Icon(Icons.cancel_outlined, size: 20)),
+                IconButton(onPressed: () {
+                  if(selectedNotes == null) {
+                    return;
+                  }
+                  final parentId = history.firstOrNull ?? "";
+                  for(var id in selectedNotes) {
+                    ref.read(notesProvider).notes.get(id).parentId = parentId;
+                    ref.read(notesProvider).notes.get(id).save();
+                  }
+                  ref.read(notesProvider.notifier).moveNotes(selectedNotes, widget.folderId, parentId);
+                  Navigator.pop(context);
+                }, icon: const Icon(Icons.check_circle_outline, size: 20))
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 7.5),
-              child: SizedBox(
-                height: 440,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
                 child: ListView.builder(
-                    itemCount: history.length == 1 ? folderList[history.last]!.length : folderList[history.last]!.length + 1,
+                    itemCount: idList.length,
                     itemBuilder: (context, index) {
-                      LinearItemBorder border = LinearItemBorder(
-                          index: index,
-                          length: history.length == 1 ? folderList[history.last]!.length : folderList[history.last]!.length + 1,
-                          context: context);
-                      if (index == 0 && history.length > 1) {
-                        return GestureDetector(
+                      final folder = notes.get(idList[index]);
+
+                      final roundedTop = index == 0;
+
+                      final roundBottom = index == idList.length - 1;
+
+                      final borderRadius = BorderRadius.only(
+                          topLeft: Radius.circular(roundedTop ? 15 : 0),
+                          topRight: Radius.circular(roundedTop ? 15 : 0),
+                          bottomRight: Radius.circular(roundBottom ? 15 : 0),
+                          bottomLeft: Radius.circular(roundBottom ? 15 : 0));
+
+                      return Material(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: borderRadius,
+                        child: InkWell(
+                          highlightColor: Color.fromARGB(25, 125, 125, 125),
+                          splashColor: Color.fromARGB(25, 125, 125, 125),
+                          borderRadius: borderRadius,
                           onTap: () {
-                            setState(() {
-                              if (history.length > 1) {
-                                history.removeLast();
+                              if(folder.id == "!POP") {
+                                setState(() {
+                                  history.removeLast();
+                                });
                               }
-                            });
+                              else {
+                                setState(() {
+                                  history.add(folder.id);
+                                });
+                              }
                           },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 7.5, right: 7.5),
-                            width: double.infinity,
+                          child: SizedBox(
                             height: 60,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).cardColor,
-                                border: Border(
-                                  bottom: border.borderSide,
-                                ),
-                                borderRadius: border.borderRadius),
-                            child: Row(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 10.0),
-                                  child: Icon(
-                                    AppIcons.folder,
-                                    size: 25,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                                  child: Text(
-                                    "...",
-                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15, fontWeight: FontWeight.bold),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      } else {
-                        Folder folder = folderList[history.last]![history.length > 1 ? index - 1 : index];
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              history.add(folder.filename);
-                            });
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 7.5, right: 7.5),
-                            width: double.infinity,
-                            height: 60,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).cardColor,
-                                border: Border(
-                                  bottom: border.borderSide,
-                                ),
-                                borderRadius: border.borderRadius),
                             child: Stack(
                               children: [
-                                Row(
+                                if (!roundBottom) ...[
+                                  Positioned(
+                                      left: 10,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Divider(
+                                        color: Theme.of(context).dividerColor,
+                                        height: 1,
+                                        thickness: 1,
+                                      )),
+                                ],
+                                Positioned.fill(
+                                    child: Row(
                                   children: [
                                     const Padding(
                                       padding: EdgeInsets.only(left: 10.0),
@@ -174,31 +118,29 @@ class _ChooseFolderDialogState extends State<ChooseFolderDialog> {
                                         size: 25,
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            folder.title,
-                                            style:
-                                                TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15, fontWeight: FontWeight.bold),
-                                          ),
-                                          // Text(
-                                          //   "${folder.modified.toLocalizedShortString(context)}   ${AppStorage.getNoteList(folder.filename).length}",
-                                          //   style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15),
-                                          // )
-                                        ],
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              folder.id == "!POP" ? ".." : folder.title,
+                                              style: TextStyle(
+                                                  color: Theme.of(context).colorScheme.onSurface, fontSize: 15, fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     )
                                   ],
-                                ),
+                                ))
                               ],
                             ),
                           ),
-                        );
-                      }
+                        ),
+                      );
                     }),
               ),
             ),
