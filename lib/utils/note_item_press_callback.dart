@@ -14,6 +14,9 @@ import '../providers/notes_provider.dart';
 import '../providers/tables_provider.dart';
 
 void onNotePressed(Note note, BuildContext context, WidgetRef ref) async {
+  if(note.deleted != null) {
+    return;
+  }
   final selectedNotes = ref.watch(selectedNotesProvider);
   if(ref.watch(selectedNotesProvider.notifier).keyPressed) {
     if(selectedNotes!.contains(note.id)) {
@@ -48,6 +51,9 @@ void onNotePressed(Note note, BuildContext context, WidgetRef ref) async {
 }
 
 void onFolderPressed(Note note, BuildContext context, WidgetRef ref) async {
+  if(note.deleted != null) {
+    return;
+  }
   if (note.isFolder) {
     await ref.read(notesProvider).preloadNotes(note.id);
     Navigator.push(context, CupertinoPageRoute(builder: (context) {
