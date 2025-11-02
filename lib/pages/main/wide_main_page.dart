@@ -10,6 +10,7 @@ import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/note_editor_toolbar.dart';
+import 'package:notes/components/notes_view_sort_menu.dart';
 import 'package:notes/icons/icons.dart';
 import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/app_settings.dart';
@@ -29,7 +30,6 @@ import '../../dialogs/edit_folder_dialog.dart';
 import '../../models/sort_option.dart';
 import '../../providers/providers.dart';
 import '../../utils/note_item_press_callback.dart';
-import 'main_page_app_bar.dart';
 
 class WideMainPage extends ConsumerStatefulWidget {
   final String? title;
@@ -134,9 +134,9 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                       ),
                                       itemBuilder: (context) {
                                         return [
-                                          sortButton(context: context, label: AppLocalizations.of(context).get("@title"), folderId: selectedFolderId, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
-                                          sortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folderId: selectedFolderId, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
-                                          sortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folderId: selectedFolderId, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
+                                          notesViewSortMenuSortButton(context: context, label: AppLocalizations.of(context).get("@title"), folderId: selectedFolderId, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
+                                          notesViewSortMenuSortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folderId: selectedFolderId, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
+                                          notesViewSortMenuSortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folderId: selectedFolderId, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
                                         ];
                                       }),
                                 ),

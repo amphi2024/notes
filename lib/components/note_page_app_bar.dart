@@ -28,32 +28,6 @@ List<Widget> notePageAppbarActions(
           onPressed: () {
             controller.readOnly = false;
             ref.read(editingNoteProvider.notifier).setEditing(true);
-            // appState.note.getDraft((draftNote) {
-            //   appState.startDraftSave();
-            //   if(draftNote != null) {
-            //     showDialog(context: context, builder: (context) {
-            //       return DraftDialog(
-            //         onCanceled: () {
-            //           setState(() {
-            //             controller.readOnly = false;
-            //           });
-            //         },
-            //         onConfirmed: () {
-            //           note.contents = draftNote.contents;
-            //           controller.setNote(note);
-            //           setState(() {
-            //             controller.readOnly = false;
-            //           });
-            //         },
-            //       );
-            //     });
-            //   }
-            //   else {
-            //     setState(() {
-            //       controller.readOnly = false;
-            //     });
-            //   }
-            // });
           },
           icon: Icon(
             Icons.edit,

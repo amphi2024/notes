@@ -1,11 +1,11 @@
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/components/notes_view_sort_menu.dart';
 import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/models/sort_option.dart';
 import 'package:notes/providers/notes_provider.dart';
-import 'package:notes/providers/providers.dart';
 
 import '../../icons/icons.dart';
 import '../../dialogs/choose_folder_dialog.dart';
@@ -36,7 +36,7 @@ List<Widget> appbarActions({
               context: context,
               builder: (context) {
                 return ConfirmationDialog(
-                  title: "@dialog_title_move_to_trash",
+                  title: AppLocalizations.of(context).get("@dialog_title_move_to_trash"),
                   onConfirmed: () {
                     final selectedNotes = ref.watch(selectedNotesProvider);
                     if(selectedNotes != null) {
@@ -62,91 +62,15 @@ List<Widget> appbarActions({
         ),
         itemBuilder: (context) {
           return [
-            header(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_view_as")),
-            _viewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_grid"), context: context, folder: folder, icon: AppIcons.grid, viewMode: "grid", ref: ref),
-            _viewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_list"), context: context, folder: folder, icon: AppIcons.linear, viewMode: "linear", ref: ref),
-            header(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_sort_by")),
+            notesViewSortMenuHeader(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_view_as")),
+            notesViewSortMenuViewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_grid"), context: context, folder: folder, icon: AppIcons.grid, viewMode: "grid", ref: ref),
+            notesViewSortMenuViewModeButton(label: AppLocalizations.of(context).get("@popup_menu_item_list"), context: context, folder: folder, icon: AppIcons.linear, viewMode: "linear", ref: ref),
+            notesViewSortMenuHeader(context: context, label: AppLocalizations.of(context).get("@popup_menu_leading_sort_by")),
 
-            sortButton(context: context, label: AppLocalizations.of(context).get("@title"), folderId: folder.id, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
-            sortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folderId: folder.id, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
-            sortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folderId: folder.id, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
+            notesViewSortMenuSortButton(context: context, label: AppLocalizations.of(context).get("@title"), folderId: folder.id, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
+            notesViewSortMenuSortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folderId: folder.id, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
+            notesViewSortMenuSortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folderId: folder.id, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
           ];
         })
   ];
-}
-
-PopupMenuItem header({required String label, required BuildContext context}) {
-  return PopupMenuItem(
-    height: 25,
-    enabled: false,
-    child: Text(label,
-        style: TextStyle(
-            color: Theme.of(context).highlightColor,
-            fontSize: 12
-        )
-    ),
-  );
-}
-
-PopupMenuItem _viewModeButton({required String label, required BuildContext context, required Note folder, required IconData icon, required String viewMode, required WidgetRef ref}) {
-  return PopupMenuItem(
-      height: 40,
-      onTap: () {
-        appCacheData.setViewMode(id: folder.id, value: viewMode);
-        appCacheData.save();
-        ref.read(viewModeProvider.notifier).setViewMode(folder.id, viewMode);
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-                color: (ref.watch(viewModeProvider)[folder.id] ?? appCacheData.viewMode(folder.id)) == viewMode ? Theme.of(context).highlightColor : Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 15
-            ),
-          ),
-          Icon(
-            icon,
-            size: 20,
-            color: appCacheData.viewMode(folder.id) == viewMode ? Theme.of(context).highlightColor : Theme.of(context).textTheme.bodyMedium?.color,
-          )
-        ],
-      ));
-}
-
-PopupMenuItem sortButton({required String label, required BuildContext context, required String folderId, required String sortOption, required String sortOptionDescending, required WidgetRef ref}) {
-  final currentSortOption = appCacheData.sortOption(folderId);
-  return PopupMenuItem(
-    height: 40,
-    onTap: () {
-      if(currentSortOption == sortOption) {
-        appCacheData.setSortOption(sortOption: sortOptionDescending, id: folderId);
-      }
-      else {
-        appCacheData.setSortOption(sortOption: sortOption, id: folderId);
-      }
-
-      appCacheData.save();
-      ref.read(notesProvider.notifier).sortNotes(folderId);
-    },
-    child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-                color: currentSortOption == sortOption || currentSortOption == sortOptionDescending ? Theme.of(context).highlightColor : Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 15
-            ),
-          ),
-          if(currentSortOption == sortOption || currentSortOption == sortOptionDescending) ... [
-            Icon(
-              appCacheData.sortOption(folderId) == sortOption ? Icons.arrow_upward : Icons.arrow_downward,
-              size: 20,
-              color: appCacheData.sortOption(folderId).contains(sortOption) ? Theme.of(context).highlightColor : Theme.of(context).textTheme.bodyMedium?.color,
-            )
-          ]
-        ])
-  );
 }

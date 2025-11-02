@@ -9,7 +9,7 @@ import '../../../models/app_cache_data.dart';
 import '../../../models/app_storage.dart';
 import '../../../icons/icons.dart';
 import '../../settings_page.dart';
-import '../../trash_page.dart';
+import '../../trash/trash_page.dart';
 import '../../../providers/providers.dart';
 import '../../../providers/selected_notes_provider.dart';
 import '../../../utils/account_utils.dart';
