@@ -107,6 +107,7 @@ class AppWebChannel extends AppWebChannelCore {
     if(uploadBlocked) {
       return;
     }
+    Set<UpdateEvent> set = {};
     List<UpdateEvent> list = [];
     final response = await get(
       Uri.parse("$serverAddress/notes/events"),
@@ -116,9 +117,10 @@ class AppWebChannel extends AppWebChannelCore {
       List<dynamic> decoded = jsonDecode(utf8.decode(response.bodyBytes));
       for (Map<String, dynamic> map in decoded) {
         UpdateEvent updateEvent = UpdateEvent.fromJson(map);
+        set.add(updateEvent);
         list.add(updateEvent);
       }
-      onResponse(list);
+      onResponse(set.toList());
     } else if (response.statusCode == HttpStatus.unauthorized) {
       appStorage.selectedUser.token = "";
     }
