@@ -223,9 +223,9 @@ List<TreeSliverNode<Note>>? _treeChildren(
   final List<TreeSliverNode<Note>> list = [];
 
   for (var id in idList) {
-    final note = ref.watch(notesProvider).notes.get(id);
-    list.add(TreeSliverNode<Note>(Note(id: id, title: note.title),
-        expanded: expandedNodes[id] == true, children: _treeChildren(ref: ref, context: context, parentId: note.id, expandedNodes: expandedNodes)));
+    final folder = ref.watch(notesProvider).notes.get(id);
+    list.add(TreeSliverNode<Note>(folder,
+        expanded: expandedNodes[id] == true, children: _treeChildren(ref: ref, context: context, parentId: folder.id, expandedNodes: expandedNodes)));
   }
 
   return list;
