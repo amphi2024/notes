@@ -7,7 +7,7 @@ import '../models/app_storage.dart';
 
 List<ThemeModel> allThemes() {
   List<ThemeModel> list = [];
-  ThemeModel themeModel = ThemeModel(created: DateTime.now(), modified: DateTime.now());
+  ThemeModel themeModel = ThemeModel();
 
   list.add(themeModel);
 

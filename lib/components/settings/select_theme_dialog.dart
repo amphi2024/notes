@@ -63,7 +63,7 @@ class _SelectThemeDialogState extends ConsumerState<SelectThemeDialog> {
                       return GestureDetector(
                           onTap: () {
                             mainScreenKey.currentState?.setState(() {
-                              appSettings.themeModel = ThemeModel(created: DateTime.now(), modified: DateTime.now());
+                              appSettings.themeModel = ThemeModel();
                             });
                             Navigator.pop(context);
                           },

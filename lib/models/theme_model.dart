@@ -21,8 +21,6 @@ class ThemeModel {
 
   String title = "";
   String id;
-  String filename = "";
-  String path = "";
   DateTime created = DateTime.now();
   DateTime modified = DateTime.now();
 
@@ -34,8 +32,6 @@ class ThemeModel {
 
   ThemeModel.fromMap(Map<String, dynamic> data) : id = data["id"] {
     title = data["title"];
-    filename = "";
-    path = "";
       created = DateTime.fromMillisecondsSinceEpoch(data["created"]).toLocal();
       modified = DateTime.fromMillisecondsSinceEpoch(data["modified"]).toLocal();
     lightColors = ThemeColors(
@@ -58,7 +54,7 @@ class ThemeModel {
 
   }
 
-  ThemeModel({this.title = "", this.filename = "!DEFAULT", required this.created, required this.modified, this.path = "", this.id = ""});
+  ThemeModel({this.title = "", this.id = ""});
 
   Future<void> save({bool upload = true}) async {
     if(id.isEmpty) {
@@ -109,8 +105,6 @@ class ThemeModel {
 
   static ThemeModel copy(ThemeModel themeModel) {
     final result = ThemeModel(
-      created: themeModel.created,
-      modified: themeModel.modified,
       title: themeModel.title,
       id: themeModel.id
     );

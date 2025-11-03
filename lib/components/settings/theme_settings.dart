@@ -85,7 +85,7 @@ class __MobileSettingsState extends ConsumerState<_MobileSettings> {
           onPageChanged: (int index) {
             if (index == 0) {
               mainScreenKey.currentState?.setState(() {
-                appSettings.themeModel = ThemeModel(created: DateTime.now(), modified: DateTime.now());
+                appSettings.themeModel = ThemeModel();
               });
             }
             else if (index < idList.length + 1) {

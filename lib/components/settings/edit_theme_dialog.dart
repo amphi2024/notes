@@ -18,7 +18,7 @@ class EditThemeDialog extends ConsumerStatefulWidget {
 
 class _EditThemeDialogState extends ConsumerState<EditThemeDialog> {
   late ThemeModel themeModel = ThemeModel.copy(widget.themeModel);
-  ThemeModel defaultTheme = ThemeModel(created: DateTime.now(), modified: DateTime.now());
+  ThemeModel defaultTheme = ThemeModel();
   late TextEditingController textEditingController = TextEditingController(text: themeModel.title);
 
   @override

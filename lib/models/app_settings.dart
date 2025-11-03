@@ -20,7 +20,7 @@ class AppSettings {
 
   static AppSettings getInstance() => _instance;
 
-  ThemeModel themeModel = ThemeModel(created: DateTime.now(), modified: DateTime.now());
+  ThemeModel themeModel = ThemeModel();
 
   String? get themeId => data["theme"];
   set themeId(value) => data["theme"] = value;

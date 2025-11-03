@@ -55,6 +55,6 @@ final themesProvider = NotifierProvider<ThemesNotifier, ThemesState>(ThemesNotif
 
 extension ThemesNullSafe on Map<String, ThemeModel> {
   ThemeModel get(String id) {
-    return this[id] ?? ThemeModel(created: DateTime.now(), modified: DateTime.now());
+    return this[id] ?? ThemeModel();
   }
 }

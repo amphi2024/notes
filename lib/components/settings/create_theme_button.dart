@@ -22,9 +22,7 @@ class CreateThemeButton extends StatelessWidget {
                 builder: (context) {
                   return EditThemeDialog(
                       themeModel: ThemeModel(
-                          id: id,
-                          created: DateTime.now(),
-                          modified: DateTime.now()));
+                          id: id));
                 });
           },
           child: Padding(
