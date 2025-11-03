@@ -152,6 +152,7 @@ class ThemeModel {
       dividerColor: Color.fromARGB(60, 153, 153, 153),
       dropdownMenuTheme: DropdownMenuThemeData(textStyle: TextStyle(color: colors.text, fontSize: 15)),
       popupMenuTheme: PopupMenuThemeData(
+        mouseCursor: WidgetStatePropertyAll(SystemMouseCursors.basic),
           surfaceTintColor: colors.background, color: colors.background, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
       iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
