@@ -1,6 +1,8 @@
+import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_image.dart';
 import 'package:notes/pages/image/image_page.dart';
+import 'package:notes/pages/image/wide_image_page.dart';
 
 class ImageBlock extends StatefulWidget {
   final String filename;
@@ -16,34 +18,40 @@ class _ImageBlockState extends State<ImageBlock> {
   Widget build(BuildContext context) {
      return Align(
        alignment: Alignment.centerLeft,
-       child: GestureDetector(
-         onTap: () {
-           Focus.of(context).unfocus();
-           Navigator.of(context).push(
-             PageRouteBuilder(
-               opaque: false,
-               pageBuilder: (context, animation, secondaryAnimation) {
-                 return ImagePage(noteId: widget.noteId, filename: widget.filename);
-               },
-               transitionsBuilder:
-                   (context, animation, secondaryAnimation, child) {
-                 return FadeTransition(
-                   opacity: animation,
-                   child: child,
-                 );
-               },
-               transitionDuration: const Duration(milliseconds: 300),
-             ),
-           ).then((value) {
+       child: MouseRegion(
+         cursor: SystemMouseCursors.basic,
+         child: GestureDetector(
+           onTap: () {
              Focus.of(context).unfocus();
-           });
-         },
-         child: Hero(
-           tag: widget.filename,
-           child: NoteImage(
-             noteId: widget.noteId,
-             filename: widget.filename,
-             fit: BoxFit.contain,
+             Navigator.of(context).push(
+               PageRouteBuilder(
+                 opaque: false,
+                 pageBuilder: (context, animation, secondaryAnimation) {
+                   if(App.isWideScreen(context) || App.isDesktop()) {
+                     return WideImagePage(noteId: widget.noteId, filename: widget.filename);
+                   }
+                   return ImagePage(noteId: widget.noteId, filename: widget.filename);
+                 },
+                 transitionsBuilder:
+                     (context, animation, secondaryAnimation, child) {
+                   return FadeTransition(
+                     opacity: animation,
+                     child: child,
+                   );
+                 },
+                 transitionDuration: const Duration(milliseconds: 300),
+               ),
+             ).then((value) {
+               Focus.of(context).unfocus();
+             });
+           },
+           child: Hero(
+             tag: widget.filename,
+             child: NoteImage(
+               noteId: widget.noteId,
+               filename: widget.filename,
+               fit: BoxFit.contain,
+             ),
            ),
          ),
        ),
