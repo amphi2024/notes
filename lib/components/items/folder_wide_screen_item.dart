@@ -45,16 +45,17 @@ class FolderWideScreenItemState extends ConsumerState<FolderWideScreenItem> {
     return DragTarget<List<String>>(onWillAcceptWithDetails: (details) {
       return details.data.firstOrNull != widget.folder.id && details.data.firstOrNull != widget.folder.parentId;
     }, onAcceptWithDetails: (details) {
-      final selectedFolderId = ref.watch(selectedFolderProvider);
       final selectedNotes = details.data;
+      String? folderId = null;
       final deleted = widget.folder.id != "!TRASH" ? null : DateTime.now();
       for (var id in selectedNotes) {
         final item = ref.watch(notesProvider).notes.get(id);
+        folderId = item.parentId;
         item.parentId = widget.folder.id != "!TRASH" ? widget.folder.id : "";
         item.deleted = deleted;
         item.save();
       }
-      ref.read(notesProvider.notifier).moveNotes(details.data, selectedFolderId, widget.folder.id);
+      ref.read(notesProvider.notifier).moveNotes(details.data, folderId ?? "", widget.folder.id);
     }, builder: (context, candidateData, rejectedData) {
       return Draggable<List<String>>(
           dragAnchorStrategy: pointerDragAnchorStrategy,
@@ -162,7 +163,7 @@ List<PopupMenuItem> _menuItems({required Note folder, required WidgetRef ref, re
     PopupMenuItem(height: _height, child: Text("Delete Folder"), onTap: () {
       showDialog(context: context, builder: (context) {
         return ConfirmationDialog(title: "", onConfirmed: () {
-          folder.delete();
+          folder.delete(ref: ref);
           ref.read(notesProvider.notifier).deleteNotes([folder.id]);
         });
       });
