@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
+import 'package:notes/components/move_window_or_spacer.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/note_editor_toolbar.dart';
 import 'package:notes/components/notes_view_sort_menu.dart';
@@ -106,7 +107,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
             children: [
               AnimatedPositioned(
                 left: !wideMainPageState.sideBarFloating && wideMainPageState.sideBarShowing ? wideMainPageState.sideBarWidth : 0,
-                top: 0,
+                top: MediaQuery.of(context).padding.top,
                 bottom: 0,
                 right: 0,
                 duration: Duration(milliseconds: 500),
@@ -158,7 +159,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                         ];
                                       }),
                                 ),
-                                if (App.isDesktop()) ...[Expanded(child: MoveWindow())],
+                                Expanded(child: MoveWindowOrSpacer()),
                                 PopupMenuButton(
                                     icon: Icon(Icons.add_circle_outline),
                                     iconSize: Theme.of(context).appBarTheme.iconTheme?.size,
@@ -298,11 +299,11 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                             height: 55,
                             child: Row(
                               children: [
-                                if (App.isDesktop()) ...[Expanded(child: MoveWindow())],
+                                Expanded(child: MoveWindowOrSpacer()),
                                 Row(
                                   children: noteEditorToolbarButtons(controller, Theme.of(context).appBarTheme.iconTheme!.size!),
                                 ),
-                                if (App.isDesktop()) ...[Expanded(child: MoveWindow())],
+                                Expanded(child: MoveWindowOrSpacer()),
                                 if (Platform.isWindows) ...[
                                   Visibility(
                                     visible: App.isDesktop(),

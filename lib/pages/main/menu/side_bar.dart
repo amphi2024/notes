@@ -1,7 +1,5 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/account/account_button.dart';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +12,7 @@ import 'package:notes/models/note.dart';
 
 import '../../../channels/app_web_channel.dart';
 import '../../../components/items/folder_wide_screen_item.dart';
+import '../../../components/move_window_or_spacer.dart';
 import '../../../models/app_cache_data.dart';
 import '../../../models/app_storage.dart';
 import '../../../providers/notes_provider.dart';
@@ -69,6 +68,7 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
           child: Stack(
             children: [
               Positioned.fill(
+                top: MediaQuery.of(context).padding.top,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -76,11 +76,7 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        if(App.isDesktop()) ... [
-                          Expanded(child: SizedBox(
-                              height: 55,
-                              child: MoveWindow()))
-                        ],
+                        Expanded(child: SizedBox(height: 55, child: MoveWindowOrSpacer())),
                         AccountButton(
                             onLoggedIn: ({required id, required token, required username}) {
                               onLoggedIn(id: id, token: token, username: username, context: context, ref: ref);
@@ -155,13 +151,16 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                      IconButton(onPressed: () async {
-                        showDialog(context: context, builder: (context) {
-                          return SettingsDialog();
-                        });
-                      }, icon: Icon(AppIcons.settings, size: 15))
+                    Row(children: [
+                      IconButton(
+                          onPressed: () async {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return SettingsDialog();
+                                });
+                          },
+                          icon: Icon(AppIcons.settings, size: 15))
                     ])
                   ],
                 ),

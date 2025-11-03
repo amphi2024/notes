@@ -9,7 +9,6 @@ import '../../channels/app_method_channel.dart';
 import '../../icons/icons.dart';
 
 class SideBarToggleButton extends ConsumerStatefulWidget {
-
   const SideBarToggleButton({super.key});
 
   @override
@@ -17,7 +16,6 @@ class SideBarToggleButton extends ConsumerStatefulWidget {
 }
 
 class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
-
   bool isFullscreen = false;
 
   @override
@@ -41,8 +39,8 @@ class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
   @override
   Widget build(BuildContext context) {
     final wideMainPageState = ref.watch(wideMainPageStateProvider);
-    double left = 5;
-    double top = 7.5;
+    double left = 0;
+    double top = 0;
 
     if (Platform.isMacOS) {
       left = isFullscreen ? 5 : 80;
@@ -50,18 +48,10 @@ class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
 
     if (wideMainPageState.sideBarFloating && wideMainPageState.sideBarShowing) {
       left = 20;
-      top = 20;
-      if (Platform.isMacOS && !isFullscreen) {
-        top = 30;
-      }
+      top = 30;
     }
 
-    if (Platform.isAndroid) {
-      top += MediaQuery
-          .of(context)
-          .padding
-          .top;
-    }
+    top += MediaQuery.of(context).padding.top;
 
     return AnimatedPositioned(
         left: left,
@@ -74,11 +64,17 @@ class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
             appCacheData.save();
             ref.read(wideMainPageStateProvider.notifier).setSideBarFloating(!wideMainPageState.sideBarFloating);
           },
-          child: IconButton(
-              icon: Icon(AppIcons.sidebar, size: Theme.of(context).appBarTheme.iconTheme?.size),
-              onPressed: () {
-                ref.read(wideMainPageStateProvider.notifier).setSideBarShowing(!ref.watch(wideMainPageStateProvider).sideBarShowing);
-              }),
+          child: SizedBox(
+            width: 55,
+            height: 55,
+            child: Center(
+              child: IconButton(
+                  icon: Icon(AppIcons.sidebar, size: Theme.of(context).appBarTheme.iconTheme?.size),
+                  onPressed: () {
+                    ref.read(wideMainPageStateProvider.notifier).setSideBarShowing(!ref.watch(wideMainPageStateProvider).sideBarShowing);
+                  }),
+            ),
+          ),
         ));
   }
 }

@@ -26,10 +26,7 @@ class _WideImagePageState extends State<WideImagePage> with TickerProviderStateM
     if (_isFullScreen) {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     }
-    // _bottomController.dispose();
-    // _animationController.dispose();
     photoTransformController.dispose();
-    // _topController.dispose();
     super.dispose();
   }
 
@@ -38,8 +35,6 @@ class _WideImagePageState extends State<WideImagePage> with TickerProviderStateM
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
       setState(() {
         _buttonsController.reverse();
-        // _topController.reverse();
-        // _bottomController.reverse();
         _isFullScreen = true;
       });
     }
@@ -47,7 +42,6 @@ class _WideImagePageState extends State<WideImagePage> with TickerProviderStateM
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       setState(() {
         _buttonsController.forward();
-        // _bottomController.forward();
         _isFullScreen = false;
       });
     }
@@ -68,7 +62,6 @@ class _WideImagePageState extends State<WideImagePage> with TickerProviderStateM
     );
 
     _buttonsController.forward();
-
     super.initState();
   }
 
@@ -111,17 +104,19 @@ class _WideImagePageState extends State<WideImagePage> with TickerProviderStateM
               child: SlideTransition(
                 position: buttonsSlide,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.only(left: 8.0, right: 8, bottom: 8 + MediaQuery.of(context).padding.bottom),
                   child: Container(
-                    width: 80,
+                    width: 100,
                     height: 30,
                     decoration: BoxDecoration(
                       color: Color.fromARGB(180, 0, 0, 0),
                       borderRadius: BorderRadius.circular(5)
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        IconButton(onPressed: () {
+                        IconButton(
+                            onPressed: () {
                           shareNoteImage(widget.noteId, widget.filename);
                         }, icon: const Icon(
                           Icons.share,
