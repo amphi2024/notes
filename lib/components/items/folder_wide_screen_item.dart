@@ -164,10 +164,10 @@ List<PopupMenuItem> _menuItems({required Note folder, required WidgetRef ref, re
     }),
     PopupMenuItem(height: _height, child: Text("Delete Folder"), onTap: () {
       showDialog(context: context, builder: (context) {
-        ConfirmationDialog(title: "", onConfirmed: () {
+        return ConfirmationDialog(title: "", onConfirmed: () {
           folder.delete();
           ref.read(notesProvider.notifier).deleteNotes([folder.id]);
-        })
+        });
       });
     })
   ];
