@@ -31,7 +31,6 @@ class _AudioBlockState extends State<AudioBlock> {
       });
     });
     audioService.get(widget.filename).player.stream.error.listen((event) {
-      print(event);
       if(appSettings.useOwnServer) {
         appWebChannel.downloadNoteAudio(id: widget.noteId, filename: widget.filename, onSuccess: () {
           setState(() {

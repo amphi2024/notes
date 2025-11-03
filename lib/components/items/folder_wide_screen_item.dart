@@ -39,7 +39,6 @@ class FolderWideScreenItemState extends ConsumerState<FolderWideScreenItem> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.folder.deleted);
     final selected = ref.watch(selectedFolderProvider) == widget.folder.id;
     final textColor = selected ? Colors.white : null;
 
@@ -131,8 +130,6 @@ class FolderWideScreenItemState extends ConsumerState<FolderWideScreenItem> {
 const _height = 30.0;
 
 List<PopupMenuItem> _menuItems({required Note folder, required WidgetRef ref, required BuildContext context}) {
-  print(folder.title);
-  print(folder.deleted);
   if(folder.deleted == null) {
     return [
       PopupMenuItem(height: _height, child: Text("New Folder"), onTap: () async {
