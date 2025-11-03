@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,7 +62,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if(appSettings.useOwnServer && appWebChannel.uploadBlocked) {
+      if (appSettings.useOwnServer && appWebChannel.uploadBlocked) {
         showToast(context, "upload block message");
       }
     });
@@ -83,20 +84,17 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
         iconNormal: Theme.of(context).textTheme.bodyMedium?.color,
         mouseDown: const Color.fromRGBO(125, 125, 125, 0.1),
         iconMouseDown: Theme.of(context).textTheme.bodyMedium?.color,
-        normal: Theme.of(context).cardColor
-    );
+        normal: Theme.of(context).cardColor);
 
     final double macosPadding = Platform.isMacOS ? 75 : 0;
 
     return PopScope(
-      onPopInvokedWithResult: (didPop, result) {
-
-      },
+      onPopInvokedWithResult: (didPop, result) {},
       child: MouseRegion(
         onHover: (event) {
           if (App.isDesktop() && wideMainPageState.sideBarFloating) {
             if (wideMainPageState.sideBarShowing && event.position.dx >= 265) {
-                ref.read(wideMainPageStateProvider.notifier).setSideBarShowing(false);
+              ref.read(wideMainPageStateProvider.notifier).setSideBarShowing(false);
             } else if (event.position.dx <= 20) {
               ref.read(wideMainPageStateProvider.notifier).setSideBarShowing(true);
             }
@@ -126,7 +124,9 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                 AnimatedPadding(
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.easeOutQuint,
-                                  padding: wideMainPageState.sideBarShowing && !wideMainPageState.sideBarFloating ? EdgeInsets.zero : EdgeInsets.only(left: 45 + macosPadding),
+                                  padding: wideMainPageState.sideBarShowing && !wideMainPageState.sideBarFloating
+                                      ? EdgeInsets.zero
+                                      : EdgeInsets.only(left: 45 + macosPadding),
                                   child: PopupMenuButton(
                                       icon: Icon(
                                         AppIcons.linear,
@@ -134,9 +134,27 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                       ),
                                       itemBuilder: (context) {
                                         return [
-                                          notesViewSortMenuSortButton(context: context, label: AppLocalizations.of(context).get("@title"), folderId: selectedFolderId, sortOption: SortOption.title, sortOptionDescending: SortOption.titleDescending, ref: ref),
-                                          notesViewSortMenuSortButton(context: context, label: AppLocalizations.of(context).get("@created_date"), folderId: selectedFolderId, sortOption: SortOption.created, sortOptionDescending: SortOption.createdDescending, ref: ref),
-                                          notesViewSortMenuSortButton(context: context, label: AppLocalizations.of(context).get("@modified_date"), folderId: selectedFolderId, sortOption: SortOption.modified, sortOptionDescending: SortOption.modifiedDescending, ref: ref)
+                                          notesViewSortMenuSortButton(
+                                              context: context,
+                                              label: AppLocalizations.of(context).get("@title"),
+                                              folderId: selectedFolderId,
+                                              sortOption: SortOption.title,
+                                              sortOptionDescending: SortOption.titleDescending,
+                                              ref: ref),
+                                          notesViewSortMenuSortButton(
+                                              context: context,
+                                              label: AppLocalizations.of(context).get("@created_date"),
+                                              folderId: selectedFolderId,
+                                              sortOption: SortOption.created,
+                                              sortOptionDescending: SortOption.createdDescending,
+                                              ref: ref),
+                                          notesViewSortMenuSortButton(
+                                              context: context,
+                                              label: AppLocalizations.of(context).get("@modified_date"),
+                                              folderId: selectedFolderId,
+                                              sortOption: SortOption.modified,
+                                              sortOptionDescending: SortOption.modifiedDescending,
+                                              ref: ref)
                                         ];
                                       }),
                                 ),
@@ -165,31 +183,51 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                             }),
                                         PopupMenuItem(
                                             height: 30,
-                                            child: Text(AppLocalizations.of(context).get("@new_folder")), onTap: () {
+                                            child: Text(AppLocalizations.of(context).get("@new_folder")),
+                                            onTap: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    var folder = Note(id: "");
+                                                    folder.parentId = selectedFolderId;
+                                                    folder.isFolder = true;
+                                                    return EditFolderDialog(folder: folder, ref: ref);
+                                                  });
+                                            })
+                                      ];
+                                    }),
+                                IconButton(
+                                    onPressed: () async {
+                                      final selectedNotes = ref.watch(selectedNotesProvider);
+                                      if (selectedNotes != null) {
+                                        if (selectedFolderId == "!TRASH") {
                                           showDialog(
                                               context: context,
                                               builder: (context) {
-                                                var folder = Note(id: "");
-                                                folder.parentId = selectedFolderId;
-                                                folder.isFolder = true;
-                                                return EditFolderDialog(folder: folder, ref: ref);
+                                                return ConfirmationDialog(
+                                                    title: AppLocalizations.of(context).get("@dialog_title_delete_selected_notes"),
+                                                    onConfirmed: () {
+                                                      for (var id in selectedNotes) {
+                                                        final note = ref.watch(notesProvider).notes.get(id);
+                                                        note.delete(ref: ref);
+                                                      }
+                                                      ref.read(notesProvider.notifier).deleteNotes(selectedNotes);
+                                                      ref.read(selectedNotesProvider.notifier).endSelection();
+                                                    });
                                               });
-                                        })
-                                      ];
-                                    }),
-                                IconButton(onPressed: () async {
-                                  final selectedNotes = ref.watch(selectedNotesProvider);
-                                  if(selectedNotes != null) {
-                                    ref.read(notesProvider.notifier).moveNotes(selectedNotes, selectedFolderId, "!TRASH");
-                                    ref.read(selectedNotesProvider.notifier).endSelection();
+                                        } else {
+                                          ref.read(notesProvider.notifier).moveNotes(selectedNotes, selectedFolderId, "!TRASH");
+                                          ref.read(selectedNotesProvider.notifier).endSelection();
 
-                                    for(var id in selectedNotes) {
-                                      final note = ref.watch(notesProvider).notes.get(id);
-                                      note.deleted = DateTime.now();
-                                      note.save();
-                                    }
-                                  }
-                                }, icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size))
+                                          for (var id in selectedNotes) {
+                                            final note = ref.watch(notesProvider).notes.get(id);
+                                            note.deleted = DateTime.now();
+                                            note.save();
+                                          }
+                                        }
+                                      }
+                                    },
+                                    icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size))
                               ],
                             ),
                           ),
@@ -209,22 +247,23 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                     focusNode: selectionFocusNode,
                                     includeSemantics: false,
                                     onKeyEvent: (event) {
-                                      if(event is KeyUpEvent) {
+                                      if (event is KeyUpEvent) {
                                         ref.read(selectedNotesProvider.notifier).keyPressed = false;
                                         return;
                                       }
-                                      if(event.physicalKey == PhysicalKeyboardKey.metaLeft || event.physicalKey == PhysicalKeyboardKey.controlLeft) {
+                                      if (event.physicalKey == PhysicalKeyboardKey.metaLeft || event.physicalKey == PhysicalKeyboardKey.controlLeft) {
                                         ref.read(selectedNotesProvider.notifier).keyPressed = true;
-                                        if(ref.watch(selectedNotesProvider) == null) {
+                                        if (ref.watch(selectedNotesProvider) == null) {
                                           ref.read(selectedNotesProvider.notifier).startSelection();
                                         }
                                       }
 
-                                      if(ref.read(selectedNotesProvider.notifier).keyPressed && event.physicalKey == PhysicalKeyboardKey.keyA) {
+                                      if (ref.read(selectedNotesProvider.notifier).keyPressed && event.physicalKey == PhysicalKeyboardKey.keyA) {
                                         // ref.read(selectedNotesProvider.notifier).
                                       }
                                     },
-                                    child: NotesView(idList: ref.watch(notesProvider).idListByFolderIdNoteOnly(selectedFolderId), folder: Note(id: ""))),
+                                    child:
+                                        NotesView(idList: ref.watch(notesProvider).idListByFolderIdNoteOnly(selectedFolderId), folder: Note(id: ""))),
                               ),
                             ),
                           )
@@ -270,17 +309,17 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                   ),
                                   appWindow.isMaximized
                                       ? RestoreCustomWindowButton(
-                                    colors: colors,
-                                    onPressed: () {
-                                      appWindow.restore();
-                                    },
-                                  )
+                                          colors: colors,
+                                          onPressed: () {
+                                            appWindow.restore();
+                                          },
+                                        )
                                       : MaximizeCustomWindowButton(
-                                    colors: colors,
-                                    onPressed: () {
-                                      appWindow.maximize();
-                                    },
-                                  ),
+                                          colors: colors,
+                                          onPressed: () {
+                                            appWindow.maximize();
+                                          },
+                                        ),
                                   CloseCustomWindowButton(
                                       colors: CustomWindowButtonColors(
                                           mouseOver: const Color(0xFFD32F2F),
