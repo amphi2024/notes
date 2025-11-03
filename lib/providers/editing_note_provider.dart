@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,9 +40,10 @@ class EditingNoteNotifier extends Notifier<EditingNoteState> {
         final note = state.note;
         var title = "";
         var subtitle = "";
-        String? thumbnail = null;
+        String? thumbnail = note.thumbnailImageFilename;
         for (var operation in controller.document.toDelta().toList()) {
-          if (operation.value is String) {
+          final value = operation.value;
+          if (value is String) {
             List<String> textLines = operation.value.split("\n");
             if (textLines.length > 1) {
               for (String line in textLines) {
