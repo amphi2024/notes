@@ -62,7 +62,7 @@ Future<void> applyUpdateEvent(UpdateEvent updateEvent, WidgetRef ref) async {
     case UpdateEvent.deleteNote:
       final note = ref.watch(notesProvider).notes[updateEvent.value];
       if(note != null) {
-        note.delete(upload: false);
+        note.delete(upload: false, ref: ref);
         ref.read(notesProvider.notifier).deleteNotes([updateEvent.value]);
       }
       break;

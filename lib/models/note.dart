@@ -8,6 +8,7 @@ import 'package:amphi/utils/random_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/note_editor/embed_block/audio/audio_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_block_embed.dart';
@@ -16,6 +17,7 @@ import 'package:notes/database/database_helper.dart';
 import 'package:notes/database/note_queries.dart';
 import 'package:notes/extensions/note_extension.dart';
 import 'package:notes/models/table_data.dart';
+import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/utils/generate_id.dart';
 
 import '../components/note_editor/embed_block/table/note_table_block_embed.dart';
@@ -49,7 +51,7 @@ class Note {
       this.longSubtitle = "",
       this.thumbnailImageFilename,
       this.backgroundColor,
-        this.background,
+      this.background,
       this.textColor,
       this.textSize,
       this.lineHeight,
@@ -75,25 +77,25 @@ class Note {
     created = DateTime.fromMillisecondsSinceEpoch(data["created"]).toLocal();
     modified = DateTime.fromMillisecondsSinceEpoch(data["modified"]).toLocal();
     parentId = data["parent_id"] ?? "";
-    if(data["deleted"] is int) {
+    if (data["deleted"] is int) {
       deleted = DateTime.fromMillisecondsSinceEpoch(data["deleted"]).toLocal();
     }
 
     int? text_size = data["text_size"];
-    if(text_size != null) {
+    if (text_size != null) {
       textSize = text_size.toDouble();
     }
 
     int? text_color = data["text_color"];
-    if(text_color != null) {
+    if (text_color != null) {
       textColor = Color(text_color);
     }
     int? line_height = data["line_height"];
-    if(line_height != null) {
+    if (line_height != null) {
       lineHeight = line_height.toDouble();
     }
     int? background_color = data["background_color"];
-    if(background_color != null) {
+    if (background_color != null) {
       backgroundColor = Color(background_color);
     }
     background = data["background"];
@@ -117,12 +119,12 @@ class Note {
     }
   }
 
-  Future<void> delete({bool upload = true}) async {
-    if(id.isEmpty) {
+  Future<void> delete({bool upload = true, required WidgetRef ref}) async {
+    if (id.isEmpty) {
       return;
     }
     final database = await databaseHelper.database;
-    database.delete("notes", where: "id = ?", whereArgs: [id]);
+    await database.deleteNoteById(id, ref);
     var images = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "images"));
     var videos = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "videos"));
     var audio = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "audio"));
@@ -228,7 +230,7 @@ class Note {
   }
 
   Future<void> save({bool upload = true}) async {
-    if(id.isEmpty) {
+    if (id.isEmpty) {
       id = await generatedNoteId();
     }
     final database = await databaseHelper.database;
