@@ -1,13 +1,7 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/components/note_image.dart';
 
-import 'package:notes/icons/icons.dart';
 
 import '../../models/theme_model.dart';
 import 'image_page_bottom_bar.dart';

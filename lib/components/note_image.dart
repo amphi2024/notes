@@ -1,11 +1,8 @@
 import 'dart:io';
 
-import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/utils/attachment_path.dart';
-
-import '../models/app_storage.dart';
 
 class NoteImage extends StatelessWidget {
   final String filename;
