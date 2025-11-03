@@ -162,6 +162,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                 PopupMenuButton(
                                     icon: Icon(Icons.add_circle_outline),
                                     iconSize: Theme.of(context).appBarTheme.iconTheme?.size,
+                                    enabled: selectedFolderId != "!TRASH",
                                     itemBuilder: (context) {
                                       return [
                                         PopupMenuItem(
