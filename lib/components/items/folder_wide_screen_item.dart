@@ -1,19 +1,24 @@
+import 'package:amphi/models/app.dart';
+import 'package:amphi/models/app_localizations.dart';
+import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/dialogs/edit_folder_dialog.dart';
 import 'package:notes/icons/icons.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/providers/providers.dart';
+import 'package:notes/utils/generate_id.dart';
 
 import '../../providers/notes_provider.dart';
 
-class FolderWideScreenItem extends ConsumerWidget {
-  final Note folder;
-  final void Function() onPressed;
+class FolderWideScreenItem extends ConsumerStatefulWidget {
   final void Function() onIconPressed;
-  final int itemCount;
-  final bool expanded;
+  final Note folder;
   final bool iconVisible;
+  final void Function() onPressed;
+  final bool expanded;
   final double indent;
+  final int itemCount;
 
   const FolderWideScreenItem(
       {super.key,
@@ -26,67 +31,144 @@ class FolderWideScreenItem extends ConsumerWidget {
       required this.indent});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selected = ref.watch(selectedFolderProvider) == folder.id;
+  FolderWideScreenItemState createState() => FolderWideScreenItemState();
+}
+
+class FolderWideScreenItemState extends ConsumerState<FolderWideScreenItem> {
+  double editButtonOpacity = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    print(widget.folder.deleted);
+    final selected = ref.watch(selectedFolderProvider) == widget.folder.id;
     final textColor = selected ? Colors.white : null;
 
-    return DragTarget<List<String>>(
-      onWillAcceptWithDetails: (details) {
-        return details.data.firstOrNull != folder.id && details.data.firstOrNull != folder.parentId;
-      },
-        onAcceptWithDetails: (details) {
-          final selectedFolderId = ref.watch(selectedFolderProvider);
-          final selectedNotes = details.data;
-          final deleted = folder.id != "!TRASH" ? null : DateTime.now();
-          for(var id in selectedNotes) {
-            final item = ref.watch(notesProvider).notes.get(id);
-            item.parentId = folder.id != "!TRASH" ? folder.id : "";
-            item.deleted = deleted;
-            item.save();
-          }
-          ref.read(notesProvider.notifier).moveNotes(details.data, selectedFolderId, folder.id);
-        },
-        builder: (context, candidateData, rejectedData) {
+    return DragTarget<List<String>>(onWillAcceptWithDetails: (details) {
+      return details.data.firstOrNull != widget.folder.id && details.data.firstOrNull != widget.folder.parentId;
+    }, onAcceptWithDetails: (details) {
+      final selectedFolderId = ref.watch(selectedFolderProvider);
+      final selectedNotes = details.data;
+      final deleted = widget.folder.id != "!TRASH" ? null : DateTime.now();
+      for (var id in selectedNotes) {
+        final item = ref.watch(notesProvider).notes.get(id);
+        item.parentId = widget.folder.id != "!TRASH" ? widget.folder.id : "";
+        item.deleted = deleted;
+        item.save();
+      }
+      ref.read(notesProvider.notifier).moveNotes(details.data, selectedFolderId, widget.folder.id);
+    }, builder: (context, candidateData, rejectedData) {
       return Draggable<List<String>>(
           dragAnchorStrategy: pointerDragAnchorStrategy,
           feedback: Icon(Icons.folder_outlined),
-          data: [folder.id],
-          child: GestureDetector(
-            onTap: onPressed,
-            child: Container(
-              decoration: selected
-                  ? BoxDecoration(
-                      shape: BoxShape.rectangle, color: Theme.of(context).highlightColor.withAlpha(200), borderRadius: BorderRadius.circular(8))
-                  : BoxDecoration(color: Theme.of(context).drawerTheme.backgroundColor),
-              child: Row(
-                children: [
-                  Opacity(
-                    opacity: iconVisible ? 1 : 0,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5.0 + indent),
-                      child: AnimatedRotation(
-                          turns: expanded ? 0.25 : 0,
-                          duration: const Duration(milliseconds: 250),
-                          child: GestureDetector(onTap: onIconPressed, child: Icon(Icons.keyboard_arrow_right_rounded, color: textColor))),
+          data: [widget.folder.id],
+          child: MouseRegion(
+            onHover: (d) {
+              setState(() {
+                editButtonOpacity = 1;
+              });
+            },
+            onExit: (event) {
+              setState(() {
+                editButtonOpacity = 0;
+              });
+            },
+            child: GestureDetector(
+              onLongPress: () {
+                if(!App.isDesktop()) {
+                  setState(() {
+                    editButtonOpacity = editButtonOpacity > 0 ? 0 : 1;
+                  });
+                }
+              },
+              onTap: widget.onPressed,
+              child: Container(
+                decoration: selected
+                    ? BoxDecoration(
+                        shape: BoxShape.rectangle, color: Theme.of(context).highlightColor.withAlpha(200), borderRadius: BorderRadius.circular(8))
+                    : BoxDecoration(color: Theme.of(context).drawerTheme.backgroundColor),
+                child: Row(
+                  children: [
+                    Opacity(
+                      opacity: widget.iconVisible ? 1 : 0,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 5.0 + widget.indent),
+                        child: AnimatedRotation(
+                            turns: widget.expanded ? 0.25 : 0,
+                            duration: const Duration(milliseconds: 250),
+                            child: GestureDetector(onTap: widget.onIconPressed, child: Icon(Icons.keyboard_arrow_right_rounded, color: textColor))),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5, bottom: 5, top: 5),
-                    child: Icon(folder.id == "!TRASH" ? AppIcons.trash : Icons.folder_outlined,
-                        color: selected ? Colors.white : Theme.of(context).highlightColor),
-                  ),
-                  Expanded(child: Text(folder.title, style: TextStyle(color: textColor), overflow: TextOverflow.ellipsis)),
-                  Visibility(
-                    visible: itemCount > 0,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 12.0),
-                      child: Text(itemCount.toString(), style: TextStyle(color: textColor)),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5, bottom: 5, top: 5),
+                      child: Icon(widget.folder.id == "!TRASH" ? AppIcons.trash : Icons.folder_outlined,
+                          color: selected ? Colors.white : Theme.of(context).highlightColor),
                     ),
-                  )
-                ],
+                    Expanded(child: Text(widget.folder.title, style: TextStyle(color: textColor), overflow: TextOverflow.ellipsis)),
+                    Visibility(
+                      visible: widget.folder.id != "!TRASH" && widget.folder.id.isNotEmpty,
+                      child: Opacity(
+                              opacity: editButtonOpacity,
+                              child: PopupMenuButton(
+                                  icon: Icon(Icons.more_horiz, size: 15),
+                                  itemBuilder: (context) => _menuItems(folder: widget.folder, ref: ref, context: context))),
+                    ),
+                    Visibility(
+                      visible: widget.itemCount > 0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 12.0),
+                        child: Text(widget.itemCount.toString(), style: TextStyle(color: textColor)),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ));
     });
   }
+}
+
+const _height = 30.0;
+
+List<PopupMenuItem> _menuItems({required Note folder, required WidgetRef ref, required BuildContext context}) {
+  print(folder.title);
+  print(folder.deleted);
+  if(folder.deleted == null) {
+    return [
+      PopupMenuItem(height: _height, child: Text("New Folder"), onTap: () async {
+        final id = await generatedNoteId();
+        final newFolder = Note(id: id);
+        showDialog(context: context, builder: (context) {
+          return EditFolderDialog(folder: newFolder, ref: ref);
+        });
+      }),
+      PopupMenuItem(height: _height, child: Text("Rename Folder"), onTap: () {
+        showDialog(context: context, builder: (context) {
+          return EditFolderDialog(folder: folder, ref: ref);
+        });
+      }),
+      PopupMenuItem(height: _height, child: Text("Move to trash"), onTap: () {
+        folder.deleted = DateTime.now();
+        folder.save();
+        ref.read(notesProvider.notifier).moveNotes([folder.id], folder.parentId, "!TRASH");
+      }),
+    ];
+  }
+
+  return [
+    PopupMenuItem(height: _height, child: Text("Restore Folder"), onTap: () {
+      folder.deleted = null;
+      folder.parentId = "";
+      folder.save();
+      ref.read(notesProvider.notifier).moveNotes([folder.id], "!TRASH", folder.parentId);
+    }),
+    PopupMenuItem(height: _height, child: Text("Delete Folder"), onTap: () {
+      showDialog(context: context, builder: (context) {
+        ConfirmationDialog(title: "", onConfirmed: () {
+          folder.delete();
+          ref.read(notesProvider.notifier).deleteNotes([folder.id]);
+        })
+      });
+    })
+  ];
 }
