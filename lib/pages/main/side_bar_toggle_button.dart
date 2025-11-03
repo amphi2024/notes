@@ -48,7 +48,7 @@ class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
 
     if (wideMainPageState.sideBarFloating && wideMainPageState.sideBarShowing) {
       left = 20;
-      top = 30;
+      top = 15;
     }
 
     top += MediaQuery.of(context).padding.top;
