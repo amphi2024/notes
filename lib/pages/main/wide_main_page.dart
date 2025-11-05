@@ -74,6 +74,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
   Widget build(BuildContext context) {
     appMethodChannel.setNavigationBarColor(Theme.of(context).cardColor);
     final wideMainPageState = ref.watch(wideMainPageStateProvider);
+    final editingNote = ref.watch(editingNoteProvider).note;
     final controller = ref.watch(editingNoteProvider.notifier).controller;
 
     final themeData = Theme.of(context);
@@ -135,7 +136,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                     child: menu(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes),
                                   ),
                                   Expanded(child: MoveWindowOrSpacer()),
-                                  ...actions(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes)
+                                  ...actions(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes, editingNoteId: editingNote.id)
                                 ],
                               ),
                             ),
@@ -305,7 +306,7 @@ Widget menu({required BuildContext context, required WidgetRef ref, required Str
 }
 
 List<Widget> actions(
-    {required BuildContext context, required WidgetRef ref, required String selectedFolderId, required List<String>? selectedNotes}) {
+    {required BuildContext context, required WidgetRef ref, required String selectedFolderId, required List<String>? selectedNotes, required String editingNoteId}) {
   final addButton = PopupMenuButton(
       icon: Icon(Icons.add_circle_outline),
       iconSize: Theme.of(context).appBarTheme.iconTheme?.size,
@@ -346,8 +347,7 @@ List<Widget> actions(
       });
   final trashButton = IconButton(
       onPressed: () async {
-        final selectedNotes = ref.watch(selectedNotesProvider);
-        if (selectedNotes != null) {
+        final selected = selectedNotes ?? [editingNoteId];
           if (selectedFolderId == "!TRASH") {
             showDialog(
                 context: context,
@@ -355,33 +355,28 @@ List<Widget> actions(
                   return ConfirmationDialog(
                       title: AppLocalizations.of(context).get("@dialog_title_delete_selected_notes"),
                       onConfirmed: () {
-                        for (var id in selectedNotes) {
+                        for (var id in selected) {
                           final note = ref.watch(notesProvider).notes.get(id);
                           note.delete(ref: ref);
                         }
-                        ref.read(notesProvider.notifier).deleteNotes(selectedNotes);
+                        ref.read(notesProvider.notifier).deleteNotes(selected);
                         ref.read(selectedNotesProvider.notifier).endSelection();
                       });
                 });
           } else {
-            ref.read(notesProvider.notifier).moveNotes(selectedNotes, selectedFolderId, "!TRASH");
+            ref.read(notesProvider.notifier).moveNotes(selected, selectedFolderId, "!TRASH");
             ref.read(selectedNotesProvider.notifier).endSelection();
 
-            for (var id in selectedNotes) {
+            for (var id in selected) {
               final note = ref.watch(notesProvider).notes.get(id);
               note.deleted = DateTime.now();
               note.save();
             }
           }
-        }
       },
       icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size));
 
-  if (App.isDesktop()) {
-    return [addButton, trashButton];
-  }
-
-  if (selectedNotes == null) {
+  if (App.isDesktop() || selectedNotes == null) {
     return [addButton];
   }
 
