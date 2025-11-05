@@ -81,12 +81,12 @@ class _ChooseFolderDialogState extends ConsumerState<ChooseFolderDialog> {
                           onTap: () {
                               if(folder.id == "!POP") {
                                 setState(() {
-                                  history.removeLast();
+                                  history.removeAt(0);
                                 });
                               }
                               else {
                                 setState(() {
-                                  history.add(folder.id);
+                                  history.insert(0, folder.id);
                                 });
                               }
                           },
