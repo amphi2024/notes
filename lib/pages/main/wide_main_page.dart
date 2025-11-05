@@ -13,6 +13,7 @@ import 'package:notes/components/move_window_or_spacer.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/note_editor_toolbar.dart';
 import 'package:notes/components/notes_view_sort_menu.dart';
+import 'package:notes/dialogs/choose_folder_dialog.dart';
 import 'package:notes/icons/icons.dart';
 import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/app_settings.dart';
@@ -78,6 +79,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
     final themeData = Theme.of(context);
 
     final selectedFolderId = ref.watch(selectedFolderProvider);
+    final selectedNotes = ref.watch(selectedNotesProvider);
 
     final colors = CustomWindowButtonColors(
         iconMouseOver: Theme.of(context).textTheme.bodyMedium?.color,
@@ -128,108 +130,10 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                   padding: wideMainPageState.sideBarShowing && !wideMainPageState.sideBarFloating
                                       ? EdgeInsets.zero
                                       : EdgeInsets.only(left: 45 + macosPadding),
-                                  child: PopupMenuButton(
-                                      icon: Icon(
-                                        AppIcons.linear,
-                                        size: Theme.of(context).appBarTheme.iconTheme?.size,
-                                      ),
-                                      itemBuilder: (context) {
-                                        return [
-                                          notesViewSortMenuSortButton(
-                                              context: context,
-                                              label: AppLocalizations.of(context).get("@title"),
-                                              folderId: selectedFolderId,
-                                              sortOption: SortOption.title,
-                                              sortOptionDescending: SortOption.titleDescending,
-                                              ref: ref),
-                                          notesViewSortMenuSortButton(
-                                              context: context,
-                                              label: AppLocalizations.of(context).get("@created_date"),
-                                              folderId: selectedFolderId,
-                                              sortOption: SortOption.created,
-                                              sortOptionDescending: SortOption.createdDescending,
-                                              ref: ref),
-                                          notesViewSortMenuSortButton(
-                                              context: context,
-                                              label: AppLocalizations.of(context).get("@modified_date"),
-                                              folderId: selectedFolderId,
-                                              sortOption: SortOption.modified,
-                                              sortOptionDescending: SortOption.modifiedDescending,
-                                              ref: ref)
-                                        ];
-                                      }),
+                                  child: menu(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes),
                                 ),
                                 Expanded(child: MoveWindowOrSpacer()),
-                                PopupMenuButton(
-                                    icon: Icon(Icons.add_circle_outline),
-                                    iconSize: Theme.of(context).appBarTheme.iconTheme?.size,
-                                    enabled: selectedFolderId != "!TRASH",
-                                    itemBuilder: (context) {
-                                      return [
-                                        PopupMenuItem(
-                                            height: 30,
-                                            child: Text(AppLocalizations.of(context).get("@new_note")),
-                                            onTap: () async {
-                                              saveEditingNoteBeforeSwitch(ref);
-                                              ref.read(selectedNotesProvider.notifier).endSelection();
-
-                                              var note = Note(id: await generatedNoteId());
-                                              note.created = DateTime.now();
-                                              note.parentId = selectedFolderId;
-                                              prepareEmbeddedBlocks(ref, note);
-
-                                              ref.read(editingNoteProvider.notifier).startEditing(note, true);
-                                              ref.read(editingNoteProvider.notifier).initController(ref);
-
-                                              ref.read(notesProvider.notifier).insertNote(note);
-                                            }),
-                                        PopupMenuItem(
-                                            height: 30,
-                                            child: Text(AppLocalizations.of(context).get("@new_folder")),
-                                            onTap: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    var folder = Note(id: "");
-                                                    folder.parentId = selectedFolderId;
-                                                    folder.isFolder = true;
-                                                    return EditFolderDialog(folder: folder, ref: ref);
-                                                  });
-                                            })
-                                      ];
-                                    }),
-                                IconButton(
-                                    onPressed: () async {
-                                      final selectedNotes = ref.watch(selectedNotesProvider);
-                                      if (selectedNotes != null) {
-                                        if (selectedFolderId == "!TRASH") {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return ConfirmationDialog(
-                                                    title: AppLocalizations.of(context).get("@dialog_title_delete_selected_notes"),
-                                                    onConfirmed: () {
-                                                      for (var id in selectedNotes) {
-                                                        final note = ref.watch(notesProvider).notes.get(id);
-                                                        note.delete(ref: ref);
-                                                      }
-                                                      ref.read(notesProvider.notifier).deleteNotes(selectedNotes);
-                                                      ref.read(selectedNotesProvider.notifier).endSelection();
-                                                    });
-                                              });
-                                        } else {
-                                          ref.read(notesProvider.notifier).moveNotes(selectedNotes, selectedFolderId, "!TRASH");
-                                          ref.read(selectedNotesProvider.notifier).endSelection();
-
-                                          for (var id in selectedNotes) {
-                                            final note = ref.watch(notesProvider).notes.get(id);
-                                            note.deleted = DateTime.now();
-                                            note.save();
-                                          }
-                                        }
-                                      }
-                                    },
-                                    icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size))
+                                ...actions(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes)
                               ],
                             ),
                           ),
@@ -348,4 +252,160 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
       ),
     );
   }
+}
+
+Widget menu({required BuildContext context, required WidgetRef ref, required String selectedFolderId, required List<String>? selectedNotes}) {
+  if (App.isDesktop() || selectedNotes == null) {
+    return PopupMenuButton(
+        icon: Icon(
+          AppIcons.linear,
+          size: Theme.of(context).appBarTheme.iconTheme?.size,
+        ),
+        itemBuilder: (context) {
+          return [
+            notesViewSortMenuSortButton(
+                context: context,
+                label: AppLocalizations.of(context).get("@title"),
+                folderId: selectedFolderId,
+                sortOption: SortOption.title,
+                sortOptionDescending: SortOption.titleDescending,
+                ref: ref),
+            notesViewSortMenuSortButton(
+                context: context,
+                label: AppLocalizations.of(context).get("@created_date"),
+                folderId: selectedFolderId,
+                sortOption: SortOption.created,
+                sortOptionDescending: SortOption.createdDescending,
+                ref: ref),
+            notesViewSortMenuSortButton(
+                context: context,
+                label: AppLocalizations.of(context).get("@modified_date"),
+                folderId: selectedFolderId,
+                sortOption: SortOption.modified,
+                sortOptionDescending: SortOption.modifiedDescending,
+                ref: ref)
+          ];
+        });
+  }
+
+  return IconButton(
+      onPressed: () {
+        ref.read(selectedNotesProvider.notifier).endSelection();
+      },
+      icon: Icon(
+        Icons.check_circle_outline,
+        size: Theme.of(context).appBarTheme.iconTheme?.size,
+      ));
+}
+
+List<Widget> actions(
+    {required BuildContext context, required WidgetRef ref, required String selectedFolderId, required List<String>? selectedNotes}) {
+  final addButton = PopupMenuButton(
+      icon: Icon(Icons.add_circle_outline),
+      iconSize: Theme.of(context).appBarTheme.iconTheme?.size,
+      enabled: selectedFolderId != "!TRASH",
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+              height: 30,
+              child: Text(AppLocalizations.of(context).get("@new_note")),
+              onTap: () async {
+                saveEditingNoteBeforeSwitch(ref);
+                ref.read(selectedNotesProvider.notifier).endSelection();
+
+                var note = Note(id: await generatedNoteId());
+                note.created = DateTime.now();
+                note.parentId = selectedFolderId;
+                prepareEmbeddedBlocks(ref, note);
+
+                ref.read(editingNoteProvider.notifier).startEditing(note, true);
+                ref.read(editingNoteProvider.notifier).initController(ref);
+
+                ref.read(notesProvider.notifier).insertNote(note);
+              }),
+          PopupMenuItem(
+              height: 30,
+              child: Text(AppLocalizations.of(context).get("@new_folder")),
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      var folder = Note(id: "");
+                      folder.parentId = selectedFolderId;
+                      folder.isFolder = true;
+                      return EditFolderDialog(folder: folder, ref: ref);
+                    });
+              })
+        ];
+      });
+  final trashButton = IconButton(
+      onPressed: () async {
+        final selectedNotes = ref.watch(selectedNotesProvider);
+        if (selectedNotes != null) {
+          if (selectedFolderId == "!TRASH") {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return ConfirmationDialog(
+                      title: AppLocalizations.of(context).get("@dialog_title_delete_selected_notes"),
+                      onConfirmed: () {
+                        for (var id in selectedNotes) {
+                          final note = ref.watch(notesProvider).notes.get(id);
+                          note.delete(ref: ref);
+                        }
+                        ref.read(notesProvider.notifier).deleteNotes(selectedNotes);
+                        ref.read(selectedNotesProvider.notifier).endSelection();
+                      });
+                });
+          } else {
+            ref.read(notesProvider.notifier).moveNotes(selectedNotes, selectedFolderId, "!TRASH");
+            ref.read(selectedNotesProvider.notifier).endSelection();
+
+            for (var id in selectedNotes) {
+              final note = ref.watch(notesProvider).notes.get(id);
+              note.deleted = DateTime.now();
+              note.save();
+            }
+          }
+        }
+      },
+      icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size));
+
+  if (App.isDesktop()) {
+    return [addButton, trashButton];
+  }
+
+  if (selectedNotes == null) {
+    return [addButton];
+  }
+
+  if (selectedFolderId == "!TRASH") {
+    return [
+      IconButton(
+          onPressed: () {
+            for (var id in selectedNotes) {
+              ref.watch(notesProvider).notes.get(id).deleted = null;
+              ref.watch(notesProvider).notes.get(id).parentId = "";
+              ref.watch(notesProvider).notes.get(id).save();
+            }
+
+            ref.read(notesProvider.notifier).moveNotes(selectedNotes, "!TRASH", "");
+            ref.read(selectedNotesProvider.notifier).endSelection();
+          },
+          icon: Icon(Icons.restore, size: Theme.of(context).appBarTheme.iconTheme?.size)),
+      trashButton
+    ];
+  }
+  return [
+    IconButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return ChooseFolderDialog(folderId: selectedFolderId);
+              });
+        },
+        icon: Icon(AppIcons.move, size: Theme.of(context).appBarTheme.iconTheme?.size)),
+    trashButton
+  ];
 }

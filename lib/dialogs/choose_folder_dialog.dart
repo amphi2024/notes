@@ -22,9 +22,9 @@ class _ChooseFolderDialogState extends ConsumerState<ChooseFolderDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedNotes = ref.watch(selectedNotesProvider);
+    final selectedNotes = ref.watch(selectedNotesProvider) ?? [];
     final idList =
-        ref.watch(notesProvider).idListByFolderIdFolderOnly(history.firstOrNull ?? "").where((id) => !selectedNotes!.contains(id)).toList();
+        ref.watch(notesProvider).idListByFolderIdFolderOnly(history.firstOrNull ?? "").where((id) => !selectedNotes.contains(id)).toList();
     if (history.isNotEmpty) {
       idList.insert(0, "!POP");
     }
@@ -43,9 +43,6 @@ class _ChooseFolderDialogState extends ConsumerState<ChooseFolderDialog> {
                   Navigator.pop(context);
                 }, icon: const Icon(Icons.cancel_outlined, size: 20)),
                 IconButton(onPressed: () {
-                  if(selectedNotes == null) {
-                    return;
-                  }
                   final parentId = history.firstOrNull ?? "";
                   for(var id in selectedNotes) {
                     ref.read(notesProvider).notes.get(id).parentId = parentId;
