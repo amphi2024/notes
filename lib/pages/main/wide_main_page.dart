@@ -109,71 +109,74 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
             children: [
               AnimatedPositioned(
                 left: !wideMainPageState.sideBarFloating && wideMainPageState.sideBarShowing ? wideMainPageState.sideBarWidth : 0,
-                top: MediaQuery.of(context).padding.top,
+                top: 0,
                 bottom: 0,
                 right: 0,
                 duration: Duration(milliseconds: 500),
                 curve: Curves.easeOutQuint,
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: wideMainPageState.notesViewWidth,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 55,
-                            child: Row(
-                              children: [
-                                AnimatedPadding(
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.easeOutQuint,
-                                  padding: wideMainPageState.sideBarShowing && !wideMainPageState.sideBarFloating
-                                      ? EdgeInsets.zero
-                                      : EdgeInsets.only(left: 45 + macosPadding),
-                                  child: menu(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes),
-                                ),
-                                Expanded(child: MoveWindowOrSpacer()),
-                                ...actions(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes)
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16.0, right: 16),
-                              child: MouseRegion(
-                                onHover: (d) {
-                                  focusNode.unfocus();
-                                  selectionFocusNode.requestFocus();
-                                },
-                                onExit: (d) {
-                                  selectionFocusNode.unfocus();
-                                  focusNode.requestFocus();
-                                },
-                                child: KeyboardListener(
-                                    focusNode: selectionFocusNode,
-                                    includeSemantics: false,
-                                    onKeyEvent: (event) {
-                                      if (event is KeyUpEvent) {
-                                        ref.read(selectedNotesProvider.notifier).keyPressed = false;
-                                        return;
-                                      }
-                                      if (event.physicalKey == PhysicalKeyboardKey.metaLeft || event.physicalKey == PhysicalKeyboardKey.controlLeft) {
-                                        ref.read(selectedNotesProvider.notifier).keyPressed = true;
-                                        if (ref.watch(selectedNotesProvider) == null) {
-                                          ref.read(selectedNotesProvider.notifier).startSelection();
-                                        }
-                                      }
-
-                                      if (ref.read(selectedNotesProvider.notifier).keyPressed && event.physicalKey == PhysicalKeyboardKey.keyA) {
-                                        // ref.read(selectedNotesProvider.notifier).
-                                      }
-                                    },
-                                    child:
-                                        NotesView(idList: ref.watch(notesProvider).idListByFolderIdNoteOnly(selectedFolderId), folder: Note(id: ""))),
+                    Padding(
+                      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                      child: SizedBox(
+                        width: wideMainPageState.notesViewWidth,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 55,
+                              child: Row(
+                                children: [
+                                  AnimatedPadding(
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeOutQuint,
+                                    padding: wideMainPageState.sideBarShowing && !wideMainPageState.sideBarFloating
+                                        ? EdgeInsets.zero
+                                        : EdgeInsets.only(left: 45 + macosPadding),
+                                    child: menu(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes),
+                                  ),
+                                  Expanded(child: MoveWindowOrSpacer()),
+                                  ...actions(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes)
+                                ],
                               ),
                             ),
-                          )
-                        ],
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 16.0, right: 16),
+                                child: MouseRegion(
+                                  onHover: (d) {
+                                    focusNode.unfocus();
+                                    selectionFocusNode.requestFocus();
+                                  },
+                                  onExit: (d) {
+                                    selectionFocusNode.unfocus();
+                                    focusNode.requestFocus();
+                                  },
+                                  child: KeyboardListener(
+                                      focusNode: selectionFocusNode,
+                                      includeSemantics: false,
+                                      onKeyEvent: (event) {
+                                        if (event is KeyUpEvent) {
+                                          ref.read(selectedNotesProvider.notifier).keyPressed = false;
+                                          return;
+                                        }
+                                        if (event.physicalKey == PhysicalKeyboardKey.metaLeft || event.physicalKey == PhysicalKeyboardKey.controlLeft) {
+                                          ref.read(selectedNotesProvider.notifier).keyPressed = true;
+                                          if (ref.watch(selectedNotesProvider) == null) {
+                                            ref.read(selectedNotesProvider.notifier).startSelection();
+                                          }
+                                        }
+
+                                        if (ref.read(selectedNotesProvider.notifier).keyPressed && event.physicalKey == PhysicalKeyboardKey.keyA) {
+                                          // ref.read(selectedNotesProvider.notifier).
+                                        }
+                                      },
+                                      child:
+                                          NotesView(idList: ref.watch(notesProvider).idListByFolderIdNoteOnly(selectedFolderId), folder: Note(id: ""))),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     MouseRegion(
@@ -197,48 +200,51 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                       ),
                     ),
                     Expanded(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 55,
-                            child: Row(
-                              children: [
-                                Expanded(child: MoveWindowOrSpacer()),
-                                Row(
-                                  children: noteEditorToolbarButtons(controller, Theme.of(context).appBarTheme.iconTheme!.size!),
-                                ),
-                                Expanded(child: MoveWindowOrSpacer()),
-                                if (Platform.isWindows) ...[
-                                  Visibility(
-                                    visible: App.isDesktop(),
-                                    child: MinimizeCustomWindowButton(colors: colors),
+                      child: Padding(
+                        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 55,
+                              child: Row(
+                                children: [
+                                  Expanded(child: MoveWindowOrSpacer()),
+                                  Row(
+                                    children: noteEditorToolbarButtons(controller, Theme.of(context).appBarTheme.iconTheme!.size!),
                                   ),
-                                  appWindow.isMaximized
-                                      ? RestoreCustomWindowButton(
-                                          colors: colors,
-                                          onPressed: () {
-                                            appWindow.restore();
-                                          },
-                                        )
-                                      : MaximizeCustomWindowButton(
-                                          colors: colors,
-                                          onPressed: () {
-                                            appWindow.maximize();
-                                          },
-                                        ),
-                                  CloseCustomWindowButton(
-                                      colors: CustomWindowButtonColors(
-                                          mouseOver: const Color(0xFFD32F2F),
-                                          mouseDown: const Color(0xFFB71C1C),
-                                          iconNormal: const Color(0xFF805306),
-                                          iconMouseOver: const Color(0xFFFFFFFF),
-                                          normal: Theme.of(context).cardColor))
+                                  Expanded(child: MoveWindowOrSpacer()),
+                                  if (Platform.isWindows) ...[
+                                    Visibility(
+                                      visible: App.isDesktop(),
+                                      child: MinimizeCustomWindowButton(colors: colors),
+                                    ),
+                                    appWindow.isMaximized
+                                        ? RestoreCustomWindowButton(
+                                            colors: colors,
+                                            onPressed: () {
+                                              appWindow.restore();
+                                            },
+                                          )
+                                        : MaximizeCustomWindowButton(
+                                            colors: colors,
+                                            onPressed: () {
+                                              appWindow.maximize();
+                                            },
+                                          ),
+                                    CloseCustomWindowButton(
+                                        colors: CustomWindowButtonColors(
+                                            mouseOver: const Color(0xFFD32F2F),
+                                            mouseDown: const Color(0xFFB71C1C),
+                                            iconNormal: const Color(0xFF805306),
+                                            iconMouseOver: const Color(0xFFFFFFFF),
+                                            normal: Theme.of(context).cardColor))
+                                  ],
                                 ],
-                              ],
+                              ),
                             ),
-                          ),
-                          Expanded(child: NoteEditor(note: ref.watch(editingNoteProvider).note, controller: controller, focusNode: focusNode)),
-                        ],
+                            Expanded(child: NoteEditor(note: ref.watch(editingNoteProvider).note, controller: controller, focusNode: focusNode)),
+                          ],
+                        ),
                       ),
                     )
                   ],
