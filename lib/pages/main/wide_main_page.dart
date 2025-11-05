@@ -13,7 +13,7 @@ import 'package:notes/components/move_window_or_spacer.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/note_editor_toolbar.dart';
 import 'package:notes/components/notes_view_sort_menu.dart';
-import 'package:notes/dialogs/choose_folder_dialog.dart';
+import 'package:notes/dialogs/folder_picker_dialog.dart';
 import 'package:notes/icons/icons.dart';
 import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/app_settings.dart';
@@ -402,7 +402,7 @@ List<Widget> actions(
           showDialog(
               context: context,
               builder: (context) {
-                return ChooseFolderDialog(folderId: selectedFolderId);
+                return FolderPickerDialog(folderId: selectedFolderId);
               });
         },
         icon: Icon(AppIcons.move, size: Theme.of(context).appBarTheme.iconTheme?.size)),

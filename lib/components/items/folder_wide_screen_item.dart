@@ -2,7 +2,7 @@ import 'package:amphi/models/app.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/dialogs/choose_folder_dialog.dart';
+import 'package:notes/dialogs/folder_picker_dialog.dart';
 import 'package:notes/dialogs/edit_folder_dialog.dart';
 import 'package:notes/icons/icons.dart';
 import 'package:notes/models/note.dart';
@@ -154,7 +154,7 @@ List<PopupMenuItem> _menuItems({required Note folder, required WidgetRef ref, re
         ref.read(selectedNotesProvider.notifier).startSelection();
         ref.read(selectedNotesProvider.notifier).addId(folder.id);
         await showDialog(context: context, builder: (context) {
-          return ChooseFolderDialog(folderId: folder.parentId);
+          return FolderPickerDialog(folderId: folder.parentId);
         });
         ref.read(selectedNotesProvider.notifier).endSelection();
       }),

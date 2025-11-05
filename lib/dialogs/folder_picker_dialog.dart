@@ -7,16 +7,16 @@ import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 
 
-class ChooseFolderDialog extends ConsumerStatefulWidget {
+class FolderPickerDialog extends ConsumerStatefulWidget {
 
   final String folderId;
-  const ChooseFolderDialog({super.key, required this.folderId});
+  const FolderPickerDialog({super.key, required this.folderId});
 
   @override
-  ConsumerState<ChooseFolderDialog> createState() => _ChooseFolderDialogState();
+  ConsumerState<FolderPickerDialog> createState() => _ChooseFolderDialogState();
 }
 
-class _ChooseFolderDialogState extends ConsumerState<ChooseFolderDialog> {
+class _ChooseFolderDialogState extends ConsumerState<FolderPickerDialog> {
 
   List<String> history = [];
 

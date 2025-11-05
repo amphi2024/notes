@@ -8,7 +8,7 @@ import 'package:notes/models/sort_option.dart';
 import 'package:notes/providers/notes_provider.dart';
 
 import '../../icons/icons.dart';
-import '../../dialogs/choose_folder_dialog.dart';
+import '../../dialogs/folder_picker_dialog.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 
 import '../../providers/selected_notes_provider.dart';
@@ -27,7 +27,7 @@ List<Widget> appbarActions({
             showDialog(
                 context: context,
                 builder: (context) {
-                  return ChooseFolderDialog(folderId: folder.id);
+                  return FolderPickerDialog(folderId: folder.id);
                 });
           }),
       IconButton(
