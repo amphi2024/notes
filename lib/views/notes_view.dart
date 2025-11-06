@@ -23,7 +23,6 @@ class NotesView extends ConsumerStatefulWidget {
 }
 
 class _NotesViewState extends ConsumerState<NotesView> {
-
   Future<void> refresh() async {
     await Future.delayed(Duration(milliseconds: 1000));
     refreshDataWithServer(ref);
@@ -31,11 +30,11 @@ class _NotesViewState extends ConsumerState<NotesView> {
 
   @override
   Widget build(BuildContext context) {
-    final notes = ref
-        .watch(notesProvider)
-        .notes;
+    final notes = ref.watch(notesProvider).notes;
+
     final idList = widget.idList;
     if (appCacheData.viewMode(widget.folder.id) == "linear") {
+      final sortOption = appCacheData.sortOption(widget.folder.id);
       return RefreshIndicator(
         onRefresh: refresh,
         child: ListView.builder(
@@ -44,9 +43,13 @@ class _NotesViewState extends ConsumerState<NotesView> {
               final id = idList[index];
               final note = notes.get(id);
 
-              final roundedTop = index == 0 || notes.get(idList[index - 1]).modified.difference(note.modified).inDays > 30 || note.modified.difference(notes.get(idList[index - 1]).modified).inDays > 30;
+              final previousDate = index == 0 ? null : notes.get(idList[index - 1]).getComparableDate(sortOption);
+              final date = note.getComparableDate(sortOption);
+              final nextDate = index == idList.length - 1 ? null : notes.get(idList[index + 1]).getComparableDate(sortOption);
 
-              final roundBottom = index == idList.length - 1 || note.modified.difference(notes.get(idList[index + 1]).modified).inDays > 30 || notes.get(idList[index + 1]).modified.difference(note.modified).inDays > 30;
+              final roundedTop = previousDate == null || (date.difference(previousDate).inDays).abs() > 30;
+
+              final roundBottom = nextDate == null || (date.difference(nextDate).inDays).abs() > 30;
 
               final borderRadius = BorderRadius.only(
                   topLeft: Radius.circular(roundedTop ? 15 : 0),
@@ -54,28 +57,29 @@ class _NotesViewState extends ConsumerState<NotesView> {
                   bottomRight: Radius.circular(roundBottom ? 15 : 0),
                   bottomLeft: Radius.circular(roundBottom ? 15 : 0));
 
-              final itemWidget = note.isFolder ? FolderLinearItem(
-                note: note,
-                borderRadius: borderRadius,
-                showDivider: !roundBottom,
-              ): NoteLinearItem(
-                note: note,
-                borderRadius: App.isDesktop() ? BorderRadius.circular(10) : borderRadius,
-                showDivider: !roundBottom,
-              );
+              final itemWidget = note.isFolder
+                  ? FolderLinearItem(
+                      note: note,
+                      borderRadius: borderRadius,
+                      showDivider: !roundBottom,
+                    )
+                  : NoteLinearItem(
+                      note: note,
+                      borderRadius: App.isDesktop() ? BorderRadius.circular(10) : borderRadius,
+                      showDivider: !roundBottom,
+                    );
 
-              if(roundedTop && appCacheData.shouldGroupNotes(widget.folder.id)) {
+              if (roundedTop && appCacheData.shouldGroupNotes(widget.folder.id)) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 5, bottom: 5),
                       child: Text(
-                       DateTime.now().difference(note.modified).inDays < 8 ? "This Week" : DateFormat.MMMM().format(note.modified),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18
-                        ),
+                        DateTime.now().difference(date).inDays < 8
+                            ? "This Week"
+                            : DateFormat.MMMM().format(date),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                     itemWidget
@@ -84,9 +88,7 @@ class _NotesViewState extends ConsumerState<NotesView> {
               }
 
               return itemWidget;
-            }
-
-        ),
+            }),
       );
     } else {
       return LayoutBuilder(builder: (context, constraints) {
@@ -100,7 +102,7 @@ class _NotesViewState extends ConsumerState<NotesView> {
           itemBuilder: (context, index) {
             final id = idList[index];
             final note = notes.get(id);
-            if(note.isFolder) {
+            if (note.isFolder) {
               return FolderGridItem(folder: note);
             }
             return NoteGridItem(note: note);
@@ -108,4 +110,17 @@ class _NotesViewState extends ConsumerState<NotesView> {
         );
       });
     }
-}}
+  }
+}
+
+extension NoteDateUtils on Note {
+  DateTime getComparableDate(String sortOption) {
+    if (sortOption.startsWith("created")) {
+      return created;
+    }
+    if (sortOption.startsWith("deleted")) {
+      return deleted ?? modified;
+    }
+    return modified;
+  }
+}
