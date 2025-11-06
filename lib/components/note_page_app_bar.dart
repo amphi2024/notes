@@ -3,13 +3,10 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
-import 'package:notes/utils/document_conversion.dart';
 import 'package:notes/utils/generate_id.dart';
 
 import '../models/note.dart';
 import 'note_editor/toolbar/note_editor_detail_button.dart';
-import 'note_editor/toolbar/note_editor_export_button.dart';
-import 'note_editor/toolbar/note_editor_import_button.dart';
 import 'note_editor/toolbar/note_editor_redo_button.dart';
 import 'note_editor/toolbar/note_editor_undo_button.dart';
 
@@ -22,7 +19,6 @@ List<Widget> notePageAppbarActions(
     required void Function() onSave}) {
   if (!editing) {
     return [
-      NoteEditorExportButton(note: note, iconSize: 20),
       NoteEditorDetailButton(controller: controller, iconSize: 20),
       IconButton(
           onPressed: () {
@@ -37,7 +33,7 @@ List<Widget> notePageAppbarActions(
   }
   else {
     return [
-      NoteEditorImportButton(controller: controller),
+      NoteEditorDetailButton(controller: controller, iconSize: 20),
       NoteEditorUndoButton(controller: controller),
       NoteEditorRedoButton(controller: controller),
       IconButton(
