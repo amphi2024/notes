@@ -16,7 +16,7 @@ class _NoteEditorUndoButtonState extends State<NoteEditorUndoButton> {
     return IconButton(icon: Icon(
       Icons.undo,
       color: widget.controller.hasUndo
-          ? Theme.of(context).iconTheme.color
+          ? Theme.of(context).highlightColor
           : Theme.of(context).disabledColor,
       size: 20,
     ) , onPressed: () {

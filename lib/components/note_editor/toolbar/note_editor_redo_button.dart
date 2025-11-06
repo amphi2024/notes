@@ -17,7 +17,7 @@ class _NoteEditorRedoButtonState extends State<NoteEditorRedoButton> {
         icon: Icon(
           Icons.redo,
           color: widget.controller.hasRedo
-              ? Theme.of(context).iconTheme.color
+              ? Theme.of(context).highlightColor
               : Theme.of(context).disabledColor,
           size: 20,
         ),
