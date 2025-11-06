@@ -125,6 +125,9 @@ flutter:
     - family: nanum_gothic
       fonts:
         - asset: assets/nanum_gothic.ttf
+    - family: NotoSansKR-Regular
+      fonts:
+        - asset: assets/NotoSansKR-Regular.ttf
 
   # fonts:
   #   - family: Schyler
