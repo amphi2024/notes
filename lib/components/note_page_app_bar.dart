@@ -22,7 +22,7 @@ List<Widget> notePageAppbarActions(
     required void Function() onSave}) {
   if (!editing) {
     return [
-      NoteEditorExportButton(controller: controller, iconSize: 20),
+      NoteEditorExportButton(note: note, iconSize: 20),
       NoteEditorDetailButton(controller: controller, iconSize: 20),
       IconButton(
           onPressed: () {

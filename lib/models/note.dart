@@ -15,9 +15,8 @@ import 'package:notes/components/note_editor/embed_block/image/image_block_embed
 import 'package:notes/components/note_editor/embed_block/video/video_block_embed.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/database/note_queries.dart';
-import 'package:notes/extensions/note_extension.dart';
+import 'package:notes/utils/note_converter.dart';
 import 'package:notes/models/table_data.dart';
-import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/utils/generate_id.dart';
 
 import '../components/note_editor/embed_block/table/note_table_block_embed.dart';
@@ -146,84 +145,49 @@ class Note {
 
   Future<void> moveToTrashIfOrphan() async {}
 
-  List<Map<String, dynamic>> contentsToMap() {
-    List<Map<String, dynamic>> contentList = [];
-
-    // for (int i = 0; i < content.length; i++) {
-    //   contentList.add(content[i].toMap());
-    // }
-    return contentList;
-  }
-
-  List<Map<String, dynamic>> convertContentsDataToBase64(List<dynamic> list) {
-    List<Map<String, dynamic>> result = [];
-    for (Map<String, dynamic> map in list) {
+  String toBundledFileContent() {
+    List<Map<String, dynamic>> contentData = [];
+    for (Map<String, dynamic> map in content) {
       switch (map["type"]) {
         case "img":
           var fileType = FilenameUtils.extensionName(map["value"]);
-          result.add({"type": "img", "value": "!BASE64;$fileType;${base64FromSomething(map["value"], "images")}"});
+          contentData.add({"type": "img", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "images")}"});
         case "video":
           var fileType = FilenameUtils.extensionName(map["value"]);
-          result.add({"type": "video", "value": "!BASE64;$fileType;${base64FromSomething(map["value"], "videos")}"});
+          contentData.add({"type": "video", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "videos")}"});
         case "table":
           List<List<Map<String, dynamic>>> tableData = [];
-          for (List<Map<String, dynamic>> rows in map["value"]) {
-            List<Map<String, dynamic>> addingRows = [];
-            for (var data in rows) {
-              if (data["img"] != null) {
-                var fileType = FilenameUtils.extensionName(data["img"]);
-                addingRows.add({"img": "!BASE64;$fileType;${base64FromSomething(data["img"], "images")}"});
-              } else if (data["video"] != null) {
-                var fileType = FilenameUtils.extensionName(data["video"]);
-                addingRows.add({"img": "!BASE64;$fileType;${base64FromSomething(data["video"], "videos")}"});
-              } else {
-                addingRows.add(data);
+          for (var rows in map["value"]) {
+            if(rows is List<Map<String, dynamic>>) {
+              List<Map<String, dynamic>> addingRows = [];
+              for (var data in rows) {
+                if (data["img"] != null) {
+                  var fileType = FilenameUtils.extensionName(data["img"]);
+                  addingRows.add({"img": "!BASE64;$fileType;${encodeFileToBase64(data["img"], "images")}"});
+                } else if (data["video"] != null) {
+                  var fileType = FilenameUtils.extensionName(data["video"]);
+                  addingRows.add({"img": "!BASE64;$fileType;${encodeFileToBase64(data["video"], "videos")}"});
+                } else {
+                  addingRows.add(data);
+                }
               }
+              tableData.add(addingRows);
             }
-            tableData.add(addingRows);
           }
-          result.add({"type": "table", "value": tableData, "style": map["style"]});
-        case "note":
-          result.add({
-            "type": "note",
-            "value": {"title": map["value"]["title"], "contents": convertContentsDataToBase64(map["value"]["contents"])},
-            "style": map["style"]
-          });
-        case "view-pager":
-          List<Map<String, dynamic>> viewPagerData = [];
-          for (Map<String, dynamic> data in map["value"]) {
-            viewPagerData.add({
-              "backgroundColor": data["backgroundColor"],
-              "textSize": data["textSize"],
-              "textColor": data["textColor"],
-              "lineHeight": data["lineHeight"],
-              "contents": convertContentsDataToBase64(data["contents"] ?? [])
-            });
-          }
-          result.add({"type": "view-pager", "value": viewPagerData, "style": map["style"]});
+          contentData.add({"type": "table", "value": tableData, "style": map["style"]});
         default:
-          result.add(map);
+          contentData.add(map);
       }
     }
-    return result;
-  }
-
-  String toFileContentBase64() {
-    Map<String, dynamic> jsonData = {
-      "parent_id": parentId,
+    final jsonData = {
       "created": created.toUtc().millisecondsSinceEpoch,
       "modified": modified.toUtc().millisecondsSinceEpoch,
-      "contents": convertContentsDataToBase64(contentsToMap())
+      "content": contentData,
+      "background_color": backgroundColor?.toARGB32(),
+      "text_color": textColor?.toARGB32(),
+      "text_size": textSize,
+      "line_height": lineHeight
     };
-    if (backgroundColor != null) {
-      jsonData.addAll({"backgroundColor": backgroundColor!.toHex()});
-    }
-    if (textColor != null) {
-      jsonData.addAll({"textColor": textColor!.toHex()});
-    }
-    if (deleted != null) {
-      jsonData.addAll({"deleted": deleted!.toUtc().millisecondsSinceEpoch});
-    }
 
     String fileContent = jsonEncode(jsonData);
     return fileContent;

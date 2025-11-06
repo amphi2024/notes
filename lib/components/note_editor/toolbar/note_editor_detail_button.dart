@@ -13,9 +13,9 @@ class NoteEditorDetailButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
-        icon: Icon(Icons.more_vert_rounded, size: iconSize), onPressed: () {
+        icon: Icon(Icons.info_outline, size: iconSize), onPressed: () {
       showDialog(context: context, builder: (context) {
-        return NoteDetailDialog(note: ref.watch(editingNoteProvider).note);
+        return NoteDetailDialog(note: ref.watch(editingNoteProvider).note, controller: controller);
       });
     });
   }
