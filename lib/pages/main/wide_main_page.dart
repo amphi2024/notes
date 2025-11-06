@@ -12,6 +12,9 @@ import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/move_window_or_spacer.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/note_editor_toolbar.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_detail_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_redo_button.dart';
+import 'package:notes/components/note_editor/toolbar/note_editor_undo_button.dart';
 import 'package:notes/components/notes_view_sort_menu.dart';
 import 'package:notes/dialogs/folder_picker_dialog.dart';
 import 'package:notes/icons/icons.dart';
@@ -209,11 +212,14 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                               height: 55,
                               child: Row(
                                 children: [
+                                  NoteEditorDetailButton(controller: controller, iconSize: 20),
                                   Expanded(child: MoveWindowOrSpacer()),
                                   Row(
                                     children: noteEditorToolbarButtons(controller, Theme.of(context).appBarTheme.iconTheme!.size!),
                                   ),
                                   Expanded(child: MoveWindowOrSpacer()),
+                                  NoteEditorUndoButton(controller: controller),
+                                  NoteEditorRedoButton(controller: controller),
                                   if (Platform.isWindows) ...[
                                     Visibility(
                                       visible: App.isDesktop(),
