@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:amphi/utils/file_name_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/app_settings.dart';
 
@@ -132,53 +133,77 @@ extension NoteConverter on Note {
     """;
   }
 
-  String toMarkdown() {
+  String toMarkdown(BuildContext context) {
     String markdown = "";
 
-    // for(var content in content) {
-    //   switch(content.type) {
-    //     case "text":
-    //       markdown += content.textToHTML();
-    //     default:
-    //       markdown += "\n";
-    //       break;
-    //   }
-    // }
+    for (var i = 0 ; i < content.length; i++) {
+      final item = content[i];
+      final value = item["value"];
+      switch (item["type"]) {
+        case "img":
+          var fileExtension = FilenameUtils.extensionName(value);
+          markdown += """<br><img src="data:image/$fileExtension;base64,${encodeFileToBase64(value, "images")}"><br>""";
+          break;
+        case "video":
+          var fileExtension = FilenameUtils.extensionName(value);
+          markdown += """<br><video src="data:image/$fileExtension;base64,${encodeFileToBase64(value, "videos")}"><br>""";
+          break;
+        case "audio":
+          var fileExtension = FilenameUtils.extensionName(value);
+          markdown += """<br><audio src="data:image/$fileExtension;base64,${encodeFileToBase64(value, "audio")}"><br>""";
+          break;
+        case "table":
+          markdown += tableBlockToMarkdown(item, context);
+          break;
+        case "divider":
+          markdown += "---";
+          break;
+        case "text":
+          markdown += textBlockToMarkdown(item);
+          break;
+      }
+    }
 
     return markdown;
   }
 
-  PDF.Document toPDF() {
+  Future<PDF.Document> toPDF(BuildContext context) async {
     final pdf = PDF.Document();
     List<PDF.Widget> list = [];
-    // for (Content content in content) {
-    //   switch (content.type) {
-    //     case "text":
-    //       list.add(
-    //           PDF.Text(value,
-    //         style: content.style?.toPDFTextStyle(),
-    //       ));
-    //       break;
-    //     case "img":
-    //
-    //       break;
-    //
-    //     case "video":
-    //
-    //       break;
-    //   }
-    // }
+    final koreanFont = PDF.Font.ttf(await rootBundle.load("assets/NotoSansKR-Regular.ttf").then((f) => f.buffer.asByteData()));
+    for(var item in content) {
+      final value = item["value"];
+      switch(item["type"]) {
+        case "img":
+          var file = File(noteImagePath(id, value));
+          list.add(
+              PDF.Image(
+                PDF.MemoryImage(
+                  await file.readAsBytes()
+                ),
+              ));
+        case "text":
+          final style = item["style"];
+          final textSize = double.tryParse(style?["size"] ?? "");
+          final textStyle = PDF.TextStyle(
+            fontFallback: [koreanFont],
+            fontSize: textSize
+          );
+              list.add(
+                  PDF.Text(value,
+                style: textStyle
+              ));
+          break;
+      }
+    }
 
-    var page = PDF.Page(
-        build: (context) => PDF.Column(
-              crossAxisAlignment: PDF.CrossAxisAlignment.start,
-              children: list,
-            ));
 
-    pdf.addPage(page);
-    // for(var widget in list) {
-    //
-    // }
+
+    pdf.addPage(
+      PDF.MultiPage(
+        build: (context) => list,
+      ),
+    );
 
     return pdf;
   }
@@ -238,10 +263,120 @@ String textBlockToHtml(Map<String, dynamic> item) {
   return html;
 }
 
-extension NoteStyleExtension on Map {
-  PDF.TextStyle toPDFTextStyle() {
-    return PDF.TextStyle();
+String textBlockToMarkdown(Map<String, dynamic> item) {
+  String text = item["value"];
+  var markdown = text;
+  item["style"]?.forEach((key, value) {
+    switch (key) {
+      case "header":
+        if(text.replaceAll("\n", "").isNotEmpty) {
+          switch(value) {
+            case 2:
+              markdown = "## $text";
+              break;
+            case 3:
+              markdown = "### $text";
+              break;
+            case 4:
+              markdown = "#### $text";
+              break;
+            case 5:
+              markdown = "##### $text";
+              break;
+            case 6:
+              markdown = "###### $text";
+              break;
+            default:
+              markdown = "# $text";
+              break;
+          }
+        }
+      case "bold":
+        markdown = "**$text**";
+        break;
+      case "size":
+        var size = double.tryParse(value);
+        if(size != null) {
+          if (size >= 28) {
+            markdown = '# $text';
+          } else if (size >= 22) {
+            markdown = '## $text';
+          } else if (size >= 18) {
+            markdown = '### $text';
+          } else if (size >= 16) {
+            markdown = '#### $text';
+          }
+        }
+        break;
+      case "italic":
+        markdown = "*$text*";
+        break;
+      case "quote":
+        markdown = "> $text";
+      case "list":
+        switch (value) {
+          case "bullet":
+            markdown = "- $text";
+            break;
+          case "ordered":
+            markdown = "- $text";
+            break;
+          case "checked":
+            // markdown += "- [x] $text";
+            break;
+          case "unchecked":
+            // markdown += "- [] $text";
+            break;
+        }
+        break;
+      case "underline":
+        markdown = "<u>$text</u>";
+        break;
+      case "link":
+        markdown = "[$text]($value)";
+      case "strike":
+        markdown = "~~$text~~";
+      case "code-block":
+        markdown = "`$text`";
+      default:
+        markdown = text;
+        break;
+    }
+  });
+
+  return markdown;
+}
+
+String tableBlockToMarkdown(Map<String, dynamic> item, BuildContext context) {
+  var markdown = "\n";
+
+  final value = item["value"];
+
+  for (var i = 0; i < value.length; i++) {
+    final rows = value[i];
+    for (Map<String, dynamic> data in rows) {
+      if (data.containsKey("text")) {
+        markdown += "| ${data["text"]} ";
+      } else if (data.containsKey("date")) {
+        markdown += "| ${DateTime.fromMillisecondsSinceEpoch(data["date"]).toLocal().toLocalizedString(context)} ";
+      }
+      else {
+        markdown += "| ";
+      }
+    }
+    markdown += "|\n";
+
+    if(i == 0) {
+      for (var _ in rows) {
+        markdown += "|------";
+      }
+      markdown += "|\n";
+    }
+
   }
+  markdown += "\n";
+
+  return markdown;
 }
 
 extension RgbExtension on Color {
