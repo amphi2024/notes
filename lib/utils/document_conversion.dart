@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/providers/note_files_provider.dart';
 import 'package:notes/providers/tables_provider.dart';
 
 typedef EmbedHandler = Map<String, dynamic> Function(Map<String, dynamic> data, WidgetRef ref);
@@ -25,30 +26,21 @@ final embedHandlers = <String, EmbedHandler>{
       "style": {"views": tableData.views},
     };
   },
-  // "note": (blockData, ref) {
-  //   final key = blockData["note"];
-  //   final subNote = noteEmbedBlocks.getSubNote(key);
-  //   return {
-  //     "value": {
-  //       "title": subNote.note.title,
-  //       "contents": subNote.getNote().contentsToMap(),
-  //     },
-  //     "type": "note",
-  //   };
-  // },
-  // "divider": (blockData, ref) {
-  //   final key = blockData["divider"];
-  //   final color = noteEmbedBlocks.dividers[key];
-  //   return {
-  //     "type": "divider",
-  //     "style": color != null ? {"color": color.value} : null,
-  //   };
-  // },
-  // "file": (blockData, ref) {
-  //   final key = blockData["file"];
-  //   final file = noteEmbedBlocks.getFile(key);
-  //   return file.toContent();
-  // },
+  "divider": (blockData, ref) {
+    final value = int.tryParse(blockData["divider"]);
+    return {
+      "type": "divider",
+      "style": value != null ? {"color": value} : null,
+    };
+  },
+  "file": (blockData, ref) {
+    final filename = blockData["file"];
+    final fileModel = ref.watch(noteFilesProvider)[filename];
+    return {
+      "value": {"label": fileModel?.label ?? "", "filename": filename},
+      "type": "file"
+    };
+  },
   "audio": (blockData, ref) => {
     "value": PathUtils.basename(blockData["audio"]),
     "type": "audio"

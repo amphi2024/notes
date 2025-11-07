@@ -1,61 +1,18 @@
-import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/models/app_colors.dart';
-import 'package:notes/models/note_embed_blocks.dart';
 
-class DividerBlockWidget extends StatefulWidget {
+class DividerBlockWidget extends StatelessWidget {
 
-  final String dividerKey;
+  final int? colorValue;
   final bool readOnly;
-  const DividerBlockWidget({super.key, required this.readOnly, required this.dividerKey});
-
-  @override
-  State<DividerBlockWidget> createState() => _DividerBlockWidgetState();
-}
-
-class _DividerBlockWidgetState extends State<DividerBlockWidget> {
+  const DividerBlockWidget({super.key, required this.readOnly, required this.colorValue});
 
   @override
   Widget build(BuildContext context) {
-    String dividerKey = widget.dividerKey;
-    Color dividerColor = noteEmbedBlocks.dividers[dividerKey] ?? Theme.of(context).dividerColor;
-    Divider divider = Divider(
-      color: dividerColor,
+    // TODO: Implement divider color change in a future version.
+    return Divider(
+      color: colorValue == null ? Theme.of(context).dividerColor : Color(colorValue!),
       thickness: 1,
+      height: 5,
     );
-    if(widget.readOnly) {
-      return divider;
-    }
-    else {
-      return Row(
-        children: [
-          Expanded(child: divider),
-          IconButton(
-              onPressed: () {
-                showAdaptiveColorPicker(
-                    context: context, color: dividerColor,
-                    defaultColor: Theme.of(context).dividerColor,
-                    onDefaultColorTap: (color) {
-                      setState(() {
-                        noteEmbedBlocks.dividers.remove(dividerKey);
-                      });
-                    },
-                    onColorChanged: (color) {
-                      setState(() {
-                        noteEmbedBlocks.dividers[dividerKey] = color;
-                      });
-                    },
-                    colors: appColors.noteTextColors,
-                    onAddColor: (color) {
-
-                    },
-                    onRemoveColor: (color) {
-
-                    });
-              }, icon: Icon(Icons.edit))
-        ],
-      );
-    }
-
   }
 }

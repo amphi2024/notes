@@ -11,7 +11,7 @@ class DividerEmbedBuilder extends EmbedBuilder {
 
   @override
   Widget build(BuildContext context, EmbedContext embedContext) {
-    return DividerBlockWidget(dividerKey: embedContext.node.value.data, readOnly: embedContext.readOnly);
+    return DividerBlockWidget(colorValue: int.tryParse(embedContext.node.value.data), readOnly: embedContext.readOnly);
   }
 
 }

@@ -10,6 +10,6 @@ class FileEmbedBuilder extends EmbedBuilder {
 
   @override
   Widget build(BuildContext context, EmbedContext embedContext) {
-    return FileBlockWidget(blockKey: embedContext.node.value.data);
+    return FileBlockWidget(filename: embedContext.node.value.data);
   }
 }

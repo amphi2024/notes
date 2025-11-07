@@ -1,6 +1,7 @@
 import 'package:amphi/models/app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes/providers/note_files_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 import 'package:notes/services/audio_service.dart';
 import 'package:notes/services/videos_service.dart';
@@ -81,4 +82,5 @@ void prepareEmbeddedBlocks(WidgetRef ref, Note note) {
   audioService.noteId = note.id;
   audioService.clear();
   ref.read(tablesProvider.notifier).setTables(note.tables);
+  ref.read(noteFilesProvider.notifier).setFiles(note.files);
 }

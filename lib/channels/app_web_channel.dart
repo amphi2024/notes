@@ -4,6 +4,7 @@ import 'package:amphi/models/app_web_channel_core.dart';
 import 'package:amphi/models/update_event.dart';
 import 'package:http/http.dart';
 import 'package:notes/models/app_settings.dart';
+import 'package:notes/models/file_model.dart';
 import 'package:notes/models/theme_model.dart';
 
 import 'package:notes/models/note.dart';
@@ -178,6 +179,10 @@ class AppWebChannel extends AppWebChannelCore {
     await uploadMissingAttachments(note, "images", "img");
   }
 
+  Future<void> uploadNoteFile({required String noteId, required FileModel fileModel, required void Function() onSuccess, void Function(int?)? onFailed, required void Function(int, int) onProgress}) async {
+    await postFile(url: "$serverAddress/notes/$noteId/files/${fileModel.filename}", filePath: fileModel.originalPath!, onFailed: onFailed, onSuccess: onSuccess, onProgress: onProgress);
+  }
+
   Future<void> uploadMissingAttachments(Note note, String directoryName, String type) async {
     getItems(
         url: "$serverAddress/notes/${note.id}/$directoryName",
@@ -259,6 +264,10 @@ class AppWebChannel extends AppWebChannelCore {
       attachments.create(recursive: true);
     }
     await downloadFile(url: "$serverAddress/notes/$id/audio/$filename", filePath: noteAudioPath(id, filename), onSuccess: onSuccess, onProgress: onProgress);
+  }
+
+  Future<void> downloadNoteFile({required String noteId, required String filename, required void Function() onSuccess, required void Function(int?) onFailed, required String saveFilePath, required void Function(int, int) onProgress}) async {
+    await downloadFile(url: "$serverAddress/notes/$noteId/files/$filename", filePath: saveFilePath, onSuccess: onSuccess, onProgress: onProgress);
   }
 
   Future<void> uploadThemeModel(ThemeModel themeModel) async {

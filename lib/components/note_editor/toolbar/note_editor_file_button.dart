@@ -11,19 +11,24 @@ import 'package:notes/components/note_editor/editor_extension.dart';
 import 'package:notes/components/note_editor/embed_block/file/file_block_embed.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/file_model.dart';
-import 'package:notes/models/note_embed_blocks.dart';
 import 'package:notes/providers/editing_note_provider.dart';
+import 'package:notes/providers/note_files_provider.dart';
 import 'package:notes/utils/toast.dart';
 
-class NoteEditorFileButton extends ConsumerWidget {
-
-  final QuillController controller;
+class NoteEditorFileButton extends ConsumerStatefulWidget {
   final double iconSize;
+  final QuillController controller;
+
   const NoteEditorFileButton({super.key, required this.controller, required this.iconSize});
 
-  String generatedFileNameCompareToList(String fileType,
+  @override
+  NoteEditorFileButtonState createState() => NoteEditorFileButtonState();
+}
+
+class NoteEditorFileButtonState extends ConsumerState<NoteEditorFileButton> {
+  String generatedFilename(String fileExtension,
       List<Map<String, dynamic>> list) {
-    String name = randomString(15, 8) + fileType;
+    String name = randomString(15, 8) + fileExtension;
     bool exists = false;
     for (var map in list) {
       if (map["filename"] == name) {
@@ -32,7 +37,7 @@ class NoteEditorFileButton extends ConsumerWidget {
       }
     }
     if (exists) {
-      return generatedFileNameCompareToList(fileType, list);
+      return generatedFilename(fileExtension, list);
     }
     else {
       return name;
@@ -43,36 +48,45 @@ class NoteEditorFileButton extends ConsumerWidget {
     var result = await FilePicker.platform.pickFiles(allowMultiple: true);
     if (result != null) {
       for (int i = 0; i < result.files.length; i++) {
-        var file = result.files[i].xFile;
+        final file = result.files[i].xFile;
 
-        var filename = generatedFileNameCompareToList(
+        final filename = generatedFilename(
             ".${FilenameUtils.extensionName(file.name)}", list);
 
-        var fileModel = FileModel(
+        final fileModel = FileModel(
             filename: filename, originalPath: file.path, label: file.name);
-        var blockKey = noteEmbedBlocks.generatedFileKey();
-        noteEmbedBlocks.files[blockKey] = fileModel;
 
-        // appWebChannel.uploadFile(noteName: appState.noteEditingController.note.name, filename: fileModel.filename, filePath: file.path ,onSuccess: () {
-        //   appState.notifySomethingChanged(() {
-        //     noteEmbedBlocks.getFile(blockKey).originalPath = null;
-        //   });
-        // });
+        ref.read(noteFilesProvider.notifier).insertFile(fileModel);
+
+        appWebChannel.uploadNoteFile(noteId: ref.watch(editingNoteProvider).note.id, fileModel: fileModel, onSuccess: () {
+          fileModel.originalPath = null;
+          ref.read(noteFilesProvider.notifier).insertFile(fileModel);
+        }, onFailed: (code) {
+
+        }, onProgress: (sent, total) {
+          fileModel.total = total;
+          fileModel.transferred = sent;
+          ref.read(noteFilesProvider.notifier).insertFile(fileModel);
+        });
+
         final block = BlockEmbed.custom(
-          FileBlockEmbed(blockKey),
+          FileBlockEmbed(filename),
         );
-        controller.insertBlock(block);
+        widget.controller.insertBlock(block);
       }
     }
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.attach_file, size: iconSize),
+      icon: Icon(Icons.attach_file, size: widget.iconSize),
       onPressed: () async {
         if (appSettings.useOwnServer) {
-          appWebChannel.getFiles(noteId: ref.watch(editingNoteProvider).note.id, onSuccess: (list) async {
+          appWebChannel.getFiles(noteId: ref
+              .watch(editingNoteProvider)
+              .note
+              .id, onSuccess: (list) async {
             pickFilesAndInsert(list);
           }, onFailed: (statusCode) {
             if (statusCode == HttpStatus.notFound) {

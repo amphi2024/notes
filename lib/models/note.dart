@@ -19,8 +19,11 @@ import 'package:notes/utils/note_converter.dart';
 import 'package:notes/models/table_data.dart';
 import 'package:notes/utils/generate_id.dart';
 
+import '../components/note_editor/embed_block/divider/divider_block_embed.dart';
+import '../components/note_editor/embed_block/file/file_block_embed.dart';
 import '../components/note_editor/embed_block/table/note_table_block_embed.dart';
 import 'app_storage.dart';
+import 'file_model.dart';
 
 class Note {
   String id;
@@ -42,6 +45,8 @@ class Note {
   bool isFolder = false;
   Delta delta = Delta();
   Map<String, TableData> tables = {};
+  Map<String, Color> dividerColors = {};
+  Map<String, FileModel> files = {};
 
   Note(
       {required this.id,
@@ -103,10 +108,6 @@ class Note {
       initTitles();
       initDelta();
     }
-  }
-
-  static Note subNote(Note parent) {
-    return Note(id: "");
   }
 
   String generatedKey(Map map) {
@@ -285,6 +286,7 @@ class Note {
   void initDelta() {
     delta = Delta();
     tables.clear();
+    dividerColors.clear();
     for (var item in content) {
       delta.insertContent(this, item);
     }
@@ -345,27 +347,20 @@ extension DeltaExtension on Delta {
           }
         }
         break;
-      // case "divider":
-      //   String dividerKey = noteEmbedBlocks.generatedDividerKey();
-      //   if (content.style != null) {
-      //     noteEmbedBlocks.dividers[dividerKey] = Color(content.style!["color"] ?? 0);
-      //   }
-      //   BlockEmbed divider = BlockEmbed.custom(DividerBlockEmbed(dividerKey));
-      //   delta.insert(divider.toJson());
-      //
-      //   break;
-      // case "view-pager":
-      //   String viewPagerKey = noteEmbedBlocks.generatedViewPagerKey();
-      //   noteEmbedBlocks.viewPagers[viewPagerKey] = ViewPagerData.fromContent(this, content);
-      //   BlockEmbed blockEmbed = BlockEmbed.custom(ViewPagerBlockEmbed(viewPagerKey));
-      //   delta.insert(blockEmbed.toJson());
-      //   break;
-      // case "file":
-      //   var key = noteEmbedBlocks.generatedFileKey();
-      //   noteEmbedBlocks.files[key] = FileInNote.fromContent(content);
-      //   BlockEmbed blockEmbed = BlockEmbed.custom(FileBlockEmbed(key));
-      //   delta.insert(blockEmbed.toJson());
-      //   break;
+      case "divider":
+        BlockEmbed blockEmbed = BlockEmbed.custom(DividerBlockEmbed(""));
+        insert(blockEmbed.toJson());
+        break;
+      case "file":
+        final filename = item["value"]?["filename"];
+        if(filename != null) {
+
+          note.files[filename] = FileModel(filename: filename, label: item["value"]?["label"] ?? "");
+
+          BlockEmbed blockEmbed = BlockEmbed.custom(FileBlockEmbed(filename));
+          insert(blockEmbed.toJson());
+        }
+        break;
       case "text":
         if (item["value"] is String) {
           // if(!item["value"].endsWith("\n")) {

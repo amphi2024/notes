@@ -6,8 +6,6 @@ import 'package:notes/components/note_editor/toolbar/note_editor_import_button.d
 import 'package:notes/extensions/date_extension.dart';
 import 'package:notes/models/note.dart';
 
-import '../../icons/icons.dart';
-
 class NoteDetailDialog extends StatelessWidget {
   final Note note;
   final QuillController controller;
@@ -46,32 +44,4 @@ class NoteDetailDialog extends StatelessWidget {
       ),
     );
   }
-}
-void exportToNote(BuildContext context) async {
-  // Note note = controller.note;
-  // var bytes = utf8.encode(note.toFileContentBase64());
-  // var selectedPath = await FilePicker.platform.saveFile(
-  //     fileName: "${note.title}.note",
-  //   bytes: bytes
-  // );
-  //
-  // if(selectedPath != null) {
-  //   var file = File(selectedPath);
-  //   await file.writeAsBytes(bytes);
-  //   showToast(context, AppLocalizations.of(context).get("@toast_message_note_export_success"));
-  // }
-}
-
-void exportToHTML(BuildContext context) async {
-  // Note note = controller.note;
-  // var bytes = utf8.encode(note.toHTML(context));
-  // var selectedPath = await FilePicker.platform.saveFile(
-  //     fileName: "${note.title}.html",
-  //     bytes: bytes
-  // );
-  // if(selectedPath != null) {
-  //   var file = File(selectedPath);
-  //   await file.writeAsBytes(bytes);
-  //   showToast(context, AppLocalizations.of(context).get("@toast_message_note_export_success"));
-  // }
 }
