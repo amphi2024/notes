@@ -190,8 +190,7 @@ class AppWebChannel extends AppWebChannelCore {
             var file = File(noteAttachmentPath(note.id, item["value"], directoryName));
             var fileSize = await file.length();
             for (var fileInfo in list) {
-
-              if (item["value"] == fileInfo["filename"] && item["size"] == fileSize) {
+              if (item["value"] == fileInfo["filename"] && fileInfo["size"] == fileSize) {
                 exists = true;
                 break;
               }
