@@ -145,15 +145,3 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
         home: !App.isWideScreen(context) && !App.isDesktop() ? MainPage(folder: Note(id: "")) : const WideMainPage());
   }
 }
-
-double bottomPaddingIfAndroid3Button(BuildContext context) {
-  if (appMethodChannel.needsBottomPadding) {
-    return MediaQuery
-        .of(context)
-        .padding
-        .bottom;
-  }
-  else {
-    return 0;
-  }
-}
