@@ -153,9 +153,15 @@ class Note {
         case "img":
           var fileType = FilenameUtils.extensionName(map["value"]);
           contentData.add({"type": "img", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "images")}"});
+          break;
         case "video":
           var fileType = FilenameUtils.extensionName(map["value"]);
           contentData.add({"type": "video", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "videos")}"});
+          break;
+        case "audio":
+          var fileType = FilenameUtils.extensionName(map["value"]);
+          contentData.add({"type": "audio", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "audio")}"});
+          break;
         case "table":
           List<List<Map<String, dynamic>>> tableData = [];
           for (var rows in map["value"]) {
@@ -176,8 +182,14 @@ class Note {
             }
           }
           contentData.add({"type": "table", "value": tableData, "style": map["style"]});
+          break;
+        case "divider":
+          contentData.add({"type": "divider"});
+          break;
+        // TODO: Add support for file
         default:
           contentData.add(map);
+          break;
       }
     }
     final jsonData = {
