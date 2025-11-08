@@ -13,6 +13,67 @@ import 'package:notes/utils/attachment_path.dart';
 import 'package:pdf/widgets.dart' as PDF;
 
 extension NoteConverter on Note {
+
+  String toBundledFileContent() {
+    List<Map<String, dynamic>> contentData = [];
+    for (Map<String, dynamic> map in content) {
+      switch (map["type"]) {
+        case "img":
+          var fileType = FilenameUtils.extensionName(map["value"]);
+          contentData.add({"type": "img", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "images")}"});
+          break;
+        case "video":
+          var fileType = FilenameUtils.extensionName(map["value"]);
+          contentData.add({"type": "video", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "videos")}"});
+          break;
+        case "audio":
+          var fileType = FilenameUtils.extensionName(map["value"]);
+          contentData.add({"type": "audio", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "audio")}"});
+          break;
+        case "table":
+          List<List<Map<String, dynamic>>> tableData = [];
+          for (var rows in map["value"]) {
+            if(rows is List<Map<String, dynamic>>) {
+              List<Map<String, dynamic>> addingRows = [];
+              for (var data in rows) {
+                if (data["img"] != null) {
+                  var fileType = FilenameUtils.extensionName(data["img"]);
+                  addingRows.add({"img": "!BASE64;$fileType;${encodeFileToBase64(data["img"], "images")}"});
+                } else if (data["video"] != null) {
+                  var fileType = FilenameUtils.extensionName(data["video"]);
+                  addingRows.add({"img": "!BASE64;$fileType;${encodeFileToBase64(data["video"], "videos")}"});
+                } else {
+                  addingRows.add(data);
+                }
+              }
+              tableData.add(addingRows);
+            }
+          }
+          contentData.add({"type": "table", "value": tableData, "style": map["style"]});
+          break;
+        case "divider":
+          contentData.add({"type": "divider"});
+          break;
+      // TODO: Add support for file
+        default:
+          contentData.add(map);
+          break;
+      }
+    }
+    final jsonData = {
+      "created": created.toUtc().millisecondsSinceEpoch,
+      "modified": modified.toUtc().millisecondsSinceEpoch,
+      "content": contentData,
+      "background_color": backgroundColor?.toARGB32(),
+      "text_color": textColor?.toARGB32(),
+      "text_size": textSize,
+      "line_height": lineHeight
+    };
+
+    String fileContent = jsonEncode(jsonData);
+    return fileContent;
+  }
+
   String toHTML(BuildContext context) {
     final themeModel = appSettings.themeModel;
 

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 import 'package:amphi/extensions/color_extension.dart';
-import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/utils/random_string.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,6 @@ import 'package:notes/components/note_editor/embed_block/image/image_block_embed
 import 'package:notes/components/note_editor/embed_block/video/video_block_embed.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/database/note_queries.dart';
-import 'package:notes/utils/note_converter.dart';
 import 'package:notes/models/table_data.dart';
 import 'package:notes/utils/generate_id.dart';
 
@@ -145,66 +143,6 @@ class Note {
   }
 
   Future<void> moveToTrashIfOrphan() async {}
-
-  String toBundledFileContent() {
-    List<Map<String, dynamic>> contentData = [];
-    for (Map<String, dynamic> map in content) {
-      switch (map["type"]) {
-        case "img":
-          var fileType = FilenameUtils.extensionName(map["value"]);
-          contentData.add({"type": "img", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "images")}"});
-          break;
-        case "video":
-          var fileType = FilenameUtils.extensionName(map["value"]);
-          contentData.add({"type": "video", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "videos")}"});
-          break;
-        case "audio":
-          var fileType = FilenameUtils.extensionName(map["value"]);
-          contentData.add({"type": "audio", "value": "!BASE64;$fileType;${encodeFileToBase64(map["value"], "audio")}"});
-          break;
-        case "table":
-          List<List<Map<String, dynamic>>> tableData = [];
-          for (var rows in map["value"]) {
-            if(rows is List<Map<String, dynamic>>) {
-              List<Map<String, dynamic>> addingRows = [];
-              for (var data in rows) {
-                if (data["img"] != null) {
-                  var fileType = FilenameUtils.extensionName(data["img"]);
-                  addingRows.add({"img": "!BASE64;$fileType;${encodeFileToBase64(data["img"], "images")}"});
-                } else if (data["video"] != null) {
-                  var fileType = FilenameUtils.extensionName(data["video"]);
-                  addingRows.add({"img": "!BASE64;$fileType;${encodeFileToBase64(data["video"], "videos")}"});
-                } else {
-                  addingRows.add(data);
-                }
-              }
-              tableData.add(addingRows);
-            }
-          }
-          contentData.add({"type": "table", "value": tableData, "style": map["style"]});
-          break;
-        case "divider":
-          contentData.add({"type": "divider"});
-          break;
-        // TODO: Add support for file
-        default:
-          contentData.add(map);
-          break;
-      }
-    }
-    final jsonData = {
-      "created": created.toUtc().millisecondsSinceEpoch,
-      "modified": modified.toUtc().millisecondsSinceEpoch,
-      "content": contentData,
-      "background_color": backgroundColor?.toARGB32(),
-      "text_color": textColor?.toARGB32(),
-      "text_size": textSize,
-      "line_height": lineHeight
-    };
-
-    String fileContent = jsonEncode(jsonData);
-    return fileContent;
-  }
 
   Future<void> save({bool upload = true}) async {
     if (id.isEmpty) {
