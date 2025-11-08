@@ -45,7 +45,7 @@ class NoteEditorExportButton extends StatelessWidget {
     );
     if(selectedPath != null) {
       final file = File(selectedPath);
-      await file.writeAsString(note.toMarkdown(context));
+      await file.writeAsString(note.toMarkdown(selectedPath, context));
       showToast(context, AppLocalizations.of(context).get("@toast_message_note_export_success"));
     }
   }

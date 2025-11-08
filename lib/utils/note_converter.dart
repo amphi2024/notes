@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:amphi/utils/file_name_utils.dart';
+import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:notes/extensions/date_extension.dart';
@@ -133,25 +134,40 @@ extension NoteConverter on Note {
     """;
   }
 
-  String toMarkdown(BuildContext context) {
+  String toMarkdown(String selectedPath, BuildContext context) {
     String markdown = "";
 
     for (var i = 0 ; i < content.length; i++) {
       final item = content[i];
-      final value = item["value"];
+      var imageCount = 0;
       switch (item["type"]) {
         case "img":
-          var fileExtension = FilenameUtils.extensionName(value);
-          markdown += """<br><img src="data:image/$fileExtension;base64,${encodeFileToBase64(value, "images")}"><br>""";
+          var parent = Directory(selectedPath);
+          var directory = Directory(PathUtils.join(parent.parent.path, "images"));
+          if(!directory.existsSync()) {
+            directory.createSync();
+          }
+          var fileExtension = FilenameUtils.extensionName( item["value"]);
+          var file = File(PathUtils.join(parent.parent.path, "images", "image$imageCount.$fileExtension"));
+
+          var originalFile = File(noteImagePath(id, item["value"]));
+          file.create();
+          file.writeAsBytesSync(originalFile.readAsBytesSync());
+          markdown += """![image](images/image$imageCount.$fileExtension)""";
+          imageCount++;
           break;
-        case "video":
-          var fileExtension = FilenameUtils.extensionName(value);
-          markdown += """<br><video src="data:image/$fileExtension;base64,${encodeFileToBase64(value, "videos")}"><br>""";
-          break;
-        case "audio":
-          var fileExtension = FilenameUtils.extensionName(value);
-          markdown += """<br><audio src="data:image/$fileExtension;base64,${encodeFileToBase64(value, "audio")}"><br>""";
-          break;
+        // case "img":
+        //   var fileExtension = FilenameUtils.extensionName(value);
+        //   markdown += """<br><img src="data:image/$fileExtension;base64,${encodeFileToBase64(value, "images")}"><br>""";
+        //   break;
+        // case "video":
+        //   var fileExtension = FilenameUtils.extensionName(value);
+        //   markdown += """<br><video src="data:image/$fileExtension;base64,${encodeFileToBase64(value, "videos")}"><br>""";
+        //   break;
+        // case "audio":
+        //   var fileExtension = FilenameUtils.extensionName(value);
+        //   markdown += """<br><audio src="data:image/$fileExtension;base64,${encodeFileToBase64(value, "audio")}"><br>""";
+        //   break;
         case "table":
           markdown += tableBlockToMarkdown(item, context);
           break;
