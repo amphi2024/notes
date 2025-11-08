@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_export_button.dart';
 import 'package:notes/components/note_editor/toolbar/note_editor_import_button.dart';
-import 'package:notes/extensions/date_extension.dart';
+import 'package:notes/utils/date_utils.dart';
 import 'package:notes/models/note.dart';
 
 class NoteDetailDialog extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:notes/extensions/date_extension.dart';
+import 'package:notes/utils/date_utils.dart';
 import 'package:notes/models/app_settings.dart';
 
 import 'package:notes/models/note.dart';

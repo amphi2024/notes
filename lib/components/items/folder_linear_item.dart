@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/dialogs/edit_folder_dialog.dart';
-import 'package:notes/extensions/date_extension.dart';
+import 'package:notes/utils/date_utils.dart';
 
 import '../../icons/icons.dart';
 import '../../models/note.dart';

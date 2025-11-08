@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/note_image_rounded.dart';
-import 'package:notes/extensions/date_extension.dart';
+import 'package:notes/utils/date_utils.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/utils/note_item_press_callback.dart';
 import '../../../providers/selected_notes_provider.dart';
