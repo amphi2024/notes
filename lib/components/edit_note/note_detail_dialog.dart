@@ -35,7 +35,7 @@ class NoteDetailDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   NoteEditorExportButton(note: note, iconSize: 20),
-                  NoteEditorImportButton(controller: controller)
+                  NoteEditorImportButton(note: note, controller: controller)
                 ],
               )
             ],
