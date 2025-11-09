@@ -172,6 +172,9 @@ class _DayWidget extends StatelessWidget {
 
 extension _DayOffEx on Color {
   Color toDayOffColor() {
+    final red = (r * 255).round() & 0xff;
+    final green = (g * 255).round() & 0xff;
+    final blue = (b * 255).round() & 0xff;
     if(green > 125 && blue > 125) {
       return Color.fromARGB(255, red, green - 25, blue - 25);
     }

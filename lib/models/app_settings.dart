@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
 
-import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 
 import 'package:notes/models/theme_model.dart';

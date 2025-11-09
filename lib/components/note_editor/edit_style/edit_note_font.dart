@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/font.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 
 class EditNoteFont extends StatefulWidget {
   final QuillController noteEditingController;

@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:amphi/models/app_colors_core.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:notes/channels/app_web_channel.dart';
 
 import 'app_storage.dart';
 

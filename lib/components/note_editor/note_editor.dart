@@ -122,6 +122,10 @@ class _NoteEditorState extends State<NoteEditor> {
 extension CodeStyleExtension on Color {
 
   Color toCodeBlockBackground() {
+    final alpha = (a * 255).round() & 0xff;
+    final red = (r * 255).round() & 0xff;
+    final green = (g * 255).round() & 0xff;
+    final blue = (b * 255).round() & 0xff;
     if(red + blue + green > 375) {
       return Color.fromARGB(alpha, red - 5, green - 5, blue - 5);
     }
@@ -136,8 +140,8 @@ Color codeBlockTextColor(BuildContext context) {
   int green = 71;
   int blue = 161;
 
-  var backgroundColor = Theme.of(context).scaffoldBackgroundColor;
-  if(backgroundColor.red + backgroundColor.blue + backgroundColor.green < 375) {
+  final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
+  if((backgroundColor.r * 255).round() & 0xff + (backgroundColor.b * 255).round() & 0xff + (backgroundColor.g * 255).round() & 0xff < 375) {
     red = 93;
     green = 151;
     blue = 241;

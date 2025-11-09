@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
@@ -67,8 +66,8 @@ class _WideItem extends StatelessWidget {
               Container(
                 width: 20,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(themeColors.background.alpha, themeColors.background.red - 10, themeColors.background.green - 10,
-                      themeColors.background.blue - 10),
+                  color: Color.fromARGB((themeColors.background.a * 255).round() & 0xff, (themeColors.background.r * 255).round() & 0xff - 10, (themeColors.background.g * 255).round() & 0xff - 10,
+                      (themeColors.background.b * 255).round() & 0xff - 10),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomLeft: Radius.circular(10),

@@ -41,7 +41,7 @@ class _EditNoteTextStyleState extends ConsumerState<EditNoteTextStyle> {
   Color selectionBackgroundColorToIconColor() {
     Color? backgroundColor = widget.controller.selectionBackgroundColor();
     if (backgroundColor != null) {
-      if (backgroundColor.opacity < 0.1) {
+      if (backgroundColor.a < 0.1) {
         return Theme
             .of(context)
             .cardColor;

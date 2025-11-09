@@ -47,7 +47,7 @@ class _ImagePageState extends State<ImagePage> with TickerProviderStateMixin {
       _dragOffset = _dragOffset.clamp(0, 200);
       _scale = 1.0 - (_dragOffset / 400);
       _alignment = Alignment(0, _dragOffset / 400);
-      backgroundColor = Color.fromRGBO(backgroundColor.red, backgroundColor.green, backgroundColor.blue, _scale);
+      backgroundColor = backgroundColor.withValues(alpha: _scale);
     });
   }
 
@@ -164,7 +164,7 @@ class _ImagePageState extends State<ImagePage> with TickerProviderStateMixin {
                   setFullScreen(false);
                 }
                 else {
-                  animateScaleBy(Matrix4.identity()..scale(1.5));
+                  animateScaleBy(Matrix4.identity()..scaleByDouble(1.5, 1.5, 1.5, 1.0));
                   setFullScreen(true);
                 }
               },

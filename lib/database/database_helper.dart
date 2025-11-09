@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:notes/models/app_storage.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../utils/notes_migration.dart';

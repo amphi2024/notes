@@ -26,7 +26,7 @@ extension NoteQueries on Database {
                   title = excluded.title,
                   subtitle = excluded.subtitle;
     """, [
-      note.id, note.isFolder? null : jsonEncode(note.content), note.created.toUtc().millisecondsSinceEpoch, note.modified.toUtc().millisecondsSinceEpoch, note.deleted?.toUtc().millisecondsSinceEpoch, note.isFolder ? 1 : 0, note.parentId.isEmpty ? null : note.parentId, note.lineHeight?.toInt(), note.textSize?.toInt(), note.textColor?.value, note.backgroundColor?.value,  null, note.isFolder ? note.title : null, null
+      note.id, note.isFolder? null : jsonEncode(note.content), note.created.toUtc().millisecondsSinceEpoch, note.modified.toUtc().millisecondsSinceEpoch, note.deleted?.toUtc().millisecondsSinceEpoch, note.isFolder ? 1 : 0, note.parentId.isEmpty ? null : note.parentId, note.lineHeight?.toInt(), note.textSize?.toInt(), note.textColor?.toARGB32(), note.backgroundColor?.toARGB32(),  null, note.isFolder ? note.title : null, null
     ]);
   }
 

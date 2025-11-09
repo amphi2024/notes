@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/app_cache_data.dart';
-import 'package:notes/models/note.dart';
 
 class FloatingButtonNotifier extends Notifier<bool> {
   @override
