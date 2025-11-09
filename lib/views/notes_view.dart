@@ -1,4 +1,5 @@
 import 'package:amphi/models/app.dart';
+import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -47,9 +48,9 @@ class _NotesViewState extends ConsumerState<NotesView> {
               final date = note.getComparableDate(sortOption);
               final nextDate = index == idList.length - 1 ? null : notes.get(idList[index + 1]).getComparableDate(sortOption);
 
-              final roundedTop = previousDate == null || (date.difference(previousDate).inDays).abs() > 30;
+              final roundedTop = previousDate == null || (date.difference(previousDate).inDays).abs() > 7;
 
-              final roundBottom = nextDate == null || (date.difference(nextDate).inDays).abs() > 30;
+              final roundBottom = nextDate == null || (date.difference(nextDate).inDays).abs() > 7;
 
               final borderRadius = BorderRadius.only(
                   topLeft: Radius.circular(roundedTop ? 15 : 0),
@@ -70,15 +71,21 @@ class _NotesViewState extends ConsumerState<NotesView> {
                     );
 
               if (roundedTop && appCacheData.shouldGroupNotes(widget.folder.id)) {
+                final now = DateTime.now();
+                final difference = now.difference(date);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 5, bottom: 5),
                       child: Text(
-                        DateTime.now().difference(date).inDays < 8
-                            ? "This Week"
-                            : DateFormat.MMMM().format(date),
+                        difference.inDays < 8
+                            ? AppLocalizations.of(context).get("this_week")
+                            : now.month == date.month
+                                ? AppLocalizations.of(context).get("this_month")
+                                : now.year != date.year
+                                    ? DateFormat.yMMMM().format(date)
+                                    : DateFormat.MMMM().format(date),
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
