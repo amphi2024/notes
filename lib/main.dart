@@ -67,6 +67,16 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       if (appSettings.useOwnServer) {
+        appWebChannel.getServerVersion(onSuccess: (version) {
+          if(version.startsWith("1.")) {
+            appWebChannel.uploadBlocked = true;
+          }
+          else {
+            appWebChannel.uploadBlocked = false;
+          }
+        }, onFailed: (code) {
+          appWebChannel.uploadBlocked = true;
+        });
         if (!appWebChannel.connected) {
           appWebChannel.connectWebSocket();
         }
