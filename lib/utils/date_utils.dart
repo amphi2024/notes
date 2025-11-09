@@ -12,13 +12,13 @@ extension DateExtension on DateTime {
     final now = DateTime.now();
     final difference = now.difference(this);
 
-    if (difference.inDays > 7) {
-      return DateFormat('MM/dd/yy').format(this);
+    if (difference.inDays < 1) {
+      return DateFormat.jm(Localizations.localeOf(context).toString()).format(this);
     }
     else if (difference.inDays == 1) {
       return AppLocalizations.of(context).get("@yesterday");
     } else {
-      return DateFormat.jm(Localizations.localeOf(context).toString()).format(this);
+      return DateFormat('MM/dd/yy').format(this);
     }
   }
 }
