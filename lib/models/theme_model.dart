@@ -153,7 +153,7 @@ class ThemeModel {
             surfaceTintColor: WidgetStateProperty.all(colors.background),
             mouseCursor: WidgetStateProperty.all(MouseCursor.defer),
           )),
-      shadowColor: (colors.background.g * 255).round() & 0xff + (colors.background.b * 255).round() & 0xff + (colors.background.r * 255).round() & 0xff > 381
+      shadowColor: ((colors.background.g * 255).round() & 0xff) + ((colors.background.b * 255).round() & 0xff) + ((colors.background.r * 255).round() & 0xff) > 381
           ? Colors.grey.withValues(alpha: 0.5)
           : Colors.black.withValues(alpha: 0.5),
       iconTheme: IconThemeData(
@@ -219,7 +219,7 @@ class ThemeModel {
           surfaceTintColor: colors.background,
           titleTextStyle: TextStyle(color: colors.text, fontSize: 17.5, fontWeight: FontWeight.bold)),
       navigationDrawerTheme: NavigationDrawerThemeData(
-          backgroundColor: Color.fromARGB((colors.background.a * 255).round() & 0xff, (colors.background.r * 255).round() & 0xff - 10, (colors.background.g * 255).round() & 0xff - 10, (colors.background.b * 255).round() & 0xff - 10)),
+          backgroundColor: Color.fromARGB((colors.background.a * 255).round() & 0xff, ((colors.background.r * 255).round() & 0xff) - 10, ((colors.background.g * 255).round() & 0xff) - 10, ((colors.background.b * 255).round() & 0xff) - 10)),
     );
   }
 }
@@ -247,10 +247,10 @@ const softenValue = 60;
 extension SoftenExtension on Color {
   Color soften(Brightness brightness) {
     if(brightness == Brightness.light) {
-      return Color.fromARGB((a * 255).round() & 0xff, (r * 255).round() & 0xff + softenValue, (g * 255).round() & 0xff + softenValue, (b * 255).round() & 0xff + softenValue);
+      return Color.fromARGB((a * 255).round() & 0xff, ((r * 255).round() & 0xff) + softenValue, ((g * 255).round() & 0xff) + softenValue, ((b * 255).round() & 0xff) + softenValue);
     }
     else {
-      return Color.fromARGB((a * 255).round() & 0xff, (r * 255).round() & 0xff - softenValue, (g * 255).round() & 0xff - softenValue, (b * 255).round() & 0xff - softenValue);
+      return Color.fromARGB((a * 255).round() & 0xff, ((r * 255).round() & 0xff) - softenValue, ((g * 255).round() & 0xff) - softenValue, ((b * 255).round() & 0xff) - softenValue);
     }
   }
 }
