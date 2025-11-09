@@ -160,6 +160,18 @@
 
   "@dialog_title_draft_exists": "ドラフトを読み込みますか？",
 
-  "@deleted_date": "削除日"
+  "@deleted_date": "削除日",
+
+  "server_version_old_message": "サーバーのバージョンが古すぎます。2.0.0 以上に更新してください。",
+  "export": "エクスポート",
+  "import": "インポート",
+  "this_week": "今週",
+  "this_month": "今月",
+  "rename_folder": "フォルダー名を変更",
+  "move_folder": "フォルダーを移動",
+  "move_to_trash": "ゴミ箱に移動",
+  "delete_folder": "フォルダーを削除",
+  "restore_folder": "フォルダーを復元",
+  "dialog_title_delete_folder": "本当にこのフォルダーを削除しますか？"
 
 }

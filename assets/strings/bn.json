@@ -159,6 +159,18 @@
   "@editor_table_text_done": "সম্পন্ন",
   "@dialog_title_draft_exists": "আপনি কি ড্রাফটটি লোড করতে চান?",
 
-  "@deleted_date": "মুছে ফেলার তারিখ"
+  "@deleted_date": "মুছে ফেলার তারিখ",
+
+  "server_version_old_message": "সার্ভারের সংস্করণটি খুব পুরনো। অনুগ্রহ করে 2.0.0 বা তার উপরে আপডেট করুন।",
+  "export": "রপ্তানি",
+  "import": "আমদানি",
+  "this_week": "এই সপ্তাহ",
+  "this_month": "এই মাস",
+  "rename_folder": "ফোল্ডারের নাম পরিবর্তন করুন",
+  "move_folder": "ফোল্ডার সরান",
+  "move_to_trash": "ট্র্যাশে সরান",
+  "delete_folder": "ফোল্ডার মুছুন",
+  "restore_folder": "ফোল্ডার পুনরুদ্ধার করুন",
+  "dialog_title_delete_folder": "আপনি কি নিশ্চিত যে এই ফোল্ডারটি মুছে দিতে চান?"
 
 }

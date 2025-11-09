@@ -160,6 +160,18 @@
 
   "@dialog_title_draft_exists": "Chcete načíst návrh?",
 
-  "@deleted_date": "Datum smazání"
+  "@deleted_date": "Datum smazání",
+
+  "server_version_old_message": "Verze serveru je příliš stará. Aktualizujte prosím na verzi 2.0.0 nebo novější.",
+  "export": "Exportovat",
+  "import": "Importovat",
+  "this_week": "Tento týden",
+  "this_month": "Tento měsíc",
+  "rename_folder": "Přejmenovat složku",
+  "move_folder": "Přesunout složku",
+  "move_to_trash": "Přesunout do koše",
+  "delete_folder": "Smazat složku",
+  "restore_folder": "Obnovit složku",
+  "dialog_title_delete_folder": "Opravdu chcete tuto složku smazat?"
 
 }

@@ -157,6 +157,17 @@
 
   "@dialog_title_draft_exists": "Vrei să încarci schița?",
 
-  "@deleted_date": "Data ștergerii"
+  "@deleted_date": "Data ștergerii",
 
+  "server_version_old_message": "Versiunea serverului este prea veche. Actualizați la versiunea 2.0.0 sau mai recentă.",
+  "export": "Export",
+  "import": "Import",
+  "this_week": "Săptămâna aceasta",
+  "this_month": "Luna aceasta",
+  "rename_folder": "Redenumește folderul",
+  "move_folder": "Mută folderul",
+  "move_to_trash": "Mută în coș",
+  "delete_folder": "Șterge folderul",
+  "restore_folder": "Restaurare folder",
+  "dialog_title_delete_folder": "Sigur doriți să ștergeți acest folder?"
 }

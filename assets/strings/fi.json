@@ -160,6 +160,18 @@
 
   "@dialog_title_draft_exists": "Haluatko ladata luonnoksen?",
 
-  "@deleted_date": "Poistettu päivämäärä"
+  "@deleted_date": "Poistettu päivämäärä",
+
+  "server_version_old_message": "Palvelimen versio on liian vanha. Päivitä versioon 2.0.0 tai uudempaan.",
+  "export": "Vie",
+  "import": "Tuo",
+  "this_week": "Tällä viikolla",
+  "this_month": "Tässä kuussa",
+  "rename_folder": "Nimeä kansio uudelleen",
+  "move_folder": "Siirrä kansio",
+  "move_to_trash": "Siirrä roskakoriin",
+  "delete_folder": "Poista kansio",
+  "restore_folder": "Palauta kansio",
+  "dialog_title_delete_folder": "Haluatko varmasti poistaa tämän kansion?"
 
 }

@@ -160,6 +160,17 @@
 
   "@dialog_title_draft_exists": "هل تريد تحميل المسودة؟",
 
-  "@deleted_date": "تاريخ الحذف"
+  "@deleted_date": "تاريخ الحذف",
 
+  "server_version_old_message": "إصدار الخادم قديم جدًا. يرجى التحديث إلى الإصدار 2.0.0 أو أحدث.",
+  "export": "تصدير",
+  "import": "استيراد",
+  "this_week": "هذا الأسبوع",
+  "this_month": "هذا الشهر",
+  "rename_folder": "إعادة تسمية المجلد",
+  "move_folder": "نقل المجلد",
+  "move_to_trash": "نقل إلى سلة المهملات",
+  "delete_folder": "حذف المجلد",
+  "restore_folder": "استعادة المجلد",
+  "dialog_title_delete_folder": "هل أنت متأكد أنك تريد حذف هذا المجلد؟"
 }

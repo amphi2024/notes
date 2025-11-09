@@ -64,6 +64,7 @@ class NoteEditorExportButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton(
         icon: Icon(AppIcons.export, size: 20),
+        tooltip: AppLocalizations.of(context).get("export"),
         itemBuilder: (context) {
           return [
             PopupMenuItem(child: Text(AppLocalizations.of(context).get("@note_export_label_note")), onTap: () => exportToNote(context)),

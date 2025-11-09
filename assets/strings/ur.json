@@ -158,6 +158,18 @@
 
   "@dialog_title_draft_exists": "کیا آپ مسودہ لوڈ کرنا چاہتے ہیں؟",
 
-  "@deleted_date": "حذف کی تاریخ"
+  "@deleted_date": "حذف کی تاریخ",
+
+  "server_version_old_message": "سرور کا ورژن بہت پرانا ہے۔ براہ کرم 2.0.0 یا اس سے جدید ورژن میں اپ ڈیٹ کریں۔",
+  "export": "برآمد کریں",
+  "import": "درآمد کریں",
+  "this_week": "اس ہفتے",
+  "this_month": "اس مہینے",
+  "rename_folder": "فولڈر کا نام تبدیل کریں",
+  "move_folder": "فولڈر منتقل کریں",
+  "move_to_trash": "ری سائیکل بن میں منتقل کریں",
+  "delete_folder": "فولڈر حذف کریں",
+  "restore_folder": "فولڈر بحال کریں",
+  "dialog_title_delete_folder": "کیا آپ واقعی اس فولڈر کو حذف کرنا چاہتے ہیں؟"
 
 }

@@ -158,6 +158,17 @@
 
   "@dialog_title_draft_exists": "Taslağı yüklemek ister misiniz?",
 
-  "@deleted_date": "Silinme tarihi"
+  "@deleted_date": "Silinme tarihi",
 
+  "server_version_old_message": "Sunucu sürümü çok eski. Lütfen 2.0.0 veya üzeri bir sürüme güncelleyin.",
+  "export": "Dışa Aktar",
+  "import": "İçe Aktar",
+  "this_week": "Bu Hafta",
+  "this_month": "Bu Ay",
+  "rename_folder": "Klasörü Yeniden Adlandır",
+  "move_folder": "Klasörü Taşı",
+  "move_to_trash": "Çöp Kutusuna Taşı",
+  "delete_folder": "Klasörü Sil",
+  "restore_folder": "Klasörü Geri Yükle",
+  "dialog_title_delete_folder": "Bu klasörü silmek istediğinizden emin misiniz?"
 }

@@ -161,8 +161,18 @@
 
   "@dialog_title_draft_exists": "Voulez-vous charger le brouillon ?",
 
-  "@deleted_date": "Date de suppression"
+  "@deleted_date": "Date de suppression",
 
-
+  "server_version_old_message": "La version du serveur est trop ancienne. Veuillez mettre à jour vers la version 2.0.0 ou supérieure.",
+  "export": "Exporter",
+  "import": "Importer",
+  "this_week": "Cette semaine",
+  "this_month": "Ce mois-ci",
+  "rename_folder": "Renommer le dossier",
+  "move_folder": "Déplacer le dossier",
+  "move_to_trash": "Déplacer dans la corbeille",
+  "delete_folder": "Supprimer le dossier",
+  "restore_folder": "Restaurer le dossier",
+  "dialog_title_delete_folder": "Êtes-vous sûr de vouloir supprimer ce dossier ?"
 
 }

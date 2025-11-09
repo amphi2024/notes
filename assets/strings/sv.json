@@ -156,7 +156,17 @@
 
   "@dialog_title_draft_exists": "Vill du ladda upp utkastet?",
 
-  "@deleted_date": "Raderingsdatum"
+  "@deleted_date": "Raderingsdatum",
 
-
+  "server_version_old_message": "Serverversionen är för gammal. Uppdatera till version 2.0.0 eller senare.",
+  "export": "Exportera",
+  "import": "Importera",
+  "this_week": "Denna vecka",
+  "this_month": "Denna månad",
+  "rename_folder": "Byt namn på mappen",
+  "move_folder": "Flytta mappen",
+  "move_to_trash": "Flytta till papperskorgen",
+  "delete_folder": "Ta bort mappen",
+  "restore_folder": "Återställ mapp",
+  "dialog_title_delete_folder": "Är du säker på att du vill ta bort den här mappen?"
 }

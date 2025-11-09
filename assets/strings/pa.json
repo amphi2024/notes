@@ -162,6 +162,18 @@
 
   "@dialog_title_draft_exists": "ਕੀ ਤੁਸੀਂ ਡ੍ਰਾਫਟ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
 
-  "@deleted_date": "ਹਟਾਉਣ ਦੀ ਤਾਰੀਖ"
+  "@deleted_date": "ਹਟਾਉਣ ਦੀ ਤਾਰੀਖ",
+
+  "server_version_old_message": "ਸਰਵਰ ਵਰਜਨ ਬਹੁਤ ਪੁਰਾਣਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ 2.0.0 ਜਾਂ ਇਸ ਤੋਂ ਉੱਪਰ ਅਪਡੇਟ ਕਰੋ।",
+  "export": "ਨਿਰਯਾਤ",
+  "import": "ਆਯਾਤ",
+  "this_week": "ਇਸ ਹਫ਼ਤੇ",
+  "this_month": "ਇਸ ਮਹੀਨੇ",
+  "rename_folder": "ਫੋਲਡਰ ਦਾ ਨਾਮ ਬਦਲੋ",
+  "move_folder": "ਫੋਲਡਰ ਖਿਸਕਾਓ",
+  "move_to_trash": "ਕੂੜੇਦਾਨ ਵਿੱਚ ਭੇਜੋ",
+  "delete_folder": "ਫੋਲਡਰ ਮਿਟਾਓ",
+  "restore_folder": "ਫੋਲਡਰ ਨੂੰ ਬਹਾਲ ਕਰੋ",
+  "dialog_title_delete_folder": "ਕੀ ਤੁਸੀਂ ਯਕੀਨਨ ਇਹ ਫੋਲਡਰ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 }

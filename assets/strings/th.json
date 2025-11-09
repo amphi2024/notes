@@ -158,6 +158,17 @@
 
   "@dialog_title_draft_exists": "คุณต้องการโหลดร่างหรือไม่?",
 
-  "@deleted_date": "วันที่ลบ"
+  "@deleted_date": "วันที่ลบ",
 
+  "server_version_old_message": "เวอร์ชันเซิร์ฟเวอร์เก่าเกินไป กรุณาอัปเดตเป็นเวอร์ชัน 2.0.0 หรือใหม่กว่า",
+  "export": "ส่งออก",
+  "import": "นำเข้า",
+  "this_week": "สัปดาห์นี้",
+  "this_month": "เดือนนี้",
+  "rename_folder": "เปลี่ยนชื่อโฟลเดอร์",
+  "move_folder": "ย้ายโฟลเดอร์",
+  "move_to_trash": "ย้ายไปยังถังขยะ",
+  "delete_folder": "ลบโฟลเดอร์",
+  "restore_folder": "กู้คืนโฟลเดอร์",
+  "dialog_title_delete_folder": "คุณแน่ใจหรือไม่ว่าต้องการลบโฟลเดอร์นี้?"
 }

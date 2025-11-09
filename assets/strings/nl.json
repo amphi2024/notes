@@ -158,7 +158,17 @@
   "@editor_table_text_done": "Klaar",
   "@dialog_title_draft_exists": "Wilt u het concept laden?",
 
-  "@deleted_date": "Verwijderingsdatum"
+  "@deleted_date": "Verwijderingsdatum",
 
-
+  "server_version_old_message": "De serverversie is te oud. Werk bij naar versie 2.0.0 of hoger.",
+  "export": "Exporteren",
+  "import": "Importeren",
+  "this_week": "Deze week",
+  "this_month": "Deze maand",
+  "rename_folder": "Map hernoemen",
+  "move_folder": "Map verplaatsen",
+  "move_to_trash": "Naar prullenbak verplaatsen",
+  "delete_folder": "Map verwijderen",
+  "restore_folder": "Map herstellen",
+  "dialog_title_delete_folder": "Weet je zeker dat je deze map wilt verwijderen?"
 }

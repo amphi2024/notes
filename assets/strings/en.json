@@ -157,6 +157,17 @@
   "@toast_message_file_download_failed_unauthorized": "Failed to download, you must re-log in",
   "@toast_message_note_export_success": "Export completed",
 
-  "@editor_table_text_done": "Done"
+  "@editor_table_text_done": "Done",
 
+  "server_version_old_message": "Server version is old. Please update to 2.0.0 or higher.",
+  "export": "Export",
+  "import": "Import",
+  "this_week": "This Week",
+  "this_month": "This Month",
+  "rename_folder": "Rename Folder",
+  "move_folder": "Move Folder",
+  "move_to_trash": "Move to Trash",
+  "delete_folder": "Delete Folder",
+  "restore_folder": "Restore Folder",
+  "dialog_title_delete_folder": "Are you sure you want to delete this folder?"
 }

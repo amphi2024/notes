@@ -160,7 +160,17 @@
 
   "@dialog_title_draft_exists": "Vuoi caricare la bozza?",
 
-  "@deleted_date": "Data di eliminazione"
+  "@deleted_date": "Data di eliminazione",
 
-
+  "server_version_old_message": "La versione del server è troppo vecchia. Aggiorna alla versione 2.0.0 o successiva.",
+  "export": "Esporta",
+  "import": "Importa",
+  "this_week": "Questa settimana",
+  "this_month": "Questo mese",
+  "rename_folder": "Rinomina cartella",
+  "move_folder": "Sposta cartella",
+  "move_to_trash": "Sposta nel cestino",
+  "delete_folder": "Elimina cartella",
+  "restore_folder": "Ripristina cartella",
+  "dialog_title_delete_folder": "Sei sicuro di voler eliminare questa cartella?"
 }

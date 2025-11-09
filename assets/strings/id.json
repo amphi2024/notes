@@ -160,7 +160,17 @@
 
   "@dialog_title_draft_exists": "Apakah Anda ingin memuat draf?",
 
-  "@deleted_date": "Tanggal dihapus"
+  "@deleted_date": "Tanggal dihapus",
 
-
+  "server_version_old_message": "Versi server terlalu lama. Harap perbarui ke versi 2.0.0 atau lebih baru.",
+  "export": "Ekspor",
+  "import": "Impor",
+  "this_week": "Minggu ini",
+  "this_month": "Bulan ini",
+  "rename_folder": "Ganti nama folder",
+  "move_folder": "Pindahkan folder",
+  "move_to_trash": "Pindahkan ke tempat sampah",
+  "delete_folder": "Hapus folder",
+  "restore_folder": "Pulihkan folder",
+  "dialog_title_delete_folder": "Apakah Anda yakin ingin menghapus folder ini?"
 }

@@ -160,6 +160,18 @@
 
   "@dialog_title_draft_exists": "क्या आप ड्राफ्ट लोड करना चाहते हैं?",
 
-  "@deleted_date": "हटाने की तिथि"
+  "@deleted_date": "हटाने की तिथि",
+
+  "server_version_old_message": "सर्वर संस्करण बहुत पुराना है। कृपया 2.0.0 या उससे ऊपर के संस्करण में अपडेट करें।",
+  "export": "निर्यात",
+  "import": "आयात",
+  "this_week": "इस सप्ताह",
+  "this_month": "इस महीने",
+  "rename_folder": "फ़ोल्डर का नाम बदलें",
+  "move_folder": "फ़ोल्डर स्थानांतरित करें",
+  "move_to_trash": "कचरे में भेजें",
+  "delete_folder": "फ़ोल्डर हटाएँ",
+  "restore_folder": "फ़ोल्डर पुनर्स्थापित करें",
+  "dialog_title_delete_folder": "क्या आप वाकई इस फ़ोल्डर को हटाना चाहते हैं?"
 
 }

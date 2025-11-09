@@ -158,8 +158,17 @@
 
   "@dialog_title_draft_exists": "Вы хотите загрузить черновик?",
 
-  "@deleted_date": "Дата удаления"
+  "@deleted_date": "Дата удаления",
 
-
-
+  "server_version_old_message": "Версия сервера слишком старая. Пожалуйста, обновите до версии 2.0.0 или выше.",
+  "export": "Экспорт",
+  "import": "Импорт",
+  "this_week": "На этой неделе",
+  "this_month": "В этом месяце",
+  "rename_folder": "Переименовать папку",
+  "move_folder": "Переместить папку",
+  "move_to_trash": "Переместить в корзину",
+  "delete_folder": "Удалить папку",
+  "restore_folder": "Восстановить папку",
+  "dialog_title_delete_folder": "Вы уверены, что хотите удалить эту папку?"
 }

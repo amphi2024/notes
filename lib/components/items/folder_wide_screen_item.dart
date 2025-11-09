@@ -1,4 +1,5 @@
 import 'package:amphi/models/app.dart';
+import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -79,7 +80,8 @@ class FolderWideScreenItemState extends ConsumerState<FolderWideScreenItem> {
               visible: widget.folder.id != "!TRASH" && widget.folder.id.isNotEmpty && editButtonShowing,
               child: PopupMenuButton(
                   icon: Icon(Icons.more_horiz, size: 15),
-                  itemBuilder: (context) => _menuItems(folder: widget.folder, ref: ref, context: context)),
+                  tooltip: "",
+                  itemBuilder: (ctx) => _menuItems(folder: widget.folder, ref: ref, context: context)),
             ),
             Visibility(
               visible: widget.itemCount > 0,
@@ -138,19 +140,19 @@ const _height = 30.0;
 List<PopupMenuItem> _menuItems({required Note folder, required WidgetRef ref, required BuildContext context}) {
   if(folder.deleted == null) {
     return [
-      PopupMenuItem(height: _height, child: Text("New Folder"), onTap: () async {
+      PopupMenuItem(height: _height, child: Text(AppLocalizations.of(context).get("@new_folder")), onTap: () async {
         final id = await generatedNoteId();
         final newFolder = Note(id: id);
         showDialog(context: context, builder: (context) {
           return EditFolderDialog(folder: newFolder, ref: ref);
         });
       }),
-      PopupMenuItem(height: _height, child: Text("Rename Folder"), onTap: () {
+      PopupMenuItem(height: _height, child: Text(AppLocalizations.of(context).get("rename_folder")), onTap: () {
         showDialog(context: context, builder: (context) {
           return EditFolderDialog(folder: folder, ref: ref);
         });
       }),
-      PopupMenuItem(height: _height, child: Text("Move"), onTap: () async {
+      PopupMenuItem(height: _height, child: Text(AppLocalizations.of(context).get("move_folder")), onTap: () async {
         ref.read(selectedNotesProvider.notifier).startSelection();
         ref.read(selectedNotesProvider.notifier).addId(folder.id);
         await showDialog(context: context, builder: (context) {
@@ -158,7 +160,7 @@ List<PopupMenuItem> _menuItems({required Note folder, required WidgetRef ref, re
         });
         ref.read(selectedNotesProvider.notifier).endSelection();
       }),
-      PopupMenuItem(height: _height, child: Text("Move to trash"), onTap: () {
+      PopupMenuItem(height: _height, child: Text(AppLocalizations.of(context).get("move_to_trash")), onTap: () {
         folder.deleted = DateTime.now();
         folder.save();
         ref.read(notesProvider.notifier).moveNotes([folder.id], folder.parentId, "!TRASH");
@@ -167,15 +169,15 @@ List<PopupMenuItem> _menuItems({required Note folder, required WidgetRef ref, re
   }
 
   return [
-    PopupMenuItem(height: _height, child: Text("Restore Folder"), onTap: () {
+    PopupMenuItem(height: _height, child: Text(AppLocalizations.of(context).get("restore_folder")), onTap: () {
       folder.deleted = null;
       folder.parentId = "";
       folder.save();
       ref.read(notesProvider.notifier).moveNotes([folder.id], "!TRASH", folder.parentId);
     }),
-    PopupMenuItem(height: _height, child: Text("Delete Folder"), onTap: () {
+    PopupMenuItem(height: _height, child: Text(AppLocalizations.of(context).get("delete_folder")), onTap: () {
       showDialog(context: context, builder: (context) {
-        return ConfirmationDialog(title: "", onConfirmed: () {
+        return ConfirmationDialog(title: AppLocalizations.of(context).get("dialog_title_delete_folder"), onConfirmed: () {
           folder.delete(ref: ref);
           ref.read(notesProvider.notifier).deleteNotes([folder.id]);
         });

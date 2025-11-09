@@ -1,3 +1,4 @@
+import 'package:amphi/models/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -17,6 +18,7 @@ class NoteEditorImportButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
         icon: Icon(AppIcons.import, size: 20),
+        tooltip: AppLocalizations.of(context).get("import"),
         onPressed: () async {
           final selectedFiles = await FilePicker.platform.pickFiles(allowMultiple: false, type: FileType.custom, allowedExtensions: ["note", "md"]);
           final file = selectedFiles?.files.firstOrNull;

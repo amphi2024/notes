@@ -161,8 +161,19 @@
 
   "@dialog_title_draft_exists": "Vil du indlæse udkastet?",
 
-  "@deleted_date": "Slettet dato"
+  "@deleted_date": "Slettet dato",
 
+  "server_version_old_message": "Serverversionen er for gammel. Opdater venligst til version 2.0.0 eller nyere.",
+  "export": "Eksportér",
+  "import": "Importér",
+  "this_week": "Denne uge",
+  "this_month": "Denne måned",
+  "rename_folder": "Omdøb mappe",
+  "move_folder": "Flyt mappe",
+  "move_to_trash": "Flyt til papirkurv",
+  "delete_folder": "Slet mappe",
+  "restore_folder": "Gendan mappe",
+  "dialog_title_delete_folder": "Er du sikker på, at du vil slette denne mappe?"
 
 
 }

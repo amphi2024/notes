@@ -160,8 +160,18 @@
 
   "@dialog_title_draft_exists": "האם אתה רוצה לטעון את הטיוטה?",
 
-  "@deleted_date": "תאריך מחיקה"
+  "@deleted_date": "תאריך מחיקה",
 
-
+  "server_version_old_message": "גרסת השרת ישנה מדי. נא לעדכן לגרסה 2.0.0 או חדשה יותר.",
+  "export": "ייצוא",
+  "import": "ייבוא",
+  "this_week": "השבוע",
+  "this_month": "החודש",
+  "rename_folder": "שנה שם תיקייה",
+  "move_folder": "העבר תיקייה",
+  "move_to_trash": "העבר לאשפה",
+  "delete_folder": "מחק תיקייה",
+  "restore_folder": "שחזור תיקייה",
+  "dialog_title_delete_folder": "האם אתה בטוח שברצונך למחוק את התיקייה הזו?"
 
 }

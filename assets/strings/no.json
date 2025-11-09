@@ -162,8 +162,17 @@
 
   "@dialog_title_draft_exists": "Vil du laste inn utkastet?",
 
-  "@deleted_date": "Slettedato"
+  "@deleted_date": "Slettedato",
 
-
-
+  "server_version_old_message": "Serverversjonen er for gammel. Oppdater til versjon 2.0.0 eller nyere.",
+  "export": "Eksporter",
+  "import": "Importer",
+  "this_week": "Denne uken",
+  "this_month": "Denne måneden",
+  "rename_folder": "Gi nytt navn til mappe",
+  "move_folder": "Flytt mappe",
+  "move_to_trash": "Flytt til papirkurv",
+  "delete_folder": "Slett mappe",
+  "restore_folder": "Gjenopprett mappe",
+  "dialog_title_delete_folder": "Er du sikker på at du vil slette denne mappen?"
 }

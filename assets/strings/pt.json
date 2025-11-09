@@ -162,8 +162,17 @@
 
   "@dialog_title_draft_exists": "Você deseja carregar o rascunho?",
 
-  "@deleted_date": "Data de exclusão"
+  "@deleted_date": "Data de exclusão",
 
-
-
+  "server_version_old_message": "A versão do servidor é muito antiga. Atualize para a versão 2.0.0 ou superior.",
+  "export": "Exportar",
+  "import": "Importar",
+  "this_week": "Esta semana",
+  "this_month": "Este mês",
+  "rename_folder": "Renomear pasta",
+  "move_folder": "Mover pasta",
+  "move_to_trash": "Mover para o lixo",
+  "delete_folder": "Eliminar pasta",
+  "restore_folder": "Restaurar pasta",
+  "dialog_title_delete_folder": "Tem certeza de que deseja excluir esta pasta?"
 }

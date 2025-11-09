@@ -160,6 +160,18 @@
 
   "@dialog_title_draft_exists": "Möchten Sie den Entwurf laden?",
 
-  "@deleted_date": "Gelöschtes Datum"
+  "@deleted_date": "Gelöschtes Datum",
+
+  "server_version_old_message": "Die Serverversion ist zu alt. Bitte auf Version 2.0.0 oder höher aktualisieren.",
+  "export": "Exportieren",
+  "import": "Importieren",
+  "this_week": "Diese Woche",
+  "this_month": "Diesen Monat",
+  "rename_folder": "Ordner umbenennen",
+  "move_folder": "Ordner verschieben",
+  "move_to_trash": "In den Papierkorb verschieben",
+  "delete_folder": "Ordner löschen",
+  "restore_folder": "Ordner wiederherstellen",
+  "dialog_title_delete_folder": "Sind Sie sicher, dass Sie diesen Ordner löschen möchten?"
 
 }

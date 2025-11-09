@@ -158,8 +158,17 @@
 
   "@dialog_title_draft_exists": "您想加载草稿吗？",
 
-  "@deleted_date": "删除日期"
+  "@deleted_date": "删除日期",
 
-
-
+  "server_version_old_message": "服务器版本过旧。请更新至 2.0.0 或更高版本。",
+  "export": "导出",
+  "import": "导入",
+  "this_week": "本周",
+  "this_month": "本月",
+  "rename_folder": "重命名文件夹",
+  "move_folder": "移动文件夹",
+  "move_to_trash": "移至回收站",
+  "delete_folder": "删除文件夹",
+  "restore_folder": "恢复文件夹",
+  "dialog_title_delete_folder": "您确定要删除此文件夹吗？"
 }

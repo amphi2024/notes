@@ -159,6 +159,18 @@
 
   "@dialog_title_draft_exists": "임시저장을 불러오시겠습니까?",
 
-  "@deleted_date": "삭제된 날짜"
+  "@deleted_date": "삭제된 날짜",
+
+  "server_version_old_message": "서버 버전이 오래되었습니다. 2.0.0 이상으로 업데이트해주세요.",
+  "export": "내보내기",
+  "import": "불러오기",
+  "this_week": "이번 주",
+  "this_month": "이번 달",
+  "rename_folder": "폴더 이름 변경",
+  "move_folder": "폴더 이동",
+  "move_to_trash": "휴지통으로 이동",
+  "delete_folder": "폴더 삭제",
+  "restore_folder": "폴더 복원",
+  "dialog_title_delete_folder": "이 폴더를 삭제하시겠습니까?"
 
 }

@@ -158,8 +158,17 @@
 
   "@dialog_title_draft_exists": "Bạn có muốn tải bản nháp không?",
 
-  "@deleted_date": "Ngày xóa"
+  "@deleted_date": "Ngày xóa",
 
-
-
+  "server_version_old_message": "Phiên bản máy chủ quá cũ. Vui lòng cập nhật lên phiên bản 2.0.0 hoặc mới hơn.",
+  "export": "Xuất",
+  "import": "Nhập",
+  "this_week": "Tuần này",
+  "this_month": "Tháng này",
+  "rename_folder": "Đổi tên thư mục",
+  "move_folder": "Di chuyển thư mục",
+  "move_to_trash": "Chuyển vào thùng rác",
+  "delete_folder": "Xóa thư mục",
+  "restore_folder": "Khôi phục thư mục",
+  "dialog_title_delete_folder": "Bạn có chắc chắn muốn xóa thư mục này không?"
 }

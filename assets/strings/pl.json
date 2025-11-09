@@ -158,8 +158,17 @@
 
   "@dialog_title_draft_exists": "Czy chcesz załadować szkic?",
 
-  "@deleted_date": "Data usunięcia"
+  "@deleted_date": "Data usunięcia",
 
-
-
+  "server_version_old_message": "Wersja serwera jest zbyt stara. Zaktualizuj do wersji 2.0.0 lub nowszej.",
+  "export": "Eksportuj",
+  "import": "Importuj",
+  "this_week": "W tym tygodniu",
+  "this_month": "W tym miesiącu",
+  "rename_folder": "Zmień nazwę folderu",
+  "move_folder": "Przenieś folder",
+  "move_to_trash": "Przenieś do kosza",
+  "delete_folder": "Usuń folder",
+  "restore_folder": "Przywróć folder",
+  "dialog_title_delete_folder": "Czy na pewno chcesz usunąć ten folder?"
 }

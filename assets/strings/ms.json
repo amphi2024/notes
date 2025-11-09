@@ -157,6 +157,18 @@
 
   "@dialog_title_draft_exists": "Adakah anda ingin memuatkan draf?",
 
-  "@deleted_date": "Tarikh dipadam"
+  "@deleted_date": "Tarikh dipadam",
+
+  "server_version_old_message": "Versi pelayan terlalu lama. Sila kemas kini kepada versi 2.0.0 atau yang lebih baharu.",
+  "export": "Eksport",
+  "import": "Import",
+  "this_week": "Minggu ini",
+  "this_month": "Bulan ini",
+  "rename_folder": "Tukar nama folder",
+  "move_folder": "Pindahkan folder",
+  "move_to_trash": "Alih ke tong sampah",
+  "delete_folder": "Padam folder",
+  "restore_folder": "Pulihkan folder",
+  "dialog_title_delete_folder": "Adakah anda pasti mahu memadam folder ini?"
 
 }

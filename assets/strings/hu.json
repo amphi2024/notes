@@ -158,6 +158,18 @@
 
   "@dialog_title_draft_exists": "Szeretné betölteni a vázlatot?",
 
-  "@deleted_date": "Törlés dátuma"
+  "@deleted_date": "Törlés dátuma",
+
+  "server_version_old_message": "A kiszolgáló verziója túl régi. Kérjük, frissítsen 2.0.0 vagy újabb verzióra.",
+  "export": "Exportálás",
+  "import": "Importálás",
+  "this_week": "Ezen a héten",
+  "this_month": "Ebben a hónapban",
+  "rename_folder": "Mappa átnevezése",
+  "move_folder": "Mappa áthelyezése",
+  "move_to_trash": "Áthelyezés a kukába",
+  "delete_folder": "Mappa törlése",
+  "restore_folder": "Mappa visszaállítása",
+  "dialog_title_delete_folder": "Biztosan törölni szeretné ezt a mappát?"
 
 }

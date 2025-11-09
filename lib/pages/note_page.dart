@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,7 +60,7 @@ class _NotePageState extends ConsumerState<NotePage> {
       });
 
       if(appWebChannel.uploadBlocked) {
-        showToast(context, "ddfdfdfdfdfdfdfdfdfdfddfdfdfdfdfdfd");
+        showToast(context, AppLocalizations.of(context).get("server_version_old_message"));
       }
     });
     super.initState();

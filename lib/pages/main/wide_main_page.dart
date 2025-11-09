@@ -68,7 +68,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (appSettings.useOwnServer && appWebChannel.uploadBlocked) {
-        showToast(context, "upload block message");
+        showToast(context, AppLocalizations.of(context).get("server_version_old_message"));
       }
     });
   }

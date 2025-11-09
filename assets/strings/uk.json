@@ -158,6 +158,17 @@
 
   "@dialog_title_draft_exists": "Бажаєте завантажити чернетку?",
 
-  "@deleted_date": "Дата видалення"
+  "@deleted_date": "Дата видалення",
 
+  "server_version_old_message": "Версія сервера занадто стара. Оновіть до версії 2.0.0 або новішої.",
+  "export": "Експорт",
+  "import": "Імпорт",
+  "this_week": "Цього тижня",
+  "this_month": "Цього місяця",
+  "rename_folder": "Перейменувати папку",
+  "move_folder": "Перемістити папку",
+  "move_to_trash": "Перемістити до кошика",
+  "delete_folder": "Видалити папку",
+  "restore_folder": "Відновити папку",
+  "dialog_title_delete_folder": "Ви впевнені, що хочете видалити цю папку?"
 }
