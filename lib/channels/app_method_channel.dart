@@ -30,7 +30,6 @@ class AppMethodChannel extends MethodChannel {
   List<void Function(bool)> fullScreenListeners = [];
 
   int systemVersion = 0;
-  bool needsBottomPadding = false;
 
   void createDirectoryIfNotExists(String path) {
     Directory directory = Directory(path);
@@ -59,21 +58,5 @@ class AppMethodChannel extends MethodChannel {
 
   void getSystemVersion() async {
     systemVersion = await invokeMethod("get_system_version");
-  }
-
-  void configureNeedsBottomPadding() async {
-    needsBottomPadding = await invokeMethod("configure_needs_bottom_padding");
-  }
-
-  void removeMacOsToolbar() async {
-    if(Platform.isMacOS) {
-      await invokeMethod("remove_mac_os_toolbar");
-    }
-  }
-
-  void setMacOsToolbar() async {
-    if(Platform.isMacOS) {
-      await invokeMethod("set_mac_os_toolbar");
-    }
   }
 }
