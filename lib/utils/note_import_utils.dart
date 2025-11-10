@@ -16,7 +16,7 @@ import '../components/note_editor/embed_block/table/note_table_block_embed.dart'
 import '../models/table_data.dart';
 
 extension ImportExtension on QuillController {
-  void importNote({required String noteId, required String fileContent, required WidgetRef ref}) async {
+  Future<void> importNote({required String noteId, required String fileContent, required WidgetRef ref}) async {
     try {
       final delta = Delta();
       final data = jsonDecode(fileContent);
@@ -31,7 +31,7 @@ extension ImportExtension on QuillController {
                 var split = value.split(";");
                 if (split.length > 2) {
                   // !BASE64;jpg;abc.....
-                  final file = await createdImageFileWithBase64(noteId, split[2], split[1]);
+                  final file = await createdImageFileWithBase64(noteId, split[2], ".${split[1]}");
                   final block = BlockEmbed.custom(ImageBlockEmbed(file.path));
                   delta.insert(block.toJson());
                 }
@@ -42,7 +42,7 @@ extension ImportExtension on QuillController {
                 var split = value.split(";");
                 if (split.length > 2) {
                   // !BASE64;mp4;abc.....
-                  final file = await createdVideoFileWithBase64(noteId, split[2], split[1]);
+                  final file = await createdVideoFileWithBase64(noteId, split[2], ".${split[1]}");
                   final block = BlockEmbed.custom(VideoBlockEmbed(file.path));
                   delta.insert(block.toJson());
                 }
@@ -53,7 +53,7 @@ extension ImportExtension on QuillController {
                 var split = value.split(";");
                 if (split.length > 2) {
                   // !BASE64;mp3;abc.....
-                  final file = await createdAudioFileWithBase64(noteId, split[2], split[1]);
+                  final file = await createdAudioFileWithBase64(noteId, split[2], ".${split[1]}");
                   final block = BlockEmbed.custom(AudioBlockEmbed(file.path));
                   delta.insert(block.toJson());
                 }
