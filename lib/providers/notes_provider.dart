@@ -1,8 +1,16 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/database/database_helper.dart';
+import 'package:notes/utils/document_conversion.dart';
+import 'package:notes/utils/note_import_utils.dart';
 import '../models/app_cache_data.dart';
 import '../models/note.dart';
 import '../models/sort_option.dart';
+import '../utils/generate_id.dart';
+import '../utils/note_item_press_callback.dart';
+import 'editing_note_provider.dart';
 
 class NotesState {
   final Map<String, Note> notes;
@@ -139,7 +147,7 @@ class NotesNotifier extends Notifier<NotesState> {
     state = NotesState({...state.notes, note.id: note}, idLists);
   }
 
-  void init(void Function() onInitialize) async {
+  void init(WidgetRef ref) async {
     final database = await databaseHelper.database;
     final Map<String, Note> notes = {};
     final Map<String, List<String>> idLists = {
@@ -167,7 +175,29 @@ class NotesNotifier extends Notifier<NotesState> {
     await newState.preloadNotes("!TRASH");
     state = newState;
 
-    onInitialize();
+    final note = notes[appCacheData.editingNote] ?? notes[idLists[""]!.firstOrNull];
+    if (note != null) {
+      prepareEmbeddedBlocks(ref, note);
+      ref.read(editingNoteProvider.notifier).startEditing(note, true);
+      ref.read(editingNoteProvider.notifier).initController(ref);
+    }
+    else {
+      final byteData = await rootBundle.load("assets/welcome.note");
+
+      final fileContent = utf8.decode(byteData.buffer.asUint8List().toList());
+      final id = await generatedNoteId();
+      final note = Note(id: id);
+      prepareEmbeddedBlocks(ref, note);
+      ref.read(editingNoteProvider.notifier).startEditing(note, true);
+      ref.read(editingNoteProvider.notifier).initController(ref);
+      await ref.read(editingNoteProvider.notifier).controller.importNote(noteId: note.id, fileContent: fileContent, ref: ref);
+      note.initDelta();
+      note.content = ref.read(editingNoteProvider.notifier).controller.document.toNoteContent(ref);
+      note.initDelta();
+      note.initTitles();
+      await note.save();
+      ref.read(notesProvider.notifier).insertNote(note);
+    }
   }
 
 }

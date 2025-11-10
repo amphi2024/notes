@@ -11,10 +11,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/pages/main/main_page.dart';
-import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/themes_provider.dart';
-import 'package:notes/utils/note_item_press_callback.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'channels/app_method_channel.dart';
@@ -106,14 +104,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       });
     }
     WidgetsBinding.instance.addObserver(this);
-    ref.read(notesProvider.notifier).init(() {
-      final note = ref.watch(notesProvider).notes[appCacheData.editingNote];
-      if(note != null) {
-        prepareEmbeddedBlocks(ref, note);
-        ref.read(editingNoteProvider.notifier).startEditing(note, true);
-        ref.read(editingNoteProvider.notifier).initController(ref);
-      }
-    });
+    ref.read(notesProvider.notifier).init(ref);
     ref.read(themesProvider.notifier).init();
 
     if (appSettings.useOwnServer) {
@@ -128,7 +119,6 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     appWebChannel.getDeviceInfo();
     if (Platform.isAndroid) {
       appMethodChannel.getSystemVersion();
-      appMethodChannel.configureNeedsBottomPadding();
     }
     super.initState();
   }
