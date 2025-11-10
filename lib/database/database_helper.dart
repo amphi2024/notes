@@ -17,11 +17,11 @@ class DatabaseHelper {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDatabase();
+    _database = await _openDatabase();
     return _database!;
   }
 
-  Future<Database> _initDatabase() async {
+  Future<Database> _openDatabase() async {
     if(Platform.isWindows || Platform.isLinux) {
       final databaseFactory = databaseFactoryFfi;
       final db = await databaseFactory.openDatabase(appStorage.databasePath, options: OpenDatabaseOptions(
@@ -35,6 +35,11 @@ class DatabaseHelper {
       version: 1,
       onCreate: _onCreate,
     );
+  }
+
+  Future<void> notifySelectedUserChanged() async {
+    await _database?.close();
+    _database = await _openDatabase();
   }
 
   Future<void> _onCreate(Database db, int version) async {
