@@ -13,7 +13,6 @@ import 'package:notes/utils/attachment_path.dart';
 import 'package:pdf/widgets.dart' as PDF;
 
 extension NoteConverter on Note {
-
   String toBundledFileContent() {
     List<Map<String, dynamic>> contentData = [];
     for (Map<String, dynamic> map in content) {
@@ -33,7 +32,7 @@ extension NoteConverter on Note {
         case "table":
           List<List<Map<String, dynamic>>> tableData = [];
           for (var rows in map["value"]) {
-            if(rows is List<Map<String, dynamic>>) {
+            if (rows is List<Map<String, dynamic>>) {
               List<Map<String, dynamic>> addingRows = [];
               for (var data in rows) {
                 if (data["img"] != null) {
@@ -54,7 +53,7 @@ extension NoteConverter on Note {
         case "divider":
           contentData.add({"type": "divider"});
           break;
-      // TODO: Add support for file
+        // TODO: Add support for file
         default:
           contentData.add(map);
           break;
@@ -198,17 +197,17 @@ extension NoteConverter on Note {
   String toMarkdown(String selectedPath, BuildContext context) {
     String markdown = "";
 
-    for (var i = 0 ; i < content.length; i++) {
+    for (var i = 0; i < content.length; i++) {
       final item = content[i];
       var imageCount = 0;
       switch (item["type"]) {
         case "img":
           var parent = Directory(selectedPath);
           var directory = Directory(PathUtils.join(parent.parent.path, "images"));
-          if(!directory.existsSync()) {
+          if (!directory.existsSync()) {
             directory.createSync();
           }
-          var fileExtension = FilenameUtils.extensionName( item["value"]);
+          var fileExtension = FilenameUtils.extensionName(item["value"]);
           var file = File(PathUtils.join(parent.parent.path, "images", "image$imageCount.$fileExtension"));
 
           var originalFile = File(noteImagePath(id, item["value"]));
@@ -247,34 +246,25 @@ extension NoteConverter on Note {
   Future<PDF.Document> toPDF(BuildContext context) async {
     final pdf = PDF.Document();
     List<PDF.Widget> list = [];
+    final japaneseFont = PDF.Font.ttf(await rootBundle.load("assets/NotoSansJP-Regular.ttf").then((f) => f.buffer.asByteData()));
     final koreanFont = PDF.Font.ttf(await rootBundle.load("assets/NotoSansKR-Regular.ttf").then((f) => f.buffer.asByteData()));
-    for(var item in content) {
+    // TODO: Use user-selected fonts (to reduce app size)
+    for (var item in content) {
       final value = item["value"];
-      switch(item["type"]) {
+      switch (item["type"]) {
         case "img":
           var file = File(noteImagePath(id, value));
-          list.add(
-              PDF.Image(
-                PDF.MemoryImage(
-                  await file.readAsBytes()
-                ),
-              ));
+          list.add(PDF.Image(
+            PDF.MemoryImage(await file.readAsBytes()),
+          ));
         case "text":
           final style = item["style"];
           final textSize = double.tryParse(style?["size"] ?? "");
-          final textStyle = PDF.TextStyle(
-            fontFallback: [koreanFont],
-            fontSize: textSize
-          );
-              list.add(
-                  PDF.Text(value,
-                style: textStyle
-              ));
+          final textStyle = PDF.TextStyle(fontFallback: [koreanFont, japaneseFont], fontSize: textSize);
+          list.add(PDF.Text(value, style: textStyle));
           break;
       }
     }
-
-
 
     pdf.addPage(
       PDF.MultiPage(
@@ -346,8 +336,8 @@ String textBlockToMarkdown(Map<String, dynamic> item) {
   item["style"]?.forEach((key, value) {
     switch (key) {
       case "header":
-        if(text.replaceAll("\n", "").isNotEmpty) {
-          switch(value) {
+        if (text.replaceAll("\n", "").isNotEmpty) {
+          switch (value) {
             case 2:
               markdown = "## $text";
               break;
@@ -373,7 +363,7 @@ String textBlockToMarkdown(Map<String, dynamic> item) {
         break;
       case "size":
         var size = double.tryParse(value);
-        if(size != null) {
+        if (size != null) {
           if (size >= 28) {
             markdown = '# $text';
           } else if (size >= 22) {
@@ -436,20 +426,18 @@ String tableBlockToMarkdown(Map<String, dynamic> item, BuildContext context) {
         markdown += "| ${data["text"]} ";
       } else if (data.containsKey("date")) {
         markdown += "| ${DateTime.fromMillisecondsSinceEpoch(data["date"]).toLocal().toLocalizedString(context)} ";
-      }
-      else {
+      } else {
         markdown += "| ";
       }
     }
     markdown += "|\n";
 
-    if(i == 0) {
+    if (i == 0) {
       for (var _ in rows) {
         markdown += "|------";
       }
       markdown += "|\n";
     }
-
   }
   markdown += "\n";
 

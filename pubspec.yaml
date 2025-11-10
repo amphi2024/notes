@@ -97,6 +97,8 @@ flutter:
   assets:
     - assets/strings/
     - assets/welcome.note
+    - assets/NotoSansKR-Regular.ttf
+    - assets/NotoSansJP-Regular.ttf
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
@@ -127,9 +129,6 @@ flutter:
     - family: nanum_gothic
       fonts:
         - asset: assets/nanum_gothic.ttf
-    - family: NotoSansKR-Regular
-      fonts:
-        - asset: assets/NotoSansKR-Regular.ttf
 
   # fonts:
   #   - family: Schyler
