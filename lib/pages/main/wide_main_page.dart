@@ -268,7 +268,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
 }
 
 Widget menu({required BuildContext context, required WidgetRef ref, required String selectedFolderId, required List<String>? selectedNotes}) {
-  if (App.isDesktop() || selectedNotes == null) {
+  if (selectedNotes == null) {
     return PopupMenuButton(
       tooltip: "",
         icon: Icon(
@@ -384,7 +384,7 @@ List<Widget> actions(
       },
       icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size));
 
-  if (App.isDesktop() || selectedNotes == null) {
+  if (selectedNotes == null) {
     return [addButton];
   }
 
