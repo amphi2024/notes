@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/database/database_helper.dart';
+import 'package:notes/models/app_settings.dart';
 import 'package:notes/utils/document_conversion.dart';
 import 'package:notes/utils/note_import_utils.dart';
 import 'package:notes/utils/notes_migration.dart';
@@ -157,15 +158,22 @@ class NotesNotifier extends Notifier<NotesState> {
       "!TRASH": []
     };
     final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM notes WHERE parent_id IS NULL", []);
+    final now = DateTime.now();
     for(var data in list) {
       final note = Note.fromMap(data);
 
-      notes[note.id] = note;
       if(note.deleted == null) {
+        notes[note.id] = note;
         idLists[""]!.add(note.id);
       }
       else {
-        idLists["!TRASH"]!.add(note.id);
+        if(now.difference(note.deleted!).inDays > appSettings.permanentDeletionPeriod) {
+          await note.delete(ref: ref);
+        }
+        else {
+          notes[note.id] = note;
+          idLists["!TRASH"]!.add(note.id);
+        }
       }
     }
 
