@@ -15,6 +15,7 @@ import 'package:notes/components/note_editor/embed_block/video/video_block_embed
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/database/note_queries.dart';
 import 'package:notes/models/table_data.dart';
+import 'package:notes/utils/attachment_path.dart';
 import 'package:notes/utils/generate_id.dart';
 
 import '../components/note_editor/embed_block/divider/divider_block_embed.dart';
@@ -145,14 +146,54 @@ class Note {
   Future<void> moveToTrashIfOrphan() async {}
 
   Future<void> save({bool upload = true}) async {
+    print(id);
     if (id.isEmpty) {
       id = await generatedNoteId();
     }
     final database = await databaseHelper.database;
     await database.insertNote(this);
 
+    final Set<String> images = {};
+    final Set<String> videos = {};
+    final Set<String> audio = {};
+    for(var item in content) {
+      switch(item["type"]) {
+        case "img":
+          images.add(noteImagePath(id, item["value"]));
+          break;
+        case "video":
+          videos.add(noteVideoPath(id, item["value"]));
+          break;
+        case "audio":
+          audio.add(noteAudioPath(id, item["value"]));
+          break;
+      }
+    }
+    await deleteObsoleteAttachments(images, "images");
+    await deleteObsoleteAttachments(videos, "videos");
+    await deleteObsoleteAttachments(audio, "audio");
+
     if (upload) {
       appWebChannel.uploadNote(this);
+    }
+  }
+
+  Future<void> deleteObsoleteAttachments(Set<String> filePaths, String directoryName) async {
+    final directory = Directory(noteAttachmentDirPath(id, directoryName));
+    Set<String> existingFilePaths = {};
+    if (await directory.exists()) {
+      final fileList = await directory.list().toList();
+      for(var i = 0; i < await fileList.length; i++) {
+        final file = fileList[i];
+        existingFilePaths.add(file.path);
+      }
+
+      final obsoleteFilePaths = existingFilePaths.difference(filePaths).toList();
+
+      for(var filePath in obsoleteFilePaths) {
+        final file = File(filePath);
+        await file.delete();
+      }
     }
   }
 
