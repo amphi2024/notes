@@ -55,7 +55,7 @@ Future<void> applyUpdateEvent(UpdateEvent updateEvent, WidgetRef ref) async {
   switch(updateEvent.action) {
     case UpdateEvent.uploadNote:
       await appWebChannel.downloadNote(id: updateEvent.value, onSuccess: (note) async {
-        await note.save(upload: false);
+        await note.save(upload: false, checkAttachments: true);
         ref.read(notesProvider.notifier).applyServerUpdate(note);
       });
       break;

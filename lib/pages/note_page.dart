@@ -82,7 +82,7 @@ class _NotePageState extends ConsumerState<NotePage> {
           note.content = controller.document.toNoteContent(ref);
           note.modified = DateTime.now();
           note.initTitles();
-          note.save();
+          note.save(checkAttachments: true);
           note.initDelta();
           ref.read(notesProvider.notifier).insertNote(note);
         }

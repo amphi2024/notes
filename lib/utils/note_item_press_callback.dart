@@ -69,7 +69,7 @@ void saveEditingNoteBeforeSwitch(WidgetRef ref) {
   if(oldNote.id.isNotEmpty && ref.watch(editingNoteProvider.notifier).controller.hasUndo) {
     oldNote.content = ref.watch(editingNoteProvider.notifier).controller.document.toNoteContent(ref);
     oldNote.modified = DateTime.now();
-    oldNote.save();
+    oldNote.save(checkAttachments: true);
     oldNote.initTitles();
     oldNote.initDelta();
     ref.read(notesProvider.notifier).insertNote(oldNote);

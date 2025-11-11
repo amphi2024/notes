@@ -145,33 +145,35 @@ class Note {
 
   Future<void> moveToTrashIfOrphan() async {}
 
-  Future<void> save({bool upload = true}) async {
-    print(id);
+  Future<void> save({bool upload = true, bool checkAttachments = false}) async {
     if (id.isEmpty) {
       id = await generatedNoteId();
     }
     final database = await databaseHelper.database;
     await database.insertNote(this);
 
-    final Set<String> images = {};
-    final Set<String> videos = {};
-    final Set<String> audio = {};
-    for(var item in content) {
-      switch(item["type"]) {
-        case "img":
-          images.add(noteImagePath(id, item["value"]));
-          break;
-        case "video":
-          videos.add(noteVideoPath(id, item["value"]));
-          break;
-        case "audio":
-          audio.add(noteAudioPath(id, item["value"]));
-          break;
+    if(checkAttachments) {
+      final Set<String> images = {};
+      final Set<String> videos = {};
+      final Set<String> audio = {};
+      for(var item in content) {
+        switch(item["type"]) {
+          case "img":
+            images.add(noteImagePath(id, item["value"]));
+            break;
+          case "video":
+            videos.add(noteVideoPath(id, item["value"]));
+            break;
+          case "audio":
+            audio.add(noteAudioPath(id, item["value"]));
+            break;
+        }
       }
+      await deleteObsoleteAttachments(images, "images");
+      await deleteObsoleteAttachments(videos, "videos");
+      await deleteObsoleteAttachments(audio, "audio");
+
     }
-    await deleteObsoleteAttachments(images, "images");
-    await deleteObsoleteAttachments(videos, "videos");
-    await deleteObsoleteAttachments(audio, "audio");
 
     if (upload) {
       appWebChannel.uploadNote(this);
