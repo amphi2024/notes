@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/utils/document_conversion.dart';
 import 'package:notes/utils/note_import_utils.dart';
+import 'package:notes/utils/notes_migration.dart';
+import 'package:notes/utils/theme_migration.dart';
 import '../models/app_cache_data.dart';
 import '../models/note.dart';
 import '../models/sort_option.dart';
@@ -198,6 +200,9 @@ class NotesNotifier extends Notifier<NotesState> {
       await note.save();
       ref.read(notesProvider.notifier).insertNote(note);
     }
+
+    await verifyNotesMigration(database);
+    await verifyThemesMigration(database);
   }
 
 }

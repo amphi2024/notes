@@ -9,9 +9,9 @@ import '../models/app_storage.dart';
 
 Future<void> moveAttachments(String oldId, String id) async {
   var directory = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "notes", oldId));
-  var target = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "attachments", id[0] , id[1], id));
-  if(await directory.exists() && id.length > 2 && !await target.exists()) {
-    await Directory(PathUtils.join(appStorage.selectedUser.storagePath, "attachments", id[0] , id[1])).create(recursive: true);
+  var target = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "attachments", id[0], id[1], id));
+  if (await directory.exists() && id.length > 2 && !await target.exists()) {
+    await Directory(PathUtils.join(appStorage.selectedUser.storagePath, "attachments", id[0], id[1])).create(recursive: true);
     await directory.rename(target.path);
   }
 }
@@ -19,7 +19,7 @@ Future<void> moveAttachments(String oldId, String id) async {
 Future<void> migrateNotes(Database db) async {
   final batch = db.batch();
   Directory directory = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "notes"));
-  if(!await directory.exists()) {
+  if (!await directory.exists()) {
     return;
   }
 
@@ -28,15 +28,15 @@ Future<void> migrateNotes(Database db) async {
   for (int i = 0; i < fileList.length; i++) {
     FileSystemEntity file = fileList[i];
     if (file is File) {
-       var oldId = FilenameUtils.nameOnly(PathUtils.basename(file.path));
+      var oldId = FilenameUtils.nameOnly(PathUtils.basename(file.path));
 
       if (file.path.endsWith(".note")) {
         Map<String, dynamic> map = jsonDecode(await file.readAsString());
         var id = "${oldId}legacynote";
 
-          var data = _parsedLegacyNote(id, map);
-          batch.insert("notes", data);
-          moveAttachments(oldId, id);
+        var data = _parsedLegacyNote(id, map);
+        batch.insert("notes", data);
+        moveAttachments(oldId, id);
       } else if (file.path.endsWith(".folder")) {
         Map<String, dynamic> map = jsonDecode(await file.readAsString());
         var id = "${oldId}legacyfolder";
@@ -47,6 +47,51 @@ Future<void> migrateNotes(Database db) async {
   }
 
   batch.commit();
+}
+
+Future<void> verifyNotesMigration(Database db) async {
+  Directory notesDirectory = Directory(PathUtils.join(appStorage.selectedUser.storagePath, "notes"));
+  if (!await notesDirectory.exists()) {
+    return;
+  }
+
+  bool allDataMigrated = true;
+  List<FileSystemEntity> fileList = notesDirectory.listSync();
+
+  for (int i = 0; i < fileList.length; i++) {
+    FileSystemEntity file = fileList[i];
+    if (file is File) {
+      var oldId = FilenameUtils.nameOnly(PathUtils.basename(file.path));
+
+      if (file.path.endsWith(".note")) {
+        Map<String, dynamic> map = jsonDecode(await file.readAsString());
+        var id = "${oldId}legacynote";
+        final list = await db.rawQuery("SELECT * FROM notes WHERE id = ?;", [id]);
+
+        if (list.isEmpty) {
+          allDataMigrated = false;
+          final data = _parsedLegacyNote(id, map);
+          await db.insert("notes", data);
+        }
+        moveAttachments(oldId, id);
+      } else if (file.path.endsWith(".folder")) {
+        Map<String, dynamic> map = jsonDecode(await file.readAsString());
+        var id = "${oldId}legacyfolder";
+
+        final list = await db.rawQuery("SELECT * FROM notes WHERE id = ?;", [id]);
+
+        if (list.isEmpty) {
+          allDataMigrated = false;
+          final data = _parsedLegacyFolder(id, map);
+          await db.insert("notes", data);
+        }
+      }
+    }
+  }
+
+  if (allDataMigrated) {
+    await notesDirectory.delete(recursive: true);
+  }
 }
 
 Map<String, dynamic> _parsedLegacyNote(String id, Map<String, dynamic> map) {
@@ -65,41 +110,36 @@ Map<String, dynamic> _parsedLegacyFolder(String id, Map<String, dynamic> map) {
   return data;
 }
 
-
 Map<String, dynamic> _parsedLegacyData(String id, Map<String, dynamic> map) {
   final String location = map["location"];
   final parentId = location.split(".folder").firstOrNull;
-  var data = {
-    "id": id,
-    "created": map["created"],
-    "modified": map["modified"]
-  };
+  var data = {"id": id, "created": map["created"], "modified": map["modified"]};
 
-  if(map["deleted"] is int) {
+  if (map["deleted"] is int) {
     data["deleted"] = map["deleted"];
   }
 
-  if(parentId != null && parentId.isNotEmpty) {
+  if (parentId != null && parentId.isNotEmpty) {
     data["parent_id"] = "${parentId}legacyfolder";
   }
 
-  if(map["lineHeight"] is int) {
+  if (map["lineHeight"] is int) {
     data["line_height"] = map["lineHeight"];
   }
 
-  if(map["textSize"] is int) {
+  if (map["textSize"] is int) {
     data["text_size"] = map["textSize"];
   }
 
-  if(map["textColor"] is int) {
+  if (map["textColor"] is int) {
     data["text_color"] = map["textColor"];
   }
 
-  if(map["textColor"] is int) {
+  if (map["textColor"] is int) {
     data["text_color"] = map["textColor"];
   }
 
-  if(map["backgroundColor"] is int) {
+  if (map["backgroundColor"] is int) {
     data["background_color"] = map["backgroundColor"];
   }
 
