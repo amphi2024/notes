@@ -19,7 +19,7 @@ void refreshDataWithServer(WidgetRef ref) {
             if(!note.isFolder) {
               note.initTitles();
             }
-            ref.read(notesProvider.notifier).insertNote(note);
+            ref.read(notesProvider.notifier).applyServerUpdate(note);
           });
         }
       }
