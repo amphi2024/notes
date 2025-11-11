@@ -13,6 +13,7 @@ import '../models/note.dart';
 import '../models/sort_option.dart';
 import '../utils/generate_id.dart';
 import '../utils/note_item_press_callback.dart';
+import '../utils/orphan_notes.dart';
 import 'editing_note_provider.dart';
 
 class NotesState {
@@ -211,6 +212,8 @@ class NotesNotifier extends Notifier<NotesState> {
 
     await verifyNotesMigration(database);
     await verifyThemesMigration(database);
+
+    checkOrphanNotes(database);
   }
 
 }
