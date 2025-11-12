@@ -12,6 +12,7 @@ requires:
   - mpv
   - libmimalloc-dev
   - libmimalloc2.0
+  - sqlite-libs
 
 keywords:
   - Notes

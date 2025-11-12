@@ -18,6 +18,7 @@ dependencies:
   - mpv
   - libmimalloc-dev
   - libmimalloc2.0
+  - libsqlite3
 
 postinstall_scripts:
   - echo "Installed Amphi Notes successfully"
