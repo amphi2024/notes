@@ -6,14 +6,6 @@ license: GPLv3
 
 icon: assets/logo/icon_512x512.png
 
-requires:
-  - libfuse2
-  - libmpv-dev
-  - mpv
-  - libmimalloc-dev
-  - libmimalloc2.0
-  - sqlite-libs
-
 keywords:
   - Notes
 
