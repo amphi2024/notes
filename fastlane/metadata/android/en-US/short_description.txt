@@ -1,0 +1,1 @@
+Cross-platform note-taking app that enables users to sync their data with a self-hosted server

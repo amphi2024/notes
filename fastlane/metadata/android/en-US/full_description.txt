@@ -1,0 +1,5 @@
+  Amphi Notes is a free and open-source, cross-platform note-taking app.
+  You can insert images and videos into your notes, and format your text.
+  Organize your notes using folders, just like a traditional file system.
+  Once you've written your notes or stories, you can sync them across devices via a self-hosted server.
+  If you want to host your server, visit our homepage: https://amphi.site
