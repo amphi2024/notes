@@ -65,7 +65,8 @@ dependencies:
   amphi:
     git:
       url: https://github.com/amphi2024/flutter-shared
-      ref: v1.4.2
+      ref: v2.0.0
+#    path: ../amphi
 
 dev_dependencies:
   flutter_test:

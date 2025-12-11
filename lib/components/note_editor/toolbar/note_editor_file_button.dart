@@ -27,7 +27,7 @@ class NoteEditorFileButton extends ConsumerStatefulWidget {
 
 class NoteEditorFileButtonState extends ConsumerState<NoteEditorFileButton> {
   String generatedFilename(String fileExtension,
-      List<Map<String, dynamic>> list) {
+      Set<Map<String, dynamic>> list) {
     String name = randomString(15, 8) + fileExtension;
     bool exists = false;
     for (var map in list) {
@@ -44,7 +44,7 @@ class NoteEditorFileButtonState extends ConsumerState<NoteEditorFileButton> {
     }
   }
 
-  void pickFilesAndInsert(List<Map<String, dynamic>> list) async {
+  void pickFilesAndInsert(Set<Map<String, dynamic>> list) async {
     var result = await FilePicker.platform.pickFiles(allowMultiple: true);
     if (result != null) {
       for (int i = 0; i < result.files.length; i++) {
@@ -86,11 +86,11 @@ class NoteEditorFileButtonState extends ConsumerState<NoteEditorFileButton> {
           appWebChannel.getFiles(noteId: ref
               .watch(editingNoteProvider)
               .note
-              .id, onSuccess: (list) async {
-            pickFilesAndInsert(list);
+              .id, onSuccess: (files) async {
+            pickFilesAndInsert(files);
           }, onFailed: (statusCode) {
             if (statusCode == HttpStatus.notFound) {
-              pickFilesAndInsert([]);
+              pickFilesAndInsert({});
             }
             else {
               showToast(context,

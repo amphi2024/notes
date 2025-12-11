@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
-import 'package:amphi/extensions/color_extension.dart';
+import 'package:amphi/utils/color_values.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/utils/random_string.dart';
 import 'package:flutter/material.dart';

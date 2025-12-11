@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:amphi/models/app_web_channel_core.dart';
 import 'package:amphi/models/update_event.dart';
-import 'package:http/http.dart';
 import 'package:notes/models/app_settings.dart';
 import 'package:notes/models/file_model.dart';
 import 'package:notes/models/theme_model.dart';
@@ -30,25 +29,6 @@ class AppWebChannel extends AppWebChannelCore {
 
   bool uploadBlocked = false;
 
-  void getServerVersion({required void Function(String version) onSuccess, void Function(int?)? onFailed}) async {
-    try {
-      final response = await get(
-        Uri.parse("$serverAddress/version")
-      );
-      if (response.statusCode == 200) {
-        onSuccess(response.body);
-      } else {
-        if (onFailed != null) {
-          onFailed(response.statusCode);
-        }
-      }
-    } catch (e) {
-      if (onFailed != null) {
-        onFailed(null);
-      }
-    }
-  }
-
   @override
   String get appType => "notes";
 
@@ -60,7 +40,7 @@ class AppWebChannel extends AppWebChannelCore {
       UpdateEvent updateEvent = UpdateEvent.fromJson(jsonData);
 
       onWebSocketEvent(updateEvent);
-      appWebChannel.acknowledgeEvent(updateEvent);
+      // appWebChannel.acknowledgeEvent(updateEvent);
     }, onDone: () {
       connected = false;
     }, onError: (d) {
@@ -68,81 +48,16 @@ class AppWebChannel extends AppWebChannelCore {
     }, cancelOnError: true);
   }
 
-  void getItems({required String url, void Function(int?)? onFailed, void Function(List<Map<String, dynamic>>)? onSuccess}) async {
-    if(uploadBlocked) {
-      return;
-    }
-    try {
-      final response = await get(
-        Uri.parse(url),
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appWebChannel.token},
-      );
-      if (onSuccess != null && response.statusCode == 200) {
-        List<dynamic> list = jsonDecode(response.body);
-        onSuccess(list.map((item) => item as Map<String, dynamic>).toList());
-      } else {
-        if (onFailed != null) {
-          onFailed(response.statusCode);
-        }
-      }
-    } catch (e) {
-      if (onFailed != null) {
-        onFailed(null);
-      }
-    }
-  }
-
-  void getNotes({void Function(int?)? onFailed, void Function(List<Map<String, dynamic>>)? onSuccess}) async {
+  void getNotes({void Function(int?)? onFailed, void Function(Set<Map<String, dynamic>>)? onSuccess}) async {
     getItems(url: "$serverAddress/notes", onFailed: onFailed, onSuccess: onSuccess);
   }
 
-  void getThemes({void Function(int?)? onFailed, void Function(List<Map<String, dynamic>>)? onSuccess}) async {
+  void getThemes({void Function(int?)? onFailed, void Function(Set<Map<String, dynamic>>)? onSuccess}) async {
     getItems(url: "$serverAddress/notes/themes", onFailed: onFailed, onSuccess: onSuccess);
   }
 
-  void getFiles({required String noteId, void Function(int?)? onFailed, void Function(List<Map<String, dynamic>>)? onSuccess}) async {
+  void getFiles({required String noteId, void Function(int?)? onFailed, void Function(Set<Map<String, dynamic>>)? onSuccess}) async {
     getItems(url: "$serverAddress/notes/$noteId/files", onSuccess: onSuccess, onFailed: onFailed);
-  }
-
-  void getEvents({required void Function(List<UpdateEvent>) onResponse}) async {
-    if(uploadBlocked) {
-      return;
-    }
-    Set<UpdateEvent> set = {};
-    List<UpdateEvent> list = [];
-    final response = await get(
-      Uri.parse("$serverAddress/notes/events"),
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appWebChannel.token},
-    );
-    if (response.statusCode == HttpStatus.ok) {
-      List<dynamic> decoded = jsonDecode(utf8.decode(response.bodyBytes));
-      for (Map<String, dynamic> map in decoded) {
-        UpdateEvent updateEvent = UpdateEvent.fromJson(map);
-        set.add(updateEvent);
-        list.add(updateEvent);
-      }
-      onResponse(set.toList());
-    } else if (response.statusCode == HttpStatus.unauthorized) {
-      appStorage.selectedUser.token = "";
-    }
-  }
-
-  void acknowledgeEvent(UpdateEvent updateEvent) async {
-    if(uploadBlocked) {
-      return;
-    }
-    Map<String, dynamic> data = {
-      'value': updateEvent.value,
-      'action': updateEvent.action,
-    };
-
-    String postData = json.encode(data);
-
-    await delete(
-      Uri.parse("${appSettings.serverAddress}/notes/events"),
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', "Authorization": appStorage.selectedUser.token},
-      body: postData,
-    );
   }
 
   @override

@@ -1,6 +1,7 @@
-import 'package:amphi/extensions/color_extension.dart';
+
 import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
+import 'package:amphi/utils/color_values.dart';
 import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

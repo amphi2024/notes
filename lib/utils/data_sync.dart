@@ -44,8 +44,8 @@ void refreshDataWithServer(WidgetRef ref) {
 }
 
 void syncDataWithServer(WidgetRef ref) {
-  appWebChannel.getEvents(onResponse: (list) async {
-    for (var updateEvent in list) {
+  appWebChannel.getEvents(onSuccess: (events) async {
+    for (var updateEvent in events) {
       await applyUpdateEvent(updateEvent, ref);
     }
   });
