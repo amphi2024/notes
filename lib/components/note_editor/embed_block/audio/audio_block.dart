@@ -1,10 +1,10 @@
-import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/services/audio_service.dart';
 
 import '../../../../channels/app_web_channel.dart';
 import '../../../../models/app_settings.dart';
 import '../../../../utils/byte_utils.dart';
+import '../../../../utils/screen_size.dart';
 
 class AudioBlock extends StatefulWidget {
   final String noteId;
@@ -68,7 +68,7 @@ class _AudioBlockState extends State<AudioBlock> {
       child: MouseRegion(
         cursor: SystemMouseCursors.basic,
         child: Container(
-           width: App.isWideScreen(context) ? 450 : null,
+           width: isTablet(context) ? 450 : null,
           height: 45,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_kit/media_kit.dart';
+import 'package:notes/utils/screen_size.dart';
 import 'database/database_helper.dart';
 import 'pages/main/main_page.dart';
 import 'package:notes/providers/editing_note_provider.dart';
@@ -49,7 +49,7 @@ void main() async {
         ],
         child: MyApp(key: mainScreenKey)));
 
-    if (App.isDesktop()) {
+    if (isDesktop()) {
       doWhenWindowReady(() {
         appWindow.minSize = Size(600, 350);
         appWindow.size = Size(appCacheData.windowWidth, appCacheData.windowHeight);
@@ -151,6 +151,6 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           GlobalCupertinoLocalizations.delegate,
           FlutterQuillLocalizations.delegate
         ],
-        home: !App.isWideScreen(context) && !App.isDesktop() ? MainPage(folder: Note(id: "")) : const WideMainPage());
+        home: isDesktopOrTablet(context) ? const WideMainPage() : MainPage(folder: Note(id: "")));
   }
 }

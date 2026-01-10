@@ -1,4 +1,3 @@
-import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/note_image_rounded.dart';
@@ -9,6 +8,7 @@ import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 
 import '../../utils/note_item_press_callback.dart';
+import '../../utils/screen_size.dart';
 
 class NoteLinearItem extends ConsumerWidget {
   final Note note;
@@ -19,12 +19,12 @@ class NoteLinearItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedNotes = ref.watch(selectedNotesProvider);
-    final selectingNotes = selectedNotes != null && !App.isDesktop();
+    final selectingNotes = selectedNotes != null && isMobile();
     final focused = selectedNotes != null ? selectedNotes.contains(note.id) : ref.watch(editingNoteProvider).note.id == note.id;
     final themeData = Theme.of(context);
 
     final widget = Material(
-      color: App.isDesktop() && focused ? themeData.highlightColor.withAlpha(100) : themeData
+      color: isDesktop() && focused ? themeData.highlightColor.withAlpha(100) : themeData
           .cardColor,
       borderRadius: borderRadius,
       child: InkWell(
@@ -39,10 +39,10 @@ class NoteLinearItem extends ConsumerWidget {
           ref.read(selectedNotesProvider.notifier).startSelection();
         },
         child: SizedBox(
-          height: App.isDesktop() ? 70 : 60,
+          height: isDesktop() ? 70 : 60,
           child: Stack(
             children: [
-              if(showDivider || (App.isDesktop()) && focused) ... [
+              if(showDivider || (isDesktop()) && focused) ... [
                 AnimatedPositioned(
                     duration: const Duration(milliseconds: 1000),
                     curve: Curves.easeOutQuint,
@@ -50,7 +50,7 @@ class NoteLinearItem extends ConsumerWidget {
                     right: 0,
                     bottom: 0,
                     child: Padding(
-                      padding: App.isDesktop() ? const EdgeInsets.only(right: 5.0 , bottom: 5) : EdgeInsets.zero,
+                      padding: isDesktop() ? const EdgeInsets.only(right: 5.0 , bottom: 5) : EdgeInsets.zero,
                       child: Divider(
                         color: themeData.dividerColor,
                         height: 1,
@@ -147,7 +147,7 @@ class NoteLinearItem extends ConsumerWidget {
       ),
     );
 
-    if(App.isDesktop()) {
+    if(isDesktop()) {
       return Draggable<List<String>>(
         data: selectedNotes ?? [note.id],
         dragAnchorStrategy: pointerDragAnchorStrategy,

@@ -1,10 +1,10 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/settings/edit_theme_dialog.dart';
 
 import 'package:notes/models/theme_model.dart';
 import 'package:notes/utils/generate_id.dart';
+import 'package:notes/utils/screen_size.dart';
 
 
 class CreateThemeButton extends StatelessWidget {
@@ -32,8 +32,8 @@ class CreateThemeButton extends StatelessWidget {
               height: 100,
               child: Center(
                 child: Container(
-                  width: App.isWideScreen(context) || App.isDesktop() ? 100 : 70,
-                  height: App.isWideScreen(context) || App.isDesktop() ? 70 : 100,
+                  width: isDesktopOrTablet(context) ? 100 : 70,
+                  height: isDesktopOrTablet(context) ? 70 : 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).scaffoldBackgroundColor,

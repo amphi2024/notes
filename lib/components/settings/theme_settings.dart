@@ -1,4 +1,3 @@
-import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/settings/create_theme_button.dart';
@@ -8,6 +7,7 @@ import 'package:notes/components/settings/theme_item.dart';
 import 'package:notes/main.dart';
 import 'package:notes/models/theme_model.dart';
 import 'package:notes/providers/themes_provider.dart';
+import 'package:notes/utils/screen_size.dart';
 
 import '../../models/app_settings.dart';
 
@@ -16,7 +16,7 @@ class ThemeSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (App.isWideScreen(context) || App.isDesktop()) {
+    if (isDesktopOrTablet(context)) {
       return _WideSettings();
     }
     return _MobileSettings();

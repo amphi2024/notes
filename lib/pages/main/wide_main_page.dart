@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
@@ -28,6 +27,7 @@ import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 import 'package:notes/utils/generate_id.dart';
+import 'package:notes/utils/screen_size.dart';
 import 'package:notes/utils/toast.dart';
 import 'package:notes/views/notes_view.dart';
 
@@ -99,7 +99,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
       onPopInvokedWithResult: (didPop, result) {},
       child: MouseRegion(
         onHover: (event) {
-          if (App.isDesktop() && wideMainPageState.sideBarFloating) {
+          if (isDesktop() && wideMainPageState.sideBarFloating) {
             if (wideMainPageState.sideBarShowing && event.position.dx >= 265) {
               ref.read(wideMainPageStateProvider.notifier).setSideBarShowing(false);
             } else if (event.position.dx <= 20) {
@@ -222,7 +222,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                   NoteEditorRedoButton(controller: controller),
                                   if (Platform.isWindows) ...[
                                     Visibility(
-                                      visible: App.isDesktop(),
+                                      visible: isDesktop(),
                                       child: MinimizeCustomWindowButton(colors: colors),
                                     ),
                                     appWindow.isMaximized

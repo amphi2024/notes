@@ -1,5 +1,4 @@
 
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/utils/color_values.dart';
 import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
@@ -10,6 +9,7 @@ import 'package:notes/components/note_editor/edit_style/edit_note_text_size.dart
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/models/app_colors.dart';
 import 'package:notes/providers/editing_note_provider.dart';
+import 'package:notes/utils/screen_size.dart';
 
 class EditNoteDetail extends ConsumerStatefulWidget {
   final QuillController controller;
@@ -38,7 +38,7 @@ class _EditNoteDetailState extends ConsumerState<EditNoteDetail> {
     final note = ref.watch(editingNoteProvider).note;
     return Container(
       width: 250,
-      height: App.isDesktop() ? 200 : 400,
+      height: isDesktop() ? 200 : 400,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(
@@ -173,7 +173,7 @@ class _EditNoteLineHeightState extends State<_EditNoteLineHeight> {
 
   @override
   Widget build(BuildContext context) {
-    if (App.isDesktop() || App.isWideScreen(context)) {
+    if (isDesktopOrTablet(context)) {
       return DropdownButton<double>(
           value: widget.value,
           items: list

@@ -1,10 +1,10 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
 import 'package:notes/components/items/folder_grid_item.dart';
+import 'package:notes/utils/screen_size.dart';
 import '../components/items/folder_linear_item.dart';
 import '../components/items/note_grid_item.dart';
 import '../components/items/note_linear_item.dart';
@@ -66,7 +66,7 @@ class _NotesViewState extends ConsumerState<NotesView> {
                     )
                   : NoteLinearItem(
                       note: note,
-                      borderRadius: App.isDesktop() ? BorderRadius.circular(10) : borderRadius,
+                      borderRadius: isDesktop() ? BorderRadius.circular(10) : borderRadius,
                       showDivider: !roundBottom,
                     );
 

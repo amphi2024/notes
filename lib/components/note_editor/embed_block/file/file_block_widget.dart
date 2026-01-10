@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/file_model.dart';
 import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/note_files_provider.dart';
+import 'package:notes/utils/screen_size.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../../channels/app_web_channel.dart';
@@ -31,7 +31,7 @@ class FileBlockWidget extends ConsumerWidget {
           MouseRegion(
             cursor: SystemMouseCursors.basic,
             child: Container(
-              width: App.isWideScreen(context) ? 350 : 250,
+              width: isTablet(context) ? 350 : 250,
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),

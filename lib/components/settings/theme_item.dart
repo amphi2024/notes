@@ -1,10 +1,10 @@
 
-import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/app_cache_data.dart';
 import 'package:notes/models/theme_model.dart';
 import 'package:notes/providers/themes_provider.dart';
+import 'package:notes/utils/screen_size.dart';
 
 class ThemeItem extends ConsumerWidget {
   final String id;
@@ -23,7 +23,7 @@ class ThemeItem extends ConsumerWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: App.isWideScreen(context) || App.isDesktop() ? _WideItem(themeColors: themeColors) : _MobileItem(themeColors: themeColors),
+          child: isDesktopOrTablet(context) ? _WideItem(themeColors: themeColors) : _MobileItem(themeColors: themeColors),
         ),
         Text(
           themeModel.title,

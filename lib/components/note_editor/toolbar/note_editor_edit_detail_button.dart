@@ -1,9 +1,9 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/widgets/menu/popup/custom_popup_menu_route.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_editor/edit_detail_dialog.dart';
 import 'package:notes/components/note_editor/edit_style/edit_note_detail.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:notes/utils/screen_size.dart';
 
 class NoteEditorEditDetailButton extends StatelessWidget {
 
@@ -16,7 +16,7 @@ class NoteEditorEditDetailButton extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.more_vert_rounded, size: iconSize),
       onPressed: () {
-        if(App.isWideScreen(context)) {
+        if(isTablet(context)) {
           showCustomPopupMenu(context, EditNoteDetail(controller: controller));
         }
         else {

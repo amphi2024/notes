@@ -1,4 +1,3 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/dialogs/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:notes/providers/selected_notes_provider.dart';
 import 'package:notes/utils/generate_id.dart';
 
 import '../../providers/notes_provider.dart';
+import '../../utils/screen_size.dart';
 
 class FolderWideScreenItem extends ConsumerStatefulWidget {
   final void Function() onIconPressed;
@@ -46,7 +46,7 @@ class FolderWideScreenItemState extends ConsumerState<FolderWideScreenItem> {
 
     final item = GestureDetector(
       onLongPress: () {
-        if(!App.isDesktop()) {
+        if(isMobile()) {
           setState(() {
             editButtonShowing = !editButtonShowing;
           });
@@ -95,7 +95,7 @@ class FolderWideScreenItemState extends ConsumerState<FolderWideScreenItem> {
       ),
     );
 
-    if(App.isDesktop()) {
+    if(isDesktop()) {
       return DragTarget<List<String>>(onWillAcceptWithDetails: (details) {
         return details.data.firstOrNull != widget.folder.id && details.data.firstOrNull != widget.folder.parentId;
       }, onAcceptWithDetails: (details) {

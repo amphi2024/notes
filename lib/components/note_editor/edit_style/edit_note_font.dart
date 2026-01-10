@@ -1,8 +1,8 @@
-import 'package:amphi/models/app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:notes/components/font.dart';
+import 'package:notes/utils/screen_size.dart';
 
 class EditNoteFont extends StatefulWidget {
   final QuillController noteEditingController;
@@ -19,7 +19,7 @@ class _EditNoteFontState extends State<EditNoteFont> {
 
   @override
   Widget build(BuildContext context) {
-    if(App.isDesktop()) {
+    if(isDesktop()) {
       return DropdownButton<String>(
           style: Theme.of(context).textTheme.bodyMedium,
           value: widget.noteEditingController.getSelectionStyle().attributes[Attribute.font.key]?.value ?? "",

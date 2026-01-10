@@ -1,4 +1,3 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:notes/components/note_editor/embed_block/table/table/note_table.
 import 'package:notes/dialogs/edit_table_dialog.dart';
 import 'package:notes/pages/edit_table_page.dart';
 import 'package:notes/providers/tables_provider.dart';
+import 'package:notes/utils/screen_size.dart';
 
 import 'calendar/note_calendar.dart';
 import 'chart/note_chart.dart';
@@ -68,7 +68,7 @@ class NoteTableView extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         if(readOnly) {
-          if(App.isWideScreen(context) || App.isDesktop()) {
+          if(isDesktopOrTablet(context)) {
             showDialog(context: context, builder: (context) {
               return EditTableDialog(tableId: tableId);
             });

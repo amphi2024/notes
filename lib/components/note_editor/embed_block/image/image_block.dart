@@ -1,8 +1,9 @@
-import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/components/note_image.dart';
 import 'package:notes/pages/image/image_page.dart';
 import 'package:notes/pages/image/wide_image_page.dart';
+
+import '../../../../utils/screen_size.dart';
 
 class ImageBlock extends StatefulWidget {
   final String filename;
@@ -27,7 +28,7 @@ class _ImageBlockState extends State<ImageBlock> {
                PageRouteBuilder(
                  opaque: false,
                  pageBuilder: (context, animation, secondaryAnimation) {
-                   if(App.isWideScreen(context) || App.isDesktop()) {
+                   if(isDesktopOrTablet(context)) {
                      return WideImagePage(noteId: widget.noteId, filename: widget.filename);
                    }
                    return ImagePage(noteId: widget.noteId, filename: widget.filename);

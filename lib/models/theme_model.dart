@@ -1,7 +1,7 @@
 
-import 'package:amphi/models/app.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/channels/app_web_channel.dart';
+import 'package:notes/utils/screen_size.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../database/database_helper.dart';
@@ -157,8 +157,8 @@ class ThemeModel {
           ? Colors.grey.withValues(alpha: 0.5)
           : Colors.black.withValues(alpha: 0.5),
       iconTheme: IconThemeData(
-          color: App.isWideScreen(context) || App.isDesktop() ? colors.text.soften(brightness) : colors.accent,
-          size: App.isWideScreen(context) || App.isDesktop() ? 20 : 15),
+          color: isDesktopOrTablet(context) ? colors.text.soften(brightness) : colors.accent,
+          size: isDesktopOrTablet(context) ? 20 : 15),
 
       checkboxTheme: CheckboxThemeData(
         checkColor: WidgetStateProperty.resolveWith((states) {
@@ -184,7 +184,7 @@ class ThemeModel {
           surfaceTintColor: colors.background.withAlpha(245),
           toolbarHeight: 40,
           titleSpacing: 0.0,
-          iconTheme: IconThemeData(color: colors.accent, size: App.isDesktop() || App.isWideScreen(context) ? 25 : 20)),
+          iconTheme: IconThemeData(color: colors.accent, size: isDesktopOrTablet(context) ? 25 : 20)),
       disabledColor: ThemeModel.inactiveGray,
       highlightColor: colors.accent,
       scaffoldBackgroundColor: colors.background,

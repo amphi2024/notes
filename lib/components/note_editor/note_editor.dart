@@ -1,5 +1,4 @@
 
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import 'package:notes/components/note_editor/embed_block/table/note_table_embed_
 import 'package:notes/components/note_editor/embed_block/video/video_embed_builder.dart';
 import 'package:notes/components/note_editor/note_editor_check_box_builder.dart';
 import 'package:notes/models/note.dart';
+import 'package:notes/utils/screen_size.dart';
 
 import 'embed_block/audio/audio_embed_builder.dart';
 
@@ -109,7 +109,7 @@ class _NoteEditorState extends State<NoteEditor> {
         )
     );
 
-    if(App.isDesktop() || App.isWideScreen(context)) {
+    if(isDesktopOrTablet(context)) {
       return editor;
     }
     return CupertinoScrollbar(

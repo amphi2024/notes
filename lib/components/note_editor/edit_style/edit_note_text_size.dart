@@ -1,10 +1,10 @@
-import 'package:amphi/models/app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/note_editor/editor_extension.dart';
 import 'package:notes/providers/editing_note_provider.dart';
+import 'package:notes/utils/screen_size.dart';
 
 class EditNoteTextSize extends StatelessWidget {
 
@@ -15,7 +15,7 @@ class EditNoteTextSize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (App.isDesktop() || App.isWideScreen(context)) {
+    if (isDesktopOrTablet(context)) {
       return _Wide(
         controller: controller,
         onChange: onChange,

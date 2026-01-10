@@ -1,5 +1,4 @@
 import 'package:amphi/utils/color_values.dart';
-import 'package:amphi/models/app.dart';
 import 'package:amphi/widgets/color/picker/color_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -13,6 +12,7 @@ import 'package:notes/models/app_colors.dart';
 import 'package:notes/models/theme_model.dart';
 import 'package:notes/icons/icons.dart';
 import 'package:notes/providers/editing_note_provider.dart';
+import 'package:notes/utils/screen_size.dart';
 
 class EditNoteTextStyle extends ConsumerStatefulWidget {
 
@@ -124,14 +124,14 @@ class _EditNoteTextStyleState extends ConsumerState<EditNoteTextStyle> {
     final note = ref.watch(editingNoteProvider).note;
     final themeData = Theme.of(context);
     return Container(
-      height: App.isDesktop() ? 250 : 400,
+      height: isDesktop() ? 250 : 400,
       width: double.infinity,
       decoration: BoxDecoration(color: themeData.colorScheme.surface,
           borderRadius: BorderRadius.circular(15)),
       child: Column(
         children: [
           Visibility(
-            visible: !App.isWideScreen(context),
+            visible: !isTablet(context),
             child: const Padding(
               padding: EdgeInsets.only(left: 8.0, right: 8.0),
               child: BottomSheetDragHandle(),

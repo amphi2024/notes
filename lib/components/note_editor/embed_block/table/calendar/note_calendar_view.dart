@@ -1,8 +1,8 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/models/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/models/table_data.dart';
 import 'package:notes/pages/note_calender_events_page.dart';
+import 'package:notes/utils/screen_size.dart';
 
 class NoteCalendarView extends StatelessWidget {
 
@@ -67,7 +67,7 @@ class NoteCalendarView extends StatelessWidget {
                       ],
                     ),
                     Table(
-                      border: App.isWideScreen(context) ? TableBorder.all(
+                      border: isTablet(context) ? TableBorder.all(
                           color: Theme.of(context).dividerColor
                       ) : null,
                       children: children,

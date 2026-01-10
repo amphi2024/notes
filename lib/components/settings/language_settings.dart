@@ -1,7 +1,7 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/widgets/settings/language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/utils/screen_size.dart';
 
 import '../../main.dart';
 import '../../models/app_settings.dart';
@@ -16,7 +16,7 @@ class LanguageSettings extends StatefulWidget {
 class _LanguageSettingsState extends State<LanguageSettings> {
   @override
   Widget build(BuildContext context) {
-    if(App.isWideScreen(context) || App.isDesktop()) {
+    if(isDesktopOrTablet(context)) {
       return _WideSettings();
     }
     return _MobileSettings();

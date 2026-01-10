@@ -1,9 +1,9 @@
-import 'package:amphi/models/app.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/table_data.dart';
 import 'package:notes/providers/tables_provider.dart';
+import 'package:notes/utils/screen_size.dart';
 
 class NoteBarChartHorizontal extends ConsumerStatefulWidget {
   final String tableId;
@@ -106,7 +106,7 @@ class _NoteBarChartState extends ConsumerState<NoteBarChartHorizontal> {
         scrollDirection: Axis.horizontal,
         child: SizedBox(
             width: width,
-            height: App.isWideScreen(context) ? 500 : 300,
+            height: isTablet(context) ? 500 : 300,
             child: barGroups.isNotEmpty
                 ? Padding(
                     padding: const EdgeInsets.only(top: 80),

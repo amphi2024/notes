@@ -1,4 +1,3 @@
-import 'package:amphi/models/app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/providers/note_files_provider.dart';
@@ -6,6 +5,7 @@ import 'package:notes/providers/selected_notes_provider.dart';
 import 'package:notes/services/audio_service.dart';
 import 'package:notes/services/videos_service.dart';
 import 'package:notes/utils/document_conversion.dart';
+import 'package:notes/utils/screen_size.dart';
 
 import '../models/note.dart';
 import '../pages/main/main_page.dart';
@@ -33,7 +33,7 @@ void onNotePressed(Note note, BuildContext context, WidgetRef ref) async {
     return;
   }
 
-  if(App.isWideScreen(context) || App.isDesktop()) {
+  if(isDesktopOrTablet(context)) {
 
     saveEditingNoteBeforeSwitch(ref);
 

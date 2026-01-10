@@ -1,10 +1,10 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/widgets/menu/popup/custom_popup_menu_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/note_editor/embed_block/table/chart/edit_chart_style.dart';
 import 'package:notes/components/note_editor/embed_block/table/chart/bar/note_bar_chart_horizontal.dart';
 import 'package:notes/providers/tables_provider.dart';
+import 'package:notes/utils/screen_size.dart';
 
 class NoteChart extends ConsumerWidget {
 
@@ -30,7 +30,7 @@ class NoteChart extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(icon: Icon(Icons.more_horiz), onPressed: () {
-                    if(App.isWideScreen(context)) {
+                    if(isTablet(context)) {
                       final RenderBox button = context.findRenderObject() as RenderBox;
                       final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
                       final Offset position = button.localToGlobal(Offset.zero, ancestor: overlay);

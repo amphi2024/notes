@@ -1,9 +1,9 @@
-import 'package:amphi/models/app.dart';
 import 'package:amphi/widgets/menu/popup/custom_popup_menu_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:notes/components/note_editor/embed_block/table/calendar/edit_calendar_style.dart';
+import 'package:notes/utils/screen_size.dart';
 
 import '../../../../../providers/tables_provider.dart';
 import 'note_calendar_view.dart';
@@ -51,7 +51,7 @@ class _NoteCalendarState extends ConsumerState<NoteCalendar> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(icon: Icon(Icons.more_horiz), onPressed: () {
-                    if(App.isWideScreen(context)) {
+                    if(isTablet(context)) {
                       final RenderBox button = context.findRenderObject() as RenderBox;
                       final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
                       final Offset position = button.localToGlobal(Offset.zero, ancestor: overlay);
@@ -82,7 +82,7 @@ class _NoteCalendarState extends ConsumerState<NoteCalendar> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Visibility(
-              visible: App.isDesktop(),
+              visible: isDesktop(),
               child: IconButton(
                 icon: Icon(Icons.arrow_back_ios, size: 15, color: Theme.of(context).dividerColor,),
                 onPressed: () {
@@ -119,7 +119,7 @@ class _NoteCalendarState extends ConsumerState<NoteCalendar> {
               ),
             ),
             Visibility(
-              visible: App.isDesktop(),
+              visible: isDesktop(),
               child: IconButton(
                 icon: Icon(Icons.arrow_forward_ios, size: 15, color: Theme.of(context).dividerColor,),
                 onPressed: () {
@@ -142,10 +142,10 @@ class _NoteCalendarState extends ConsumerState<NoteCalendar> {
         LayoutBuilder(
           builder: (context, constraints) {
             double parentWidth = constraints.maxWidth;
-            double cellHeight = App.isWideScreen(context) ? 120 : 50;
+            double cellHeight = isTablet(context) ? 120 : 50;
             return SizedBox(
               width: parentWidth,
-              height: App.isWideScreen(context) ? 780 : 350,
+              height: isTablet(context) ? 780 : 350,
               child: PageView(
                 controller: pageController,
                 onPageChanged: (index) {
