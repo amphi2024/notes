@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/utils/document_conversion.dart';
+import 'package:notes/utils/note_import_utils.dart';
 
 import '../models/app_cache_data.dart';
+import '../utils/generate_id.dart';
+import '../utils/note_item_press_callback.dart';
 
 class EditingNoteState {
   final Note note;
@@ -135,3 +140,29 @@ class EditingNoteNotifier extends Notifier<EditingNoteState> {
 }
 
 final editingNoteProvider = NotifierProvider<EditingNoteNotifier, EditingNoteState>(EditingNoteNotifier.new);
+
+Future<void> initEditingNote(WidgetRef ref) async {
+  final notesState = ref.read(notesProvider);
+  final note = notesState.notes[appCacheData.editingNote] ?? notesState.notes[notesState.idLists[""]!.firstOrNull];
+  if (note != null) {
+    prepareEmbeddedBlocks(ref, note);
+    ref.read(editingNoteProvider.notifier).startEditing(note, true);
+    ref.read(editingNoteProvider.notifier).initController(ref);
+  } else {
+    final byteData = await rootBundle.load("assets/welcome.note");
+
+    final fileContent = utf8.decode(byteData.buffer.asUint8List().toList());
+    final id = await generatedNoteId();
+    final note = Note(id: id);
+    prepareEmbeddedBlocks(ref, note);
+    ref.read(editingNoteProvider.notifier).startEditing(note, true);
+    ref.read(editingNoteProvider.notifier).initController(ref);
+    await ref.read(editingNoteProvider.notifier).controller.importNote(noteId: note.id, fileContent: fileContent, ref: ref);
+    note.initDelta();
+    note.content = ref.read(editingNoteProvider.notifier).controller.document.toNoteContent(ref);
+    note.initDelta();
+    note.initTitles();
+    await note.save();
+    ref.read(notesProvider.notifier).insertNote(note);
+  }
+}

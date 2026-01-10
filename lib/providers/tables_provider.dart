@@ -17,13 +17,16 @@ class TablesNotifier extends Notifier<Map<String, TableState>> {
     return {};
   }
 
-  void setTables(Map<String, TableData> tables) {
+  static Map<String, TableState> initialized(Map<String, TableData> tables) {
     final Map<String, TableState> map = {};
     tables.forEach((key, value) {
       map[key] = TableState([value], 0);
     });
+    return map;
+  }
 
-    state = map;
+  void setTables(Map<String, TableData> tables) {
+    state = initialized(tables);
   }
 
   void clear() {

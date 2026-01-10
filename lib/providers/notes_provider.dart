@@ -1,20 +1,13 @@
-import 'dart:convert';
 
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/models/app_settings.dart';
-import 'package:notes/utils/document_conversion.dart';
-import 'package:notes/utils/note_import_utils.dart';
-import 'package:notes/utils/notes_migration.dart';
-import 'package:notes/utils/theme_migration.dart';
 import '../models/app_cache_data.dart';
 import '../models/note.dart';
 import '../models/sort_option.dart';
-import '../utils/generate_id.dart';
-import '../utils/note_item_press_callback.dart';
+import '../utils/notes_migration.dart';
 import '../utils/orphan_notes.dart';
-import 'editing_note_provider.dart';
+import '../utils/theme_migration.dart';
 
 class NotesState {
   final Map<String, Note> notes;
@@ -70,6 +63,48 @@ class NotesNotifier extends Notifier<NotesState> {
   @override
   NotesState build() {
     return NotesState({}, {});
+  }
+
+  static Future<NotesState> initialized() async {
+    final database = await databaseHelper.database;
+    final Map<String, Note> notes = {};
+    final Map<String, List<String>> idLists = {
+      "" : [],
+      "!TRASH": []
+    };
+    final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM notes WHERE parent_id IS NULL", []);
+    final now = DateTime.now();
+    for(var data in list) {
+      final note = Note.fromMap(data);
+
+      if(note.deleted == null) {
+        notes[note.id] = note;
+        idLists[""]!.add(note.id);
+      }
+      else {
+        if(now.difference(note.deleted!).inDays > appSettings.permanentDeletionPeriod) {
+          await note.delete();
+        }
+        else {
+          notes[note.id] = note;
+          idLists["!TRASH"]!.add(note.id);
+        }
+      }
+    }
+
+    idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
+    idLists["!TRASH"]!.sortNotes(appCacheData.sortOption("!TRASH"), notes);
+
+    await verifyNotesMigration(database);
+    await verifyThemesMigration(database);
+
+    checkOrphanNotes(database);
+
+    return NotesState(notes, idLists);
+  }
+
+  Future<void> rebuild() async {
+    state = await initialized();
   }
 
   void insertNote(Note note) {
@@ -149,71 +184,6 @@ class NotesNotifier extends Notifier<NotesState> {
     }
 
     state = NotesState({...state.notes, note.id: note}, idLists);
-  }
-
-  void init(WidgetRef ref) async {
-    final database = await databaseHelper.database;
-    final Map<String, Note> notes = {};
-    final Map<String, List<String>> idLists = {
-      "" : [],
-      "!TRASH": []
-    };
-    final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM notes WHERE parent_id IS NULL", []);
-    final now = DateTime.now();
-    for(var data in list) {
-      final note = Note.fromMap(data);
-
-      if(note.deleted == null) {
-        notes[note.id] = note;
-        idLists[""]!.add(note.id);
-      }
-      else {
-        if(now.difference(note.deleted!).inDays > appSettings.permanentDeletionPeriod) {
-          await note.delete(ref: ref);
-        }
-        else {
-          notes[note.id] = note;
-          idLists["!TRASH"]!.add(note.id);
-        }
-      }
-    }
-
-    idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
-    idLists["!TRASH"]!.sortNotes(appCacheData.sortOption("!TRASH"), notes);
-
-    final newState = NotesState(notes, idLists);
-    await newState.preloadNotes("");
-    await newState.preloadNotes("!TRASH");
-    state = newState;
-
-    final note = notes[appCacheData.editingNote] ?? notes[idLists[""]!.firstOrNull];
-    if (note != null) {
-      prepareEmbeddedBlocks(ref, note);
-      ref.read(editingNoteProvider.notifier).startEditing(note, true);
-      ref.read(editingNoteProvider.notifier).initController(ref);
-    }
-    else {
-      final byteData = await rootBundle.load("assets/welcome.note");
-
-      final fileContent = utf8.decode(byteData.buffer.asUint8List().toList());
-      final id = await generatedNoteId();
-      final note = Note(id: id);
-      prepareEmbeddedBlocks(ref, note);
-      ref.read(editingNoteProvider.notifier).startEditing(note, true);
-      ref.read(editingNoteProvider.notifier).initController(ref);
-      await ref.read(editingNoteProvider.notifier).controller.importNote(noteId: note.id, fileContent: fileContent, ref: ref);
-      note.initDelta();
-      note.content = ref.read(editingNoteProvider.notifier).controller.document.toNoteContent(ref);
-      note.initDelta();
-      note.initTitles();
-      await note.save();
-      ref.read(notesProvider.notifier).insertNote(note);
-    }
-
-    await verifyNotesMigration(database);
-    await verifyThemesMigration(database);
-
-    checkOrphanNotes(database);
   }
 
 }

@@ -365,7 +365,7 @@ List<Widget> actions(
                       onConfirmed: () {
                         for (var id in selected) {
                           final note = ref.watch(notesProvider).notes.get(id);
-                          note.delete(ref: ref);
+                          note.delete();
                         }
                         ref.read(notesProvider.notifier).deleteNotes(selected);
                         ref.read(selectedNotesProvider.notifier).endSelection();

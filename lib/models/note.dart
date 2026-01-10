@@ -7,7 +7,6 @@ import 'package:amphi/utils/random_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/channels/app_web_channel.dart';
 import 'package:notes/components/note_editor/embed_block/audio/audio_block_embed.dart';
 import 'package:notes/components/note_editor/embed_block/image/image_block_embed.dart';
@@ -118,12 +117,12 @@ class Note {
     }
   }
 
-  Future<void> delete({bool upload = true, required WidgetRef ref}) async {
+  Future<void> delete({bool upload = true}) async {
     if (id.isEmpty) {
       return;
     }
     final database = await databaseHelper.database;
-    await database.deleteNoteById(id, ref);
+    await database.deleteNoteById(id);
     var images = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "images"));
     var videos = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "videos"));
     var audio = Directory(PathUtils.join(appStorage.attachmentsPath, id[0], id[1], "audio"));

@@ -9,8 +9,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_kit/media_kit.dart';
-import 'package:notes/database/database_helper.dart';
-import 'package:notes/pages/main/main_page.dart';
+import 'database/database_helper.dart';
+import 'pages/main/main_page.dart';
+import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/themes_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -28,7 +29,7 @@ import 'utils/data_sync.dart';
 final mainScreenKey = GlobalKey<_MyAppState>();
 
 void main() async {
-  if(Platform.isWindows || Platform.isLinux) {
+  if (Platform.isWindows || Platform.isLinux) {
     sqfliteFfiInit();
   }
 
@@ -39,9 +40,16 @@ void main() async {
     await appSettings.getData();
     appColors.getData();
 
-    runApp(ProviderScope(child: MyApp(key: mainScreenKey)));
+    final notesState = await NotesNotifier.initialized();
+    final themesState = await ThemesNotifier.initialized();
 
-    if(App.isDesktop()) {
+    runApp(ProviderScope(
+        overrides: [notesProvider.overrideWithBuild((ref, notifier) => notesState), themesProvider.overrideWithBuild((ref, notifier) => themesState),
+        editingNoteProvider.overrideWithBuild((ref, notifier) => EditingNoteState(notesState.notes.get(appCacheData.editingNote), true))
+        ],
+        child: MyApp(key: mainScreenKey)));
+
+    if (App.isDesktop()) {
       doWhenWindowReady(() {
         appWindow.minSize = Size(600, 350);
         appWindow.size = Size(appCacheData.windowWidth, appCacheData.windowHeight);
@@ -66,10 +74,9 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed) {
       if (appSettings.useOwnServer) {
         appWebChannel.getServerVersion(onSuccess: (version) {
-          if(version.startsWith("1.")) {
+          if (version.startsWith("1.")) {
             appWebChannel.uploadBlocked = true;
-          }
-          else {
+          } else {
             appWebChannel.uploadBlocked = false;
           }
         }, onFailed: (code) {
@@ -94,9 +101,9 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    if(appSettings.useOwnServer) {
+    if (appSettings.useOwnServer) {
       appWebChannel.getServerVersion(onSuccess: (version) {
-        if(version.startsWith("1.")) {
+        if (version.startsWith("1.")) {
           appWebChannel.uploadBlocked = true;
         }
       }, onFailed: (code) {
@@ -104,8 +111,6 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       });
     }
     WidgetsBinding.instance.addObserver(this);
-    ref.read(notesProvider.notifier).init(ref);
-    ref.read(themesProvider.notifier).init();
 
     if (appSettings.useOwnServer) {
       appWebChannel.connectWebSocket();
@@ -113,13 +118,17 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     }
 
     appWebChannel.onWebSocketEvent = (updateEvent) async {
-       applyUpdateEvent(updateEvent, ref);
+      applyUpdateEvent(updateEvent, ref);
     };
 
     appWebChannel.getDeviceInfo();
     if (Platform.isAndroid) {
       appMethodChannel.getSystemVersion();
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initEditingNote(ref);
+    });
     super.initState();
   }
 

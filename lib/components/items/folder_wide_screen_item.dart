@@ -178,7 +178,7 @@ List<PopupMenuItem> _menuItems({required Note folder, required WidgetRef ref, re
     PopupMenuItem(height: _height, child: Text(AppLocalizations.of(context).get("delete_folder")), onTap: () {
       showDialog(context: context, builder: (context) {
         return ConfirmationDialog(title: AppLocalizations.of(context).get("dialog_title_delete_folder"), onConfirmed: () {
-          folder.delete(ref: ref);
+          folder.delete();
           ref.read(notesProvider.notifier).deleteNotes([folder.id]);
         });
       });

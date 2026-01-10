@@ -2,6 +2,7 @@ import 'package:amphi/models/user.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/database/database_helper.dart';
+import 'package:notes/providers/editing_note_provider.dart';
 
 import '../channels/app_web_channel.dart';
 import '../models/app_settings.dart';
@@ -24,7 +25,9 @@ void onUserRemoved(WidgetRef ref) async {
   });
   appWebChannel.connectWebSocket();
   refreshDataWithServer(ref);
-  ref.read(notesProvider.notifier).init(ref);
+  ref.read(notesProvider.notifier).rebuild();
+  ref.read(themesProvider.notifier).rebuild();
+  initEditingNote(ref);
 }
 
 void onUserAdded(WidgetRef ref) async {
@@ -32,8 +35,9 @@ void onUserAdded(WidgetRef ref) async {
   appStorage.initPaths();
   await databaseHelper.notifySelectedUserChanged();
   await appSettings.getData();
-  ref.read(notesProvider.notifier).init(ref);
-  ref.read(themesProvider.notifier).init();
+  ref.read(notesProvider.notifier).rebuild();
+  ref.read(themesProvider.notifier).rebuild();
+  initEditingNote(ref);
 }
 
 void onUsernameChanged(WidgetRef ref) {
@@ -52,8 +56,9 @@ void onSelectedUserChanged(User user, WidgetRef ref) async {
   await databaseHelper.notifySelectedUserChanged();
   await appSettings.getData();
 
-  ref.read(notesProvider.notifier).init(ref);
-  ref.read(themesProvider.notifier).init();
+  ref.read(notesProvider.notifier).rebuild();
+  ref.read(themesProvider.notifier).rebuild();
+  initEditingNote(ref);
 
   appWebChannel.connectWebSocket();
   refreshDataWithServer(ref);

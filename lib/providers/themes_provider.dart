@@ -19,6 +19,25 @@ class ThemesNotifier extends Notifier<ThemesState> {
   ThemesState build() {
     return ThemesState({}, []);
   }
+  
+  static Future<ThemesState> initialized() async {
+    Map<String, ThemeModel> themes = {};
+    List<String> idList = [];
+    final database = await databaseHelper.database;
+    final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM themes", []);
+
+    for(var data in list) {
+      var theme = ThemeModel.fromMap(data);
+      idList.add(theme.id);
+      themes[theme.id] = theme;
+    }
+
+    return ThemesState(themes, idList);
+  }
+
+  Future<void> rebuild() async {
+    state = await initialized();
+  }
 
   void insertTheme(ThemeModel themeModel) {
     final themes = {...state.themes, themeModel.id: themeModel};
@@ -31,21 +50,6 @@ class ThemesNotifier extends Notifier<ThemesState> {
   void deleteTheme(String id) {
     final themes = {...state.themes}..removeWhere((key, value) => key == id);
     final idList = state.idList.where((id1) => id1 != id).toList();
-
-    state = ThemesState(themes, idList);
-  }
-
-  void init() async {
-    Map<String, ThemeModel> themes = {};
-    List<String> idList = [];
-    final database = await databaseHelper.database;
-    final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM themes", []);
-
-    for(var data in list) {
-      var theme = ThemeModel.fromMap(data);
-      idList.add(theme.id);
-      themes[theme.id] = theme;
-    }
 
     state = ThemesState(themes, idList);
   }

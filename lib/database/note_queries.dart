@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/note.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -30,7 +29,7 @@ extension NoteQueries on Database {
     ]);
   }
 
-  Future<void> deleteNoteById(String id, WidgetRef ref) async {
+  Future<void> deleteNoteById(String id) async {
     if(id.isEmpty) {
       return;
     }
@@ -39,7 +38,7 @@ extension NoteQueries on Database {
     for(var child in list) {
       final childId = child["id"];
       if(childId is String) {
-        await deleteNoteById(childId, ref);
+        await deleteNoteById(childId);
       }
     }
   }

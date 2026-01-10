@@ -33,7 +33,7 @@ List<Widget> trashPageAppbarActions({required BuildContext context, required Lis
                   title: AppLocalizations.of(context).get("@dialog_title_delete_selected_notes"),
                   onConfirmed: () {
                     for(var id in selectedNotes) {
-                      ref.watch(notesProvider).notes.get(id).delete(ref: ref);
+                      ref.watch(notesProvider).notes.get(id).delete();
                     }
 
                     ref.read(notesProvider.notifier).deleteNotes(selectedNotes);
