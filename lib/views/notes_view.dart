@@ -16,8 +16,8 @@ import '../utils/data_sync.dart';
 class NotesView extends ConsumerStatefulWidget {
   final Note folder;
   final List<String> idList;
-
-  const NotesView({super.key, required this.idList, required this.folder});
+  final EdgeInsets? padding;
+  const NotesView({super.key, required this.idList, required this.folder, this.padding});
 
   @override
   ConsumerState<NotesView> createState() => _NotesViewState();
@@ -39,6 +39,7 @@ class _NotesViewState extends ConsumerState<NotesView> {
       return RefreshIndicator(
         onRefresh: refresh,
         child: ListView.builder(
+          padding: widget.padding,
             itemCount: idList.length,
             itemBuilder: (context, index) {
               final id = idList[index];

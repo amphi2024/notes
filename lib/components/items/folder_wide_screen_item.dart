@@ -52,7 +52,11 @@ class FolderWideScreenItemState extends ConsumerState<FolderWideScreenItem> {
           });
         }
       },
-      onTap: widget.onPressed,
+      onTap: () {
+        setState(() {
+          widget.onPressed();
+        });
+      },
       child: Container(
         decoration: selected
             ? BoxDecoration(

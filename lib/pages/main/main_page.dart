@@ -61,7 +61,6 @@ class _MainPageState extends ConsumerState<MainPage> {
           ref.read(floatingButtonStateProvider.notifier).setRotated(false);
           return;
         }
-        ref.read(notesProvider).releaseNotes(widget.folder.id);
       },
       child: Scaffold(
           appBar: AppBar(

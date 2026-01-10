@@ -132,15 +132,13 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                                       ref.read(selectedFolderProvider.notifier).setFolderId(note.id);
                                     },
                                     onIconPressed: () {
-                                      if (node.isExpanded) {
-                                        expandedNodes[note.id] = false;
-                                        controller.collapseNode(node);
-                                        ref.read(notesProvider).releaseNotes(note.id);
-                                      } else {
-                                        expandedNodes[note.id] = true;
-                                        controller.expandNode(node);
-                                        ref.read(notesProvider).preloadNotes(note.id);
-                                      }
+                                        if (node.isExpanded) {
+                                          expandedNodes[note.id] = false;
+                                          controller.collapseNode(node);
+                                        } else {
+                                          expandedNodes[note.id] = true;
+                                          controller.expandNode(node);
+                                        }
                                     },
                                     expanded: node.isExpanded,
                                     indent: (node.depth ?? 0) * 8,

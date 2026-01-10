@@ -139,44 +139,48 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                     child: menu(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes),
                                   ),
                                   Expanded(child: MoveWindowOrSpacer()),
-                                  ...actions(context: context, ref: ref, selectedFolderId: selectedFolderId, selectedNotes: selectedNotes, editingNoteId: editingNote.id)
+                                  ...actions(
+                                      context: context,
+                                      ref: ref,
+                                      selectedFolderId: selectedFolderId,
+                                      selectedNotes: selectedNotes,
+                                      editingNoteId: editingNote.id)
                                 ],
                               ),
                             ),
                             Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 16.0, right: 16),
-                                child: MouseRegion(
-                                  onHover: (d) {
-                                    focusNode.unfocus();
-                                    selectionFocusNode.requestFocus();
-                                  },
-                                  onExit: (d) {
-                                    selectionFocusNode.unfocus();
-                                    focusNode.requestFocus();
-                                  },
-                                  child: KeyboardListener(
-                                      focusNode: selectionFocusNode,
-                                      includeSemantics: false,
-                                      onKeyEvent: (event) {
-                                        if (event is KeyUpEvent) {
-                                          ref.read(selectedNotesProvider.notifier).keyPressed = false;
-                                          return;
+                              child: MouseRegion(
+                                onHover: (d) {
+                                  focusNode.unfocus();
+                                  selectionFocusNode.requestFocus();
+                                },
+                                onExit: (d) {
+                                  selectionFocusNode.unfocus();
+                                  focusNode.requestFocus();
+                                },
+                                child: KeyboardListener(
+                                    focusNode: selectionFocusNode,
+                                    includeSemantics: false,
+                                    onKeyEvent: (event) {
+                                      if (event is KeyUpEvent) {
+                                        ref.read(selectedNotesProvider.notifier).keyPressed = false;
+                                        return;
+                                      }
+                                      if (event.physicalKey == PhysicalKeyboardKey.metaLeft || event.physicalKey == PhysicalKeyboardKey.controlLeft) {
+                                        ref.read(selectedNotesProvider.notifier).keyPressed = true;
+                                        if (ref.watch(selectedNotesProvider) == null) {
+                                          ref.read(selectedNotesProvider.notifier).startSelection();
                                         }
-                                        if (event.physicalKey == PhysicalKeyboardKey.metaLeft || event.physicalKey == PhysicalKeyboardKey.controlLeft) {
-                                          ref.read(selectedNotesProvider.notifier).keyPressed = true;
-                                          if (ref.watch(selectedNotesProvider) == null) {
-                                            ref.read(selectedNotesProvider.notifier).startSelection();
-                                          }
-                                        }
+                                      }
 
-                                        if (ref.read(selectedNotesProvider.notifier).keyPressed && event.physicalKey == PhysicalKeyboardKey.keyA) {
-                                          // ref.read(selectedNotesProvider.notifier).
-                                        }
-                                      },
-                                      child:
-                                          NotesView(idList: ref.watch(notesProvider).idListByFolderIdNoteOnly(selectedFolderId), folder: Note(id: ""))),
-                                ),
+                                      if (ref.read(selectedNotesProvider.notifier).keyPressed && event.physicalKey == PhysicalKeyboardKey.keyA) {
+                                        // ref.read(selectedNotesProvider.notifier).
+                                      }
+                                    },
+                                    child: NotesView(
+                                        padding: EdgeInsets.only(left: 16, right: 16),
+                                        idList: ref.watch(notesProvider).idListByFolderIdNoteOnly(selectedFolderId),
+                                        folder: Note(id: ""))),
                               ),
                             )
                           ],
@@ -249,7 +253,11 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                 ],
                               ),
                             ),
-                            Expanded(child: NoteEditor(note: ref.watch(editingNoteProvider).note, controller: controller, focusNode: focusNode)),
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: NoteEditor(note: ref.watch(editingNoteProvider).note, controller: controller, focusNode: focusNode),
+                            )),
                           ],
                         ),
                       ),
@@ -270,7 +278,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
 Widget menu({required BuildContext context, required WidgetRef ref, required String selectedFolderId, required List<String>? selectedNotes}) {
   if (selectedNotes == null) {
     return PopupMenuButton(
-      tooltip: "",
+        tooltip: "",
         icon: Icon(
           AppIcons.linear,
           size: Theme.of(context).appBarTheme.iconTheme?.size,
@@ -313,7 +321,11 @@ Widget menu({required BuildContext context, required WidgetRef ref, required Str
 }
 
 List<Widget> actions(
-    {required BuildContext context, required WidgetRef ref, required String selectedFolderId, required List<String>? selectedNotes, required String editingNoteId}) {
+    {required BuildContext context,
+    required WidgetRef ref,
+    required String selectedFolderId,
+    required List<String>? selectedNotes,
+    required String editingNoteId}) {
   final addButton = PopupMenuButton(
       tooltip: "",
       icon: Icon(Icons.add_circle_outline),
@@ -356,31 +368,31 @@ List<Widget> actions(
   final trashButton = IconButton(
       onPressed: () async {
         final selected = selectedNotes ?? [editingNoteId];
-          if (selectedFolderId == "!TRASH") {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return ConfirmationDialog(
-                      title: AppLocalizations.of(context).get("@dialog_title_delete_selected_notes"),
-                      onConfirmed: () {
-                        for (var id in selected) {
-                          final note = ref.watch(notesProvider).notes.get(id);
-                          note.delete();
-                        }
-                        ref.read(notesProvider.notifier).deleteNotes(selected);
-                        ref.read(selectedNotesProvider.notifier).endSelection();
-                      });
-                });
-          } else {
-            ref.read(notesProvider.notifier).moveNotes(selected, selectedFolderId, "!TRASH");
-            ref.read(selectedNotesProvider.notifier).endSelection();
+        if (selectedFolderId == "!TRASH") {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return ConfirmationDialog(
+                    title: AppLocalizations.of(context).get("@dialog_title_delete_selected_notes"),
+                    onConfirmed: () {
+                      for (var id in selected) {
+                        final note = ref.watch(notesProvider).notes.get(id);
+                        note.delete();
+                      }
+                      ref.read(notesProvider.notifier).deleteNotes(selected);
+                      ref.read(selectedNotesProvider.notifier).endSelection();
+                    });
+              });
+        } else {
+          ref.read(notesProvider.notifier).moveNotes(selected, selectedFolderId, "!TRASH");
+          ref.read(selectedNotesProvider.notifier).endSelection();
 
-            for (var id in selected) {
-              final note = ref.watch(notesProvider).notes.get(id);
-              note.deleted = DateTime.now();
-              note.save();
-            }
+          for (var id in selected) {
+            final note = ref.watch(notesProvider).notes.get(id);
+            note.deleted = DateTime.now();
+            note.save();
           }
+        }
       },
       icon: Icon(AppIcons.trash, size: Theme.of(context).appBarTheme.iconTheme?.size));
 

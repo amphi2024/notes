@@ -32,31 +32,6 @@ class NotesState {
   List<String> idListByFolderIdFolderOnly(String id, {String? searchKeyword}) {
     return idListByFolderId(id, searchKeyword: searchKeyword).where((id) => notes[id]?.isFolder == true).toList();
   }
-
-  Future<void> preloadNotes(String folderId) async {
-    final database = await databaseHelper.database;
-
-    for(var id in idLists[folderId] ?? []) {
-      final List<Map<String, dynamic>> children = await database.rawQuery("SELECT * FROM notes WHERE parent_id == ?", [id]);
-      idLists.putIfAbsent(id, () => []).clear();
-      for(var childData in children) {
-        final child = Note.fromMap(childData);
-        idLists.putIfAbsent(id, () => []).add(child.id);
-        notes[child.id] = child;
-      }
-      idLists.putIfAbsent(id, () => []).sortNotes(appCacheData.sortOption(id), notes);
-    }
-
-  }
-
-  void releaseNotes(String folderId) {
-    for(var id in idLists[folderId] ?? []) {
-      for(var child in idLists[id] ?? []) {
-        notes.remove(child);
-      }
-      idLists.remove(id);
-    }
-  }
 }
 
 class NotesNotifier extends Notifier<NotesState> {
@@ -72,14 +47,14 @@ class NotesNotifier extends Notifier<NotesState> {
       "" : [],
       "!TRASH": []
     };
-    final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM notes WHERE parent_id IS NULL", []);
+    final List<Map<String, dynamic>> list = await database.rawQuery("SELECT * FROM notes", []);
     final now = DateTime.now();
     for(var data in list) {
       final note = Note.fromMap(data);
 
       if(note.deleted == null) {
         notes[note.id] = note;
-        idLists[""]!.add(note.id);
+        idLists.putIfAbsent(note.parentId, () => []).add(note.id);
       }
       else {
         if(now.difference(note.deleted!).inDays > appSettings.permanentDeletionPeriod) {
@@ -92,15 +67,17 @@ class NotesNotifier extends Notifier<NotesState> {
       }
     }
 
-    idLists[""]!.sortNotes(appCacheData.sortOption("!HOME"), notes);
-    idLists["!TRASH"]!.sortNotes(appCacheData.sortOption("!TRASH"), notes);
+    idLists.forEach((folderId, list) {
+      list.sortNotes(appCacheData.sortOption(folderId), notes);
+    });
 
     await verifyNotesMigration(database);
     await verifyThemesMigration(database);
 
     checkOrphanNotes(database);
 
-    return NotesState(notes, idLists);
+    final notesState = NotesState(notes, idLists);
+    return notesState;
   }
 
   Future<void> rebuild() async {

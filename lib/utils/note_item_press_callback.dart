@@ -57,7 +57,6 @@ void onFolderPressed(Note note, BuildContext context, WidgetRef ref) async {
     return;
   }
   if (note.isFolder) {
-    await ref.read(notesProvider).preloadNotes(note.id);
     Navigator.push(context, CupertinoPageRoute(builder: (context) {
       return MainPage(folder: note);
     }));
