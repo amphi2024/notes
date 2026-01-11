@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   bitsdojo_window_windows
   file_selector_windows
+  flutter_platform_alert
   media_kit_libs_windows_video
   media_kit_video
   share_plus

@@ -171,6 +171,11 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                   cursor: SystemMouseCursors.resizeColumn,
                   child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
+                    onDoubleTap: () {
+                      ref.read(wideMainPageStateProvider.notifier).setSideBarWidth(200);
+                      appCacheData.sidebarWidth = 200;
+                      appCacheData.save();
+                    },
                     onHorizontalDragUpdate: (d) {
                       ref.read(wideMainPageStateProvider.notifier).setSideBarWidth(wideMainPageState.sideBarWidth + d.delta.dx);
                     },

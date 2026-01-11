@@ -171,6 +171,14 @@
   "move_to_trash": "휴지통으로 이동",
   "delete_folder": "폴더 삭제",
   "restore_folder": "폴더 복원",
-  "dialog_title_delete_folder": "이 폴더를 삭제하시겠습니까?"
+  "dialog_title_delete_folder": "이 폴더를 삭제하시겠습니까?",
+
+  "automatically_check_updates": "자동으로 업데이트 확인",
+  "update_alert_title": "업데이트 가능",
+  "update_alert_text": "새 업데이트가 있습니다. 업데이트 하시겠습니까?",
+  "update_now": "다운로드 하러가기",
+  "update_later": "나중에 직접하겠음",
+  "automatically_check_server_updates": "자동으로 서버 업데이트 확인",
+  "server_update_message": "새 서버 버전이 있습니다. 업데이트를 권장합니다."
 
 }

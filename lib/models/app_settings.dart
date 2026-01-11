@@ -38,6 +38,12 @@ class AppSettings {
   set permanentDeletionPeriod(value) => data["permanentDeletionPeriod"] = value;
   int get permanentDeletionPeriod => data.putIfAbsent("permanentDeletionPeriod", () => 30);
 
+  set autoCheckUpdate(bool value) => data["autoCheckUpdate"] = value;
+  bool get autoCheckUpdate => data["autoCheckUpdate"] ?? Platform.isWindows || Platform.isMacOS;
+
+  set autoCheckServerUpdate(bool value) => data["autoCheckServerUpdate"] = value;
+  bool get autoCheckServerUpdate => data["autoCheckServerUpdate"] ?? true;
+
   Future<void> getData() async {
     File file = File(appStorage.settingsPath);
     try {

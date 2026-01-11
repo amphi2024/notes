@@ -8,6 +8,7 @@ import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/providers.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 import 'package:notes/utils/generate_id.dart';
+import 'package:notes/utils/update_check.dart';
 import '../../channels/app_method_channel.dart';
 import '../../components/draggable_page.dart';
 import '../../dialogs/edit_folder_dialog.dart';
@@ -36,6 +37,13 @@ class MainPage extends ConsumerStatefulWidget {
 class _MainPageState extends ConsumerState<MainPage> {
 
   final focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    checkForAppUpdate(context);
+    checkForServerUpdate(context);
+  }
 
   @override
   Widget build(BuildContext context) {

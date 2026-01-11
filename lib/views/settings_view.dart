@@ -64,6 +64,16 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
                 });
               }),
           ServerSettings(serverAddressController: serverAddressController),
+          Visibility(
+              visible: appSettings.useOwnServer,
+              child: TitledCheckBox(
+                  title: AppLocalizations.of(context).get("automatically_check_server_updates"),
+                  value: appSettings.autoCheckServerUpdate,
+                  onChanged: (value) {
+                    setState(() {
+                      appSettings.autoCheckServerUpdate = value;
+                    });
+                  })),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,6 +95,14 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
               ),
             ],
           ),
+          TitledCheckBox(
+              title: AppLocalizations.of(context).get("automatically_check_updates"),
+              value: appSettings.autoCheckUpdate,
+              onChanged: (value) {
+                setState(() {
+                  appSettings.autoCheckUpdate = value;
+                });
+              }),
         ]);
   }
 }

@@ -36,6 +36,7 @@ import '../../dialogs/edit_folder_dialog.dart';
 import '../../models/sort_option.dart';
 import '../../providers/providers.dart';
 import '../../utils/note_item_press_callback.dart';
+import '../../utils/update_check.dart';
 
 class WideMainPage extends ConsumerStatefulWidget {
   final String? title;
@@ -71,6 +72,8 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
         showToast(context, AppLocalizations.of(context).get("server_version_old_message"));
       }
     });
+    checkForAppUpdate(context);
+    checkForServerUpdate(context);
   }
 
   @override
@@ -191,6 +194,11 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                       cursor: SystemMouseCursors.resizeColumn,
                       child: GestureDetector(
                         behavior: HitTestBehavior.translucent,
+                        onDoubleTap: () {
+                          ref.read(wideMainPageStateProvider.notifier).setNotesViewWidth(250);
+                          appCacheData.notesViewWidth = 250.0;
+                          appCacheData.save();
+                        },
                         onHorizontalDragUpdate: (d) {
                           ref.read(wideMainPageStateProvider.notifier).setNotesViewWidth(wideMainPageState.notesViewWidth + d.delta.dx);
                         },
