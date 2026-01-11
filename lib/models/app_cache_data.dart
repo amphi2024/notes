@@ -11,11 +11,11 @@ class AppCacheData extends AppCacheDataCore {
   static AppCacheData getInstance() => _instance;
 
   double get sidebarWidth => data["sidebarWidth"] ?? 200;
-  set sidebarWidth(value) => data["sidebarWidth"] = value;
+  set sidebarWidth(double value) => data["sidebarWidth"] = value;
   double get notesViewWidth => data["notesViewWidth"] ?? 250;
-  set notesViewWidth(value) => data["notesViewWidth"] = value;
+  set notesViewWidth(double value) => data["notesViewWidth"] = value;
   String get editingNote => data["editingNote"] ?? "";
-  set editingNote(value) => data["editingNote"] = value;
+  set editingNote(String value) => data["editingNote"] = value;
 
   bool get sidebarFloating => data["sidebarFloating"] ?? false;
   set sidebarFloating(bool value) => data["sidebarFloating"] = value;
