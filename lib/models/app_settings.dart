@@ -44,6 +44,12 @@ class AppSettings {
   set autoCheckServerUpdate(bool value) => data["autoCheckServerUpdate"] = value;
   bool get autoCheckServerUpdate => data["autoCheckServerUpdate"] ?? true;
 
+  set windowButtonsOnLeft(bool value) => data["windowButtonsOnLeft"] = value;
+  bool get windowButtonsOnLeft => data["windowButtonsOnLeft"] ?? false;
+
+  set windowControlsStyle(String? value) => data["windowControlsStyle"] = value;
+  String? get windowControlsStyle => data["windowControlsStyle"];
+
   Future<void> getData() async {
     File file = File(appStorage.settingsPath);
     try {

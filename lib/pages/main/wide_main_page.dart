@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/channels/app_method_channel.dart';
 import 'package:notes/channels/app_web_channel.dart';
+import 'package:notes/components/custom_window_buttons.dart';
 import 'package:notes/components/move_window_or_spacer.dart';
 import 'package:notes/components/note_editor/note_editor.dart';
 import 'package:notes/components/note_editor/note_editor_toolbar.dart';
@@ -232,6 +233,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                   Expanded(child: MoveWindowOrSpacer()),
                                   NoteEditorUndoButton(controller: controller),
                                   NoteEditorRedoButton(controller: controller),
+                                  if (Platform.isLinux && !appSettings.windowButtonsOnLeft) ... customWindowButtons(),
                                   if (Platform.isWindows) ...[
                                     Visibility(
                                       visible: isDesktop(),

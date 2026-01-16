@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:amphi/models/app_localizations.dart';
 import 'package:amphi/widgets/account/account_button.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +13,11 @@ import 'package:notes/providers/providers.dart';
 import 'package:notes/models/note.dart';
 
 import '../../../channels/app_web_channel.dart';
+import '../../../components/custom_window_buttons.dart';
 import '../../../components/items/folder_wide_screen_item.dart';
 import '../../../components/move_window_or_spacer.dart';
 import '../../../models/app_cache_data.dart';
+import '../../../models/app_settings.dart';
 import '../../../models/app_storage.dart';
 import '../../../providers/notes_provider.dart';
 import '../../../utils/account_utils.dart';
@@ -40,7 +44,6 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
     final wideMainPageState = ref.watch(wideMainPageStateProvider);
     double normalPosition = !wideMainPageState.sideBarFloating ? 0 : 15;
     double top = !wideMainPageState.sideBarFloating ? 0 : 15;
-
     return AnimatedPositioned(
         left: wideMainPageState.sideBarShowing ? normalPosition : -wideMainPageState.sideBarWidth - 100,
         top: top,
@@ -76,6 +79,7 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        if(Platform.isLinux && appSettings.windowButtonsOnLeft) ... customWindowButtons(),
                         Expanded(child: SizedBox(height: 55, child: MoveWindowOrSpacer())),
                         AccountButton(
                             onLoggedIn: ({required id, required token, required username}) {

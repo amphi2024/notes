@@ -9,6 +9,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:notes/utils/screen_size.dart';
+import 'package:window_manager/window_manager.dart';
 import 'database/database_helper.dart';
 import 'pages/main/main_page.dart';
 import 'package:notes/providers/editing_note_provider.dart';
@@ -36,6 +37,22 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
   await appCacheData.getData();
+
+  if (Platform.isLinux) {
+    await windowManager.ensureInitialized();
+
+    WindowOptions windowOptions = WindowOptions(
+      size: Size(appCacheData.data["windowWidth"] ?? 1280, appCacheData.data["windowHeight"] ?? 720),
+      center: true,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      titleBarStyle: TitleBarStyle.hidden,
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
   appStorage.initialize(() async {
     await appSettings.getData();
     appColors.getData();
@@ -49,7 +66,7 @@ void main() async {
         ],
         child: MyApp(key: mainScreenKey)));
 
-    if (isDesktop()) {
+    if (Platform.isWindows || Platform.isMacOS) {
       doWhenWindowReady(() {
         appWindow.minSize = Size(600, 350);
         appWindow.size = Size(appCacheData.windowWidth, appCacheData.windowHeight);

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/app_cache_data.dart';
+import 'package:notes/models/app_settings.dart';
 import 'package:notes/providers/providers.dart';
 
 import '../../channels/app_method_channel.dart';
@@ -42,7 +43,7 @@ class _SideBarToggleButtonState extends ConsumerState<SideBarToggleButton> {
     double left = 0;
     double top = 0;
 
-    if (Platform.isMacOS) {
+    if (Platform.isMacOS || (Platform.isLinux && appSettings.windowButtonsOnLeft)) {
       left = isFullscreen ? 5 : 80;
     }
 

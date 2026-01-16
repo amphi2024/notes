@@ -70,6 +70,10 @@ dependencies:
       url: https://github.com/amphi2024/flutter-shared
       ref: v2.3.0
 #    path: ../amphi
+  window_manager: ^0.5.1
+  handy_window: ^0.4.0
+  libadwaita: ^2.0.2
+  modern_titlebar_buttons: ^1.1.2
 
 dev_dependencies:
   flutter_test:

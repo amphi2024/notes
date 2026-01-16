@@ -21,6 +21,8 @@ PODS:
     - FlutterMacOS
   - quill_native_bridge_macos (0.0.1):
     - FlutterMacOS
+  - screen_retriever_macos (0.0.1):
+    - FlutterMacOS
   - share_plus (0.0.1):
     - FlutterMacOS
   - sqflite_darwin (0.0.4):
@@ -31,6 +33,8 @@ PODS:
   - volume_controller (0.0.1):
     - FlutterMacOS
   - wakelock_plus (0.0.1):
+    - FlutterMacOS
+  - window_manager (0.5.0):
     - FlutterMacOS
 
 DEPENDENCIES:
@@ -45,11 +49,13 @@ DEPENDENCIES:
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
   - quill_native_bridge_macos (from `Flutter/ephemeral/.symlinks/plugins/quill_native_bridge_macos/macos`)
+  - screen_retriever_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos`)
   - share_plus (from `Flutter/ephemeral/.symlinks/plugins/share_plus/macos`)
   - sqflite_darwin (from `Flutter/ephemeral/.symlinks/plugins/sqflite_darwin/darwin`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
   - volume_controller (from `Flutter/ephemeral/.symlinks/plugins/volume_controller/macos`)
   - wakelock_plus (from `Flutter/ephemeral/.symlinks/plugins/wakelock_plus/macos`)
+  - window_manager (from `Flutter/ephemeral/.symlinks/plugins/window_manager/macos`)
 
 EXTERNAL SOURCES:
   bitsdojo_window_macos:
@@ -74,6 +80,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin
   quill_native_bridge_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/quill_native_bridge_macos/macos
+  screen_retriever_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos
   share_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/share_plus/macos
   sqflite_darwin:
@@ -84,6 +92,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/volume_controller/macos
   wakelock_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/wakelock_plus/macos
+  window_manager:
+    :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
   bitsdojo_window_macos: 7959fb0ca65a3ccda30095c181ecb856fae48ea9
@@ -94,14 +104,16 @@ SPEC CHECKSUMS:
   FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
   media_kit_libs_macos_video: 85a23e549b5f480e72cae3e5634b5514bc692f65
   media_kit_video: fa6564e3799a0a28bff39442334817088b7ca758
-  package_info_plus: f0052d280d17aa382b932f399edf32507174e870
+  package_info_plus: 122abb51244f66eead59ce7c9c200d6b53111779
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   quill_native_bridge_macos: 2b005cb56902bb740e0cd9620aa399dfac6b4882
+  screen_retriever_macos: 452e51764a9e1cdb74b3c541238795849f21557f
   share_plus: 510bf0af1a42cd602274b4629920c9649c52f4cc
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   url_launcher_macos: 0fba8ddabfc33ce0a9afe7c5fef5aab3d8d2d673
   volume_controller: 5c068e6d085c80dadd33fc2c918d2114b775b3dd
-  wakelock_plus: 917609be14d812ddd9e9528876538b2263aaa03b
+  wakelock_plus: 21ddc249ac4b8d018838dbdabd65c5976c308497
+  window_manager: b729e31d38fb04905235df9ea896128991cad99e
 
 PODFILE CHECKSUM: 9ebaf0ce3d369aaa26a9ea0e159195ed94724cf3
 
