@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/models/note.dart';
+import 'package:notes/models/thumbnail_data.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/utils/document_conversion.dart';
 import 'package:notes/utils/note_import_utils.dart';
@@ -45,7 +45,7 @@ class EditingNoteNotifier extends Notifier<EditingNoteState> {
         final note = state.note;
         var title = "";
         var subtitle = "";
-        String? thumbnail = note.thumbnailImageFilename;
+        ThumbnailData? thumbnailData = note.thumbnailData;
         for (var operation in controller.document.toDelta().toList()) {
           final value = operation.value;
           if (value is String) {
@@ -74,7 +74,10 @@ class EditingNoteNotifier extends Notifier<EditingNoteState> {
               }
             }
           }
-          if (thumbnail != null && title.isNotEmpty && subtitle.isNotEmpty) {
+
+          //TODO: implement updating thumbnail data
+
+          if (thumbnailData != null && title.isNotEmpty && subtitle.isNotEmpty) {
             break;
           }
         }
@@ -83,7 +86,7 @@ class EditingNoteNotifier extends Notifier<EditingNoteState> {
             noteId: note.id,
             title: title,
             subtitle: subtitle,
-            thumbnailImageFilename: thumbnail
+            thumbnailData: thumbnailData
         );
       }
     });

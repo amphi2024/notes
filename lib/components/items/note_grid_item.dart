@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/components/note_image_rounded.dart';
+import 'package:notes/components/note_thumbnail.dart';
 import 'package:notes/utils/date_utils.dart';
 import 'package:notes/models/note.dart';
 import 'package:notes/utils/note_item_press_callback.dart';
@@ -41,10 +41,9 @@ class NoteGridItem extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Visibility(
-                  visible: note.thumbnailImageFilename != null,
-                  child: NoteImageRounded(
-                      noteId: note.id,
-                      filename: note.thumbnailImageFilename ?? "",
+                  visible: note.thumbnailData != null,
+                  child: NoteThumbnail(
+                      thumbnailData: note.thumbnailData!,
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15)))),

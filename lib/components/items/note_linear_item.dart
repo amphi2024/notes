@@ -1,6 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes/components/note_image_rounded.dart';
+import 'package:notes/components/note_thumbnail.dart';
 import 'package:notes/utils/date_utils.dart';
 
 import 'package:notes/models/note.dart';
@@ -129,14 +130,11 @@ class NoteLinearItem extends ConsumerWidget {
                       ),
                     ),
                     Visibility(
-                        visible: note.thumbnailImageFilename != null,
+                        visible: note.thumbnailData != null,
                         child: SizedBox(
                           width: 42,
                           height: 42,
-                          child: note.thumbnailImageFilename != null ?  NoteImageRounded(
-                              noteId: note.id,
-                              filename: note.thumbnailImageFilename ?? "",
-                              borderRadius: BorderRadius.circular(10)): Placeholder(),
+                          child: note.thumbnailData != null ? NoteThumbnail(borderRadius: BorderRadius.circular(10), thumbnailData: note.thumbnailData!): Placeholder(),
                         ))
                   ],
                 ),

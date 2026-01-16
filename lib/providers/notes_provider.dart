@@ -2,6 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/models/app_settings.dart';
+import 'package:notes/models/thumbnail_data.dart';
 import '../models/app_cache_data.dart';
 import '../models/note.dart';
 import '../models/sort_option.dart';
@@ -95,12 +96,12 @@ class NotesNotifier extends Notifier<NotesState> {
     state = NotesState(notes, idLists);
   }
 
-  void updateNotePreview({required String noteId, required String title, required String subtitle, String? thumbnailImageFilename}) {
+  void updateNotePreview({required String noteId, required String title, required String subtitle, ThumbnailData? thumbnailData}) {
     final note = state.notes.get(noteId);
-    if(title != note.title || subtitle != note.subtitle || thumbnailImageFilename != note.thumbnailImageFilename) {
+    if(title != note.title || subtitle != note.subtitle || thumbnailData != note.thumbnailData) {
       note.title = title;
       note.subtitle = subtitle;
-      note.thumbnailImageFilename = thumbnailImageFilename;
+      note.thumbnailData = thumbnailData;
       note.modified = DateTime.now();
 
       final list = state.idLists.putIfAbsent(note.parentId, () => []);

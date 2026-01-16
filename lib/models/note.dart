@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 import 'package:amphi/utils/color_values.dart';
+import 'package:amphi/utils/file_name_utils.dart';
 import 'package:amphi/utils/path_utils.dart';
 import 'package:amphi/utils/random_string.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,10 @@ import 'package:notes/components/note_editor/embed_block/video/video_block_embed
 import 'package:notes/database/database_helper.dart';
 import 'package:notes/database/note_queries.dart';
 import 'package:notes/models/table_data.dart';
+import 'package:notes/models/thumbnail_data.dart';
 import 'package:notes/utils/attachment_path.dart';
 import 'package:notes/utils/generate_id.dart';
+import 'package:notes/utils/generate_video_thumbnail.dart';
 
 import '../components/note_editor/embed_block/divider/divider_block_embed.dart';
 import '../components/note_editor/embed_block/file/file_block_embed.dart';
@@ -28,7 +31,6 @@ class Note {
   String title = "";
   String subtitle = "";
   String longSubtitle = "";
-  String? thumbnailImageFilename;
   Color? backgroundColor;
   Color? textColor;
   double? textSize;
@@ -46,12 +48,13 @@ class Note {
   Map<String, Color> dividerColors = {};
   Map<String, FileModel> files = {};
 
+  ThumbnailData? thumbnailData;
+
   Note(
       {required this.id,
       this.title = "",
       this.subtitle = "",
       this.longSubtitle = "",
-      this.thumbnailImageFilename,
       this.backgroundColor,
       this.background,
       this.textColor,
@@ -162,6 +165,7 @@ class Note {
             break;
           case "video":
             videos.add(noteVideoPath(id, item["value"]));
+            generateVideoThumbnail(noteId: id, filename: item["value"]);
             break;
           case "audio":
             audio.add(noteAudioPath(id, item["value"]));
@@ -195,6 +199,8 @@ class Note {
         final file = File(filePath);
         await file.delete();
       }
+
+      //TODO: delete obsolete video thumbnails
     }
   }
 
@@ -202,7 +208,7 @@ class Note {
     title = "";
     subtitle = "";
     longSubtitle = "";
-    thumbnailImageFilename = null;
+    thumbnailData = null;
 
     for (var item in content) {
       if (item["type"] == "text" && item["value"] is String) {
@@ -237,12 +243,20 @@ class Note {
           }
         }
       }
-      if (thumbnailImageFilename == null) {
-        if (item["type"] == "img") {
-          thumbnailImageFilename = item["value"];
+      if (thumbnailData == null) {
+        switch(item["type"]) {
+          case "img":
+            thumbnailData = ThumbnailData(noteId: id, directoryName: "images", filename: item["value"], type: ThumbnailType.image);
+            break;
+          case "video":
+            thumbnailData = ThumbnailData(noteId: id, directoryName: "videos", filename: "${FilenameUtils.nameOnly(item["value"])}_thumbnail.jpg", type: ThumbnailType.video);
+            break;
+          case "table":
+            //TODO: implement table thumbnail data
+            break;
         }
       }
-      if (thumbnailImageFilename != null && title.isNotEmpty && subtitle.isNotEmpty && longSubtitle.length > 500) {
+      if (thumbnailData != null && title.isNotEmpty && subtitle.isNotEmpty && longSubtitle.length > 500) {
         break;
       }
     }
