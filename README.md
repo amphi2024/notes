@@ -1,6 +1,6 @@
-![logo](assets/logo/icon_256x256.png)
-
 # Amphi Notes
+
+[Website](https://amphi.site)
 
 [English](README.md) • [한국어](docs/README_KO.md)
 
@@ -12,26 +12,15 @@ Amphi Notes is an open-source, self-hosted, lightweight note-taking app for all 
 
 ### App
 
-**Android**
-- [Play Store](https://play.google.com/store/apps/details?id=com.amphi.notes)
+**Android**: [Play Store](https://play.google.com/store/apps/details?id=com.amphi.notes) • [APK](https://github.com/amphi2024/notes/releases/latest)
 
-**iOS**
-- [App Store](https://apps.apple.com/app/amphi-notes/id6740662483)
+**iOS**: [App Store](https://apps.apple.com/app/amphi-notes/id6740662483)
 
-**Windows**
-- [Scoop](https://github.com/amphi2024/scoop-bucket)
+**Windows**: [Scoop](https://github.com/amphi2024/scoop-bucket) • [EXE](https://github.com/amphi2024/notes/releases/latest) • [ZIP](https://github.com/amphi2024/notes/releases/latest)
 
-**macOS**
-- [Homebrew](https://github.com/amphi2024/homebrew-amphi)
+**macOS**: [Homebrew](https://github.com/amphi2024/homebrew-amphi) • [DMG](https://github.com/amphi2024/notes/releases/latest)
 
-**Linux**
-- [AUR](https://aur.archlinux.org/packages/amphi-notes)
-- [Flatpak](https://github.com/amphi2024/amphi-flatpak)
-- [Snap Store](https://snapcraft.io/amphi-notes)
-
-**Universal**
-- [Official Website](https://amphi.site/notes)
-- [GitHub Releases](https://github.com/amphi2024/notes/releases/latest)
+**Linux**: [AUR](https://aur.archlinux.org/packages/amphi-notes) • [Flatpak](https://github.com/amphi2024/amphi-flatpak) • [Snap](https://snapcraft.io/amphi-notes) • [DEB](https://github.com/amphi2024/notes/releases/latest) • [RPM](https://github.com/amphi2024/notes/releases/latest) • [TAR](https://github.com/amphi2024/notes/releases/latest)
 
 ### Server
 
