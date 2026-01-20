@@ -39,7 +39,6 @@ class _VideoBlockState extends State<VideoBlock> {
         });
       }
     });
-
     super.initState();
   }
 
@@ -57,12 +56,25 @@ class _VideoBlockState extends State<VideoBlock> {
       );
     }
 
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
-    return Video(
-        height: width / (16 / 9),
-        controller: videosService.get(widget.filename).controller);
+    return LayoutBuilder(builder: (context, constraints) {
+      return Video(
+          height: constraints.maxWidth / (videosService.get(widget.filename).controller.player.state.videoParams.aspect ?? (16 / 9)),
+          controller: videosService.get(widget.filename).controller,
+        controls: (state) {
+            //TODO: custom video controls
+          switch (Theme.of(state.context).platform) {
+            case TargetPlatform.android:
+            case TargetPlatform.iOS:
+              return MaterialVideoControls(state);
+            case TargetPlatform.macOS:
+            case TargetPlatform.windows:
+            case TargetPlatform.linux:
+              return MaterialDesktopVideoControls(state);
+            default:
+              return NoVideoControls(state);
+          }
+        },
+      );
+    });
   }
 }
