@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/components/settings/language_settings.dart';
 import 'package:notes/components/settings/theme_settings.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../channels/app_method_channel.dart';
 import '../channels/app_web_channel.dart';
@@ -117,6 +118,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
                           if (value != null) {
                             mainScreenKey.currentState?.setState(() {
                               appSettings.prefersCustomTitleBar = value;
+                              windowManager.setTitleBarStyle(appSettings.prefersCustomTitleBar ? TitleBarStyle.hidden : TitleBarStyle.normal);
                             });
                             setState(() {});
                           }
