@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:libadwaita/libadwaita.dart';
 import 'package:modern_titlebar_buttons/modern_titlebar_buttons.dart';
 import 'package:notes/models/app_settings.dart';
+import 'package:notes/utils/save_window_size.dart';
 import 'package:window_manager/window_manager.dart';
 
 const _iconSize = 23.0;
@@ -526,6 +527,7 @@ void _maximizeOrRestore() async {
   }
 }
 
-void _close() {
+void _close() async {
+  await saveWindowSize();
   windowManager.close();
 }

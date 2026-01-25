@@ -25,7 +25,6 @@ class AppDelegate: FlutterAppDelegate {
         return ""
     }
     
-    
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
@@ -57,7 +56,7 @@ class AppDelegate: FlutterAppDelegate {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(onEnterFullScreen), name: NSWindow.didEnterFullScreenNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onExitFullScreen), name: NSWindow.didExitFullScreenNotification, object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(onWindowWillClose), name: NSWindow.willCloseNotification, object: nil)
     }
     
     @objc func onEnterFullScreen(notification: Notification) {
@@ -71,6 +70,10 @@ class AppDelegate: FlutterAppDelegate {
             mainFlutterWindow?.toolbarStyle = .unified
         }
        methodChannel?.invokeMethod("on_exit_fullscreen", arguments: nil)
+    }
+    
+    @objc func onWindowWillClose(notification: Notification) {
+        methodChannel?.invokeMethod("on_window_close", arguments: nil)
     }
     
 }

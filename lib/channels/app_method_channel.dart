@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:notes/models/app_settings.dart';
+import 'package:notes/utils/save_window_size.dart';
 
 final appMethodChannel = AppMethodChannel.getInstance();
 
@@ -18,6 +19,9 @@ class AppMethodChannel extends MethodChannel {
           for(var function in fullScreenListeners) {
             function(false);
           }
+          break;
+        case "on_window_close":
+          await saveWindowSize();
           break;
         default:
           break;

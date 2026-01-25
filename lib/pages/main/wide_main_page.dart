@@ -28,6 +28,7 @@ import 'package:notes/providers/editing_note_provider.dart';
 import 'package:notes/providers/notes_provider.dart';
 import 'package:notes/providers/selected_notes_provider.dart';
 import 'package:notes/utils/generate_id.dart';
+import 'package:notes/utils/save_window_size.dart';
 import 'package:notes/utils/screen_size.dart';
 import 'package:notes/utils/toast.dart';
 import 'package:notes/views/notes_view.dart';
@@ -253,6 +254,10 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                             },
                                           ),
                                     CloseCustomWindowButton(
+                                      onPressed: () async {
+                                        await saveWindowSize();
+                                        appWindow.close();
+                                      },
                                         colors: CustomWindowButtonColors(
                                             mouseOver: const Color(0xFFD32F2F),
                                             mouseDown: const Color(0xFFB71C1C),
