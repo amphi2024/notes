@@ -38,6 +38,14 @@ void main() async {
   MediaKit.ensureInitialized();
   await appCacheData.getData();
 
+  await appStorage.initialize();
+
+  await appSettings.getData();
+  appColors.getData();
+
+  final notesState = await NotesNotifier.initialized();
+  final themesState = await ThemesNotifier.initialized();
+
   if (Platform.isLinux) {
     await windowManager.ensureInitialized();
 
@@ -53,28 +61,21 @@ void main() async {
       await windowManager.focus();
     });
   }
-  appStorage.initialize(() async {
-    await appSettings.getData();
-    appColors.getData();
 
-    final notesState = await NotesNotifier.initialized();
-    final themesState = await ThemesNotifier.initialized();
-
-    runApp(ProviderScope(
-        overrides: [notesProvider.overrideWithBuild((ref, notifier) => notesState), themesProvider.overrideWithBuild((ref, notifier) => themesState),
+  runApp(ProviderScope(
+      overrides: [notesProvider.overrideWithBuild((ref, notifier) => notesState), themesProvider.overrideWithBuild((ref, notifier) => themesState),
         editingNoteProvider.overrideWithBuild((ref, notifier) => EditingNoteState(notesState.notes.get(appCacheData.editingNote), true))
-        ],
-        child: MyApp(key: mainScreenKey)));
+      ],
+      child: MyApp(key: mainScreenKey)));
 
-    if (Platform.isWindows || Platform.isMacOS) {
-      doWhenWindowReady(() {
-        appWindow.minSize = Size(600, 350);
-        appWindow.size = Size(appCacheData.windowWidth, appCacheData.windowHeight);
-        appWindow.alignment = Alignment.center;
-        appWindow.show();
-      });
-    }
-  });
+  if (Platform.isWindows || Platform.isMacOS) {
+    doWhenWindowReady(() {
+      appWindow.minSize = Size(600, 350);
+      appWindow.size = Size(appCacheData.windowWidth, appCacheData.windowHeight);
+      appWindow.alignment = Alignment.center;
+      appWindow.show();
+    });
+  }
 }
 
 class MyApp extends ConsumerStatefulWidget {
