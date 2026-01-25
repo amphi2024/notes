@@ -79,7 +79,7 @@ class _FloatingWideMenuState extends ConsumerState<SideBar> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        if(Platform.isLinux && appSettings.windowButtonsOnLeft) ... customWindowButtons(),
+                        if(Platform.isLinux && appSettings.windowButtonsOnLeft && appSettings.prefersCustomTitleBar) ... customWindowButtons(),
                         Expanded(child: SizedBox(height: 55, child: MoveWindowOrSpacer())),
                         AccountButton(
                             onLoggedIn: ({required id, required token, required username}) {

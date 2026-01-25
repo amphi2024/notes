@@ -234,7 +234,7 @@ class _WideMainPageState extends ConsumerState<WideMainPage> {
                                   Expanded(child: MoveWindowOrSpacer()),
                                   NoteEditorUndoButton(controller: controller),
                                   NoteEditorRedoButton(controller: controller),
-                                  if (Platform.isLinux && !appSettings.windowButtonsOnLeft) ... customWindowButtons(),
+                                  if (Platform.isLinux && !appSettings.windowButtonsOnLeft && appSettings.prefersCustomTitleBar) ... customWindowButtons(),
                                   if (Platform.isWindows) ...[
                                     Visibility(
                                       visible: isDesktop(),

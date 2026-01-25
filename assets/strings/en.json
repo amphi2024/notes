@@ -177,5 +177,9 @@
   "update_now": "Go to download",
   "update_later": "I will do it manually",
   "automatically_check_server_updates": "Automatically check for server updates",
-  "server_update_message": "New server version available. Update recommended."
+  "server_update_message": "New server version available. Update recommended.",
+
+  "window_controls_style": "Window Controls Style",
+  "window_controls_on_left": "Window Controls on Left",
+  "prefers_custom_title_bar": "Prefers Custom Title bar"
 }

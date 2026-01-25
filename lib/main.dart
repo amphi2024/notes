@@ -46,7 +46,7 @@ void main() async {
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
-      titleBarStyle: TitleBarStyle.hidden,
+      titleBarStyle: appSettings.prefersCustomTitleBar ? TitleBarStyle.hidden : TitleBarStyle.normal,
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
@@ -105,7 +105,6 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
         syncDataWithServer(ref);
       }
     }
-
     super.didChangeAppLifecycleState(state);
   }
 

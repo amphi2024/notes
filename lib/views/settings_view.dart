@@ -110,7 +110,27 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
                 padding: const EdgeInsets.only(left: 10.0, right: 10),
                 child: Row(
                   children: [
-                    Text("Window Controls Style"),
+                    Text(AppLocalizations.of(context).get("prefers_custom_title_bar")),
+                    Checkbox(
+                        value: appSettings.prefersCustomTitleBar,
+                        onChanged: (value) {
+                          if (value != null) {
+                            mainScreenKey.currentState?.setState(() {
+                              appSettings.prefersCustomTitleBar = value;
+                            });
+                            setState(() {});
+                          }
+                        })
+                  ],
+                ),
+              )),
+          Visibility(
+              visible: Platform.isLinux,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                child: Row(
+                  children: [
+                    Text(AppLocalizations.of(context).get("window_controls_style")),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: DropdownButton<String?>(
@@ -151,7 +171,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
                 padding: const EdgeInsets.only(left: 10.0, right: 10),
                 child: Row(
                   children: [
-                    Text("Window Controls on Left"),
+                    Text(AppLocalizations.of(context).get("window_controls_on_left")),
                     Checkbox(
                         value: appSettings.windowButtonsOnLeft,
                         onChanged: (value) {
@@ -164,7 +184,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
                         })
                   ],
                 ),
-              ))
+              )),
         ]);
   }
 }

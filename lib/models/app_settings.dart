@@ -50,6 +50,9 @@ class AppSettings {
   set windowControlsStyle(String? value) => data["windowControlsStyle"] = value;
   String? get windowControlsStyle => data["windowControlsStyle"];
 
+  set prefersCustomTitleBar(bool value) => data["prefersCustomTitleBar"] = value;
+  bool get prefersCustomTitleBar => data["prefersCustomTitleBar"] ?? true;
+
   Future<void> getData() async {
     File file = File(appStorage.settingsPath);
     try {
