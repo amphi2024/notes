@@ -520,7 +520,7 @@ void _minimize() {
 }
 
 void _maximizeOrRestore() async {
-  if (await windowManager.isMaximized()) {
+  if (!(await windowManager.isMaximizable())) {
     windowManager.unmaximize();
   } else {
     windowManager.maximize();
