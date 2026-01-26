@@ -38,6 +38,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_keyboard_visibility_temp_fork (0.0.1):
     - Flutter
+  - flutter_platform_alert (0.0.1):
+    - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
   - libwebp (1.5.0):
@@ -87,6 +89,7 @@ DEPENDENCIES:
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_keyboard_visibility_temp_fork (from `.symlinks/plugins/flutter_keyboard_visibility_temp_fork/ios`)
+  - flutter_platform_alert (from `.symlinks/plugins/flutter_platform_alert/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - media_kit_libs_ios_video (from `.symlinks/plugins/media_kit_libs_ios_video/ios`)
   - media_kit_video (from `.symlinks/plugins/media_kit_video/ios`)
@@ -117,6 +120,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_keyboard_visibility_temp_fork:
     :path: ".symlinks/plugins/flutter_keyboard_visibility_temp_fork/ios"
+  flutter_platform_alert:
+    :path: ".symlinks/plugins/flutter_platform_alert/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   media_kit_libs_ios_video:
@@ -149,11 +154,12 @@ SPEC CHECKSUMS:
   file_picker: a0560bc09d61de87f12d246fc47d2119e6ef37be
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_keyboard_visibility_temp_fork: 95b2d534bacf6ac62e7fcbe5c2a9e2c2a17ce06f
+  flutter_platform_alert: bf3b5fcd4ac14bd637e20527e9c471633071afd3
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   media_kit_libs_ios_video: 5a18affdb97d1f5d466dc79988b13eff6c5e2854
   media_kit_video: 1746e198cb697d1ffb734b1d05ec429d1fcd1474
-  package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
+  package_info_plus: 566e1b7a2f3900e4b0020914ad3fc051dcc95596
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   quill_native_bridge_ios: f47af4b14e7757968486641656c5d23250cee521
   SDWebImage: f29024626962457f3470184232766516dee8dfea
@@ -163,7 +169,7 @@ SPEC CHECKSUMS:
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
   video_thumbnail: b637e0ad5f588ca9945f6e2c927f73a69a661140
   volume_controller: 3657a1f65bedb98fa41ff7dc5793537919f31b12
-  wakelock_plus: e29112ab3ef0b318e58cfa5c32326458be66b556
+  wakelock_plus: fd58c82b1388f4afe3fe8aa2c856503a262a5b03
 
 PODFILE CHECKSUM: 4f1c12611da7338d21589c0b2ecd6bd20b109694
 
