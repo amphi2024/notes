@@ -1,14 +1,14 @@
 FROM ubuntu:24.04
 
 ARG FLUTTER_VERSION=3.35.7
-ARG APP_VERSION=v2.0.0
+ARG APP_VERSION=COMMIT_SHA
 # git tag or full commit SHA
 ARG ARCH=arm64
 # arm64 | x64
-ARG APP_VERSION_DISPLAY=2.0.0
+ARG APP_VERSION_DISPLAY=X.X.X
 ARG ARCH_DISPLAY=arm64
 # arm64 | x86_64
-ARG APP_VERSION_PUBSPEC=2.0.0+3
+ARG APP_VERSION_PUBSPEC=X.X.X+X
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/opt/flutter/bin:/root/.pub-cache/bin:${PATH}"
@@ -28,13 +28,14 @@ RUN git clone https://github.com/flutter/flutter.git /opt/flutter \
 
 WORKDIR /
 
-RUN git clone https://github.com/amphi2024/notes.git /app \
-&& cd /app \
+RUN mkdir -p /tmp/build \
+&& git clone https://github.com/amphi2024/notes.git /tmp/build/amphi-notes \
+&& cd /tmp/build/amphi-notes \
 && git checkout ${APP_VERSION} \
 && flutter pub get \
 && fastforge package --platform linux --targets deb,rpm
 
-WORKDIR /app
+WORKDIR /tmp/build/amphi-notes
 
 RUN mv ./dist/${APP_VERSION_PUBSPEC}/notes-${APP_VERSION_PUBSPEC}-linux.deb ./dist/Notes-${APP_VERSION_DISPLAY}-Linux-${ARCH_DISPLAY}.deb \
 && mv ./dist/${APP_VERSION_PUBSPEC}/notes-${APP_VERSION_PUBSPEC}-linux.rpm ./dist/Notes-${APP_VERSION_DISPLAY}-Linux-${ARCH_DISPLAY}.rpm \
@@ -43,4 +44,4 @@ RUN mv ./dist/${APP_VERSION_PUBSPEC}/notes-${APP_VERSION_PUBSPEC}-linux.deb ./di
 
 # docker build -f build-linux.dockerfile -t amphi-notes-linux-builder .
 # docker create --name build-output amphi-notes-linux-builder
-# docker cp build-output:/app/dist/. ./result
+# docker cp build-output:/app/build/. ./result
