@@ -48,4 +48,5 @@ Please note that while we may not be able to accept every contribution, we truly
 To contribute:
 
 - Send us an email: support@amphi.site
+- Translate the app on [Weblate](https://hosted.weblate.org/projects/amphi-notes)
 - Create a pull request: [Contribution Guide](CONTRIBUTING.md)

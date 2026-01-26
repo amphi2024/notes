@@ -8,6 +8,15 @@ If you find a bug, any issue, or missing translations, feel free to send us an e
 
 If reporting a bug, please explain how to reproduce it.
 
+## Translation
+
+If you want to help improve translations but don't want to write code, 
+you can contribute directly on [Weblate](https://hosted.weblate.org/projects/amphi-notes).
+
+<a href="https://hosted.weblate.org/engage/amphi-notes/">
+<img src="https://hosted.weblate.org/widget/amphi-notes/multi-auto.svg" alt="Translation status" />
+</a>
+
 ## Getting Started for Developers
 
 ### 1. Install Flutter

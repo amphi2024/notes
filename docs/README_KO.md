@@ -48,4 +48,5 @@ Amphi Notes는 오픈소스이며, 셀프 호스팅 서버로 데이터를 동�
 기여하기:
 
 - 이메일 보내기: support@amphi.site
+- [Weblate](https://hosted.weblate.org/projects/amphi-notes)에서 앱 번역하기
 - Pull Request 생성하기: [기여 가이드](CONTRIBUTING_KO.md)

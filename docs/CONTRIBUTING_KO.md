@@ -8,6 +8,14 @@ Amphi Notes를 개선하는 데에 도움을 주셔서 감사합니다. 개발�
 
 버그를 제보하실 때에는, 해당 버그를 재현할 수 있는 방법도 함께 알려주세요.
 
+## 번역하기
+
+번역을 개선하고 싶지만 코드를 작성하고 싶지 않으시다면, [Weblate](https://hosted.weblate.org/projects/amphi-notes)에서 간편하게 번역에 참여하실 수 있습니다.
+
+<a href="https://hosted.weblate.org/engage/amphi-notes/">
+<img src="https://hosted.weblate.org/widget/amphi-notes/multi-auto.svg" alt="Translation status" />
+</a>
+
 ## 개발자로서 시작하기
 
 ### 1. Flutter 설치
