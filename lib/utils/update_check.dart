@@ -11,7 +11,7 @@ import '../channels/app_web_channel.dart';
 import '../models/app_cache_data.dart';
 import '../models/app_settings.dart';
 
-const appVersion = "2.0.0";
+const appVersion = "2.1.0";
 
 Future<void> checkForAppUpdate(BuildContext context) async {
   if (appCacheData.lastUpdateCheck.add(Duration(days: 2)).isBefore(DateTime.now()) && appSettings.autoCheckUpdate) {
