@@ -1,1 +1,1 @@
-Cross-platform note-taking app that enables users to sync their data with a self-hosted server
+An open-source, self-hosted, and lightweight note-taking app for all platforms

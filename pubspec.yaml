@@ -1,5 +1,5 @@
 name: notes
-description: "Cross-platform note-taking app that enables users to sync their data with a self-hosted server"
+description: "An open-source, self-hosted, and lightweight note-taking app for all platforms"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
